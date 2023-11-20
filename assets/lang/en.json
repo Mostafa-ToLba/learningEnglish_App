@@ -1,0 +1,17 @@
+
+{
+  "AppName": "VidLod",
+
+  "tabBar1": "Images",
+  "tabBar2": "Videos",
+  "tabBar3": "Saved",
+
+  "darkMode": "Dark mode",
+  "contactUs": "Contact us",
+  "privacy": "Privacy policy",
+  "rateUs": "Rate us",
+  "shareApp": "Share app",
+  "version": "Version",
+  "language": "Language"
+
+}
