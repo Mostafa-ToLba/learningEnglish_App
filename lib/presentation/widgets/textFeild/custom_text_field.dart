@@ -17,7 +17,13 @@ class CustomTextField extends StatelessWidget {
     this.readOnly = false,
     this.textInputType,
     this.validator,
-    this.prefix, this.hintColor, this.text, this.isRegister, this.isSearch, this.text2, this.textColor,
+    this.prefix,
+    this.hintColor,
+    this.text,
+    this.isRegister,
+    this.isSearch,
+    this.text2,
+    this.textColor,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -42,13 +48,22 @@ class CustomTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-       if(text!=null) Row(
-         mainAxisAlignment:MainAxisAlignment.spaceBetween,
-         children: [
-           CustomText(text: text!,txtSize: 14,fontWeight: FontWeight.w400,color: textColor??ColorResources.black),
-           CustomText(text: text2??'',txtSize: 12,fontWeight: FontWeight.w400,color: ColorResources.grey2),
-         ],
-       ),
+        if (text != null)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CustomText(
+                  text: text!,
+                  txtSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: textColor ?? ColorResources.black),
+              CustomText(
+                  text: text2 ?? '',
+                  txtSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: ColorResources.grey2),
+            ],
+          ),
         Container(
           height: 56.h,
           width: double.infinity,
@@ -68,21 +83,36 @@ class CustomTextField extends StatelessWidget {
                 fontFamily: AppConstants.arabicFont1,
                 fontWeight: FontWeight.w500,
               ),
-              focusedBorder: isRegister==true?OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(32.r),
-                  borderSide: BorderSide(color: ColorResources.black,width: 1,)):
-              isSearch==true? InputBorder.none:
-              OutlineInputBorder(
-                borderRadius: BorderRadius.circular(32.r),
-                  borderSide: BorderSide(color: ColorResources.black,width: .1),),
+              focusedBorder: isRegister == true
+                  ? OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32.r),
+                      borderSide: BorderSide(
+                        color: ColorResources.black,
+                        width: 1,
+                      ))
+                  : isSearch == true
+                      ? InputBorder.none
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(32.r),
+                          borderSide: BorderSide(
+                              color: ColorResources.black, width: .1),
+                        ),
               suffixIcon: suffix ?? const SizedBox(),
               prefixIcon: prefix,
-              border:isRegister==true? OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(32.r),
-                  borderSide: BorderSide(color: ColorResources.black,width:1)):
-              isSearch==true? InputBorder.none:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(32.r),
-                  borderSide: BorderSide(color: ColorResources.black,width:.1,),),
+              border: isRegister == true
+                  ? OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32.r),
+                      borderSide:
+                          BorderSide(color: ColorResources.black, width: 1))
+                  : isSearch == true
+                      ? InputBorder.none
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(32.r),
+                          borderSide: BorderSide(
+                            color: ColorResources.black,
+                            width: .1,
+                          ),
+                        ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(32.r),
                 borderSide: BorderSide(
@@ -90,7 +120,6 @@ class CustomTextField extends StatelessWidget {
                   width: .5,
                 ),
               ),
-
             ),
           ),
         ),
