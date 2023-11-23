@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/presentation/screens/splash/splash_screen.dart';
 import 'package:learning_anglish_app/utils/theme/theme.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 
 void main() async{
