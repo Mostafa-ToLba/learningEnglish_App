@@ -7,7 +7,7 @@ import 'circle_container.dart';
 import 'onboarding_pages.dart';
 
 class BuildOnBoarding extends StatelessWidget {
-  const BuildOnBoarding({super.key,required this.boarding});
+  const BuildOnBoarding({super.key, required this.boarding});
 
   final OnBoardingPages boarding;
   @override
@@ -16,10 +16,29 @@ class BuildOnBoarding extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-            height: 300.h,width: 240.w,
-            child: Image(image: AssetImage(boarding.image,),)),
-        Text(boarding.title,style: TextStyle(fontSize:22.sp,fontWeight:FontWeight.bold,color: ColorResources.black,fontFamily: AppConstants.arabicFont2 ),),
-        Text(boarding.text,style: TextStyle(fontSize:16.sp,fontWeight:FontWeight.w500,color:  ColorResources.appGreyColor,fontFamily:AppConstants.arabicFont2),)
+            height: 300.h,
+            width: 240.w,
+            child: Image(
+              image: AssetImage(
+                boarding.image,
+              ),
+            )),
+        Text(
+          boarding.title,
+          style: TextStyle(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.bold,
+              color: ColorResources.black,
+              fontFamily: AppConstants.arabicFont2),
+        ),
+        Text(
+          boarding.text,
+          style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w500,
+              color: ColorResources.appGreyColor,
+              fontFamily: AppConstants.arabicFont2),
+        )
       ],
     );
   }

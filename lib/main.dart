@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/blocs/settings_bloc/settings_bloc.dart';
 import 'package:learning_anglish_app/injection.dart';
+import 'package:learning_anglish_app/presentation/screens/splash/splash_screen.dart';
 import 'package:learning_anglish_app/utils/theme/theme.dart';
 import 'package:localization/localization.dart';
 
@@ -69,47 +70,9 @@ class _AppScreenState extends State<AppScreen> {
             showSemanticsDebugger: false,
             theme: themeData,
             debugShowCheckedModeBanner: false,
-            home: const MainScreen(),
+            home: const SplashScreen(),
           );
         },
-      ),
-    );
-  }
-}
-
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
-
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text('welcome'.i18n()),
-          ElevatedButton(
-            child: Text("change-value".i18n()),
-            onPressed: () {
-              context
-                  .read<SettingsBloc>()
-                  .add(SettingsEvent.changeLanguage('en'));
-            },
-          ),
-          ElevatedButton(
-            child: Text("change-value".i18n()),
-            onPressed: () {
-              context
-                  .read<SettingsBloc>()
-                  .add(SettingsEvent.changeLanguage('ar'));
-            },
-          ),
-        ],
       ),
     );
   }

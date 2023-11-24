@@ -442,6 +442,8 @@ abstract class CheckOnSettings implements SettingsEvent {
 mixin _$SettingsState {
   Mode get mode => throw _privateConstructorUsedError;
   Locale get locale => throw _privateConstructorUsedError;
+  bool get areBoardingScreensWatched => throw _privateConstructorUsedError;
+  bool get isChoosingClassWatched => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingsStateCopyWith<SettingsState> get copyWith =>
@@ -454,7 +456,11 @@ abstract class $SettingsStateCopyWith<$Res> {
           SettingsState value, $Res Function(SettingsState) then) =
       _$SettingsStateCopyWithImpl<$Res, SettingsState>;
   @useResult
-  $Res call({Mode mode, Locale locale});
+  $Res call(
+      {Mode mode,
+      Locale locale,
+      bool areBoardingScreensWatched,
+      bool isChoosingClassWatched});
 }
 
 /// @nodoc
@@ -472,6 +478,8 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
   $Res call({
     Object? mode = null,
     Object? locale = null,
+    Object? areBoardingScreensWatched = null,
+    Object? isChoosingClassWatched = null,
   }) {
     return _then(_value.copyWith(
       mode: null == mode
@@ -482,6 +490,14 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
               as Locale,
+      areBoardingScreensWatched: null == areBoardingScreensWatched
+          ? _value.areBoardingScreensWatched
+          : areBoardingScreensWatched // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isChoosingClassWatched: null == isChoosingClassWatched
+          ? _value.isChoosingClassWatched
+          : isChoosingClassWatched // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -494,7 +510,11 @@ abstract class _$$SettingsStateImplCopyWith<$Res>
       __$$SettingsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Mode mode, Locale locale});
+  $Res call(
+      {Mode mode,
+      Locale locale,
+      bool areBoardingScreensWatched,
+      bool isChoosingClassWatched});
 }
 
 /// @nodoc
@@ -510,6 +530,8 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
   $Res call({
     Object? mode = null,
     Object? locale = null,
+    Object? areBoardingScreensWatched = null,
+    Object? isChoosingClassWatched = null,
   }) {
     return _then(_$SettingsStateImpl(
       mode: null == mode
@@ -520,6 +542,14 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
               as Locale,
+      areBoardingScreensWatched: null == areBoardingScreensWatched
+          ? _value.areBoardingScreensWatched
+          : areBoardingScreensWatched // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isChoosingClassWatched: null == isChoosingClassWatched
+          ? _value.isChoosingClassWatched
+          : isChoosingClassWatched // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -527,16 +557,24 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SettingsStateImpl implements _SettingsState {
-  const _$SettingsStateImpl({required this.mode, required this.locale});
+  const _$SettingsStateImpl(
+      {required this.mode,
+      required this.locale,
+      required this.areBoardingScreensWatched,
+      required this.isChoosingClassWatched});
 
   @override
   final Mode mode;
   @override
   final Locale locale;
+  @override
+  final bool areBoardingScreensWatched;
+  @override
+  final bool isChoosingClassWatched;
 
   @override
   String toString() {
-    return 'SettingsState(mode: $mode, locale: $locale)';
+    return 'SettingsState(mode: $mode, locale: $locale, areBoardingScreensWatched: $areBoardingScreensWatched, isChoosingClassWatched: $isChoosingClassWatched)';
   }
 
   @override
@@ -545,11 +583,17 @@ class _$SettingsStateImpl implements _SettingsState {
         (other.runtimeType == runtimeType &&
             other is _$SettingsStateImpl &&
             (identical(other.mode, mode) || other.mode == mode) &&
-            (identical(other.locale, locale) || other.locale == locale));
+            (identical(other.locale, locale) || other.locale == locale) &&
+            (identical(other.areBoardingScreensWatched,
+                    areBoardingScreensWatched) ||
+                other.areBoardingScreensWatched == areBoardingScreensWatched) &&
+            (identical(other.isChoosingClassWatched, isChoosingClassWatched) ||
+                other.isChoosingClassWatched == isChoosingClassWatched));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, mode, locale);
+  int get hashCode => Object.hash(runtimeType, mode, locale,
+      areBoardingScreensWatched, isChoosingClassWatched);
 
   @JsonKey(ignore: true)
   @override
@@ -561,12 +605,18 @@ class _$SettingsStateImpl implements _SettingsState {
 abstract class _SettingsState implements SettingsState {
   const factory _SettingsState(
       {required final Mode mode,
-      required final Locale locale}) = _$SettingsStateImpl;
+      required final Locale locale,
+      required final bool areBoardingScreensWatched,
+      required final bool isChoosingClassWatched}) = _$SettingsStateImpl;
 
   @override
   Mode get mode;
   @override
   Locale get locale;
+  @override
+  bool get areBoardingScreensWatched;
+  @override
+  bool get isChoosingClassWatched;
   @override
   @JsonKey(ignore: true)
   _$$SettingsStateImplCopyWith<_$SettingsStateImpl> get copyWith =>

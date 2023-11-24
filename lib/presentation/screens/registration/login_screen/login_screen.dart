@@ -10,6 +10,8 @@ import 'package:learning_anglish_app/presentation/widgets/textFeild/custom_text_
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
+import 'package:localization/localization.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -17,7 +19,8 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin{
+class _LoginScreenState extends State<LoginScreen>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -26,12 +29,13 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2), // Animation duration (2 seconds in this example)
+      duration: const Duration(
+          seconds: 2), // Animation duration (2 seconds in this example)
     );
 
     _offsetAnimation = Tween<Offset>(
-      begin: Offset(0.0, 1.0), // Start position (bottom of the screen)
-      end: Offset(0.0, 0.0),   // End position (original position)
+      begin: const Offset(0.0, 1.0), // Start position (bottom of the screen)
+      end: const Offset(0.0, 0.0), // End position (original position)
     ).animate(
       CurvedAnimation(
         parent: _controller,
@@ -41,100 +45,162 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
 
     _controller.forward();
   }
-  @override
 
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
+
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding:EdgeInsets.only(top: 100.h,left: 25.w,right: 25.w,bottom: 10.h),
+          padding: EdgeInsets.only(
+              top: 100.h, left: 25.w, right: 25.w, bottom: 10.h),
           child: Form(
             key: formKey,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                Text('أهلا بعودتك !',style: TextStyle(fontSize: 20.sp,fontFamily: AppConstants.arabicFont1,fontWeight: FontWeight.bold),),
-                SizedBox(height: 8.h,),
-                Text('أهلا بك من فضلك ادخل بيانات حسابك',style: TextStyle(fontSize: 15.sp,fontFamily: AppConstants.arabicFont1,color: ColorResources.appGreyColor),),
+                  Text(
+                    "welcome_back".i18n(),
+                    style: TextStyle(
+                        fontSize: 20.sp,
+                        fontFamily: AppConstants.arabicFont1,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  Text(
+                    "login_screen_subtitle".i18n(),
+                    style: TextStyle(
+                        fontSize: 15.sp,
+                        fontFamily: AppConstants.arabicFont1,
+                        color: ColorResources.appGreyColor),
+                  ),
                   SizedBox(height: 30.h),
-                  Text('البريد الالكتروني',style: TextStyle(fontSize: 16.sp,fontFamily: AppConstants.arabicFont1,fontWeight: FontWeight.w500),),
+                  Text(
+                    "email".i18n(),
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        fontFamily: AppConstants.arabicFont1,
+                        fontWeight: FontWeight.w500),
+                  ),
                   SizedBox(height: 14.h),
-                   CustomTextField(isRegister: true,validator:(value)
-                  {
-                    if (value.isEmpty) {
-                      return 'البريد الالكتروني مطلوب';
-                    }
-                    return null;
-                  },textInputType: TextInputType.emailAddress, ),
+                  CustomTextField(
+                    isRegister: true,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "required_email".i18n();
+                      }
+                      return null;
+                    },
+                    textInputType: TextInputType.emailAddress,
+                  ),
                   SizedBox(height: 16.h),
-                  Text('كلمة السر',style: TextStyle(fontSize: 16.sp,fontFamily: AppConstants.arabicFont1,fontWeight: FontWeight.w500),),
+                  Text(
+                    "password".i18n(),
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        fontFamily: AppConstants.arabicFont1,
+                        fontWeight: FontWeight.w500),
+                  ),
                   SizedBox(height: 14.h),
-                   CustomTextField(isRegister: true,suffix: IconButton(onPressed: (){}, icon: const Icon(Icons.remove_red_eye,color: Colors.black,)),
-                       validator:(value)
-                       {
-                         if (value.isEmpty) {
-                           return 'كلمة السر مطلوبة';
-                         }
-                         return null;
-                       },textInputType: TextInputType.visiblePassword,),
+                  CustomTextField(
+                    isRegister: true,
+                    suffix: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.remove_red_eye,
+                          color: Colors.black,
+                        )),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "required_password".i18n();
+                      }
+                      return null;
+                    },
+                    textInputType: TextInputType.visiblePassword,
+                  ),
                   SizedBox(height: 20.h),
                   Row(
-                    children:
-                    [
+                    children: [
                       Checkbox(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.r)),
                         value: isChecked,
                         onChanged: (value) {
                           setState(() {
-                            isChecked =value!;
+                            isChecked = value!;
                           });
                         },
-                        activeColor: Colors.white10, // Customize the checkbox color
+                        activeColor:
+                            Colors.white10, // Customize the checkbox color
                         checkColor: Colors.green,
-                        fillColor: MaterialStateProperty.all(ColorResources.grey),
-                        side: BorderSide(color:ColorResources.appGreyColor,),
+                        fillColor:
+                            MaterialStateProperty.all(ColorResources.grey),
+                        side: BorderSide(
+                          color: ColorResources.appGreyColor,
+                        ),
                       ),
                       SizedBox(width: 0.w),
                       Text(
-                        'تذكرني',
-                        style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w400,color:Colors.black),
+                        "remember_me".i18n(),
+                        style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black),
                       ),
                       const Spacer(),
-                      TextButton(onPressed: ()
-                      {
-                        Navigator.push(
-                            context, SlideTransition1(const ForgetPassword()));
-                      }, child: Text('هل نسيت كلمة السر',style: TextStyle(fontSize:14.sp,color:HexColor('#FF004C'),fontFamily: AppConstants.arabicFont1),))
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(context,
+                                SlideTransition1(const ForgetPassword()));
+                          },
+                          child: Text(
+                            "have_you_forgotten_your_password".i18n(),
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                color: HexColor('#FF004C'),
+                                fontFamily: AppConstants.arabicFont1),
+                          ))
                     ],
                   ),
                   SizedBox(height: 43.h),
                   SlideTransition(
                     position: _offsetAnimation,
-                    child: CustomButton(text: 'تسجيل الدخول',color: ColorResources.buttonColor,colorTxt: Colors.white,
-                      onTap: ()
-                      {
-                       // if (formKey.currentState!.validate()) {
-                          //     formKey.currentState!.save();
-                      //  }
+                    child: CustomButton(
+                      text: "sign_in".i18n(),
+                      color: ColorResources.buttonColor,
+                      colorTxt: Colors.white,
+                      onTap: () {
+                        // if (formKey.currentState!.validate()) {
+                        //     formKey.currentState!.save();
+                        //  }
                         Navigator.push(
                             context, SlideTransition1(const ChooseClass()));
                       },
                     ),
                   ),
                   SizedBox(height: 40.h),
-                  Center(child: Text('أو تسجيل الدخول بواسطه',style: TextStyle(fontSize: 16.sp,fontFamily: AppConstants.arabicFont1,fontWeight: FontWeight.w500,color:ColorResources.appGreyColor),)),
+                  Center(
+                      child: Text(
+                    "or_login_using".i18n(),
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        fontFamily: AppConstants.arabicFont1,
+                        fontWeight: FontWeight.w500,
+                        color: ColorResources.appGreyColor),
+                  )),
                   SizedBox(height: 25.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children:
-                    [
+                    children: [
                       Container(
                           height: 32.h,
                           width: 32.w,
@@ -151,22 +217,31 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                           child: SvgPicture.asset(IconResources.Facebook)),
                     ],
                   ),
-             //     Spacer(),
+                  //     Spacer(),
                   SizedBox(height: 70.h),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children:
-                    [
+                    children: [
                       Text(
-                        'ليس لديك حساب؟',
-                        style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,color:ColorResources.appGreyColor),
+                        "do_not_have_account".i18n(),
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w400,
+                            color: ColorResources.appGreyColor),
                       ),
-                      TextButton(onPressed: ()
-                      {
-                        Navigator.push(
-                            context, SlideTransition1(const RegisterScreen()));
-                      }, child: Text('تسجيل جديد',style: TextStyle(fontSize:16.sp,color:HexColor('#FF004C'),fontFamily: AppConstants.arabicFont1),))
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(context,
+                                SlideTransition1(const RegisterScreen()));
+                          },
+                          child: Text(
+                            "create_new_account".i18n(),
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                color: HexColor('#FF004C'),
+                                fontFamily: AppConstants.arabicFont1),
+                          ))
                     ],
                   ),
                 ],

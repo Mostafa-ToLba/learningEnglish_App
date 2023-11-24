@@ -26,16 +26,17 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     });
     on<CheckOnSettings>((event, emit) {
       final isLanguageSet = (sharedPreferences.getString('lang') ?? '');
-      //if (isLanguageSet != '') {
-      //} else {
-      Locale locale = const Locale('ar');
-
-      //return Locale('ar', 'EG');
-      //await sharedPreferences.setString('lang', locale.languageCode);
-      //}
+      if (isLanguageSet != '') {
+      } else {
+         //TODO: CHANGE IT TO DEVICE LOCALE
+        //Locale locale = Locale(event.changeLangTo);
+        sharedPreferences.setString('lang', state.locale.languageCode);
+      }
+      /*
       emit(
         state.copyWith(locale: locale),
       );
+      */
     });
   }
 }

@@ -7,6 +7,7 @@ import 'package:learning_anglish_app/presentation/widgets/textFeild/custom_text_
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
+import 'package:localization/localization.dart';
 
 class CreateNewPassword extends StatefulWidget {
   const CreateNewPassword({super.key});
@@ -15,7 +16,8 @@ class CreateNewPassword extends StatefulWidget {
   State<CreateNewPassword> createState() => _CreateNewPasswordState();
 }
 
-class _CreateNewPasswordState extends State<CreateNewPassword> with TickerProviderStateMixin{
+class _CreateNewPasswordState extends State<CreateNewPassword>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -24,12 +26,13 @@ class _CreateNewPasswordState extends State<CreateNewPassword> with TickerProvid
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2), // Animation duration (2 seconds in this example)
+      duration: const Duration(
+          seconds: 2), // Animation duration (2 seconds in this example)
     );
 
     _offsetAnimation = Tween<Offset>(
-      begin: Offset(0.0, 1.0), // Start position (bottom of the screen)
-      end: Offset(0.0, 0.0),   // End position (original position)
+      begin: const Offset(0.0, 1.0), // Start position (bottom of the screen)
+      end: const Offset(0.0, 0.0), // End position (original position)
     ).animate(
       CurvedAnimation(
         parent: _controller,
@@ -39,19 +42,21 @@ class _CreateNewPasswordState extends State<CreateNewPassword> with TickerProvid
 
     _controller.forward();
   }
-  @override
 
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
+
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding:EdgeInsets.only(top: 40.h,left: 25.w,right: 25.w,bottom: 10.h),
+          padding:
+              EdgeInsets.only(top: 40.h, left: 25.w, right: 25.w, bottom: 10.h),
           child: Form(
             key: formKey,
             child: SingleChildScrollView(
@@ -61,13 +66,13 @@ class _CreateNewPasswordState extends State<CreateNewPassword> with TickerProvid
                   Align(
                     alignment: Alignment.topLeft,
                     child: InkWell(
-                      onTap: ()
-                      {
+                      onTap: () {
                         Navigator.pop(context);
                       },
                       child: Container(
-                        width: 40.r, // Set the width and height to your desired size
-                        height: 40.r,padding: EdgeInsets.only(right: 4.w),
+                        width: 40
+                            .r, // Set the width and height to your desired size
+                        height: 40.r, padding: EdgeInsets.only(right: 4.w),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.white, // White background
@@ -76,42 +81,92 @@ class _CreateNewPasswordState extends State<CreateNewPassword> with TickerProvid
                             width: 1.0, // Border width
                           ),
                         ),
-                        child: Center(child: SvgPicture.asset(IconResources.arrowleft,height: 25.h,)),),
+                        child: Center(
+                            child: SvgPicture.asset(
+                          IconResources.arrowleft,
+                          height: 25.h,
+                        )),
+                      ),
                     ),
                   ),
                   SizedBox(height: 30.h),
-                  Text('كلمة سر جديدة',style: TextStyle(fontSize: 20.sp,fontFamily: AppConstants.arabicFont1,fontWeight: FontWeight.bold),),
-                  SizedBox(height: 8.h,),
-                  Text('يجب أن تكون كلمة السر الجديدة مختلفة عن تلك المستخدمة سابقا',style: TextStyle(fontSize: 15.sp,fontFamily: AppConstants.arabicFont1,color: ColorResources.appGreyColor),),
+                  Text(
+                    "new_password".i18n(),
+                    style: TextStyle(
+                        fontSize: 20.sp,
+                        fontFamily: AppConstants.arabicFont1,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  Text(
+                    "enter_new_password_screen_subtitle".i18n(),
+                    style: TextStyle(
+                        fontSize: 15.sp,
+                        fontFamily: AppConstants.arabicFont1,
+                        color: ColorResources.appGreyColor),
+                  ),
                   SizedBox(height: 30.h),
-                  Text('كلمة السر الجديدة',style: TextStyle(fontSize: 16.sp,fontFamily: AppConstants.arabicFont1,fontWeight: FontWeight.w500),),
+                  Text(
+                    "the_new_password".i18n(),
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        fontFamily: AppConstants.arabicFont1,
+                        fontWeight: FontWeight.w500),
+                  ),
                   SizedBox(height: 14.h),
-                  CustomTextField(suffix: IconButton(onPressed: (){}, icon: const Icon(Icons.remove_red_eye,color: Colors.black,)),isRegister: true,validator:(value)
-                  {
-                    if (value.isEmpty) {
-                      return 'البريد الالكتروني مطلوب';
-                    }
-                    return null;
-                  },textInputType: TextInputType.emailAddress, ),
-                  SizedBox(height: 16.h),
-                  Text('تأكيد كلمة السر الجديدة',style: TextStyle(fontSize: 16.sp,fontFamily: AppConstants.arabicFont1,fontWeight: FontWeight.w500),),
-                  SizedBox(height: 14.h),
-                  CustomTextField(isRegister: true,suffix: IconButton(onPressed: (){}, icon: const Icon(Icons.remove_red_eye,color: Colors.black,)),
-                    validator:(value)
-                    {
+                  CustomTextField(
+                    suffix: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.remove_red_eye,
+                          color: Colors.black,
+                        )),
+                    isRegister: true,
+                    validator: (value) {
                       if (value.isEmpty) {
-                        return 'كلمة السر مطلوبة';
+                        return "required_email".i18n();
                       }
                       return null;
-                    },textInputType: TextInputType.visiblePassword,),
+                    },
+                    textInputType: TextInputType.emailAddress,
+                  ),
+                  SizedBox(height: 16.h),
+                  Text(
+                    "confirm_new_password".i18n(),
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        fontFamily: AppConstants.arabicFont1,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: 14.h),
+                  CustomTextField(
+                    isRegister: true,
+                    suffix: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.remove_red_eye,
+                          color: Colors.black,
+                        )),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "required_password".i18n();
+                      }
+                      return null;
+                    },
+                    textInputType: TextInputType.visiblePassword,
+                  ),
                   SizedBox(height: 43.h),
                   SlideTransition(
                     position: _offsetAnimation,
-                    child: CustomButton(text: 'تغير كلمة السر',color: ColorResources.buttonColor,colorTxt: Colors.white,
-                      onTap: ()
-                      {
-                        Navigator.push(
-                            context, SlideTransition1(const NewPasswordDoneScreen()));
+                    child: CustomButton(
+                      text: "confirm_password_change".i18n(),
+                      color: ColorResources.buttonColor,
+                      colorTxt: Colors.white,
+                      onTap: () {
+                        Navigator.push(context,
+                            SlideTransition1(const NewPasswordDoneScreen()));
                       },
                     ),
                   ),
