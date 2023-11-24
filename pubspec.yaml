@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+
   dio: ^5.3.2
   shared_preferences: ^2.2.0
   fluttertoast: ^8.2.2
@@ -37,9 +38,11 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   flutter_screenutil: ^5.8.4
   hexcolor: ^3.0.1
-  localize_and_translate: ^4.1.1
+  localization: ^2.1.1
+  flutter_localizations:
+    sdk: flutter
   flutter_staggered_animations: ^1.1.1
-  pin_code_fields:
+  
   flutter:
     sdk: flutter
 
@@ -47,8 +50,13 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  flutter_localizations:
-    sdk: flutter
+  pin_code_fields: ^8.0.1
+  dartz: ^0.10.1
+  get_it: ^7.6.4
+  injectable: ^2.3.2
+  data_connection_checker_nulls: ^0.0.2
+  freezed_annotation: ^2.4.1
+  freezed: ^2.4.5
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +68,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.4.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -76,7 +85,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
-    - assets/lang/
+    - lib/i18n/
 
   fonts:
     - family: Tajawal

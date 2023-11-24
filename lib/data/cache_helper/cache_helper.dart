@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper{
@@ -35,5 +37,27 @@ class CacheHelper{
       String token
       ){
     return sharedPreferences?.clear();
+  }
+}
+class CacheErrorException implements Exception{}
+
+class LocalDataSourceProvider {
+  final SharedPreferences sharedPreferences;
+  //final String key = 'TRIVIA_CACHE_DATA';
+  LocalDataSourceProvider({required this.sharedPreferences});
+  Future<void> cacheLocalDataSource(String key, Object objectModel) async {
+    await sharedPreferences.setString(
+      key,
+      json.encode(objectModel),
+    );
+  }
+
+  Future<Object> getLocalDataSource(String key) {
+    final result = sharedPreferences.getString(key);
+    if (result != null) {
+      return Future.value(result);
+    } else {
+      throw CacheErrorException();
+    }
   }
 }
