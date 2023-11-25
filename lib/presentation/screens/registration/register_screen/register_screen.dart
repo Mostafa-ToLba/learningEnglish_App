@@ -219,6 +219,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                   SlideTransition(
                     position: _offsetAnimation,
                     child: CustomButton(
+                      //leading: 70,
                       text: "create_an_account".i18n(),
                       color: ColorResources.buttonColor,
                       colorTxt: Colors.white,

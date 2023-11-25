@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen>
                     style: TextStyle(
                         fontSize: 20.sp,
                         fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,),
                   ),
                   SizedBox(
                     height: 8.h,
@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen>
                     style: TextStyle(
                         fontSize: 15.sp,
                         fontFamily: AppConstants.arabicFont1,
-                        color: ColorResources.appGreyColor),
+                        color: ColorResources.appGreyColor,),
                   ),
                   SizedBox(height: 30.h),
                   Text(
@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen>
                     style: TextStyle(
                         fontSize: 16.sp,
                         fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.w500),
+                        fontWeight: FontWeight.w500,),
                   ),
                   SizedBox(height: 14.h),
                   CustomTextField(
@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen>
                     style: TextStyle(
                         fontSize: 16.sp,
                         fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.w500),
+                        fontWeight: FontWeight.w500,),
                   ),
                   SizedBox(height: 14.h),
                   CustomTextField(
@@ -143,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen>
                             Colors.white10, // Customize the checkbox color
                         checkColor: Colors.green,
                         fillColor:
-                            MaterialStateProperty.all(ColorResources.grey),
+                            MaterialStateProperty.all(ColorResources.grey1),
                         side: BorderSide(
                           color: ColorResources.appGreyColor,
                         ),
@@ -157,20 +157,23 @@ class _LoginScreenState extends State<LoginScreen>
                             color: Colors.black),
                       ),
                       const Spacer(),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.push(context,
-                                SlideTransition1(const ForgetPassword()));
-                          },
-                          child: Text(
-                            "have_you_forgotten_your_password".i18n(),
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                color: HexColor('#FF004C'),
-                                fontFamily: AppConstants.arabicFont1),
-                          ))
                     ],
                   ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context, SlideTransition1(const ForgetPassword()));
+                      },
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "have_you_forgotten_your_password".i18n(),
+                          style: TextStyle(
+                              fontSize: 14.sp,
+                              color: HexColor('#FF004C'),
+                              fontFamily: AppConstants.arabicFont1),
+                        ),
+                      )),
                   SizedBox(height: 43.h),
                   SlideTransition(
                     position: _offsetAnimation,
@@ -201,17 +204,17 @@ class _LoginScreenState extends State<LoginScreen>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
+                      SizedBox(
                           height: 32.h,
                           width: 32.w,
                           child: SvgPicture.asset(IconResources.Apple)),
                       SizedBox(width: 24.w),
-                      Container(
+                      SizedBox(
                           height: 32.h,
                           width: 32.w,
                           child: SvgPicture.asset(IconResources.Google)),
                       SizedBox(width: 24.w),
-                      Container(
+                      SizedBox(
                           height: 32.h,
                           width: 32.w,
                           child: SvgPicture.asset(IconResources.Facebook)),
@@ -231,17 +234,20 @@ class _LoginScreenState extends State<LoginScreen>
                             color: ColorResources.appGreyColor),
                       ),
                       TextButton(
-                          onPressed: () {
-                            Navigator.push(context,
-                                SlideTransition1(const RegisterScreen()));
-                          },
-                          child: Text(
-                            "create_new_account".i18n(),
-                            style: TextStyle(
-                                fontSize: 16.sp,
-                                color: HexColor('#FF004C'),
-                                fontFamily: AppConstants.arabicFont1),
-                          ))
+                        onPressed: () {
+                          Navigator.push(context,
+                              SlideTransition1(const RegisterScreen()));
+                        },
+                        //style: ButtonStyle()
+                        child: Text(
+                          "create_new_account".i18n(),
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              color: ColorResources.black,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: AppConstants.arabicFont1),
+                        ),
+                      ),
                     ],
                   ),
                 ],

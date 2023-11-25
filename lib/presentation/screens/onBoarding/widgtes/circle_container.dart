@@ -10,7 +10,7 @@ class CircleContainer extends StatelessWidget {
     return  Container(
       height: 800.h,
       decoration: BoxDecoration(
-          color: ColorResources.grey,
+          color: ColorResources.grey1,
           shape: BoxShape.circle
       ),
     );

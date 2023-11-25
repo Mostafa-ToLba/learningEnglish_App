@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:learning_anglish_app/presentation/screens/onBoarding/widgtes/build_onboarding.dart';
 import 'package:learning_anglish_app/presentation/screens/onBoarding/widgtes/onboarding_pages.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/login_screen/login_screen.dart';
@@ -11,8 +10,6 @@ import 'package:localization/localization.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../utils/color_resource/color_resources.dart';
 import '../../../utils/images/images.dart';
-import '../../widgets/button/custom_button.dart';
-import '../../widgets/text/custom_text.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -42,7 +39,7 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor('#f7f7f7'),
+        backgroundColor: ColorResources.grey5,
         body: Column(
           children: [
             Expanded(
@@ -56,7 +53,7 @@ class OnBoardingScreen extends StatelessWidget {
                   ),
                 ),
                 child: PageView.builder(
-                  reverse: true,
+                  //reverse: true,
                   controller: controller,
                   itemBuilder: (context, index) =>
                       BuildOnBoarding(boarding: boarding[index]),
@@ -83,7 +80,7 @@ class OnBoardingScreen extends StatelessWidget {
                       count: boarding.length,
                       effect: ExpandingDotsEffect(
                         activeDotColor: ColorResources.black,
-                        dotColor: HexColor('#8a8d91'),
+                        dotColor: ColorResources.grey4,
                         dotHeight: 6.h,
                         dotWidth: 7.w,
                       ),

@@ -4,7 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/blocs/settings_bloc/settings_bloc.dart';
 import 'package:learning_anglish_app/injection.dart';
-import 'package:learning_anglish_app/presentation/screens/splash/splash_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/onBoarding/onboarding_screen.dart';
 import 'package:learning_anglish_app/utils/theme/theme.dart';
 import 'package:localization/localization.dart';
 
@@ -70,7 +70,7 @@ class _AppScreenState extends State<AppScreen> {
             showSemanticsDebugger: false,
             theme: themeData,
             debugShowCheckedModeBanner: false,
-            home: const SplashScreen(),
+            home: const OnBoardingScreen(),
           );
         },
       ),

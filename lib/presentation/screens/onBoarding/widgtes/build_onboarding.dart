@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import '../../../../utils/color_resource/color_resources.dart';
-import '../../../widgets/text/custom_text.dart';
-import 'circle_container.dart';
 import 'onboarding_pages.dart';
 
 class BuildOnBoarding extends StatelessWidget {
@@ -14,6 +12,7 @@ class BuildOnBoarding extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
             height: 300.h,
@@ -33,6 +32,7 @@ class BuildOnBoarding extends StatelessWidget {
         ),
         Text(
           boarding.text,
+          textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w500,

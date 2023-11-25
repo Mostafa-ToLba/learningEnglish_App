@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import '../../../utils/color_resource/color_resources.dart';
 import '../text/custom_text.dart';
@@ -64,7 +63,7 @@ class CustomTextField extends StatelessWidget {
                   color: ColorResources.grey2),
             ],
           ),
-        Container(
+        SizedBox(
           height: 56.h,
           width: double.infinity,
           child: TextFormField(
