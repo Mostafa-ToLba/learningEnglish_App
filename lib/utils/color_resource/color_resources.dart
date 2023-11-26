@@ -35,7 +35,9 @@ class ColorResources {
   static Color get appGreyColor5 => const Color(0xFFF9F9F9);
 
   static Color get greenDark  => const Color(0xFF00BE85);
-  static Color get greenLight =>  Color.fromARGB(40, 135, 179, 166);
+  static Color get greenLight =>  const Color.fromARGB(40, 135, 179, 166);
 
+  static Color get arrowRightBackground =>const Color(0xFF35302B);
+  static Color get profileText => Colors.black.withOpacity(0.6499999761581421);
   static Color get buttonColor => const Color(0xFF49423A);
 }

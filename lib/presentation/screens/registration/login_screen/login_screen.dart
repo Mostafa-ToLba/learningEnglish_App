@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:learning_anglish_app/presentation/screens/chooseClass/choose_class.dart';
+import 'package:learning_anglish_app/presentation/screens/chooseClass/choose_class_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/forget_password/forget_password.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/register_screen/register_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
+import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/presentation/widgets/textFeild/custom_text_field.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
@@ -69,9 +70,10 @@ class _LoginScreenState extends State<LoginScreen>
                   Text(
                     "welcome_back".i18n(),
                     style: TextStyle(
-                        fontSize: 20.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.bold,),
+                      fontSize: 20.sp,
+                      fontFamily: AppConstants.arabicFont1,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(
                     height: 8.h,
@@ -79,17 +81,19 @@ class _LoginScreenState extends State<LoginScreen>
                   Text(
                     "login_screen_subtitle".i18n(),
                     style: TextStyle(
-                        fontSize: 15.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        color: ColorResources.appGreyColor,),
+                      fontSize: 15.sp,
+                      fontFamily: AppConstants.arabicFont1,
+                      color: ColorResources.appGreyColor,
+                    ),
                   ),
                   SizedBox(height: 30.h),
                   Text(
                     "email".i18n(),
                     style: TextStyle(
-                        fontSize: 16.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.w500,),
+                      fontSize: 16.sp,
+                      fontFamily: AppConstants.arabicFont1,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   SizedBox(height: 14.h),
                   CustomTextField(
@@ -106,9 +110,10 @@ class _LoginScreenState extends State<LoginScreen>
                   Text(
                     "password".i18n(),
                     style: TextStyle(
-                        fontSize: 16.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.w500,),
+                      fontSize: 16.sp,
+                      fontFamily: AppConstants.arabicFont1,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   SizedBox(height: 14.h),
                   CustomTextField(
@@ -178,15 +183,20 @@ class _LoginScreenState extends State<LoginScreen>
                   SlideTransition(
                     position: _offsetAnimation,
                     child: CustomButton(
-                      text: "sign_in".i18n(),
+                      widgetInCenter: Align(
+                        alignment: Alignment.center,
+                        child: CustomText(
+                          text: "sign_in".i18n(),
+                          textAlign: TextAlign.center,
+                          color: Colors.white,
+                          txtSize: 17.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                       color: ColorResources.buttonColor,
-                      colorTxt: Colors.white,
                       onTap: () {
-                        // if (formKey.currentState!.validate()) {
-                        //     formKey.currentState!.save();
-                        //  }
-                        Navigator.push(
-                            context, SlideTransition1(const ChooseClass()));
+                        Navigator.push(context,
+                            SlideTransition1(const ChooseClassScreen()));
                       },
                     ),
                   ),

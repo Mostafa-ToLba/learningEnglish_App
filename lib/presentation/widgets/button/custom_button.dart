@@ -8,31 +8,31 @@ import '../text/custom_text.dart';
 class CustomButton extends StatefulWidget {
   const CustomButton(
       {Key? key,
-      required this.text,
+      required this.widgetInCenter,
       this.isSelected = false,
       this.onTap,
       this.color,
-      this.colorTxt,
+      //this.colorTxt,
       this.isGradient,
       this.textSize,
-      this.textWeight,
+      //this.textWeight,
       this.colorBorder,
       this.width,
       this.height,
       //this.leading,
       this.widget})
       : super(key: key);
-  final String text;
+  final Widget widgetInCenter;
   final double? textSize;
   final double? width;
   final double? height;
   //final double? leading;
-  final FontWeight? textWeight;
+  //final FontWeight? textWeight;
   final bool isSelected;
   final bool? isGradient;
   final Color? color;
   final Color? colorBorder;
-  final Color? colorTxt;
+  //final Color? colorTxt;
   final Widget? widget;
   final GestureTapCallback? onTap;
 
@@ -68,6 +68,8 @@ class _CustomButtonState extends State<CustomButton> {
                   SizedBox(width: 50.w),
                   const Spacer(),
                   //SizedBox(width: 50.w),
+                  widget.widgetInCenter,
+                  /*
                   Align(
                     alignment: Alignment.center,
                     child: CustomText(
@@ -79,7 +81,7 @@ class _CustomButtonState extends State<CustomButton> {
                       txtSize: widget.textSize ?? 17.sp,
                       fontWeight: widget.textWeight ?? FontWeight.w600,
                     ),
-                  ),
+                  ),*/
 
                   const Spacer(),
                   //SizedBox(width: 60.w),
@@ -90,7 +92,7 @@ class _CustomButtonState extends State<CustomButton> {
                     margin: EdgeInsets.only(top: 8.h, bottom: 8.h, right: 24.w),
                     //minRadius: 22.h,
                     decoration: BoxDecoration(
-                      color: ColorResources.buttonColor,
+                      color: ColorResources.arrowRightBackground,
                       borderRadius: BorderRadius.circular(22.dm),
                     ),
                     // Customize the background color

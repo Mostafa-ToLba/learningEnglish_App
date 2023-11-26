@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/presentation/screens/lesson/unpaid_lesson_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
+import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:localization/localization.dart';
@@ -83,8 +84,6 @@ class _ExamsScreenState extends State<ExamsScreen> {
                   SizedBox(width: 30.w),
                 ],
               ),
-
-
               SizedBox(height: 32.h),
               Row(
                 children: [
@@ -359,9 +358,17 @@ class _ExamsScreenState extends State<ExamsScreen> {
                         ),
                         SizedBox(height: 62.h),
                         CustomButton(
-                          text: "continue".i18n(),
+                          widgetInCenter: Align(
+                            alignment: Alignment.center,
+                            child: CustomText(
+                              text: "continue".i18n(),
+                              textAlign: TextAlign.center,
+                              color: Colors.white,
+                              txtSize: 17.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                           color: ColorResources.buttonColor,
-                          colorTxt: Colors.white,
                           onTap: () {
                             Navigator.push(context,
                                 SlideTransition1(const UnpaidLessonScreen()));

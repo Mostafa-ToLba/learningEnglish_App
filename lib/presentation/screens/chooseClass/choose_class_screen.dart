@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:learning_anglish_app/presentation/screens/codeEntrance/code_entrance_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
+import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:localization/localization.dart';
 
-class ChooseClass extends StatefulWidget {
-  const ChooseClass({super.key});
+class ChooseClassScreen extends StatefulWidget {
+  const ChooseClassScreen({super.key});
 
   @override
-  State<ChooseClass> createState() => _ChooseClassState();
+  State<ChooseClassScreen> createState() => _ChooseClassScreenState();
 }
 
-class _ChooseClassState extends State<ChooseClass> {
+class _ChooseClassScreenState extends State<ChooseClassScreen> {
   int selectedIndex = 0;
   List<String> classList = [
     "first_class".i18n(),
@@ -123,12 +124,20 @@ class _ChooseClassState extends State<ChooseClass> {
                   ),
                   SizedBox(height: 25.h),
                   CustomButton(
-                    text: "choose".i18n(),
+                    widgetInCenter: Align(
+                      alignment: Alignment.center,
+                      child: CustomText(
+                        text: "choose".i18n(),
+                        textAlign: TextAlign.center,
+                        color: Colors.white,
+                        txtSize: 17.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     color: ColorResources.buttonColor,
-                    colorTxt: Colors.white,
                     onTap: () {
                       Route route = MaterialPageRoute(
-                          builder: (context) => const CodeEntranceScreen());
+                          builder: (context) => const MainScreen());
                       Navigator.pushReplacement(context, route);
                     },
                   ),

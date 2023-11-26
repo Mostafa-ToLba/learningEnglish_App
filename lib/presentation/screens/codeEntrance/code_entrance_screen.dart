@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/exams_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
+import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:localization/localization.dart';
@@ -99,16 +100,20 @@ class CodeEntranceScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 24.h),
                 CustomButton(
-                  text: "enter".i18n(),
+                  widgetInCenter: Align(
+                    alignment: Alignment.center,
+                    child: CustomText(
+                      text: "enter".i18n(),
+                      textAlign: TextAlign.center,
+                      color: Colors.white,
+                      txtSize: 17.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                   color: ColorResources.buttonColor,
-                  colorTxt: Colors.white,
                   onTap: () {
                     Navigator.push(
-                      context,
-                      SlideTransition1(
-                        const ExamsScreen(),
-                      ),
-                    );
+                        context, SlideTransition1(const ExamsScreen()));
                   },
                 ),
                 SizedBox(height: 4.h),

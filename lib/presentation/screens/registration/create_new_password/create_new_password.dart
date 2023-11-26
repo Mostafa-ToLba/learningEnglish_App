@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/newPassword_done/newPassword_done.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
+import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/presentation/widgets/textFeild/custom_text_field.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
@@ -161,9 +162,17 @@ class _CreateNewPasswordState extends State<CreateNewPassword>
                   SlideTransition(
                     position: _offsetAnimation,
                     child: CustomButton(
-                      text: "confirm_password_change".i18n(),
+                      widgetInCenter: Align(
+                        alignment: Alignment.center,
+                        child: CustomText(
+                          text: "confirm_password_change".i18n(),
+                          textAlign: TextAlign.center,
+                          color: Colors.white,
+                          txtSize: 17.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                       color: ColorResources.buttonColor,
-                      colorTxt: Colors.white,
                       onTap: () {
                         Navigator.push(context,
                             SlideTransition1(const NewPasswordDoneScreen()));
