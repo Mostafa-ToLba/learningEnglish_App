@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_anglish_app/presentation/screens/lesson/unpaid_lesson_screen.dart';
+import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 
 class ChooseLessonScreen extends StatelessWidget {
@@ -30,7 +32,9 @@ class ChooseLessonScreen extends StatelessWidget {
                       ),
                     ),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       icon: Icon(
                         Icons.arrow_back_ios_new_outlined,
                         color: Colors.brown,
@@ -81,57 +85,63 @@ class ChooseLessonScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.only(top: 16.h),
-                      child: Container(
-                        //margin: EdgeInsets.all(25.dg),
-                        //width: 327.w,
-                        height: 80.h,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: ShapeDecoration(
-                          color: ColorResources.white1,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(32),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              SlideTransition1(const UnpaidLessonScreen()));
+                        },
+                        child: Container(
+                          //margin: EdgeInsets.all(25.dg),
+                          //width: 327.w,
+                          height: 80.h,
+                          clipBehavior: Clip.antiAlias,
+                          decoration: ShapeDecoration(
+                            color: ColorResources.white1,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32),
+                            ),
                           ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 24.w,
-                              height: 24.h,
-                              margin: EdgeInsets.only(left: 24.w),
-                              decoration: const ShapeDecoration(
-                                color: Color(0xFF49423A),
-                                shape: OvalBorder(),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 24.w,
+                                height: 24.h,
+                                margin: EdgeInsets.only(left: 24.w),
+                                decoration: const ShapeDecoration(
+                                  color: Color(0xFF49423A),
+                                  shape: OvalBorder(),
+                                ),
+                                child: Icon(
+                                  Icons.keyboard_arrow_left,
+                                  color: Colors.white,
+                                  size: 20.dm,
+                                ),
                               ),
-                              child: Icon(
-                                Icons.keyboard_arrow_left,
-                                color: Colors.white,
-                                size: 20.dm,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  'الحصة الأولى',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w400,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    'الحصة الأولى',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16.sp,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(width: 12.w),
-                                Icon(
-                                  Icons.folder,
-                                  color: Colors.green,
-                                  size: 30.dm,
-                                ),
-                                SizedBox(width: 24.w),
-                              ],
-                            ),
-                          ],
+                                  SizedBox(width: 12.w),
+                                  Icon(
+                                    Icons.folder,
+                                    color: Colors.green,
+                                    size: 30.dm,
+                                  ),
+                                  SizedBox(width: 24.w),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );

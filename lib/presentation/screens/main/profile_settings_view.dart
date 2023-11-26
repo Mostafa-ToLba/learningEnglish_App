@@ -286,7 +286,11 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView> {
                       ),
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Route route = MaterialPageRoute(
+                          builder: (context) => const LoginScreen());
+                      Navigator.pushReplacement(context, route);
+                  },
                 ),
               ],
             ),

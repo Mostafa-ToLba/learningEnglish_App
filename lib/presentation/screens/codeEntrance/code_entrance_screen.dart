@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:learning_anglish_app/presentation/screens/exams/exams_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/lesson/paid_lesson_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
-import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:localization/localization.dart';
 
@@ -112,8 +111,9 @@ class CodeEntranceScreen extends StatelessWidget {
                   ),
                   color: ColorResources.buttonColor,
                   onTap: () {
-                    Navigator.push(
-                        context, SlideTransition1(const ExamsScreen()));
+                    Route route = MaterialPageRoute(
+                        builder: (context) => const PaidLessonScreen());
+                    Navigator.pushReplacement(context, route);
                   },
                 ),
                 SizedBox(height: 4.h),
@@ -165,7 +165,9 @@ class CodeEntranceScreen extends StatelessWidget {
                       height: 0.12,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
                 /*
                   ElevatedButton(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:learning_anglish_app/presentation/screens/lesson/unpaid_lesson_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/result/results_page.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
@@ -107,6 +107,7 @@ class _ExamsScreenState extends State<ExamsScreen> {
                   ),
                 ],
               ),
+              SizedBox(height: 45.h),
               Expanded(
                 child: SingleChildScrollView(
                   child: Container(
@@ -117,7 +118,7 @@ class _ExamsScreenState extends State<ExamsScreen> {
                       ),
                     ),
                     //padding: const EdgeInsets.all(8.0),
-                    margin: EdgeInsets.only(right: 8.w, left: 8.w, top: 45.h),
+                    margin: EdgeInsets.only(right: 8.w, left: 8.w),//, top: 45.h),
                     padding:
                         EdgeInsets.only(right: 24.w, left: 24.w, top: 24.h),
                     child: Column(
@@ -371,7 +372,7 @@ class _ExamsScreenState extends State<ExamsScreen> {
                           color: ColorResources.buttonColor,
                           onTap: () {
                             Navigator.push(context,
-                                SlideTransition1(const UnpaidLessonScreen()));
+                                SlideTransition1(const ResultsScreen()));
                           },
                         ),
                       ],

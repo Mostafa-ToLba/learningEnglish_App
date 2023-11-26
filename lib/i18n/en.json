@@ -59,6 +59,8 @@
                     "enter_code": "Enter code",
                     "enter": "Enter",
                     "go_back": "Go back",
+                    "results_perfect_title": "Congratulations!",
+                    "results_perfect_subtitle": "You are great! All answers are correct",
                     "exams": "Exams",
                     "continue": "Continue",
                     "all_questions": "All questions",

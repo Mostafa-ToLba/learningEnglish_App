@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_anglish_app/presentation/screens/questionBankPerLesson/question_bank_per_lesson_screen.dart';
+import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 
 class QuestionBankView extends StatelessWidget {
@@ -89,40 +91,50 @@ class QuestionBankView extends StatelessWidget {
                               ),
                               controlAffinity: ListTileControlAffinity.leading,
                               children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 16.h, horizontal: 24.w),
-                                  //height: MediaQuery.sizeOf(context).height * 0.1,
-                                  //width: 300.w,
-                                  //height: 56.h,
-                                  decoration: ShapeDecoration(
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                        width: 1,
-                                        color: Colors.black.withOpacity(0.25),
-                                      ),
-                                      borderRadius: BorderRadius.circular(32.r),
-                                    ),
-                                  ),
-                                  child: ListTile(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 2, horizontal: 12),
-                                    title: const Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text('الحصة الاولى'),
-                                    ),
-                                    leading: Container(
-                                      height: 24.h,
-                                      width: 24.w,
-                                      decoration: BoxDecoration(
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        SlideTransition1(
+                                            const QuestionBankPerLessonScreen()));
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 16.h, horizontal: 24.w),
+                                    //height: MediaQuery.sizeOf(context).height * 0.1,
+                                    //width: 300.w,
+                                    //height: 56.h,
+                                    decoration: ShapeDecoration(
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                          width: 1,
+                                          color: Colors.black.withOpacity(0.25),
+                                        ),
                                         borderRadius:
-                                            BorderRadius.circular(24.r),
-                                        color: ColorResources.buttonColor,
+                                            BorderRadius.circular(32.r),
                                       ),
-                                      child: Icon(
-                                        Icons.keyboard_arrow_left,
-                                        color: Colors.white,
-                                        size: 20.dm,
+                                    ),
+                                    child: ListTile(
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 2, horizontal: 12),
+                                      title: const Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text('الحصة الاولى'),
+                                      ),
+                                      leading: Container(
+                                        height: 24.h,
+                                        width: 24.w,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(24.r),
+                                          color: ColorResources.buttonColor,
+                                        ),
+                                        child: Icon(
+                                          Icons.keyboard_arrow_left,
+                                          color: Colors.white,
+                                          size: 20.dm,
+                                        ),
                                       ),
                                     ),
                                   ),

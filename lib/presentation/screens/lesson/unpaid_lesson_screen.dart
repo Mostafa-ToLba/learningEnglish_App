@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_anglish_app/presentation/screens/codeEntrance/code_entrance_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/exams/exams_screen.dart';
+import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:localization/localization.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -64,7 +67,9 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                       ),
                     ),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       icon: Icon(
                         Icons.arrow_back_ios_new_outlined,
                         color: ColorResources.brownDark,
@@ -107,85 +112,96 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                 ],
               ),
               SizedBox(height: 32.h),
-              Container(
-                width: 327.w,
-                height: 200.h,
-                decoration: ShapeDecoration(
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/lessonTeacherjpg.jpg"),
-                    fit: BoxFit.fill,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32),
-                  ),
-                ),
-                child: Center(
-                  child: Container(
-                    height: 36.h,
-                    width: 50.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.dg),
-                      color: ColorResources.red,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context, SlideTransition1(const CodeEntranceScreen()));
+                },
+                child: Container(
+                  width: 327.w,
+                  height: 200.h,
+                  decoration: ShapeDecoration(
+                    image: const DecorationImage(
+                      image: AssetImage("assets/images/lessonTeacherjpg.jpg"),
+                      fit: BoxFit.fill,
                     ),
-                    child: Icon(Icons.lock, color: ColorResources.white1),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32),
+                    ),
+                  ),
+                  child: Center(
+                    child: Container(
+                      height: 36.h,
+                      width: 50.w,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.dg),
+                        color: ColorResources.red,
+                      ),
+                      child: Icon(Icons.lock, color: ColorResources.white1),
+                    ),
                   ),
                 ),
               ),
               SizedBox(height: 16.h),
-              Container(
-                height: 80.h,
-                width: double.infinity,
-                padding: EdgeInsets.all(24.dg),
-                //margin: EdgeInsets.all(24.dg),
-                decoration: ShapeDecoration(
-                  color: ColorResources.white1,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32.r),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context, SlideTransition1(const ExamsScreen()));
+                },
+                child: Container(
+                  height: 80.h,
+                  width: double.infinity,
+                  padding: EdgeInsets.all(24.dg),
+                  //margin: EdgeInsets.all(24.dg),
+                  decoration: ShapeDecoration(
+                    color: ColorResources.white1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32.r),
+                    ),
                   ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 26.w,
-                      height: 26.h,
-                      decoration: ShapeDecoration(
-                        color: ColorResources
-                            .buttonColor, // TODO: Check this color
-                        shape: const OvalBorder(),
-                      ),
-                      child: Center(
-                        child: Icon(
-                          Icons.arrow_back_ios_new_outlined,
-                          size: 16.dm,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 26.w,
+                        height: 26.h,
+                        decoration: ShapeDecoration(
+                          color: ColorResources.buttonColor,
+                          shape: const OvalBorder(),
                         ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "test_yourself".i18n(),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: ColorResources.black,
-                            fontSize: 16,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: -0.17,
+                        child: Center(
+                          child: Icon(
+                            Icons.arrow_back_ios_new_outlined,
+                            size: 16.dm,
                           ),
                         ),
-                        CircleAvatar(
-                          radius: 32.r,
-                          backgroundImage: const AssetImage(
-                            "assets/images/testYourself.png",
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "test_yourself".i18n(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: ColorResources.black,
+                              fontSize: 16,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: -0.17,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          CircleAvatar(
+                            radius: 32.r,
+                            backgroundImage: const AssetImage(
+                              "assets/images/testYourself.png",
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 16.h),
