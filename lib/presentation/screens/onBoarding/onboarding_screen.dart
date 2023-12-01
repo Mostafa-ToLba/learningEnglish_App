@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:learning_anglish_app/blocs/settings_bloc/settings_bloc.dart';
 import 'package:learning_anglish_app/presentation/screens/onBoarding/widgtes/build_onboarding.dart';
 import 'package:learning_anglish_app/presentation/screens/onBoarding/widgtes/onboarding_pages.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/login_screen/login_screen.dart';
@@ -88,15 +90,20 @@ class OnBoardingScreen extends StatelessWidget {
                     SizedBox(height: 30.h),
                     InkWell(
                       onTap: () {
-                        isLast
-                            ? Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LoginScreen(),
-                                ))
-                            : controller.nextPage(
-                                duration: const Duration(milliseconds: 1000),
-                                curve: Curves.easeInOutCubicEmphasized);
+                        if (isLast) {
+                          context.read<SettingsBloc>().add(
+                              const SettingsEvent.boardingScreensWatched());
+
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                              ));
+                        } else {
+                          controller.nextPage(
+                              duration: const Duration(milliseconds: 1000),
+                              curve: Curves.easeInOutCubicEmphasized);
+                        }
                       },
                       child: CircleAvatar(
                         backgroundColor: Colors.black,
@@ -112,6 +119,9 @@ class OnBoardingScreen extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen(),));
+                        
+                        context.read<SettingsBloc>().add(
+                              const SettingsEvent.boardingScreensWatched());
                         Navigator.push(
                           context,
                           MaterialPageRoute(

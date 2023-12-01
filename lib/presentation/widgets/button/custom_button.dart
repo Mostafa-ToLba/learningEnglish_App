@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import '../../../utils/color_resource/color_resources.dart';
-import '../text/custom_text.dart';
 
 class CustomButton extends StatefulWidget {
   const CustomButton(
@@ -62,30 +61,11 @@ class _CustomButtonState extends State<CustomButton> {
               padding: EdgeInsets.only(right: 0.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //  crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  //SizedBox(width: widget.leading ?? 50.w),
                   SizedBox(width: 50.w),
                   const Spacer(),
-                  //SizedBox(width: 50.w),
                   widget.widgetInCenter,
-                  /*
-                  Align(
-                    alignment: Alignment.center,
-                    child: CustomText(
-                      text: widget.text,
-                      textAlign: TextAlign.center,
-                      color: widget.isSelected
-                          ? ColorResources.white1
-                          : widget.colorTxt,
-                      txtSize: widget.textSize ?? 17.sp,
-                      fontWeight: widget.textWeight ?? FontWeight.w600,
-                    ),
-                  ),*/
-
                   const Spacer(),
-                  //SizedBox(width: 60.w),
-
                   Container(
                     width: 40.w,
                     height: 40.h,

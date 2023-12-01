@@ -19,21 +19,27 @@ mixin _$SettingsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String changeLangTo) changeLanguage,
-    required TResult Function() changeMode,
+    required TResult Function(AppTheme appTheme) changeMode,
+    required TResult Function() boardingScreensWatched,
+    required TResult Function() choosingClassDone,
     required TResult Function() checkOnSettings,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String changeLangTo)? changeLanguage,
-    TResult? Function()? changeMode,
+    TResult? Function(AppTheme appTheme)? changeMode,
+    TResult? Function()? boardingScreensWatched,
+    TResult? Function()? choosingClassDone,
     TResult? Function()? checkOnSettings,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String changeLangTo)? changeLanguage,
-    TResult Function()? changeMode,
+    TResult Function(AppTheme appTheme)? changeMode,
+    TResult Function()? boardingScreensWatched,
+    TResult Function()? choosingClassDone,
     TResult Function()? checkOnSettings,
     required TResult orElse(),
   }) =>
@@ -42,6 +48,9 @@ mixin _$SettingsEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(ChangeLanguage value) changeLanguage,
     required TResult Function(ChangeMode value) changeMode,
+    required TResult Function(BoardingScreensWatched value)
+        boardingScreensWatched,
+    required TResult Function(ChoosingClassDone value) choosingClassDone,
     required TResult Function(CheckOnSettings value) checkOnSettings,
   }) =>
       throw _privateConstructorUsedError;
@@ -49,6 +58,8 @@ mixin _$SettingsEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeLanguage value)? changeLanguage,
     TResult? Function(ChangeMode value)? changeMode,
+    TResult? Function(BoardingScreensWatched value)? boardingScreensWatched,
+    TResult? Function(ChoosingClassDone value)? choosingClassDone,
     TResult? Function(CheckOnSettings value)? checkOnSettings,
   }) =>
       throw _privateConstructorUsedError;
@@ -56,6 +67,8 @@ mixin _$SettingsEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeLanguage value)? changeLanguage,
     TResult Function(ChangeMode value)? changeMode,
+    TResult Function(BoardingScreensWatched value)? boardingScreensWatched,
+    TResult Function(ChoosingClassDone value)? choosingClassDone,
     TResult Function(CheckOnSettings value)? checkOnSettings,
     required TResult orElse(),
   }) =>
@@ -147,7 +160,9 @@ class _$ChangeLanguageImpl implements ChangeLanguage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String changeLangTo) changeLanguage,
-    required TResult Function() changeMode,
+    required TResult Function(AppTheme appTheme) changeMode,
+    required TResult Function() boardingScreensWatched,
+    required TResult Function() choosingClassDone,
     required TResult Function() checkOnSettings,
   }) {
     return changeLanguage(changeLangTo);
@@ -157,7 +172,9 @@ class _$ChangeLanguageImpl implements ChangeLanguage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String changeLangTo)? changeLanguage,
-    TResult? Function()? changeMode,
+    TResult? Function(AppTheme appTheme)? changeMode,
+    TResult? Function()? boardingScreensWatched,
+    TResult? Function()? choosingClassDone,
     TResult? Function()? checkOnSettings,
   }) {
     return changeLanguage?.call(changeLangTo);
@@ -167,7 +184,9 @@ class _$ChangeLanguageImpl implements ChangeLanguage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String changeLangTo)? changeLanguage,
-    TResult Function()? changeMode,
+    TResult Function(AppTheme appTheme)? changeMode,
+    TResult Function()? boardingScreensWatched,
+    TResult Function()? choosingClassDone,
     TResult Function()? checkOnSettings,
     required TResult orElse(),
   }) {
@@ -182,6 +201,9 @@ class _$ChangeLanguageImpl implements ChangeLanguage {
   TResult map<TResult extends Object?>({
     required TResult Function(ChangeLanguage value) changeLanguage,
     required TResult Function(ChangeMode value) changeMode,
+    required TResult Function(BoardingScreensWatched value)
+        boardingScreensWatched,
+    required TResult Function(ChoosingClassDone value) choosingClassDone,
     required TResult Function(CheckOnSettings value) checkOnSettings,
   }) {
     return changeLanguage(this);
@@ -192,6 +214,8 @@ class _$ChangeLanguageImpl implements ChangeLanguage {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeLanguage value)? changeLanguage,
     TResult? Function(ChangeMode value)? changeMode,
+    TResult? Function(BoardingScreensWatched value)? boardingScreensWatched,
+    TResult? Function(ChoosingClassDone value)? choosingClassDone,
     TResult? Function(CheckOnSettings value)? checkOnSettings,
   }) {
     return changeLanguage?.call(this);
@@ -202,6 +226,8 @@ class _$ChangeLanguageImpl implements ChangeLanguage {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeLanguage value)? changeLanguage,
     TResult Function(ChangeMode value)? changeMode,
+    TResult Function(BoardingScreensWatched value)? boardingScreensWatched,
+    TResult Function(ChoosingClassDone value)? choosingClassDone,
     TResult Function(CheckOnSettings value)? checkOnSettings,
     required TResult orElse(),
   }) {
@@ -227,6 +253,8 @@ abstract class _$$ChangeModeImplCopyWith<$Res> {
   factory _$$ChangeModeImplCopyWith(
           _$ChangeModeImpl value, $Res Function(_$ChangeModeImpl) then) =
       __$$ChangeModeImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AppTheme appTheme});
 }
 
 /// @nodoc
@@ -236,57 +264,88 @@ class __$$ChangeModeImplCopyWithImpl<$Res>
   __$$ChangeModeImplCopyWithImpl(
       _$ChangeModeImpl _value, $Res Function(_$ChangeModeImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? appTheme = null,
+  }) {
+    return _then(_$ChangeModeImpl(
+      null == appTheme
+          ? _value.appTheme
+          : appTheme // ignore: cast_nullable_to_non_nullable
+              as AppTheme,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ChangeModeImpl implements ChangeMode {
-  const _$ChangeModeImpl();
+  const _$ChangeModeImpl(this.appTheme);
+
+  @override
+  final AppTheme appTheme;
 
   @override
   String toString() {
-    return 'SettingsEvent.changeMode()';
+    return 'SettingsEvent.changeMode(appTheme: $appTheme)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ChangeModeImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$ChangeModeImpl &&
+            (identical(other.appTheme, appTheme) ||
+                other.appTheme == appTheme));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, appTheme);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ChangeModeImplCopyWith<_$ChangeModeImpl> get copyWith =>
+      __$$ChangeModeImplCopyWithImpl<_$ChangeModeImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String changeLangTo) changeLanguage,
-    required TResult Function() changeMode,
+    required TResult Function(AppTheme appTheme) changeMode,
+    required TResult Function() boardingScreensWatched,
+    required TResult Function() choosingClassDone,
     required TResult Function() checkOnSettings,
   }) {
-    return changeMode();
+    return changeMode(appTheme);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String changeLangTo)? changeLanguage,
-    TResult? Function()? changeMode,
+    TResult? Function(AppTheme appTheme)? changeMode,
+    TResult? Function()? boardingScreensWatched,
+    TResult? Function()? choosingClassDone,
     TResult? Function()? checkOnSettings,
   }) {
-    return changeMode?.call();
+    return changeMode?.call(appTheme);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String changeLangTo)? changeLanguage,
-    TResult Function()? changeMode,
+    TResult Function(AppTheme appTheme)? changeMode,
+    TResult Function()? boardingScreensWatched,
+    TResult Function()? choosingClassDone,
     TResult Function()? checkOnSettings,
     required TResult orElse(),
   }) {
     if (changeMode != null) {
-      return changeMode();
+      return changeMode(appTheme);
     }
     return orElse();
   }
@@ -296,6 +355,9 @@ class _$ChangeModeImpl implements ChangeMode {
   TResult map<TResult extends Object?>({
     required TResult Function(ChangeLanguage value) changeLanguage,
     required TResult Function(ChangeMode value) changeMode,
+    required TResult Function(BoardingScreensWatched value)
+        boardingScreensWatched,
+    required TResult Function(ChoosingClassDone value) choosingClassDone,
     required TResult Function(CheckOnSettings value) checkOnSettings,
   }) {
     return changeMode(this);
@@ -306,6 +368,8 @@ class _$ChangeModeImpl implements ChangeMode {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeLanguage value)? changeLanguage,
     TResult? Function(ChangeMode value)? changeMode,
+    TResult? Function(BoardingScreensWatched value)? boardingScreensWatched,
+    TResult? Function(ChoosingClassDone value)? choosingClassDone,
     TResult? Function(CheckOnSettings value)? checkOnSettings,
   }) {
     return changeMode?.call(this);
@@ -316,6 +380,8 @@ class _$ChangeModeImpl implements ChangeMode {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeLanguage value)? changeLanguage,
     TResult Function(ChangeMode value)? changeMode,
+    TResult Function(BoardingScreensWatched value)? boardingScreensWatched,
+    TResult Function(ChoosingClassDone value)? choosingClassDone,
     TResult Function(CheckOnSettings value)? checkOnSettings,
     required TResult orElse(),
   }) {
@@ -327,7 +393,257 @@ class _$ChangeModeImpl implements ChangeMode {
 }
 
 abstract class ChangeMode implements SettingsEvent {
-  const factory ChangeMode() = _$ChangeModeImpl;
+  const factory ChangeMode(final AppTheme appTheme) = _$ChangeModeImpl;
+
+  AppTheme get appTheme;
+  @JsonKey(ignore: true)
+  _$$ChangeModeImplCopyWith<_$ChangeModeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$BoardingScreensWatchedImplCopyWith<$Res> {
+  factory _$$BoardingScreensWatchedImplCopyWith(
+          _$BoardingScreensWatchedImpl value,
+          $Res Function(_$BoardingScreensWatchedImpl) then) =
+      __$$BoardingScreensWatchedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$BoardingScreensWatchedImplCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$BoardingScreensWatchedImpl>
+    implements _$$BoardingScreensWatchedImplCopyWith<$Res> {
+  __$$BoardingScreensWatchedImplCopyWithImpl(
+      _$BoardingScreensWatchedImpl _value,
+      $Res Function(_$BoardingScreensWatchedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$BoardingScreensWatchedImpl implements BoardingScreensWatched {
+  const _$BoardingScreensWatchedImpl();
+
+  @override
+  String toString() {
+    return 'SettingsEvent.boardingScreensWatched()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BoardingScreensWatchedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String changeLangTo) changeLanguage,
+    required TResult Function(AppTheme appTheme) changeMode,
+    required TResult Function() boardingScreensWatched,
+    required TResult Function() choosingClassDone,
+    required TResult Function() checkOnSettings,
+  }) {
+    return boardingScreensWatched();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String changeLangTo)? changeLanguage,
+    TResult? Function(AppTheme appTheme)? changeMode,
+    TResult? Function()? boardingScreensWatched,
+    TResult? Function()? choosingClassDone,
+    TResult? Function()? checkOnSettings,
+  }) {
+    return boardingScreensWatched?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String changeLangTo)? changeLanguage,
+    TResult Function(AppTheme appTheme)? changeMode,
+    TResult Function()? boardingScreensWatched,
+    TResult Function()? choosingClassDone,
+    TResult Function()? checkOnSettings,
+    required TResult orElse(),
+  }) {
+    if (boardingScreensWatched != null) {
+      return boardingScreensWatched();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeLanguage value) changeLanguage,
+    required TResult Function(ChangeMode value) changeMode,
+    required TResult Function(BoardingScreensWatched value)
+        boardingScreensWatched,
+    required TResult Function(ChoosingClassDone value) choosingClassDone,
+    required TResult Function(CheckOnSettings value) checkOnSettings,
+  }) {
+    return boardingScreensWatched(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeLanguage value)? changeLanguage,
+    TResult? Function(ChangeMode value)? changeMode,
+    TResult? Function(BoardingScreensWatched value)? boardingScreensWatched,
+    TResult? Function(ChoosingClassDone value)? choosingClassDone,
+    TResult? Function(CheckOnSettings value)? checkOnSettings,
+  }) {
+    return boardingScreensWatched?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeLanguage value)? changeLanguage,
+    TResult Function(ChangeMode value)? changeMode,
+    TResult Function(BoardingScreensWatched value)? boardingScreensWatched,
+    TResult Function(ChoosingClassDone value)? choosingClassDone,
+    TResult Function(CheckOnSettings value)? checkOnSettings,
+    required TResult orElse(),
+  }) {
+    if (boardingScreensWatched != null) {
+      return boardingScreensWatched(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class BoardingScreensWatched implements SettingsEvent {
+  const factory BoardingScreensWatched() = _$BoardingScreensWatchedImpl;
+}
+
+/// @nodoc
+abstract class _$$ChoosingClassDoneImplCopyWith<$Res> {
+  factory _$$ChoosingClassDoneImplCopyWith(_$ChoosingClassDoneImpl value,
+          $Res Function(_$ChoosingClassDoneImpl) then) =
+      __$$ChoosingClassDoneImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ChoosingClassDoneImplCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$ChoosingClassDoneImpl>
+    implements _$$ChoosingClassDoneImplCopyWith<$Res> {
+  __$$ChoosingClassDoneImplCopyWithImpl(_$ChoosingClassDoneImpl _value,
+      $Res Function(_$ChoosingClassDoneImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ChoosingClassDoneImpl implements ChoosingClassDone {
+  const _$ChoosingClassDoneImpl();
+
+  @override
+  String toString() {
+    return 'SettingsEvent.choosingClassDone()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ChoosingClassDoneImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String changeLangTo) changeLanguage,
+    required TResult Function(AppTheme appTheme) changeMode,
+    required TResult Function() boardingScreensWatched,
+    required TResult Function() choosingClassDone,
+    required TResult Function() checkOnSettings,
+  }) {
+    return choosingClassDone();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String changeLangTo)? changeLanguage,
+    TResult? Function(AppTheme appTheme)? changeMode,
+    TResult? Function()? boardingScreensWatched,
+    TResult? Function()? choosingClassDone,
+    TResult? Function()? checkOnSettings,
+  }) {
+    return choosingClassDone?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String changeLangTo)? changeLanguage,
+    TResult Function(AppTheme appTheme)? changeMode,
+    TResult Function()? boardingScreensWatched,
+    TResult Function()? choosingClassDone,
+    TResult Function()? checkOnSettings,
+    required TResult orElse(),
+  }) {
+    if (choosingClassDone != null) {
+      return choosingClassDone();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeLanguage value) changeLanguage,
+    required TResult Function(ChangeMode value) changeMode,
+    required TResult Function(BoardingScreensWatched value)
+        boardingScreensWatched,
+    required TResult Function(ChoosingClassDone value) choosingClassDone,
+    required TResult Function(CheckOnSettings value) checkOnSettings,
+  }) {
+    return choosingClassDone(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeLanguage value)? changeLanguage,
+    TResult? Function(ChangeMode value)? changeMode,
+    TResult? Function(BoardingScreensWatched value)? boardingScreensWatched,
+    TResult? Function(ChoosingClassDone value)? choosingClassDone,
+    TResult? Function(CheckOnSettings value)? checkOnSettings,
+  }) {
+    return choosingClassDone?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeLanguage value)? changeLanguage,
+    TResult Function(ChangeMode value)? changeMode,
+    TResult Function(BoardingScreensWatched value)? boardingScreensWatched,
+    TResult Function(ChoosingClassDone value)? choosingClassDone,
+    TResult Function(CheckOnSettings value)? checkOnSettings,
+    required TResult orElse(),
+  }) {
+    if (choosingClassDone != null) {
+      return choosingClassDone(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ChoosingClassDone implements SettingsEvent {
+  const factory ChoosingClassDone() = _$ChoosingClassDoneImpl;
 }
 
 /// @nodoc
@@ -369,7 +685,9 @@ class _$CheckOnSettingsImpl implements CheckOnSettings {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String changeLangTo) changeLanguage,
-    required TResult Function() changeMode,
+    required TResult Function(AppTheme appTheme) changeMode,
+    required TResult Function() boardingScreensWatched,
+    required TResult Function() choosingClassDone,
     required TResult Function() checkOnSettings,
   }) {
     return checkOnSettings();
@@ -379,7 +697,9 @@ class _$CheckOnSettingsImpl implements CheckOnSettings {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String changeLangTo)? changeLanguage,
-    TResult? Function()? changeMode,
+    TResult? Function(AppTheme appTheme)? changeMode,
+    TResult? Function()? boardingScreensWatched,
+    TResult? Function()? choosingClassDone,
     TResult? Function()? checkOnSettings,
   }) {
     return checkOnSettings?.call();
@@ -389,7 +709,9 @@ class _$CheckOnSettingsImpl implements CheckOnSettings {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String changeLangTo)? changeLanguage,
-    TResult Function()? changeMode,
+    TResult Function(AppTheme appTheme)? changeMode,
+    TResult Function()? boardingScreensWatched,
+    TResult Function()? choosingClassDone,
     TResult Function()? checkOnSettings,
     required TResult orElse(),
   }) {
@@ -404,6 +726,9 @@ class _$CheckOnSettingsImpl implements CheckOnSettings {
   TResult map<TResult extends Object?>({
     required TResult Function(ChangeLanguage value) changeLanguage,
     required TResult Function(ChangeMode value) changeMode,
+    required TResult Function(BoardingScreensWatched value)
+        boardingScreensWatched,
+    required TResult Function(ChoosingClassDone value) choosingClassDone,
     required TResult Function(CheckOnSettings value) checkOnSettings,
   }) {
     return checkOnSettings(this);
@@ -414,6 +739,8 @@ class _$CheckOnSettingsImpl implements CheckOnSettings {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeLanguage value)? changeLanguage,
     TResult? Function(ChangeMode value)? changeMode,
+    TResult? Function(BoardingScreensWatched value)? boardingScreensWatched,
+    TResult? Function(ChoosingClassDone value)? choosingClassDone,
     TResult? Function(CheckOnSettings value)? checkOnSettings,
   }) {
     return checkOnSettings?.call(this);
@@ -424,6 +751,8 @@ class _$CheckOnSettingsImpl implements CheckOnSettings {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeLanguage value)? changeLanguage,
     TResult Function(ChangeMode value)? changeMode,
+    TResult Function(BoardingScreensWatched value)? boardingScreensWatched,
+    TResult Function(ChoosingClassDone value)? choosingClassDone,
     TResult Function(CheckOnSettings value)? checkOnSettings,
     required TResult orElse(),
   }) {
@@ -440,10 +769,10 @@ abstract class CheckOnSettings implements SettingsEvent {
 
 /// @nodoc
 mixin _$SettingsState {
-  Mode get mode => throw _privateConstructorUsedError;
+  ThemeData get mode => throw _privateConstructorUsedError;
   Locale get locale => throw _privateConstructorUsedError;
   bool get areBoardingScreensWatched => throw _privateConstructorUsedError;
-  bool get isChoosingClassWatched => throw _privateConstructorUsedError;
+  bool get isChoosingClassDone => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingsStateCopyWith<SettingsState> get copyWith =>
@@ -457,10 +786,10 @@ abstract class $SettingsStateCopyWith<$Res> {
       _$SettingsStateCopyWithImpl<$Res, SettingsState>;
   @useResult
   $Res call(
-      {Mode mode,
+      {ThemeData mode,
       Locale locale,
       bool areBoardingScreensWatched,
-      bool isChoosingClassWatched});
+      bool isChoosingClassDone});
 }
 
 /// @nodoc
@@ -479,13 +808,13 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
     Object? mode = null,
     Object? locale = null,
     Object? areBoardingScreensWatched = null,
-    Object? isChoosingClassWatched = null,
+    Object? isChoosingClassDone = null,
   }) {
     return _then(_value.copyWith(
       mode: null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
-              as Mode,
+              as ThemeData,
       locale: null == locale
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
@@ -494,9 +823,9 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
           ? _value.areBoardingScreensWatched
           : areBoardingScreensWatched // ignore: cast_nullable_to_non_nullable
               as bool,
-      isChoosingClassWatched: null == isChoosingClassWatched
-          ? _value.isChoosingClassWatched
-          : isChoosingClassWatched // ignore: cast_nullable_to_non_nullable
+      isChoosingClassDone: null == isChoosingClassDone
+          ? _value.isChoosingClassDone
+          : isChoosingClassDone // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -511,10 +840,10 @@ abstract class _$$SettingsStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Mode mode,
+      {ThemeData mode,
       Locale locale,
       bool areBoardingScreensWatched,
-      bool isChoosingClassWatched});
+      bool isChoosingClassDone});
 }
 
 /// @nodoc
@@ -531,13 +860,13 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
     Object? mode = null,
     Object? locale = null,
     Object? areBoardingScreensWatched = null,
-    Object? isChoosingClassWatched = null,
+    Object? isChoosingClassDone = null,
   }) {
     return _then(_$SettingsStateImpl(
       mode: null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
-              as Mode,
+              as ThemeData,
       locale: null == locale
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
@@ -546,9 +875,9 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
           ? _value.areBoardingScreensWatched
           : areBoardingScreensWatched // ignore: cast_nullable_to_non_nullable
               as bool,
-      isChoosingClassWatched: null == isChoosingClassWatched
-          ? _value.isChoosingClassWatched
-          : isChoosingClassWatched // ignore: cast_nullable_to_non_nullable
+      isChoosingClassDone: null == isChoosingClassDone
+          ? _value.isChoosingClassDone
+          : isChoosingClassDone // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -561,20 +890,20 @@ class _$SettingsStateImpl implements _SettingsState {
       {required this.mode,
       required this.locale,
       required this.areBoardingScreensWatched,
-      required this.isChoosingClassWatched});
+      required this.isChoosingClassDone});
 
   @override
-  final Mode mode;
+  final ThemeData mode;
   @override
   final Locale locale;
   @override
   final bool areBoardingScreensWatched;
   @override
-  final bool isChoosingClassWatched;
+  final bool isChoosingClassDone;
 
   @override
   String toString() {
-    return 'SettingsState(mode: $mode, locale: $locale, areBoardingScreensWatched: $areBoardingScreensWatched, isChoosingClassWatched: $isChoosingClassWatched)';
+    return 'SettingsState(mode: $mode, locale: $locale, areBoardingScreensWatched: $areBoardingScreensWatched, isChoosingClassDone: $isChoosingClassDone)';
   }
 
   @override
@@ -587,13 +916,13 @@ class _$SettingsStateImpl implements _SettingsState {
             (identical(other.areBoardingScreensWatched,
                     areBoardingScreensWatched) ||
                 other.areBoardingScreensWatched == areBoardingScreensWatched) &&
-            (identical(other.isChoosingClassWatched, isChoosingClassWatched) ||
-                other.isChoosingClassWatched == isChoosingClassWatched));
+            (identical(other.isChoosingClassDone, isChoosingClassDone) ||
+                other.isChoosingClassDone == isChoosingClassDone));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, mode, locale,
-      areBoardingScreensWatched, isChoosingClassWatched);
+      areBoardingScreensWatched, isChoosingClassDone);
 
   @JsonKey(ignore: true)
   @override
@@ -604,19 +933,19 @@ class _$SettingsStateImpl implements _SettingsState {
 
 abstract class _SettingsState implements SettingsState {
   const factory _SettingsState(
-      {required final Mode mode,
+      {required final ThemeData mode,
       required final Locale locale,
       required final bool areBoardingScreensWatched,
-      required final bool isChoosingClassWatched}) = _$SettingsStateImpl;
+      required final bool isChoosingClassDone}) = _$SettingsStateImpl;
 
   @override
-  Mode get mode;
+  ThemeData get mode;
   @override
   Locale get locale;
   @override
   bool get areBoardingScreensWatched;
   @override
-  bool get isChoosingClassWatched;
+  bool get isChoosingClassDone;
   @override
   @JsonKey(ignore: true)
   _$$SettingsStateImplCopyWith<_$SettingsStateImpl> get copyWith =>

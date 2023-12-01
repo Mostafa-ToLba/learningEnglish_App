@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../color_resource/color_resources.dart';
 
+/*
 ThemeData themeData = ThemeData(
   scaffoldBackgroundColor: ColorResources.white1,
-  fontFamily: 'Poppins',
+  fontFamily: 'Roboto',
   primaryColor:ColorResources.primary,
   canvasColor:ColorResources.primary,
   colorScheme: ThemeData().colorScheme.copyWith(primary:
@@ -19,3 +19,22 @@ ThemeData themeData = ThemeData(
     color: ColorResources.white1,
   ),
 );
+
+*/
+enum AppTheme {
+  light,
+  dark,
+}
+
+final appThemeData = {
+  AppTheme.light: ThemeData(
+    brightness: Brightness.light,
+    colorScheme: const ColorScheme.light(),
+    //primaryColor: ColorResources.white1,
+  ),
+  AppTheme.dark: ThemeData(
+    brightness: Brightness.dark,
+    colorScheme: const ColorScheme.dark(),
+    //primaryColor: ColorResources.black,
+  ),
+};

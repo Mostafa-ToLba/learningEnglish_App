@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:learning_anglish_app/blocs/settings_bloc/settings_bloc.dart';
 import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
@@ -136,6 +138,7 @@ class _ChooseClassScreenState extends State<ChooseClassScreen> {
                     ),
                     color: ColorResources.buttonColor,
                     onTap: () {
+                      context.read<SettingsBloc>().add(const SettingsEvent.choosingClassDone());
                       Route route = MaterialPageRoute(
                           builder: (context) => const MainScreen());
                       Navigator.pushReplacement(context, route);
