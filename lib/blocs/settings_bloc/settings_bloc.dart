@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:learning_anglish_app/utils/theme/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 part 'settings_event.dart';
 part 'settings_state.dart';
@@ -49,12 +48,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       );
     });
     on<ChangeMode>((event, emit) {
-      sharedPreferences.setInt(
+      sharedPreferences.setBool(
         modePrefKey,
-        event.appTheme.index,
+        event.appTheme,
       );
       emit(
-        state.copyWith(mode: appThemeData[event.appTheme]!),
+        state.copyWith(mode: event.appTheme),
       );
     });
     on<CheckOnSettings>((event, emit) {
@@ -68,18 +67,16 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         default:
           break;
       }
-      int isModeSet = sharedPreferences.getInt(modePrefKey) ?? 0;
-      AppTheme appTheme = AppTheme.light;
+      //final isModeSet = sharedPreferences.getInt(modePrefKey) ?? 0;
+      // true -> dark
+      // false -> light
+      bool isModeSet = sharedPreferences.getBool(modePrefKey) ?? false;
+      print(isModeSet);
       switch (isModeSet) {
-        case 1:
-          appTheme = AppTheme.dark;
+        case true:
           break;
         default:
-          /*
-          sharedPreferences.setInt('mode',
-              appThemeData.containsValue(state.mode) ? 0 : 1 /*state.mode*/);
-          */
-          sharedPreferences.setInt(modePrefKey, 0);
+          sharedPreferences.setBool(modePrefKey, false);
       }
       final bool choosingClassDone =
           sharedPreferences.getBool(choosingClassDonePrefKey) ?? false;
@@ -89,7 +86,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       emit(
         state.copyWith(
           locale: Locale(isLanguageSet),
-          mode: appThemeData[appTheme]!,
+          //mode: isModeSet == 1 ? true : false,
+          mode: isModeSet,
           areBoardingScreensWatched: boardingScreensWatched,
           isChoosingClassDone: choosingClassDone,
         ),

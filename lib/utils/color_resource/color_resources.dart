@@ -20,6 +20,7 @@ class ColorResources {
 
   static Color get brownLight => const Color(0x7FECDDCC);
   static Color get brownDark => const  Color(0xFF49423A);
+  static Color get drawerBackground => const Color(0xFF443D35);
 
   static Color get grey1 => const Color(0xFFF4F4F4);
   static Color get grey2 => const Color(0xFFA2A2A2);

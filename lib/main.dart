@@ -7,6 +7,7 @@ import 'package:learning_anglish_app/injection.dart';
 import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/onBoarding/onboarding_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/login_screen/login_screen.dart';
+import 'package:learning_anglish_app/utils/theme/theme.dart';
 import 'package:localization/localization.dart';
 
 void main() async {
@@ -75,7 +76,7 @@ class _AppScreenState extends State<AppScreen> {
               showSemanticsDebugger: false,
               //theme: themeData,
               debugShowCheckedModeBanner: false,
-              theme: state.mode,
+              theme: appThemeData[state.mode],
               home: const MainAppWidget(),
             );
           },

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseLesson/choose_lesson_screen.dart';
+import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_with_image_and%20_menu.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
-import 'package:localization/localization.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class HomeView extends StatelessWidget {
@@ -16,47 +16,13 @@ class HomeView extends StatelessWidget {
         padding: EdgeInsets.only(top: 25.h),
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(left: 24.w, right: 24.w),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 20.r,
-                    backgroundImage: const NetworkImage(
-                        'https://images.unsplash.com/photo-1508184964240-ee96bb9677a7?auto=format&fit=crop&q=80&w=1887&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-                  ),
-                  SizedBox(width: 12.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "welcome_back".i18n(),
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontFamily: AppConstants.arabicFont1,
-                            color: ColorResources.appGreyColor,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      Text(
-                        'Mostafa Mahmoud',
-                        style: TextStyle(
-                            fontSize: 16.sp,
-                            fontFamily: AppConstants.arabicFont1,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.menu,
-                      color: Colors.black,
-                      size: 30.h,
-                    ),
-                  ),
-                ],
-              ),
+            CustomAppBarWithImageAndMenu(
+              onMenuPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              imageURL:
+                  'https://images.unsplash.com/photo-1508184964240-ee96bb9677a7?auto=format&fit=crop&q=80&w=1887&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              name: 'Mostafa Mahmoud',
             ),
             SizedBox(height: 16.h),
             SizedBox(height: 16.h),

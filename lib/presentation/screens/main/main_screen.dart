@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_anglish_app/blocs/settings_bloc/settings_bloc.dart';
 import 'package:learning_anglish_app/presentation/screens/main/home_view.dart';
 import 'package:learning_anglish_app/presentation/screens/main/profile_settings_view.dart';
 import 'package:learning_anglish_app/presentation/screens/main/question_bank_view.dart';
+import 'package:learning_anglish_app/presentation/widgets/drawer/app_drawer.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 
 class MainScreen extends StatefulWidget {
@@ -13,6 +16,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey(); // Create a key
+
   int _selectedIndex = 2;
   static const List<Widget> _widgetOptions = <Widget>[
     ProfileSettingsView(),
@@ -28,18 +33,25 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final mode = context.watch<SettingsBloc>().state.mode;
     return Scaffold(
+      key: scaffoldKey,
+      drawerEnableOpenDragGesture: false,
       backgroundColor: ColorResources.grey5,
-      body: SafeArea(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      drawer: AppDrawer(
+        mode: mode,
+        onExitPressed: () {
+          scaffoldKey.currentState!.closeDrawer();
+        },
       ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(56.r)),
         child: BottomNavigationBar(
           showSelectedLabels: false,
           showUnselectedLabels: false,
           elevation: 5,
-          backgroundColor:  ColorResources.white1,
+          backgroundColor: ColorResources.white1,
           unselectedIconTheme: IconThemeData(color: ColorResources.brownDark),
           selectedIconTheme: IconThemeData(color: ColorResources.white1),
           items: <BottomNavigationBarItem>[
