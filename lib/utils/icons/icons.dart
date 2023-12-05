@@ -10,4 +10,8 @@ class IconResources {
 
   static const String arrowRight = 'assets/icons/arrowRight.svg';
   static const String arrowleft = 'assets/icons/back_arrow.svg';
+
+  static const String home = 'assets/icons/home.svg';
+  static const String bank = 'assets/icons/bank.svg';
+  static const String profile = 'assets/icons/profile.svg';
 }

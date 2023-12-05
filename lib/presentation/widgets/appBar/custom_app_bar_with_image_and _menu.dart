@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
+import 'package:learning_anglish_app/utils/images/images.dart';
 import 'package:localization/localization.dart';
 
 class CustomAppBarWithImageAndMenu extends StatelessWidget {
@@ -20,16 +21,18 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
       padding: EdgeInsets.only(left: 24.w, right: 24.w),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 20.r,
-            backgroundImage: NetworkImage(imageURL),
+          IconButton(
+            onPressed: onMenuPressed,
+            icon:  const Image(
+              image: AssetImage(Images.menu1),
+            ),
           ),
-          SizedBox(width: 12.w),
+          const Spacer(),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                "welcome_back".i18n(),
+                'أهلا بك ',
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontFamily: AppConstants.arabicFont1,
@@ -47,15 +50,12 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
               ),
             ],
           ),
-          const Spacer(),
-          IconButton(
-            onPressed: onMenuPressed,
-            icon: Icon(
-              Icons.menu,
-              color: ColorResources.black,
-              size: 30.dg,
-            ),
+          SizedBox(width: 12.w),
+          CircleAvatar(
+            radius: 20.r,
+            backgroundImage: NetworkImage(imageURL),
           ),
+
         ],
       ),
     );
