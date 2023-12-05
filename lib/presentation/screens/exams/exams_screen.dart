@@ -16,7 +16,30 @@ class ExamsScreen extends StatefulWidget {
   State<ExamsScreen> createState() => _ExamsScreenState();
 }
 
-class _ExamsScreenState extends State<ExamsScreen> {
+class _ExamsScreenState extends State<ExamsScreen> with TickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _offsetAnimation;
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(
+          seconds: 2), // Animation duration (2 seconds in this example)
+    );
+
+    _offsetAnimation = Tween<Offset>(
+      begin: const Offset(0.0, 1.0), // Start position (bottom of the screen)
+      end: const Offset(0.0, 0.0), // End position (original position)
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.fastOutSlowIn, // Adjust the curve as needed
+      ),
+    );
+
+    _controller.forward();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -358,7 +381,9 @@ class _ExamsScreenState extends State<ExamsScreen> {
                           ],
                         ),
                         SizedBox(height: 62.h),
-                        CustomButton(
+                        SlideTransition(
+                      position: _offsetAnimation,
+                      child: CustomButton(
                           widgetInCenter: Align(
                             alignment: Alignment.center,
                             child: CustomText(
@@ -374,7 +399,7 @@ class _ExamsScreenState extends State<ExamsScreen> {
                             Navigator.push(context,
                                 SlideTransition1(const ResultsScreen()));
                           },
-                        ),
+                        ),   ),
                       ],
                     ),
                   ),

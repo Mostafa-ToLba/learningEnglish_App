@@ -56,7 +56,7 @@ class _AppScreenState extends State<AppScreen> {
           splitScreenMode: true,
           builder: (BuildContext context, Widget? child) {
             return MaterialApp(
-              locale: context.watch<SettingsBloc>().state.locale,
+              locale: const Locale('ar'),
               localizationsDelegates: [
                 // delegate from flutter_localization
                 GlobalMaterialLocalizations.delegate,
@@ -76,7 +76,9 @@ class _AppScreenState extends State<AppScreen> {
               showSemanticsDebugger: false,
               //theme: themeData,
               debugShowCheckedModeBanner: false,
-              theme: appThemeData[state.mode],
+              theme: state.mode
+                  ? appThemeData[AppTheme.dark]
+                  : appThemeData[AppTheme.light],
               home: const MainAppWidget(),
             );
           },
