@@ -45,7 +45,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorResources.grey5,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w),
@@ -54,29 +54,6 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: 40.w,
-                    height: 40.h,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          width: 1,
-                          color: Colors.black.withOpacity(0.25),
-                        ),
-                        borderRadius: BorderRadius.circular(32),
-                      ),
-                    ),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.arrow_back_ios_new_outlined,
-                        color: ColorResources.brownDark,
-                        size: 20.dm,
-                      ), //circle_chevron_left
-                    ),
-                  ),
                   Row(
                     children: [
                       Column(
@@ -114,6 +91,29 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                       ),
                       //SizedBox(width: 10),
                     ],
+                  ),
+                  Container(
+                    width: 40.w,
+                    height: 40.h,
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 1,
+                          color: Theme.of(context).indicatorColor,
+                        ),
+                        borderRadius: BorderRadius.circular(32.r),
+                      ),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_outlined,
+                        //color: ColorResources.brownDark,
+                        size: 20.dg,
+                      ), //circle_chevron_left
+                    ),
                   ),
                 ],
               ),
@@ -160,7 +160,6 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                   padding: EdgeInsets.all(24.dg),
                   //margin: EdgeInsets.all(24.dg),
                   decoration: ShapeDecoration(
-                    color: ColorResources.white1,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32.r),
                     ),
@@ -169,24 +168,16 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 26.w,
-                        height: 26.h,
-                        decoration: ShapeDecoration(
-                          color: ColorResources.buttonColor,
-                          shape: const OvalBorder(),
-                        ),
-                        child: Center(
-                          child: Icon(
-                            Icons.arrow_back_ios_new_outlined,
-                            size: 16.dm,
-                          ),
-                        ),
-                      ),
-                      Row(
+                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          CircleAvatar(
+                            radius: 32.r,
+                            backgroundImage: const AssetImage(
+                              "assets/images/testYourself.png",
+                            ),
+                          ),
                           Text(
                             "test_yourself".i18n(),
                             textAlign: TextAlign.center,
@@ -201,15 +192,25 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                                   letterSpacing: -0.17.h,
                                 ),
                           ),
-                          CircleAvatar(
-                            radius: 32.r,
-                            backgroundImage: const AssetImage(
-                              "assets/images/testYourself.png",
-                            ),
-                          ),
+                          
                         ],
                       ),
-                    ],
+                    
+                      Container(
+                        width: 26.w,
+                        height: 26.h,
+                        decoration: ShapeDecoration(
+                          color: ColorResources.buttonColor,
+                          shape: const OvalBorder(),
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.arrow_back_ios_new_outlined,
+                            size: 16.dm,
+                          ),
+                        ),
+                      ),
+                     ],
                   ),
                 ),
               ),
@@ -220,7 +221,6 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                 padding: EdgeInsets.all(24.dg),
                 //margin: EdgeInsets.all(24.dg),
                 decoration: ShapeDecoration(
-                  color: ColorResources.white1,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(32.r),
                   ),
@@ -229,6 +229,34 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 32.r,
+                          backgroundImage: const AssetImage(
+                            "assets/images/homework.png",
+                          ),
+                        ),
+                        Text(
+                          "homework".i18n(),
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                fontSize: 16.sp,
+                                //color: Theme.of(context).primaryColor,
+                                // color: ColorResources.black,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: -0.17.h,
+                              ),
+                        ),
+                        
+                      ],
+                    ),
+                  
                     Container(
                       width: 26.w,
                       height: 26.h,
@@ -244,33 +272,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "homework".i18n(),
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                fontSize: 16.sp,
-                                //color: Theme.of(context).primaryColor,
-                                // color: ColorResources.black,
-                                fontWeight: FontWeight.w400,
-                                letterSpacing: -0.17.h,
-                              ),
-                        ),
-                        CircleAvatar(
-                          radius: 32.r,
-                          backgroundImage: const AssetImage(
-                            "assets/images/homework.png",
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                   ],
                 ),
               ),
             ],

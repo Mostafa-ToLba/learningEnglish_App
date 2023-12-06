@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_anglish_app/presentation/screens/exams/exams_screen.dart';
+import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:localization/localization.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -47,6 +49,222 @@ class _PaidLessonScreenState extends State<PaidLessonScreen> {
       ),
       builder: (context, player) {
         return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            'الوحدة الأولى',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 18.sp,
+                                  //color: Theme.of(context).primaryColor,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                          ),
+                          SizedBox(height: 8.h),
+                          Text(
+                            'Getting away',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+                                  //color: Theme.of(context).primaryColor,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                  height: 0.07.h,
+                                ),
+                          ),
+                        ],
+                      ),
+                      //SizedBox(width: 10),
+                    ],
+                  ),
+                  Container(
+                    width: 40.w,
+                    height: 40.h,
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 1,
+                          color: Theme.of(context).indicatorColor,
+                        ),
+                        borderRadius: BorderRadius.circular(32.r),
+                      ),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_outlined,
+                        //color: ColorResources.brownDark,
+                        size: 20.dg,
+                      ), //circle_chevron_left
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 32.h),
+              Container(
+                    width: 327.w,
+                    height: 200.h,
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32),
+                      ),
+                    ),
+                    child: player,
+                  ),SizedBox(height: 16.h),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context, SlideTransition1(const ExamsScreen()));
+                },
+                child: Container(
+                  height: 80.h,
+                  width: double.infinity,
+                  padding: EdgeInsets.all(24.dg),
+                  //margin: EdgeInsets.all(24.dg),
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32.r),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                       Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            radius: 32.r,
+                            backgroundImage: const AssetImage(
+                              "assets/images/testYourself.png",
+                            ),
+                          ),
+                          Text(
+                            "test_yourself".i18n(),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+                                  //color: Theme.of(context).primaryColor,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: -0.17.h,
+                                ),
+                          ),
+                          
+                        ],
+                      ),
+                    
+                      Container(
+                        width: 26.w,
+                        height: 26.h,
+                        decoration: ShapeDecoration(
+                          color: ColorResources.buttonColor,
+                          shape: const OvalBorder(),
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.arrow_back_ios_new_outlined,
+                            size: 16.dm,
+                          ),
+                        ),
+                      ),
+                     ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 16.h),
+              Container(
+                height: 80.h,
+                width: double.infinity,
+                padding: EdgeInsets.all(24.dg),
+                //margin: EdgeInsets.all(24.dg),
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32.r),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 32.r,
+                          backgroundImage: const AssetImage(
+                            "assets/images/homework.png",
+                          ),
+                        ),
+                        Text(
+                          "homework".i18n(),
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                fontSize: 16.sp,
+                                //color: Theme.of(context).primaryColor,
+                                // color: ColorResources.black,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: -0.17.h,
+                              ),
+                        ),
+                        
+                      ],
+                    ),
+                  
+                    Container(
+                      width: 26.w,
+                      height: 26.h,
+                      decoration: ShapeDecoration(
+                        color: ColorResources
+                            .buttonColor, // TODO: Check this color
+                        shape: const OvalBorder(),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          Icons.arrow_back_ios_new_outlined,
+                          size: 16.dm,
+                        ),
+                      ),
+                    ),
+                   ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    /*
+  Scaffold(
           backgroundColor: ColorResources.grey5,
           body: SafeArea(
             child: Padding(
@@ -113,16 +331,7 @@ class _PaidLessonScreenState extends State<PaidLessonScreen> {
                     ],
                   ),
                   SizedBox(height: 32.h),
-                  Container(
-                    width: 327.w,
-                    height: 200.h,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32),
-                      ),
-                    ),
-                    child: player,
-                  ),
+                  
                   SizedBox(height: 16.h),
                   Container(
                     width: 327.w,
@@ -264,7 +473,9 @@ class _PaidLessonScreenState extends State<PaidLessonScreen> {
             ),
           ),
         );
+        */
       },
     );
+
   }
 }

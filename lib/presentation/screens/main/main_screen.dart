@@ -18,11 +18,11 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey(); // Create a key
 
-  int _selectedIndex = 2;
+  int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    ProfileSettingsView(),
-    QuestionBankView(),
     HomeView(),
+    QuestionBankView(),
+    ProfileSettingsView(),
   ];
 
   void _onItemTapped(int index) {
@@ -51,36 +51,13 @@ class _MainScreenState extends State<MainScreen> {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           elevation: 5,
-          backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-          selectedItemColor: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
-          unselectedItemColor: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+          backgroundColor:
+              Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+          selectedItemColor:
+              Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+          unselectedItemColor:
+              Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
           items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.person),
-              label: 'Profile',
-              activeIcon: Container(
-                width: 48.w,
-                height: 48.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40.r),
-                 
-                ),
-                child: const Icon(Icons.person),
-              ),
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.book_online_outlined),
-              label: 'Questions',
-              activeIcon: Container(
-                width: 48.w,
-                height: 48.h,
-                decoration:  BoxDecoration(
-                  borderRadius: BorderRadius.circular(40.r),
-                  color: ColorResources.brownDark,
-                ),
-                child: const Icon(Icons.book_online_outlined),
-              ),
-            ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.home),
               label: 'Home',
@@ -92,6 +69,32 @@ class _MainScreenState extends State<MainScreen> {
                   color: ColorResources.brownDark,
                 ),
                 child: const Icon(Icons.home),
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.book_online_outlined),
+              label: 'Questions',
+              activeIcon: Container(
+                width: 48.w,
+                height: 48.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40.r),
+                  color: ColorResources.brownDark,
+                ),
+                child: const Icon(Icons.book_online_outlined),
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.person),
+              label: 'Profile',
+              activeIcon: Container(
+                width: 48.w,
+                height: 48.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40.r),
+                  color: ColorResources.brownDark,
+                ),
+                child: const Icon(Icons.person),
               ),
             ),
           ],

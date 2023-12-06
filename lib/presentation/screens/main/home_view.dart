@@ -47,12 +47,22 @@ class HomeView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                       Container(
+                          width: 40.w,
+                          height: 40.h,
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0),
+                            image: const DecorationImage(
+                                image: AssetImage("assets/icons/book.jpg")),
+                          ),
+                        ), 
+                        
                         Column(
                           //mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Getting away الوحدة الأولى',
@@ -82,15 +92,7 @@ class HomeView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Container(
-                          width: 40.w,
-                          height: 40.h,
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0),
-                            image: const DecorationImage(
-                                image: AssetImage("assets/icons/book.jpg")),
-                          ),
-                        ),
+                        
                         // Icon(Icons.book, size: 32.dg, color: ColorResources.blue,),
                       ],
                     ),

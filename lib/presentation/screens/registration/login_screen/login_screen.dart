@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseClass/choose_class_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/forget_password/forget_password.dart';
@@ -217,7 +218,9 @@ class _LoginScreenState extends State<LoginScreen>
                       SizedBox(
                           height: 32.h,
                           width: 32.w,
-                          child: SvgPicture.asset(IconResources.Apple)),
+                          child: FaIcon(FontAwesomeIcons.apple, size: 32.dg,)), 
+                          
+                          //Fa.asset(IconResources.Apple)),
                       SizedBox(width: 24.w),
                       SizedBox(
                           height: 32.h,

@@ -5,9 +5,9 @@ import 'package:learning_anglish_app/presentation/widgets/button/custom_button.d
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
-import 'package:localization/localization.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localization/localization.dart';
 
 class ExamsScreen extends StatefulWidget {
   const ExamsScreen({super.key});
@@ -43,9 +43,15 @@ class _ExamsScreenState extends State<ExamsScreen>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorResources.grey5,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(top: 32.h, left: 8.w, right: 8.w),
@@ -54,7 +60,31 @@ class _ExamsScreenState extends State<ExamsScreen>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(width: 16.w),
+                  SizedBox(width: 30.w),
+                  const Spacer(),
+                  Column(
+                    children: [
+                      Text(
+                        'Exams',
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 22.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                      ),
+                      SizedBox(height: 22.h),
+                      Text(
+                        'Unit 1/ Lesson 1',
+                        textAlign: TextAlign.justify,
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
                   Container(
                     width: 40.w,
                     height: 40.h,
@@ -62,66 +92,29 @@ class _ExamsScreenState extends State<ExamsScreen>
                       shape: RoundedRectangleBorder(
                         side: BorderSide(
                           width: 1,
-                          color: Colors.black.withOpacity(0.25),
+                          color: Theme.of(context)
+                              .indicatorColor
+                              .withOpacity(0.25),
                         ),
-                        borderRadius: BorderRadius.circular(32),
+                        borderRadius: BorderRadius.circular(32.r),
                       ),
                     ),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       icon: Icon(
                         Icons.arrow_back_ios_new_outlined,
-                        color: ColorResources.brownDark,
-                        size: 20.dm,
+                        size: 20.dg,
                       ), //circle_chevron_left
                     ),
                   ),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            'Exams',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                  fontSize: 22.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                          SizedBox(height: 22.h),
-                          Text(
-                            'Unit 1/ Lesson 1',
-                            textAlign: TextAlign.justify,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  SizedBox(width: 30.w),
+                  SizedBox(width: 16.w),
                 ],
               ),
               SizedBox(height: 32.h),
               Row(
-                children: [
-                  LinearPercentIndicator(
-                    isRTL: true,
-                    width: 305.w,
-                    lineHeight: 8.0,
-                    percent: 0.9,
-                    progressColor: ColorResources.black,
-                  ),
-                  Text(
+                children: [Text(
                     '10/10',
                     textAlign: TextAlign.justify,
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
@@ -130,6 +123,16 @@ class _ExamsScreenState extends State<ExamsScreen>
                           height: 0.16.h,
                         ),
                   ),
+                  LinearPercentIndicator(
+                    isRTL: true,
+                    width: 285.w,
+                    lineHeight: 8.0,
+                    percent: 0.9,
+                    backgroundColor:
+                        Theme.of(context).colorScheme.inverseSurface,
+                    progressColor: ColorResources.brownDark,
+                  ),
+                  
                 ],
               ),
               SizedBox(height: 45.h),
@@ -137,7 +140,6 @@ class _ExamsScreenState extends State<ExamsScreen>
                 child: SingleChildScrollView(
                   child: Container(
                     decoration: ShapeDecoration(
-                      color: ColorResources.white1,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(56.r),
                       ),
@@ -155,43 +157,11 @@ class _ExamsScreenState extends State<ExamsScreen>
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                width: 32.w,
-                                height: 32.h,
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                clipBehavior: Clip.antiAlias,
-                                decoration: ShapeDecoration(
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      color: ColorResources.red,
-                                    ),
-                                    borderRadius: BorderRadius.circular(50.dg),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '1',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.copyWith(
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
                               Expanded(
                                 child: Text(
                                   '  the question thar is shown to students and it is a multi line based on the length of the question and to make sure that srolling is working fine',
                                   //textAlign: TextAlign.justify,
+                                  textAlign: TextAlign.end,
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium
@@ -199,6 +169,37 @@ class _ExamsScreenState extends State<ExamsScreen>
                                         fontSize: 18.sp,
                                         fontWeight: FontWeight.w400,
                                       ),
+                                ),
+                              ),
+                              SizedBox(width: 8.w),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10.h, horizontal: 10.w),
+                                decoration: ShapeDecoration(
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                      width: 1,
+                                      color: ColorResources.red,
+                                    ),
+                                    borderRadius: BorderRadius.circular(50.r),
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '100',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(
+                                            fontSize: 16.sp,
+                                            fontFamily: "Inter",
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -223,26 +224,24 @@ class _ExamsScreenState extends State<ExamsScreen>
                             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Expanded(
-                                child: Text(
-                                  'A. Answer One. this is anithe text to make sure it is visable in the entire container',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .primaryColor
-                                            .withOpacity(0.75),
-                                        fontSize: 17.sp,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                ),
-                              ),
-                              SizedBox(width: 20.w),
                               FaIcon(
                                 FontAwesomeIcons.circleDot,
                                 color: ColorResources.brownDark,
                                 size: 20.dg,
+                              ),
+                              SizedBox(width: 20.w),
+                              Expanded(
+                                child: Text(
+                                  'A. Answer One. this is anithe text to make sure it is visable in the entire container',
+                                  textAlign: TextAlign.end,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        fontSize: 17.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                ),
                               ),
                             ],
                           ),
@@ -270,9 +269,16 @@ class _ExamsScreenState extends State<ExamsScreen>
                             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              Icon(
+                                Icons.check_circle_outline_rounded,
+                                color: ColorResources.greenDark,
+                                size: 20.dg,
+                              ),
+                              SizedBox(width: 20.w),
                               Expanded(
                                 child: Text(
                                   'B. Answer Two',
+                                  textAlign: TextAlign.end,
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium
@@ -282,12 +288,6 @@ class _ExamsScreenState extends State<ExamsScreen>
                                         fontWeight: FontWeight.w600,
                                       ),
                                 ),
-                              ),
-                              SizedBox(width: 20.w),
-                              Icon(
-                                Icons.check_circle_outline_rounded,
-                                color: ColorResources.greenDark,
-                                size: 20.dg,
                               ),
                             ],
                           ),
@@ -313,9 +313,16 @@ class _ExamsScreenState extends State<ExamsScreen>
                             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              FaIcon(
+                                FontAwesomeIcons.circleXmark,
+                                color: ColorResources.redDark,
+                                size: 20.dg,
+                              ),
+                              SizedBox(width: 20.w),
                               Expanded(
                                 child: Text(
                                   'C. Answer Three',
+                                  textAlign: TextAlign.end,
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium
@@ -325,12 +332,6 @@ class _ExamsScreenState extends State<ExamsScreen>
                                         fontWeight: FontWeight.w600,
                                       ),
                                 ),
-                              ),
-                              SizedBox(width: 20.w),
-                              FaIcon(
-                                FontAwesomeIcons.circleXmark,
-                                color: ColorResources.redDark,
-                                size: 20.dg,
                               ),
                             ],
                           ),
@@ -357,9 +358,16 @@ class _ExamsScreenState extends State<ExamsScreen>
                             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              FaIcon(
+                                FontAwesomeIcons.circleDot,
+                                color: ColorResources.brownDark,
+                                size: 20.dg,
+                              ),
+                              SizedBox(width: 20.w),
                               Expanded(
                                 child: Text(
                                   'D. Answer Four',
+                                  textAlign: TextAlign.end,
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium
@@ -370,21 +378,29 @@ class _ExamsScreenState extends State<ExamsScreen>
                                       ),
                                 ),
                               ),
-                              SizedBox(width: 20.w),
-                              FaIcon(
-                                FontAwesomeIcons.circleDot,
-                                color: ColorResources.brownDark,
-                                size: 20.dg,
-                              ),
                             ],
                           ),
                         ),
+                        /*
+fontSize: 16,
+fontFamily: 'Roboto',
+fontWeight: FontWeight.w500,
+                        */
 
                         SizedBox(height: 32.h),
                         ExpansionTile(
                           title: Align(
                             alignment: Alignment.centerRight,
-                            child: Text("explanation".i18n()),
+                            child: Text(
+                              "explanation".i18n(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
                           ),
                           controlAffinity: ListTileControlAffinity.trailing,
                           children: const <Widget>[
@@ -414,6 +430,8 @@ class _ExamsScreenState extends State<ExamsScreen>
                             },
                           ),
                         ),
+
+                        SizedBox(height: 24.h),
                       ],
                     ),
                   ),
