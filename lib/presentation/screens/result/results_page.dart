@@ -105,21 +105,31 @@ class _ResultsScreenState extends State<ResultsScreen>
                         children: [
                           Text(
                             "70.0%",
-                            style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 32.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w900,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 32.sp,
+
+                                  //color: Theme.of(context).primaryColor,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w900,
+                                ),
                           ),
                           Text(
                             '10 of 10',
-                            style: TextStyle(
-                              color: ColorResources.black.withOpacity(0.5),
-                              fontSize: 16.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+
+                                  color: Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(0.5),
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
                           ),
                         ],
                       ),
@@ -129,22 +139,29 @@ class _ResultsScreenState extends State<ResultsScreen>
                     SizedBox(height: 85.h),
                     Text(
                       'results_perfect_title'.i18n(),
-                      style: TextStyle(
-                        color: ColorResources.black,
-                        fontSize: 22.sp,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 22.sp,
+
+                                //color: Theme.of(context).primaryColor.withOpacity(0.5),
+                                // color: ColorResources.black,
+                                fontWeight: FontWeight.w400,
+                              ),
                     ),
                     SizedBox(height: 16.h),
                     Text(
                       'results_perfect_subtitle'.i18n(),
-                      style: TextStyle(
-                        color: ColorResources.black.withOpacity(0.5),
-                        fontSize: 16.sp,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                            fontSize: 16.sp,
+
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(0.5),
+                            // color: ColorResources.black,
+                            fontWeight: FontWeight.w400,
+                          ),
                     ),
                     SizedBox(height: 40.h),
                     SlideTransition(
@@ -167,22 +184,27 @@ class _ResultsScreenState extends State<ResultsScreen>
                       ),
                     ),
                     SizedBox(height: 4.h),
-                TextButton(
-                  child: Text(
-                    "try_again".i18n(),
-                    textAlign: TextAlign.justify,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w400,
-                      height: 0.12,
+                    TextButton(
+                      child: Text(
+                        "try_again".i18n(),
+                        textAlign: TextAlign.justify,
+                        style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                            fontSize: 16.sp,
+
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(0.5),
+                            // color: ColorResources.black,
+                            fontWeight: FontWeight.w400,
+                             height: 0.12.h,
+                          ),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
                   ],
                 ),
               )

@@ -84,23 +84,27 @@ class _PaidLessonScreenState extends State<PaidLessonScreen> {
                               Text(
                                 'الوحدة الاولى : Getting away',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: ColorResources.black,
-                                  fontSize: 18,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w400,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                      fontSize: 18.sp,
+                                      color: ColorResources.red,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                               ),
                               Text(
                                 'الحصة الاولى',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: ColorResources.primary,
-                                  fontSize: 16,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0.07,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                      fontSize: 16.sp,
+                                      //color: Theme.of(context).primaryColor,
+                                      fontWeight: FontWeight.w400,
+                                      height: 0.07.h,
+                                    ),
                               ),
                             ],
                           ),
@@ -164,14 +168,17 @@ class _PaidLessonScreenState extends State<PaidLessonScreen> {
                             Text(
                               "test_yourself".i18n(),
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: ColorResources.black,
-                                fontSize: 16,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w400,
-                                height: 0.07,
-                                letterSpacing: -0.17,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontSize: 16.sp,
+                                    //color: Theme.of(context).primaryColor,
+                                    // color: ColorResources.black,
+                                    fontWeight: FontWeight.w400,
+                                    height: 0.07.h,
+                                    letterSpacing: -0.17.h,
+                                  ),
                             ),
                             CircleAvatar(
                               radius: 32.r,
@@ -229,14 +236,17 @@ class _PaidLessonScreenState extends State<PaidLessonScreen> {
                             Text(
                               "homework".i18n(),
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: ColorResources.black,
-                                fontSize: 16,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w400,
-                                height: 0.07,
-                                letterSpacing: -0.17,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontSize: 16.sp,
+                                    //color: Theme.of(context).primaryColor,
+                                    // color: ColorResources.black,
+                                    fontWeight: FontWeight.w400,
+                                    height: 0.07.h,
+                                    letterSpacing: -0.17.h,
+                                  ),
                             ),
                             CircleAvatar(
                               radius: 32.r,

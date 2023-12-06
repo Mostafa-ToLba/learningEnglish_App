@@ -53,6 +53,7 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding:
@@ -92,20 +93,17 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
                   SizedBox(height: 30.h),
                   Text(
                     "verification_code".i18n(),
-                    style: TextStyle(
-                        fontSize: 20.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 20.sp, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 8.h,
                   ),
                   Text(
                     "verification_screen_subtitle".i18n(),
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        color: ColorResources.appGreyColor),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 15.sp,
+                        ),
                   ),
                   SizedBox(height: 64.h),
                   PinCodeTextField(

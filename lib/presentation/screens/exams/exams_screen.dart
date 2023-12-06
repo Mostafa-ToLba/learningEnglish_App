@@ -16,7 +16,8 @@ class ExamsScreen extends StatefulWidget {
   State<ExamsScreen> createState() => _ExamsScreenState();
 }
 
-class _ExamsScreenState extends State<ExamsScreen> with TickerProviderStateMixin {
+class _ExamsScreenState extends State<ExamsScreen>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   @override
@@ -40,6 +41,7 @@ class _ExamsScreenState extends State<ExamsScreen> with TickerProviderStateMixin
 
     _controller.forward();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,23 +83,25 @@ class _ExamsScreenState extends State<ExamsScreen> with TickerProviderStateMixin
                         children: [
                           Text(
                             'Exams',
-                            style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 22.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 22.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
                           ),
                           SizedBox(height: 22.h),
                           Text(
                             'Unit 1/ Lesson 1',
                             textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              color: ColorResources.appGreyColor,
-                              fontSize: 14.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w700,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w700,
+                                ),
                           ),
                         ],
                       ),
@@ -120,13 +124,11 @@ class _ExamsScreenState extends State<ExamsScreen> with TickerProviderStateMixin
                   Text(
                     '10/10',
                     textAlign: TextAlign.justify,
-                    style: TextStyle(
-                      color: ColorResources.black,
-                      fontSize: 14,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w400,
-                      height: 0.16,
-                    ),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          height: 0.16.h,
+                        ),
                   ),
                 ],
               ),
@@ -141,7 +143,8 @@ class _ExamsScreenState extends State<ExamsScreen> with TickerProviderStateMixin
                       ),
                     ),
                     //padding: const EdgeInsets.all(8.0),
-                    margin: EdgeInsets.only(right: 8.w, left: 8.w),//, top: 45.h),
+                    margin:
+                        EdgeInsets.only(right: 8.w, left: 8.w), //, top: 45.h),
                     padding:
                         EdgeInsets.only(right: 24.w, left: 24.w, top: 24.h),
                     child: Column(
@@ -174,12 +177,13 @@ class _ExamsScreenState extends State<ExamsScreen> with TickerProviderStateMixin
                                   children: [
                                     Text(
                                       '1',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 10.sp,
-                                        //fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(
+                                            fontSize: 10.sp,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -188,12 +192,13 @@ class _ExamsScreenState extends State<ExamsScreen> with TickerProviderStateMixin
                                 child: Text(
                                   '  the question thar is shown to students and it is a multi line based on the length of the question and to make sure that srolling is working fine',
                                   //textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                    color: ColorResources.black,
-                                    fontSize: 18.sp,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        fontSize: 18.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                 ),
                               ),
                             ],
@@ -221,14 +226,16 @@ class _ExamsScreenState extends State<ExamsScreen> with TickerProviderStateMixin
                               Expanded(
                                 child: Text(
                                   'A. Answer One. this is anithe text to make sure it is visable in the entire container',
-                                  style: TextStyle(
-                                    //overflow: TextOverflow.,
-                                    color:
-                                        ColorResources.black.withOpacity(0.75),
-                                    fontSize: 17.sp,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .primaryColor
+                                            .withOpacity(0.75),
+                                        fontSize: 17.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                 ),
                               ),
                               SizedBox(width: 20.w),
@@ -266,12 +273,14 @@ class _ExamsScreenState extends State<ExamsScreen> with TickerProviderStateMixin
                               Expanded(
                                 child: Text(
                                   'B. Answer Two',
-                                  style: TextStyle(
-                                    color: ColorResources.greenDark,
-                                    fontSize: 17.sp,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        color: ColorResources.greenDark,
+                                        fontSize: 17.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                 ),
                               ),
                               SizedBox(width: 20.w),
@@ -307,12 +316,14 @@ class _ExamsScreenState extends State<ExamsScreen> with TickerProviderStateMixin
                               Expanded(
                                 child: Text(
                                   'C. Answer Three',
-                                  style: TextStyle(
-                                    color: ColorResources.redDark,
-                                    fontSize: 17,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        color: ColorResources.redDark,
+                                        fontSize: 17.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                 ),
                               ),
                               SizedBox(width: 20.w),
@@ -349,12 +360,14 @@ class _ExamsScreenState extends State<ExamsScreen> with TickerProviderStateMixin
                               Expanded(
                                 child: Text(
                                   'D. Answer Four',
-                                  style: TextStyle(
-                                    color: ColorResources.brownDark,
-                                    fontSize: 17.sp,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        color: ColorResources.brownDark,
+                                        fontSize: 17.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                 ),
                               ),
                               SizedBox(width: 20.w),
@@ -382,24 +395,25 @@ class _ExamsScreenState extends State<ExamsScreen> with TickerProviderStateMixin
                         ),
                         SizedBox(height: 62.h),
                         SlideTransition(
-                      position: _offsetAnimation,
-                      child: CustomButton(
-                          widgetInCenter: Align(
-                            alignment: Alignment.center,
-                            child: CustomText(
-                              text: "continue".i18n(),
-                              textAlign: TextAlign.center,
-                              color: Colors.white,
-                              txtSize: 17.sp,
-                              fontWeight: FontWeight.w600,
+                          position: _offsetAnimation,
+                          child: CustomButton(
+                            widgetInCenter: Align(
+                              alignment: Alignment.center,
+                              child: CustomText(
+                                text: "continue".i18n(),
+                                textAlign: TextAlign.center,
+                                color: Colors.white,
+                                txtSize: 17.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
+                            color: ColorResources.buttonColor,
+                            onTap: () {
+                              Navigator.push(context,
+                                  SlideTransition1(const ResultsScreen()));
+                            },
                           ),
-                          color: ColorResources.buttonColor,
-                          onTap: () {
-                            Navigator.push(context,
-                                SlideTransition1(const ResultsScreen()));
-                          },
-                        ),   ),
+                        ),
                       ],
                     ),
                   ),

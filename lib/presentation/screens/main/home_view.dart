@@ -41,7 +41,7 @@ class HomeView extends StatelessWidget {
                   borderRadius: BorderRadius.all(
                     Radius.circular(32.r),
                   ),
-                  color: ColorResources.white1,
+                  color: Theme.of(context).primaryColor,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,22 +56,29 @@ class HomeView extends StatelessWidget {
                           children: [
                             Text(
                               'Getting away الوحدة الأولى',
-                              style: TextStyle(
-                                color: ColorResources.black,
-                                fontSize: 16.sp,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w400,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontSize: 16.sp,
+                                    //color: Theme.of(context).primaryColor,
+                                    // color: ColorResources.black,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                             ),
                             //SizedBox(height: 4.h),
                             Text(
                               'عدد الدروس : 8',
-                              style: TextStyle(
-                                color: ColorResources.black.withOpacity(0.5),
-                                fontSize: 14.sp,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w400,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontSize: 14.sp,
+                                    //color: Theme.of(context).primaryColor,
+                                    // color: ColorResources.black,
+
+                                    fontWeight: FontWeight.w400,
+                                  ),
                             ),
                           ],
                         ),
@@ -95,13 +102,13 @@ class HomeView extends StatelessWidget {
                           width: 24.w,
                           height: 24.h,
                           margin: EdgeInsets.only(left: 24.w),
-                          decoration: const ShapeDecoration(
-                            color: Color(0xFF49423A),
-                            shape: OvalBorder(),
+                          decoration: ShapeDecoration(
+                            color: ColorResources.brownDark,
+                            shape: const OvalBorder(),
                           ),
                           child: Icon(
                             Icons.keyboard_arrow_left,
-                            color: Colors.white,
+                            color: ColorResources.white1,
                             size: 20.dm,
                           ),
                         ),
@@ -113,17 +120,22 @@ class HomeView extends StatelessWidget {
                               width: 200.w,
                               lineHeight: 8.0,
                               percent: 0.9,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.inverseSurface,
                               progressColor: ColorResources.brownDark,
                             ),
                             Text(
                               '52/%',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: ColorResources.black,
-                                fontSize: 12.sp,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w400,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontSize: 12.sp,
+                                    //color: Theme.of(context).primaryColor,
+                                    // color: ColorResources.black,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                             ),
                           ],
                         ),

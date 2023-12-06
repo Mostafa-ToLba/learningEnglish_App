@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+/*
 class AppConstants {
 
   static const String baseUrl = '';
@@ -9,6 +9,7 @@ class AppConstants {
 
 
 }
+*/
 
 class SlideTransition1 extends PageRouteBuilder {
   final Widget page;

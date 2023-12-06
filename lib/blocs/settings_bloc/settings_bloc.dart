@@ -57,6 +57,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       );
     });
     on<CheckOnSettings>((event, emit) {
+      /*
       String isLanguageSet = sharedPreferences.getString(languagePrefKey) ?? "";
       switch (isLanguageSet) {
         case '':
@@ -71,7 +72,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       // true -> dark
       // false -> light
       bool isModeSet = sharedPreferences.getBool(modePrefKey) ?? false;
-      print(isModeSet);
       switch (isModeSet) {
         case true:
           break;
@@ -92,6 +92,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           isChoosingClassDone: choosingClassDone,
         ),
       );
+    */
     });
+
   }
 }

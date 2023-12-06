@@ -30,24 +30,21 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
             children: [
               Text(
                 "welcome_back".i18n(),
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontFamily: AppConstants.arabicFont1,
-                  color: ColorResources.appGreyColor,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
               ),
               SizedBox(height: 12.h),
               Text(
                 name,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  overflow: TextOverflow.ellipsis,
-                  color: ColorResources.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                  height: 0.07.h,
-                ),
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w400,
+                      height: 0.07.h,
+                    ),
               ),
             ],
           ),
@@ -56,7 +53,7 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
             onPressed: onMenuPressed,
             icon: Icon(
               Icons.menu,
-              color: ColorResources.black,
+              color: Theme.of(context).iconTheme.color,
               size: 30.dg,
             ),
           ),

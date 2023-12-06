@@ -53,6 +53,7 @@ class _NewPasswordDoneScreenState extends State<NewPasswordDoneScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding:
@@ -109,22 +110,23 @@ class _NewPasswordDoneScreenState extends State<NewPasswordDoneScreen>
                   ),
                   Text(
                     "password_confirmation_complete".i18n(),
-                    style: TextStyle(
-                        fontSize: 20.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   SizedBox(
                     height: 8.h,
                   ),
                   Center(
-                      child: Text(
-                    "password_confirmation_screen_subtitle".i18n(),
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        color: ColorResources.appGreyColor),
-                  )),
+                    child: Text(
+                      "password_confirmation_screen_subtitle".i18n(),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 15.sp,
+                              ),
+                    ),
+                  ),
                   SizedBox(height: 32.h),
                   SlideTransition(
                     position: _offsetAnimation,
@@ -134,7 +136,7 @@ class _NewPasswordDoneScreenState extends State<NewPasswordDoneScreen>
                         child: CustomText(
                           text: "sign_in".i18n(),
                           textAlign: TextAlign.center,
-                          color: Colors.white,
+                          color: ColorResources.white1,
                           txtSize: 17.sp,
                           fontWeight: FontWeight.w600,
                         ),

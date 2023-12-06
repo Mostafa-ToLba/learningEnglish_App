@@ -24,20 +24,30 @@ class BuildOnBoarding extends StatelessWidget {
             )),
         Text(
           boarding.title,
-          style: TextStyle(
-              fontSize: 22.sp,
-              fontWeight: FontWeight.bold,
-              color: ColorResources.black,
-              fontFamily: AppConstants.arabicFont2),
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(
+           // color: Colors.white,
+
+                fontSize: 22.sp,
+                fontWeight: FontWeight.bold,
+              ),
         ),
+        SizedBox(height: 8.h),
         Text(
           boarding.text,
           textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w500,
-              color: ColorResources.appGreyColor,
-              fontFamily: AppConstants.arabicFont2),
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                fontFamily: "Inter",
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w400,
+                /*
+                color: Theme.of(context)
+                    .textTheme
+                    .displayMedium!
+                    .color
+                    ?.withOpacity(0.6499999761581421),
+                    */
+   
+              ),
         )
       ],
     );

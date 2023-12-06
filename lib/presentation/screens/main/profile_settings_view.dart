@@ -40,6 +40,11 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
     _controller.forward();
   }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
   bool showPassword = false;
   @override
   Widget build(BuildContext context) {
@@ -62,12 +67,18 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                     alignment: Alignment.centerRight,
                     child: Text(
                       "name".i18n(),
-                      style: TextStyle(
-                        color: ColorResources.profileText,
-                        fontSize: 16.sp,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 16.sp,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium!
+                                    .color
+                                    ?.withOpacity(0.6499999761581421),
+                                //color: Theme.of(context).primaryColor,
+                                // color: ColorResources.black,
+                                fontWeight: FontWeight.w400,
+                              ),
                     ),
                   ),
                   SizedBox(height: 16.h),
@@ -76,7 +87,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                     height: 56.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(32.r),
-                      color: Colors.white,
+                     
                     ),
                     child: TextFormField(
                       textAlign: TextAlign.end,
@@ -96,12 +107,18 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                     alignment: Alignment.centerRight,
                     child: Text(
                       "email".i18n(),
-                      style: TextStyle(
-                        color: ColorResources.profileText,
-                        fontSize: 16.sp,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 16.sp,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium!
+                                    .color
+                                    ?.withOpacity(0.6499999761581421),
+                                //color: Theme.of(context).primaryColor,
+                                // color: ColorResources.black,
+                                fontWeight: FontWeight.w400,
+                              ),
                     ),
                   ),
                   SizedBox(height: 16.h),
@@ -110,7 +127,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                     height: 56.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(32.r),
-                      color: Colors.white,
+                      
                     ),
                     child: TextFormField(
                       textAlign: TextAlign.end,
@@ -130,12 +147,18 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                     alignment: Alignment.centerRight,
                     child: Text(
                       'phone_number'.i18n(),
-                      style: TextStyle(
-                        color: ColorResources.profileText,
-                        fontSize: 16.sp,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 16.sp,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium!
+                                    .color
+                                    ?.withOpacity(0.6499999761581421),
+                                //color: Theme.of(context).primaryColor,
+                                // color: ColorResources.black,
+                                fontWeight: FontWeight.w400,
+                              ),
                     ),
                   ),
                   SizedBox(height: 16.h),
@@ -144,7 +167,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                     height: 56.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(32.r),
-                      color: Colors.white,
+                      
                     ),
                     child: IntlPhoneField(
                       disableLengthCheck: true,
@@ -165,12 +188,18 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                     alignment: Alignment.centerRight,
                     child: Text(
                       "parent_phone_number".i18n(),
-                      style: TextStyle(
-                        color: ColorResources.profileText,
-                        fontSize: 16.sp,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 16.sp,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium!
+                                    .color
+                                    ?.withOpacity(0.6499999761581421),
+                                //color: Theme.of(context).primaryColor,
+                                // color: ColorResources.black,
+                                fontWeight: FontWeight.w400,
+                              ),
                     ),
                   ),
                   SizedBox(height: 16.h),
@@ -179,7 +208,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                     height: 56.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(32.r),
-                      color: Colors.white,
+                     
                     ),
                     child: IntlPhoneField(
                       disableLengthCheck: true,
@@ -301,12 +330,14 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                         Text(
                           "log_out".i18n(),
                           //textAlign: TextAlign.justify,
-                          style: TextStyle(
-                            color: ColorResources.red,
-                            fontSize: 16.sp,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w400,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                fontSize: 16.sp,
+                                color: ColorResources.red,
+                                fontWeight: FontWeight.w400,
+                              ),
                         ),
                         Icon(
                           Icons.logout,
@@ -354,11 +385,13 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
           labelText: labelText,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           hintText: placeholder,
-          hintStyle: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
+          hintStyle: Theme.of(context).textTheme.displayMedium?.copyWith(
+                fontSize: 16.sp,
+                color: Theme.of(context).textTheme.displayMedium!.color?.withOpacity(0.6499999761581421),
+                //color: Theme.of(context).primaryColor,
+                // color: ColorResources.black,
+                fontWeight: FontWeight.bold,
+              ),
         ),
       ),
     );

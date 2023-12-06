@@ -37,7 +37,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       key: scaffoldKey,
       drawerEnableOpenDragGesture: false,
-      backgroundColor: ColorResources.grey5,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       drawer: AppDrawer(
         mode: mode,
         onExitPressed: () {
@@ -51,9 +51,9 @@ class _MainScreenState extends State<MainScreen> {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           elevation: 5,
-          backgroundColor: ColorResources.white1,
-          unselectedIconTheme: IconThemeData(color: ColorResources.brownDark),
-          selectedIconTheme: IconThemeData(color: ColorResources.white1),
+          backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+          selectedItemColor: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+          unselectedItemColor: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: const Icon(Icons.person),
@@ -63,7 +63,7 @@ class _MainScreenState extends State<MainScreen> {
                 height: 48.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40.r),
-                  color: ColorResources.brownDark,
+                 
                 ),
                 child: const Icon(Icons.person),
               ),
@@ -74,7 +74,7 @@ class _MainScreenState extends State<MainScreen> {
               activeIcon: Container(
                 width: 48.w,
                 height: 48.h,
-                decoration: BoxDecoration(
+                decoration:  BoxDecoration(
                   borderRadius: BorderRadius.circular(40.r),
                   color: ColorResources.brownDark,
                 ),

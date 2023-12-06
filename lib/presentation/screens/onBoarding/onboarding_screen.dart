@@ -41,70 +41,86 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: ColorResources.grey5,
-        body: Column(
-          children: [
-            Expanded(
-              child: Container(
-                height: 375.h,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(65.r),
-                    bottomLeft: Radius.circular(65.r),
-                  ),
-                ),
-                child: PageView.builder(
-                  //reverse: true,
-                  controller: controller,
-                  itemBuilder: (context, index) =>
-                      BuildOnBoarding(boarding: boarding[index]),
-                  itemCount: boarding.length,
-                  onPageChanged: (index) {
-                    if (index == boarding.length - 1) {
-                      isLast = true;
-                    } else {
-                      isLast = false;
-                    }
-                  },
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              height: 375.h,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(65.r),
+                  bottomLeft: Radius.circular(65.r),
                 ),
               ),
+              child: PageView.builder(
+                //reverse: true,
+                controller: controller,
+                itemBuilder: (context, index) =>
+                    BuildOnBoarding(boarding: boarding[index]),
+                itemCount: boarding.length,
+                onPageChanged: (index) {
+                  if (index == boarding.length - 1) {
+                    isLast = true;
+                  } else {
+                    isLast = false;
+                  }
+                },
+              ),
             ),
-            SizedBox(
-              height: 200.h,
-              width: double.infinity,
-              child: Padding(
-                padding: EdgeInsets.only(top: 20.h),
-                child: Column(
-                  children: [
-                    SmoothPageIndicator(
-                      controller: controller,
-                      count: boarding.length,
-                      effect: ExpandingDotsEffect(
-                        activeDotColor: ColorResources.black,
-                        dotColor: ColorResources.grey4,
-                        dotHeight: 6.h,
-                        dotWidth: 7.w,
-                      ),
+          ),
+          SizedBox(
+            height: 200.h,
+            width: double.infinity,
+            child: Padding(
+              padding: EdgeInsets.only(top: 20.h),
+              child: Column(
+                children: [
+                  SmoothPageIndicator(
+                    controller: controller,
+                    count: boarding.length,
+                    effect: ExpandingDotsEffect(
+                      activeDotColor: Theme.of(context).indicatorColor,
+                      dotColor: ColorResources.grey4,
+                      dotHeight: 6.h,
+                      dotWidth: 7.w,
                     ),
-                    SizedBox(height: 30.h),
-                    InkWell(
-                      onTap: () {
-                        if (isLast) {
-                          context.read<SettingsBloc>().add(
-                              const SettingsEvent.boardingScreensWatched());
+                  ),
+                  SizedBox(height: 30.h),
+                  InkWell(
+                    onTap: () {
+                      if (isLast) {
+                        context
+                            .read<SettingsBloc>()
+                            .add(const SettingsEvent.boardingScreensWatched());
 
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
-                              ));
-                        } else {
-                          controller.nextPage(
-                              duration: const Duration(milliseconds: 1000),
-                              curve: Curves.easeInOutCubicEmphasized);
-                        }
-                      },
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ));
+                      } else {
+                        controller.nextPage(
+                            duration: const Duration(milliseconds: 1000),
+                            curve: Curves.easeInOutCubicEmphasized);
+                      }
+                    },
+                    child: Container(
+                      width: 56.w,
+                      height: 56.h,
+                      decoration: ShapeDecoration(
+                        color: ColorResources.black,
+                        shape: const OvalBorder(),
+                        shadows: [
+                          BoxShadow(
+                            color: ColorResources.shadow,
+                            blurRadius: 25.r,
+                            offset: const Offset(0, 8),
+                            spreadRadius: -8,
+                          )
+                        ],
+                      ),
                       child: CircleAvatar(
                         backgroundColor: Colors.black,
                         radius: 32.r,
@@ -115,35 +131,44 @@ class OnBoardingScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 15.h),
-                    InkWell(
-                      onTap: () {
-                        //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen(),));
-                        
-                        context.read<SettingsBloc>().add(
-                              const SettingsEvent.boardingScreensWatched());
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "skip".i18n(),
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: AppConstants.arabicFont2,
+                  ),
+                  SizedBox(height: 15.h),
+                  InkWell(
+                    onTap: () {
+                      //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen(),));
+
+                      context
+                          .read<SettingsBloc>()
+                          .add(const SettingsEvent.boardingScreensWatched());
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
                         ),
+                      );
+                    },
+                    child: Text(
+                      "skip".i18n(),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.sp,
+                              ),
+                      /*
+                       TextStyle(
+
+                        color: Colors.black,
+                        
                       ),
+                      */
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }

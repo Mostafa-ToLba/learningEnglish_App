@@ -92,28 +92,27 @@ class _ForgetPasswordState extends State<ForgetPassword>
                   SizedBox(height: 30.h),
                   Text(
                     "forgot_password".i18n(),
-                    style: TextStyle(
-                        fontSize: 20.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   SizedBox(
                     height: 8.h,
                   ),
                   Text(
                     "forgot_password_screen_subtitle".i18n(),
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        color: ColorResources.appGreyColor),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 15.sp,
+                        ),
                   ),
                   SizedBox(height: 64.h),
                   Text(
                     "email".i18n(),
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
                   ),
                   SizedBox(height: 14.h),
                   CustomTextField(

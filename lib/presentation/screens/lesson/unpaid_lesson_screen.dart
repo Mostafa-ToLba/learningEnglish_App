@@ -85,24 +85,30 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                           Text(
                             'الوحدة الأولى',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 18,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 18.sp,
+                                  //color: Theme.of(context).primaryColor,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
                           ),
                           SizedBox(height: 8.h),
                           Text(
                             'Getting away',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: ColorResources.primary,
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              height: 0.07,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+                                  //color: Theme.of(context).primaryColor,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                  height: 0.07.h,
+                                ),
                           ),
                         ],
                       ),
@@ -184,13 +190,16 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                           Text(
                             "test_yourself".i18n(),
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: -0.17,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+                                  //color: Theme.of(context).primaryColor,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: -0.17.h,
+                                ),
                           ),
                           CircleAvatar(
                             radius: 32.r,
@@ -242,13 +251,16 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                         Text(
                           "homework".i18n(),
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: ColorResources.black,
-                            fontSize: 16,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: -0.17,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                fontSize: 16.sp,
+                                //color: Theme.of(context).primaryColor,
+                                // color: ColorResources.black,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: -0.17.h,
+                              ),
                         ),
                         CircleAvatar(
                           radius: 32.r,

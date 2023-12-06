@@ -35,7 +35,7 @@ class QuestionBankView extends StatelessWidget {
                     width: MediaQuery.sizeOf(context).width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(32.r),
-                      color: ColorResources.white1,
+                  
                     ),
                     child: Column(
                       children: [
@@ -65,12 +65,20 @@ class QuestionBankView extends StatelessWidget {
                                 alignment: Alignment.centerRight,
                                 child: Text(
                                   'الوحدة الثانية: Supporting the community ',
-                                  style: TextStyle(
-                                    color: ColorResources.black,
-                                    fontSize: 16,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        fontSize: 16.sp,
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium!
+                                            .color
+                                            ?.withOpacity(0.6499999761581421),
+                                        //color: Theme.of(context).primaryColor,
+                                        // color: ColorResources.black,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                 ),
                               ),
                               controlAffinity: ListTileControlAffinity.leading,

@@ -78,23 +78,20 @@ class _CodeEntranceScreenState extends State<CodeEntranceScreen>
                 SizedBox(height: 24.h),
                 Text(
                   "enter_unit_code".i18n(),
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.sp,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w400,
-                  ),
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
                 ),
                 SizedBox(height: 15.h),
                 Text(
                   "enter_unit_code_subtitle".i18n(),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black.withOpacity(0.5),
-                    fontSize: 14.sp,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w400,
-                  ),
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Theme.of(context).primaryColor.withOpacity(0.5),
+                      ),
                 ),
                 SizedBox(height: 24.h),
                 Container(
@@ -111,12 +108,12 @@ class _CodeEntranceScreenState extends State<CodeEntranceScreen>
                   ),
                   child: TextFormField(
                     textAlign: TextAlign.end,
-                    style: TextStyle(
-                      color: Colors.black.withOpacity(0.5),
-                      fontSize: 14.sp,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          color:
+                              Theme.of(context).primaryColor.withOpacity(0.5),
+                        ),
                     decoration: InputDecoration(
                       hintText: "enter_code".i18n(),
                       contentPadding: EdgeInsets.symmetric(
@@ -190,13 +187,11 @@ class _CodeEntranceScreenState extends State<CodeEntranceScreen>
                   child: Text(
                     "go_back".i18n(),
                     textAlign: TextAlign.justify,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w400,
-                      height: 0.12,
-                    ),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w400,
+                          height: 0.12.h,
+                        ),
                   ),
                   onPressed: () {
                     Navigator.pop(context);

@@ -18,24 +18,23 @@ class CustomAppBarWithMenu extends StatelessWidget {
       padding: EdgeInsets.only(left: 24.w, right: 24.w),
       child: Row(
         children: [
+          Text(
+            //'بنك الأسئلة',
+            text,
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                  fontSize: 18.sp,
+                 // color: ColorResources.black,
+                  fontWeight: FontWeight.w400,
+                ),
+          ),
+          const Spacer(),
           IconButton(
             onPressed: onIconPressed,
             icon: Icon(
               //Icons.menu,
               icon,
-              color: ColorResources.black,
+              color: Theme.of(context).primaryIconTheme.color,
               size: 30.h,
-            ),
-          ),
-          const Spacer(),
-          Text(
-            //'بنك الأسئلة',
-            text,
-            style: TextStyle(
-              color: ColorResources.black,
-              fontSize: 18.sp,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w400,
             ),
           ),
         ],

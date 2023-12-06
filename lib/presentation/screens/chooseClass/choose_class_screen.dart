@@ -45,6 +45,12 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
     _controller.forward();
   }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   int selectedIndex = 0;
   List<String> classList = [
@@ -61,10 +67,10 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
     */
     return Scaffold(
       key: _key,
-      backgroundColor: ColorResources.grey5,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       drawer: AppDrawer(
         mode: mode,
-        onExitPressed: () => Scaffold.of(context).openDrawer(),
+        onExitPressed: () => _key.currentState!.closeDrawer(),
       ),
       body: SafeArea(
           child: Padding(
@@ -82,7 +88,7 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
             const Spacer(),
             Container(
               decoration: BoxDecoration(
-                color: ColorResources.white1,
+                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(56.r),
                   topRight: Radius.circular(56.r),
@@ -96,11 +102,8 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
                 children: [
                   Text(
                     "choose_class".i18n(),
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        color: ColorResources.black,
-                        fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 16.sp, fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 40.h),
                   SizedBox(
@@ -123,6 +126,7 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
                               duration: const Duration(milliseconds: 2500),
                               child: classContainer(
                                 classList[index],
+                                context,
                                 isChosen: selectedIndex == index,
                               ),
                             ),
@@ -169,14 +173,16 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
   }
 }
 
-Widget classContainer(classList, {bool isChosen = false}) => Container(
+Widget classContainer(String classList, BuildContext context,
+        {bool isChosen = false}) =>
+    Container(
       height: 56.h,
       width: 1.sw,
       padding: EdgeInsets.only(right: 24.w, left: 24.w),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.r),
           border: Border.all(
-            color: isChosen ? Colors.green : Colors.black,
+            color: isChosen ? Colors.green : Theme.of(context).indicatorColor,
             width: isChosen ? 2.w : .3.w,
           )),
       child: Row(
@@ -184,11 +190,10 @@ Widget classContainer(classList, {bool isChosen = false}) => Container(
         children: [
           Text(
             classList,
-            style: TextStyle(
-                fontSize: 16.sp,
-                fontFamily: AppConstants.arabicFont1,
-                color: ColorResources.black,
-                fontWeight: FontWeight.w500),
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                ),
           ),
           const Spacer(),
           Container(
@@ -197,9 +202,14 @@ Widget classContainer(classList, {bool isChosen = false}) => Container(
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                    color: isChosen ? Colors.green : Colors.black, width: 1.w)),
+                    color: isChosen
+                        ? Colors.green
+                        : Theme.of(context).indicatorColor,
+                    width: 1.w)),
             child: Icon(Icons.check,
-                size: 15.h, color: isChosen ? Colors.green : Colors.black),
+                size: 15.h,
+                color:
+                    isChosen ? Colors.green : Theme.of(context).indicatorColor),
           )
         ],
       ),

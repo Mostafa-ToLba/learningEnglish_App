@@ -22,16 +22,17 @@ class CustomText extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Text((text),
-          textAlign: textAlign,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 2,
-          style: TextStyle(
-            color: color,
-            fontSize: txtSize,
-            fontWeight: fontWeight ?? FontWeight.w400,
-            fontFamily: AppConstants.arabicFont1,
-          )),
+      child: Text(
+        (text),
+        textAlign: textAlign,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 2,
+        style: Theme.of(context).textTheme.displayMedium?.copyWith(
+              color: color,
+              fontSize: txtSize,
+              fontWeight: fontWeight ?? FontWeight.w400,
+            ),
+      ),
     );
   }
 }

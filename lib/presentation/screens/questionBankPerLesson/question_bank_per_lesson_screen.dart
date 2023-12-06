@@ -18,7 +18,7 @@ class _QuestionBankPerLessonScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorResources.grey5,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w),
@@ -27,29 +27,6 @@ class _QuestionBankPerLessonScreenState
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: 40.w,
-                    height: 40.h,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          width: 1,
-                          color: Colors.black.withOpacity(0.25),
-                        ),
-                        borderRadius: BorderRadius.circular(32),
-                      ),
-                    ),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.arrow_back_ios_new_outlined,
-                        color: ColorResources.brownDark,
-                        size: 20.dm,
-                      ), //circle_chevron_left
-                    ),
-                  ),
                   Row(
                     children: [
                       Column(
@@ -58,31 +35,56 @@ class _QuestionBankPerLessonScreenState
                           Text(
                             'الوحدة الأولى',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 18,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 18.sp,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
                           ),
                           SizedBox(height: 8.h),
                           Text(
                             'Getting away',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: ColorResources.primary,
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              height: 0.07,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400, height: 0.07.h,
+                                ),
                           ),
                         ],
                       ),
                       //SizedBox(width: 10),
                     ],
                   ),
-                ],
+                
+                  Container(
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 1,
+                          color: Theme.of(context).indicatorColor,
+                        ),
+                        borderRadius: BorderRadius.circular(32.r),
+                      ),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_outlined,
+                        //color: ColorResources.brownDark,
+                        size: 20.dg,
+                      ), //circle_chevron_left
+                    ),
+                  ),
+                  ],
               ),
 
               /*
@@ -123,7 +125,6 @@ class _QuestionBankPerLessonScreenState
                     topLeft: Radius.circular(56.r),
                     topRight: Radius.circular(56.r),
                   ),
-                  color: ColorResources.white1,
                 ),
                 child: Row(
                   children: [
@@ -137,19 +138,24 @@ class _QuestionBankPerLessonScreenState
                           return ChoiceChip(
                             label: Text(
                               list.elementAt(index).i18n(),
-                              style: TextStyle(
-                                color: _value == index
-                                    ? ColorResources.white1
-                                    : ColorResources.black.withOpacity(0.75),
-                                fontSize: 14,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w400,
-                                height: 0.09,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontSize: 14.sp,
+                                    /*
+                                    color: _value == index
+                                        ? ColorResources.white1
+                                        : Theme.of(context).primaryColor
+                                            .withOpacity(0.75),
+                                    */
+                                    // color: ColorResources.black,
+                                    fontWeight: FontWeight.w400, height: 0.09.h,
+                                  ),
                             ),
                             backgroundColor: _value == index
                                 ? ColorResources.brownDark
-                                : ColorResources.white1,
+                                : Theme.of(context).primaryColor,
                             selected: _value == index,
                             onSelected: (bool selected) {
                               setState(() {
@@ -185,35 +191,39 @@ class _QuestionBankPerLessonScreenState
                 child: Container(
                   padding: EdgeInsets.only(right: 24.w, left: 24.w),
                   //margin: EdgeInsets.symmetric(horizontal: 6.w),
-                  color: ColorResources.white1,
                   child: ListView(
                     shrinkWrap: true,
                     children: [
+                      
+                      SizedBox(height: 40.h),
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                child: Text(
-                                  '1-  Last year, when I last met her, she told me she  _____ a letter every day for the last two months.  ',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
                               IconButton(
                                 onPressed: () {},
                                 icon: Icon(
                                   Icons.bookmark,
                                   size: 24.dm,
-                                  color: ColorResources.black,
+                                  //color: ColorResources.black,
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  '1- Last year, when I last met her, she told me she  _____ a letter every day for the last two months.  ',
+                                  textAlign: TextAlign.left,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        fontSize: 16.sp,
+                                        // color: ColorResources.black,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                 ),
                               ),
                             ],
@@ -221,219 +231,59 @@ class _QuestionBankPerLessonScreenState
                           const SizedBox(height: 10),
                           Text(
                             'A. had written',
-                            style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 16.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
+                            textAlign: TextAlign.left,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
                           ),
                           Text(
                             'B. has written',
-                            style: TextStyle(
-                              color: ColorResources.greenDark,
-                              fontSize: 16.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
+                            textAlign: TextAlign.left,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+                                  color: ColorResources.greenDark,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
                           ),
                           Text(
                             'C. wrote',
-                            style: TextStyle(
-                              color: ColorResources.redDark,
-                              fontSize: 16.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
+                            textAlign: TextAlign.left,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+                                  color: ColorResources.redDark,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
                           ),
-                          const Text('D. had been writing'),
+                          Text(
+                            'D. had been writing',
+                            textAlign: TextAlign.left,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                          ),
                         ],
                       ),
                       SizedBox(height: 40.h),
-                    
-                     Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  '1-  Last year, when I last met her, she told me she  _____ a letter every day for the last two months.  ',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.bookmark,
-                                  size: 24.dm,
-                                  color: ColorResources.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'A. had written',
-                            style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 16.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            'B. has written',
-                            style: TextStyle(
-                              color: ColorResources.greenDark,
-                              fontSize: 16.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            'C. wrote',
-                            style: TextStyle(
-                              color: ColorResources.redDark,
-                              fontSize: 16.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          const Text('D. had been writing'),
-                        ],
-                      ),
-                      SizedBox(height: 40.h),
-                       Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  '1-  Last year, when I last met her, she told me she  _____ a letter every day for the last two months.  ',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.bookmark,
-                                  size: 24.dm,
-                                  color: ColorResources.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'A. had written',
-                            style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 16.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            'B. has written',
-                            style: TextStyle(
-                              color: ColorResources.greenDark,
-                              fontSize: 16.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            'C. wrote',
-                            style: TextStyle(
-                              color: ColorResources.redDark,
-                              fontSize: 16.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          const Text('D. had been writing'),
-                        ],
-                      ),
-                      SizedBox(height: 40.h),
-                       Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  '1-  Last year, when I last met her, she told me she  _____ a letter every day for the last two months.  ',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.bookmark,
-                                  size: 24.dm,
-                                  color: ColorResources.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'A. had written',
-                            style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 16.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            'B. has written',
-                            style: TextStyle(
-                              color: ColorResources.greenDark,
-                              fontSize: 16.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            'C. wrote',
-                            style: TextStyle(
-                              color: ColorResources.redDark,
-                              fontSize: 16.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          const Text('D. had been writing'),
-                        ],
-                      ),
-                      SizedBox(height: 40.h),],
+
+                    ],
                   ),
                 ),
               ),
