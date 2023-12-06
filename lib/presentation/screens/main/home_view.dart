@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseLesson/choose_lesson_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_with_image_and%20_menu.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
+import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class HomeView extends StatelessWidget {
@@ -90,30 +92,30 @@ class HomeView extends StatelessWidget {
                    style: TextStyle(
                      color: ColorResources.black,
                      fontSize: 16.sp,
-                     fontFamily: 'Roboto',
+                     fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,
                      fontWeight: FontWeight.w400,
                    ),
                  ),
-                 //SizedBox(height: 4.h),
+                 SizedBox(height: 4.h),
                  Text(
                    'عدد الدروس : 8',
                    style: TextStyle(
                      color: ColorResources.black.withOpacity(0.5),
                      fontSize: 14.sp,
-                     fontFamily: 'Roboto',
+                     fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,
                      fontWeight: FontWeight.w400,
                    ),
                  ),
                ],
              ),
+             SizedBox(width: 10.w,),
              Container(
-               width: 40.w,
-               height: 40.h,
+               width: 28.w,
+               height: 30.h,
                decoration: BoxDecoration(
                  color: Colors.black.withOpacity(0),
-                 image: const DecorationImage(
-                     image: AssetImage("assets/icons/book.jpg")),
                ),
+               child: SvgPicture.asset(IconResources.book),
              ),
              // Icon(Icons.book, size: 32.dg, color: ColorResources.blue,),
            ],
@@ -123,18 +125,15 @@ class HomeView extends StatelessWidget {
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: [
              Container(
-               width: 24.w,
-               height: 24.h,
-               margin: EdgeInsets.only(left: 24.w),
+               width: 28.r,
+               height: 28.r,
+               padding: EdgeInsets.only(right: 3.w),
+               margin: EdgeInsets.only(left: 10.w),
                decoration: const ShapeDecoration(
                  color: Color(0xFF49423A),
                  shape: OvalBorder(),
                ),
-               child: Icon(
-                 Icons.keyboard_arrow_left,
-                 color: Colors.white,
-                 size: 20.dm,
-               ),
+               child: SvgPicture.asset(IconResources.arrowleft,color: Colors.white,)
              ),
              Row(
                mainAxisAlignment: MainAxisAlignment.end,
@@ -142,12 +141,12 @@ class HomeView extends StatelessWidget {
                  LinearPercentIndicator(
                    isRTL: true,
                    width: 200.w,
-                   lineHeight: 8.0,
-                   percent: 0.9,
+                   lineHeight: 6.0,
+                   percent: 0.52,barRadius:Radius.circular(4.r) ,
                    progressColor: ColorResources.brownDark,
                  ),
                  Text(
-                   '52/%',
+                   '52 %',
                    textAlign: TextAlign.center,
                    style: TextStyle(
                      color: ColorResources.black,

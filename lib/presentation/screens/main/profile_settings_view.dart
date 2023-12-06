@@ -115,6 +115,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                     ),
                     child: TextFormField(
                       textAlign: TextAlign.end,
+                      style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         hintText: 'Mohamed999@gmail.com',
                         contentPadding: EdgeInsets.symmetric(
@@ -148,6 +149,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                       color: Colors.white,
                     ),
                     child: IntlPhoneField(
+
                       disableLengthCheck: true,
                       textAlign: TextAlign.start,
                       decoration: InputDecoration(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/presentation/screens/lesson/unpaid_lesson_screen.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
+import 'package:learning_anglish_app/utils/icons/icons.dart';
 
 class ChooseLessonScreen extends StatelessWidget {
   const ChooseLessonScreen({super.key});
@@ -19,27 +21,30 @@ class ChooseLessonScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: 40.w,
-                    height: 40.h,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          width: 1,
-                          color: Colors.black.withOpacity(0.25),
-                        ),
-                        borderRadius: BorderRadius.circular(32),
-                      ),
-                    ),
-                    child: IconButton(
-                      onPressed: () {
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: InkWell(
+                      onTap: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(
-                        Icons.arrow_back_ios_new_outlined,
-                        color: Colors.brown,
-                        size: 20.dm,
-                      ), //circle_chevron_left
+                      child: Container(
+                        width: 40
+                            .r, // Set the width and height to your desired size
+                        height: 40.r, padding: EdgeInsets.only(right: 4.w),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white, // White background
+                          border: Border.all(
+                            color: Colors.grey, // Grey border color
+                            width: 1.0, // Border width
+                          ),
+                        ),
+                        child: Center(
+                            child: SvgPicture.asset(
+                              IconResources.arrowleft,
+                              height: 25.h,
+                            )),
+                      ),
                     ),
                   ),
                   Row(

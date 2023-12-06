@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/questionBankPerLesson/question_bank_per_lesson_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_with_menu.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
+import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
 
 class QuestionBankView extends StatelessWidget {
@@ -78,13 +80,11 @@ class QuestionBankView extends StatelessWidget {
              //leading: I,
              trailing: Container(
                width: 40.w,
-               height: 40.h,
+               height: 30.h,
                decoration: BoxDecoration(
                  color: Colors.black.withOpacity(0),
-                 image: const DecorationImage(
-                   image: AssetImage("assets/icons/book.jpg"),
-                 ),
                ),
+               child: SvgPicture.asset(IconResources.book),
              ),
              title: Align(
                alignment: Alignment.centerRight,
@@ -92,8 +92,8 @@ class QuestionBankView extends StatelessWidget {
                  'الوحدة الثانية: Supporting the community ',
                  style: TextStyle(
                    color: ColorResources.black,
-                   fontSize: 16,
-                   fontFamily: 'Roboto',
+                   fontSize: 16.sp,
+                   fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,
                    fontWeight: FontWeight.w400,
                  ),
                ),
@@ -127,23 +127,20 @@ class QuestionBankView extends StatelessWidget {
                      contentPadding:
                      const EdgeInsets.symmetric(
                          vertical: 2, horizontal: 12),
-                     title: const Align(
+                     title:  Align(
                        alignment: Alignment.centerRight,
-                       child: Text('الحصة الاولى'),
+                       child: Text('الحصة الاولى',style: TextStyle(fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,),),
                      ),
                      leading: Container(
-                       height: 24.h,
-                       width: 24.w,
-                       decoration: BoxDecoration(
-                         borderRadius:
-                         BorderRadius.circular(24.r),
-                         color: ColorResources.buttonColor,
-                       ),
-                       child: Icon(
-                         Icons.keyboard_arrow_left,
-                         color: ColorResources.white1,
-                         size: 20.dm,
-                       ),
+                         width: 23.r,
+                         height: 23.r,
+                         padding: EdgeInsets.only(right: 3.w),
+
+                         decoration: const ShapeDecoration(
+                           color: Color(0xFF49423A),
+                           shape: OvalBorder(),
+                         ),
+                         child: SvgPicture.asset(IconResources.arrowleft,color: Colors.white,)
                      ),
                    ),
                  ),
@@ -175,23 +172,20 @@ class QuestionBankView extends StatelessWidget {
                      contentPadding:
                      const EdgeInsets.symmetric(
                          vertical: 2, horizontal: 12),
-                     title: const Align(
+                     title:  Align(
                        alignment: Alignment.centerRight,
-                       child: Text('الحصة الاولى'),
+                       child: Text('الحصة الاولى',style: TextStyle(fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,),),
                      ),
                      leading: Container(
-                       height: 24.h,
-                       width: 24.w,
-                       decoration: BoxDecoration(
-                         borderRadius:
-                         BorderRadius.circular(24.r),
-                         color: ColorResources.buttonColor,
-                       ),
-                       child: Icon(
-                         Icons.keyboard_arrow_left,
-                         color: ColorResources.white1,
-                         size: 20.dm,
-                       ),
+                         width: 23.r,
+                         height: 23.r,
+                         padding: EdgeInsets.only(right: 3.w),
+
+                         decoration: const ShapeDecoration(
+                           color: Color(0xFF49423A),
+                           shape: OvalBorder(),
+                         ),
+                         child: SvgPicture.asset(IconResources.arrowleft,color: Colors.white,)
                      ),
                    ),
                  ),
@@ -223,23 +217,20 @@ class QuestionBankView extends StatelessWidget {
                      contentPadding:
                      const EdgeInsets.symmetric(
                          vertical: 2, horizontal: 12),
-                     title: const Align(
+                     title:  Align(
                        alignment: Alignment.centerRight,
-                       child: Text('الحصة الاولى'),
+                       child: Text('الحصة الاولى',style: TextStyle(fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,),),
                      ),
-                     leading: Container(
-                       height: 24.h,
-                       width: 24.w,
-                       decoration: BoxDecoration(
-                         borderRadius:
-                         BorderRadius.circular(24.r),
-                         color: ColorResources.buttonColor,
-                       ),
-                       child: Icon(
-                         Icons.keyboard_arrow_left,
-                         color: ColorResources.white1,
-                         size: 20.dm,
-                       ),
+                     leading:  Container(
+                         width: 23.r,
+                         height: 23.r,
+                         padding: EdgeInsets.only(right: 3.w),
+
+                         decoration: const ShapeDecoration(
+                           color: Color(0xFF49423A),
+                           shape: OvalBorder(),
+                         ),
+                         child: SvgPicture.asset(IconResources.arrowleft,color: Colors.white,)
                      ),
                    ),
                  ),

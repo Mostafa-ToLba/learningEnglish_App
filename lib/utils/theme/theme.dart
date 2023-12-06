@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 
 /*
 ThemeData themeData = ThemeData(
@@ -30,8 +31,8 @@ enum AppTheme {
 final appThemeData = {
   AppTheme.light: ThemeData(
     brightness: Brightness.light,
+    textTheme:const TextTheme(titleSmall:TextStyle(fontFamily: AppConstants.arabicFont1,) ) ,
     colorScheme: const ColorScheme.light(),
-    appBarTheme: const AppBarTheme(systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.red,)),
     //primaryColor: ColorResources.white1,
   ),
   AppTheme.dark: ThemeData(

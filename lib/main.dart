@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/blocs/settings_bloc/settings_bloc.dart';
+import 'package:learning_anglish_app/business_logic/setup/provider_setup.dart';
 import 'package:learning_anglish_app/injection.dart';
 import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/onBoarding/onboarding_screen.dart';
@@ -11,6 +12,7 @@ import 'package:learning_anglish_app/presentation/screens/registration/login_scr
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/theme/theme.dart';
 import 'package:localization/localization.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,63 +32,39 @@ class AppScreen extends StatefulWidget {
 class _AppScreenState extends State<AppScreen> {
   @override
   Widget build(BuildContext context) {
-
     LocalJsonLocalization.delegate.directories = ['lib/i18n'];
+    return MultiProvider(
+      providers: providers,
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (BuildContext context, Widget? child) {
+          return MaterialApp(
+            locale: const Locale('en'),
+            localizationsDelegates: [
+              // delegate from flutter_localization
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              // delegate from localization package.
+              //json-file
+              LocalJsonLocalization.delegate,
+            ],
 
-    return MultiBlocProvider(
-      providers: [
-        /*
-        BlocProvider(
-          create: (context) => getIt<AuthBloc>()
-            ..add(
-              const AuthEvent.authCheckRequested(),
-            ),
-        ),
-        */
+            supportedLocales: const [
+              Locale('en'),
+              Locale('ar'),
+            ],
 
-        BlocProvider(
-          create: (context) => getIt<SettingsBloc>()
-            ..add(
-              const SettingsEvent.checkOnSettings(),
-            ),
-        ),
-      ],
-      child: BlocBuilder<SettingsBloc, SettingsState>(
-          builder: (BuildContext context, SettingsState state) {
-        return ScreenUtilInit(
-          designSize: const Size(375, 812),
-          minTextAdapt: true,
-          splitScreenMode: true,
-          builder: (BuildContext context, Widget? child) {
-            return MaterialApp(
-              locale: const Locale('ar'),
-              localizationsDelegates: [
-                // delegate from flutter_localization
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-
-                // delegate from localization package.
-                //json-file
-                LocalJsonLocalization.delegate,
-              ],
-
-              supportedLocales: const [
-                Locale('en'),
-                Locale('ar'),
-              ],
-
-              showSemanticsDebugger: false,
-              //theme: themeData,
-              debugShowCheckedModeBanner: false,
-              theme: state.mode
-                  ? appThemeData[AppTheme.dark]
-                  : appThemeData[AppTheme.light],
-              home: const MainAppWidget(),
-            );
-          },
-        );
-      }),
+            showSemanticsDebugger: false,
+            //theme: themeData,
+            debugShowCheckedModeBanner: false,
+            theme: appThemeData[AppTheme.light],
+            home: const MainAppWidget(),
+          );
+        },
+      ),
     );
   }
 }
@@ -99,9 +77,11 @@ class MainAppWidget extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
         statusBarColor: ColorResources.buttonColor,statusBarIconBrightness: Brightness.light
     ));
-    final bool areBoardingScreensWatched =
-        context.watch<SettingsBloc>().state.areBoardingScreensWatched;
-    final bool isChoosingClassDone =
+    return const MainScreen();
+    /*
+     bool areBoardingScreensWatched
+     = context.watch<SettingsBloc>().state.areBoardingScreensWatched;
+     bool isChoosingClassDone =
         context.watch<SettingsBloc>().state.isChoosingClassDone;
     if (isChoosingClassDone) {
       // TODO: Add this condition after you check to user logged in
@@ -111,6 +91,8 @@ class MainAppWidget extends StatelessWidget {
     } else {
       return const OnBoardingScreen();
     }
+
+     */
 
     /*
     return Scaffold(

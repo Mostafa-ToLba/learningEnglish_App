@@ -37,7 +37,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final mode = context.watch<SettingsBloc>().state.mode;
+  //  final mode = context.watch<SettingsBloc>().state.mode;
     return SideMenu(
       key: MainScreen.sideMenuKey,
       type: SideMenuType.slideNRotate,
@@ -119,20 +119,20 @@ Widget buildMenu(context) {
       children: [
          Padding(
           padding: EdgeInsets.only(right: 16.w),
-          child: const Column(
+          child:  Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
+              const CircleAvatar(
                 backgroundColor: Colors.white,
                 radius: 22.0,
                 backgroundImage: NetworkImage('https://images.unsplash.com/photo-1508184964240-ee96bb9677a7?auto=format&fit=crop&q=80&w=1887&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Text(
                 "Mostafa Mahmoud",
-                style: TextStyle(color: Colors.white,),
+                style: TextStyle(color: Colors.white,fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
             ],
           ),
         ),
@@ -143,7 +143,8 @@ Widget buildMenu(context) {
 
           },
           trailing: Icon(Icons.dark_mode, size: 25.sp, color: Colors.white),
-          title:  Text('الوضع الليلي',textDirection: TextDirection.rtl,style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500),),
+          title:  Text('الوضع الليلي',textDirection: TextDirection.rtl,
+            style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.w500,fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,),),
           textColor: Colors.white,
         ),
         ListTile(
@@ -155,7 +156,7 @@ Widget buildMenu(context) {
           },
           trailing:Icon(FontAwesomeIcons.whatsapp, size: 25.sp, color: Colors.white),
           // const Icon(Icons.star_border, size: 20.0, color: Colors.white),
-          title:  Text('تواصل معنا',textDirection: TextDirection.rtl,style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500),),
+          title:  Text('تواصل معنا',textDirection: TextDirection.rtl,style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.w500,fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,),),
           textColor: Colors.white,
           dense: true,
 
@@ -169,7 +170,7 @@ Widget buildMenu(context) {
           },
           trailing: Icon(FontAwesomeIcons.googlePlay, size: 25.sp, color: Colors.white),
           // const Icon(Icons.girl, size: 20.0, color: Colors.white),
-          title:  Text('تقييم التطبيق',textDirection: TextDirection.rtl,style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500),),
+          title:  Text('تقييم التطبيق',textDirection: TextDirection.rtl,style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.w500,fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,),),
           textColor: Colors.white,
           dense: true,
           // padding: EdgeInsets.zero,
@@ -182,7 +183,7 @@ Widget buildMenu(context) {
           },
           trailing: Icon(FontAwesomeIcons.gear, size: 25.sp, color: Colors.white),
           //   const Icon(Icons.settings, size: 20.0, color: Colors.white),
-          title:  Text('الاعدادات',textDirection: TextDirection.rtl,style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500),),
+          title:  Text('الاعدادات',textDirection: TextDirection.rtl,style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.w500,fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,),),
           textColor: Colors.white,
           dense: true,
 
@@ -196,7 +197,7 @@ Widget buildMenu(context) {
           },
           trailing: Icon(FontAwesomeIcons.circleQuestion, size: 25.sp, color: Colors.white),
           // const Icon(Icons.star_border, size: 20.0, color: Colors.white),
-          title:  Text('المساعده',textDirection: TextDirection.rtl,style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500),),
+          title:  Text('المساعده',textDirection: TextDirection.rtl,style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.w500,fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,),),
           textColor: Colors.white,
           dense: true,
 
@@ -210,7 +211,7 @@ Widget buildMenu(context) {
           },
           trailing: Icon(Icons.privacy_tip, size: 25.sp, color: Colors.white),
           //const Icon(Icons.monetization_on, size: 20.0, color: Colors.white),
-          title:  Text('سياسة الخصوصية',textDirection: TextDirection.rtl,style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500),),
+          title:  Text('سياسة الخصوصية',textDirection: TextDirection.rtl,style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.w500,fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,),),
           textColor: Colors.white,
           dense: true,
           // padding: EdgeInsets.zero,
@@ -222,7 +223,7 @@ Widget buildMenu(context) {
           },
           trailing: Icon(Icons.verified, size: 25.sp, color: Colors.white),
           // const Icon(Icons.star_border, size: 20.0, color: Colors.white),
-          title:  Text('إصدار 1.0.0',textDirection: TextDirection.rtl,style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500),),
+          title:  Text('إصدار 1.0.0',textDirection: TextDirection.rtl,style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.w500,fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,),),
           textColor: Colors.white,
           dense: true,
 
