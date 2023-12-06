@@ -70,11 +70,7 @@ class QuestionBankView extends StatelessWidget {
                                       .displayMedium
                                       ?.copyWith(
                                         fontSize: 16.sp,
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .displayMedium!
-                                            .color
-                                            ?.withOpacity(0.6499999761581421),
+                                       
                                         //color: Theme.of(context).primaryColor,
                                         // color: ColorResources.black,
                                         fontWeight: FontWeight.w400,

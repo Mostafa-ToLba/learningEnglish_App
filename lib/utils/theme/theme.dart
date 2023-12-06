@@ -76,7 +76,7 @@ final appThemeData = {
                       */
     //primaryColor: ColorResources.white1,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: ColorResources.blackBackground,
+      backgroundColor: ColorResources.grey5,
       unselectedIconTheme: IconThemeData(color: ColorResources.brownDark),
       selectedIconTheme: IconThemeData(color: ColorResources.white1),
       selectedItemColor: ColorResources.white1,

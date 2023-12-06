@@ -10,7 +10,7 @@ class SettingsState with _$SettingsState {
   }) = _SettingsState;
 
   factory SettingsState.initial() => const SettingsState(
-        mode: true, // .containsKey(AppTheme.light),
+        mode: false, // .containsKey(AppTheme.light),
         locale: Locale("en"), //TODO: CHANGE IT TO DEVICE LOCALE
         areBoardingScreensWatched: false,
         isChoosingClassDone: false,
