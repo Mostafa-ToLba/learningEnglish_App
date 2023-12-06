@@ -7,8 +7,38 @@ import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:localization/localization.dart';
 
 // TODO: maybe adding custom button for enter button in the future
-class CodeEntranceScreen extends StatelessWidget {
+class CodeEntranceScreen extends StatefulWidget {
   const CodeEntranceScreen({super.key});
+
+  @override
+  State<CodeEntranceScreen> createState() => _CodeEntranceScreenState();
+}
+
+class _CodeEntranceScreenState extends State<CodeEntranceScreen>
+    with TickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _offsetAnimation;
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(
+          seconds: 2), // Animation duration (2 seconds in this example)
+    );
+
+    _offsetAnimation = Tween<Offset>(
+      begin: const Offset(0.0, 1.0), // Start position (bottom of the screen)
+      end: const Offset(0.0, 0.0), // End position (original position)
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.fastOutSlowIn, // Adjust the curve as needed
+      ),
+    );
+
+    _controller.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,23 +128,26 @@ class CodeEntranceScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 24.h),
-                CustomButton(
-                  widgetInCenter: Align(
-                    alignment: Alignment.center,
-                    child: CustomText(
-                      text: "enter".i18n(),
-                      textAlign: TextAlign.center,
-                      color: Colors.white,
-                      txtSize: 17.sp,
-                      fontWeight: FontWeight.w600,
+                SlideTransition(
+                  position: _offsetAnimation,
+                  child: CustomButton(
+                    widgetInCenter: Align(
+                      alignment: Alignment.center,
+                      child: CustomText(
+                        text: "enter".i18n(),
+                        textAlign: TextAlign.center,
+                        color: Colors.white,
+                        txtSize: 17.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
+                    color: ColorResources.buttonColor,
+                    onTap: () {
+                      Route route = MaterialPageRoute(
+                          builder: (context) => const PaidLessonScreen());
+                      Navigator.pushReplacement(context, route);
+                    },
                   ),
-                  color: ColorResources.buttonColor,
-                  onTap: () {
-                    Route route = MaterialPageRoute(
-                        builder: (context) => const PaidLessonScreen());
-                    Navigator.pushReplacement(context, route);
-                  },
                 ),
                 SizedBox(height: 4.h),
                 /*

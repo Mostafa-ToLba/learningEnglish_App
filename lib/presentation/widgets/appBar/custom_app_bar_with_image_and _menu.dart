@@ -40,12 +40,16 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
+              SizedBox(height: 12.h),
               Text(
                 name,
+                textAlign: TextAlign.center,
                 style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  color: ColorResources.black,
                   fontSize: 16.sp,
-                  fontFamily: AppConstants.arabicFont1,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w400,
+                  height: 0.07.h,
                 ),
               ),
             ],

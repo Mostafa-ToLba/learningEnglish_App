@@ -15,7 +15,32 @@ class ProfileSettingsView extends StatefulWidget {
   State<ProfileSettingsView> createState() => _ProfileSettingsViewState();
 }
 
-class _ProfileSettingsViewState extends State<ProfileSettingsView> {
+class _ProfileSettingsViewState extends State<ProfileSettingsView>
+    with TickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _offsetAnimation;
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(
+          seconds: 2), // Animation duration (2 seconds in this example)
+    );
+
+    _offsetAnimation = Tween<Offset>(
+      begin: const Offset(0.0, 1.0), // Start position (bottom of the screen)
+      end: const Offset(0.0, 0.0), // End position (original position)
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.fastOutSlowIn, // Adjust the curve as needed
+      ),
+    );
+
+    _controller.forward();
+  }
+
   bool showPassword = false;
   @override
   Widget build(BuildContext context) {
@@ -173,32 +198,35 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView> {
                   ),
                   SizedBox(height: 16.h),
                   SizedBox(height: 16.h),
-                  CustomButton(
-                    widgetInCenter: Align(
-                      alignment: Alignment.center,
-                      child: Row(
-                        children: [
-                          CustomText(
-                            text: "change_password".i18n(),
-                            textAlign: TextAlign.center,
-                            color: Colors.white,
-                            txtSize: 17.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          Icon(
-                            Icons.lock,
-                            color: Colors.white,
-                            size: 16.sp,
-                          ),
-                        ],
+                  SlideTransition(
+                    position: _offsetAnimation,
+                    child: CustomButton(
+                      widgetInCenter: Align(
+                        alignment: Alignment.center,
+                        child: Row(
+                          children: [
+                            CustomText(
+                              text: "change_password".i18n(),
+                              textAlign: TextAlign.center,
+                              color: Colors.white,
+                              txtSize: 17.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            Icon(
+                              Icons.lock,
+                              color: Colors.white,
+                              size: 16.sp,
+                            ),
+                          ],
+                        ),
                       ),
+                      color: ColorResources.buttonColor,
+                      onTap: () {
+                        Route route = MaterialPageRoute(
+                            builder: (context) => const LoginScreen());
+                        Navigator.pushReplacement(context, route);
+                      },
                     ),
-                    color: ColorResources.buttonColor,
-                    onTap: () {
-                      Route route = MaterialPageRoute(
-                          builder: (context) => const LoginScreen());
-                      Navigator.pushReplacement(context, route);
-                    },
                   ),
                   /*
                   ElevatedButton(
