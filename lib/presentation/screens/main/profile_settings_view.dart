@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/login_screen/login_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
+import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
 
 class ProfileSettingsView extends StatefulWidget {
@@ -240,13 +242,14 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                               text: "change_password".i18n(),
                               textAlign: TextAlign.center,
                               color: Colors.white,
-                              txtSize: 17.sp,
+                              txtSize: 16.sp,
                               fontWeight: FontWeight.w600,
                             ),
-                            Icon(
-                              Icons.lock,
+                            SizedBox(width: 10.w),
+                            SvgPicture.asset(
+                              fit: BoxFit.scaleDown,
+                              IconResources.lock,
                               color: Colors.white,
-                              size: 16.sp,
                             ),
                           ],
                         ),

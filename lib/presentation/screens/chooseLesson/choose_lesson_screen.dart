@@ -43,6 +43,7 @@ class ChooseLessonScreen extends StatelessWidget {
                             child: SvgPicture.asset(
                               IconResources.arrowleft,
                               height: 25.h,
+                              color: Theme.of(context).indicatorColor,
                             )),
                       ),
                     ),
@@ -80,26 +81,6 @@ class ChooseLessonScreen extends StatelessWidget {
                       ),
                       //SizedBox(width: 10),
                     ],
-                  ),
-                  Container(
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          width: 1,
-                          color: Theme.of(context).indicatorColor,
-                        ),
-                        borderRadius: BorderRadius.circular(32.r),
-                      ),
-                    ),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.arrow_back_ios_new_outlined,
-                        size: 20.dg,
-                      ), //circle_chevron_left
-                    ),
                   ),
                 ],
               ),
@@ -153,9 +134,6 @@ class ChooseLessonScreen extends StatelessWidget {
                                   Text(
                                     'الحصة الأولى',
                                     textAlign: TextAlign.center,
-                                    style: Text(
-                                      'الحصة الأولى',
-                                      textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme
                                           .displayMedium
@@ -165,7 +143,6 @@ class ChooseLessonScreen extends StatelessWidget {
                                         height: 0.07.h,
                                       ),
                                     ),
-                                  ),
                                   SizedBox(width: 12.w),
                                   Icon(
                                     Icons.folder,

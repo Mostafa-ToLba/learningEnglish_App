@@ -23,19 +23,18 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
         children: [
           IconButton(
             onPressed: onMenuPressed,
-            icon:  const Image(
-              image: AssetImage(Images.menu1),
-            ),
+            icon: const Image(image: AssetImage(Images.menu1),)
           ),
           const Spacer(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                'أهلا بك ',
-                style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                'أهلا بك',
+                style: TextStyle(
                   fontSize: 14.sp,
                   fontFamily: AppConstants.arabicFont1,
+                  color: ColorResources.appGreyColor,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -43,8 +42,9 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
               Text(
                 name,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                style: TextStyle(
                   overflow: TextOverflow.ellipsis,
+                  color: ColorResources.black,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w400,
                   height: 0.07.h,
@@ -52,15 +52,12 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
               ),
             ],
           ),
-          const Spacer(),
-          IconButton(
-            onPressed: onMenuPressed,
-            icon: Icon(
-              Icons.menu,
-              color: Theme.of(context).iconTheme.color,
-              size: 30.dg,
-            ),
+          SizedBox(width: 12.w),
+          CircleAvatar(
+            radius: 20.r,
+            backgroundImage: NetworkImage(imageURL),
           ),
+
         ],
       ),
     );

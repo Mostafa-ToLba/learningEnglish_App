@@ -62,6 +62,9 @@ class _CustomButtonState extends State<CustomButton> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  SizedBox(width: 80.w),
+                  widget.widgetInCenter,
+                  const Spacer(),
                   Container(
                     width: 40.w,
                     height: 40.h,
@@ -78,11 +81,7 @@ class _CustomButtonState extends State<CustomButton> {
                       color: Colors.white,
                     ), // Set the image
                   ),
-                  
-                  const Spacer(),
-                  widget.widgetInCenter,
-                  const Spacer(),
-                  SizedBox(width: 50.w),
+
                 ],
               ),
             ),

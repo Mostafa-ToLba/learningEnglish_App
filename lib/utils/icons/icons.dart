@@ -15,4 +15,5 @@ class IconResources {
   static const String bank = 'assets/icons/bank.svg';
   static const String profile = 'assets/icons/profile.svg';
   static const String book = 'assets/icons/book.svg';
+  static const String lock = 'assets/icons/lock.svg';
 }

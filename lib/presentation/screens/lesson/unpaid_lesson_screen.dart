@@ -236,19 +236,14 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      width: 26.w,
-                      height: 26.h,
-                      decoration: ShapeDecoration(
-                        color: ColorResources
-                            .buttonColor, // TODO: Check this color
-                        shape: const OvalBorder(),
-                      ),
-                      child: Center(
-                        child: Icon(
-                          Icons.arrow_back_ios_new_outlined,
-                          size: 16.dm,
+                        width: 28.r,
+                        height: 28.r,
+                        padding: EdgeInsets.only(right: 3.w),
+                        decoration: const ShapeDecoration(
+                          color: Color(0xFF49423A),
+                          shape: OvalBorder(),
                         ),
-                      ),
+                        child: SvgPicture.asset(IconResources.arrowleft,color: Colors.white,)
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,

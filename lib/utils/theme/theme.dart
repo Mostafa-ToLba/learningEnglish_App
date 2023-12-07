@@ -32,8 +32,8 @@ enum AppTheme {
 final appThemeData = {
   AppTheme.light: ThemeData(
     brightness: Brightness.light,
-    textTheme:const TextTheme(titleSmall:TextStyle(fontFamily: AppConstants.arabicFont1,) ) ,
-    colorScheme: const ColorScheme.light(),
+  //  textTheme:const TextTheme(titleSmall:TextStyle(fontFamily: AppConstants.arabicFont1,) ) ,
+ //   colorScheme: const ColorScheme.light(),
     scaffoldBackgroundColor: ColorResources.grey5,
     indicatorColor: ColorResources.black,
     primaryColor: ColorResources.grey5,
@@ -58,7 +58,7 @@ final appThemeData = {
       labelSmall: TextStyle(),
     ).apply(
       //fontFamily
-
+      fontFamily: AppConstants.arabicFont1,
       bodyColor: ColorResources.appGreyColor,
       displayColor: ColorResources.appGreyColor,
     ),
