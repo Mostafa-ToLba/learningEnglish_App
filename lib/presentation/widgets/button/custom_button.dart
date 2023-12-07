@@ -48,8 +48,8 @@ class _CustomButtonState extends State<CustomButton> {
       child: Material(
         type: MaterialType.transparency,
         child: Ink(
-          height: widget.height ?? 56.h,
-          width: widget.width ?? 327.w,
+          //height: widget.height ?? 56.h,
+          //width: widget.width ?? 327.w,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(32.r)),
             color: widget.isSelected
@@ -62,10 +62,6 @@ class _CustomButtonState extends State<CustomButton> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(width: 50.w),
-                  const Spacer(),
-                  widget.widgetInCenter,
-                  const Spacer(),
                   Container(
                     width: 40.w,
                     height: 40.h,
@@ -82,6 +78,11 @@ class _CustomButtonState extends State<CustomButton> {
                       color: Colors.white,
                     ), // Set the image
                   ),
+                  
+                  const Spacer(),
+                  widget.widgetInCenter,
+                  const Spacer(),
+                  SizedBox(width: 50.w),
                 ],
               ),
             ),

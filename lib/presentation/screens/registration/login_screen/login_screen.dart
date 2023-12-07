@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseClass/choose_class_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/forget_password/forget_password.dart';
@@ -69,31 +70,27 @@ class _LoginScreenState extends State<LoginScreen>
                 children: [
                   Text(
                     "welcome_back".i18n(),
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      fontFamily: AppConstants.arabicFont1,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   SizedBox(
                     height: 8.h,
                   ),
                   Text(
                     "login_screen_subtitle".i18n(),
-                    style: TextStyle(
-                      fontSize: 15.sp,
-                      fontFamily: AppConstants.arabicFont1,
-                      color: ColorResources.appGreyColor,
-                    ),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 15.sp,
+                        ),
                   ),
                   SizedBox(height: 30.h),
                   Text(
                     "email".i18n(),
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontFamily: AppConstants.arabicFont1,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
                   ),
                   SizedBox(height: 14.h),
                   CustomTextField(
@@ -109,11 +106,10 @@ class _LoginScreenState extends State<LoginScreen>
                   SizedBox(height: 16.h),
                   Text(
                     "password".i18n(),
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontFamily: AppConstants.arabicFont1,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
                   ),
                   SizedBox(height: 14.h),
                   CustomTextField(
@@ -156,29 +152,33 @@ class _LoginScreenState extends State<LoginScreen>
                       SizedBox(width: 0.w),
                       Text(
                         "remember_me".i18n(),
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black),
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
                       ),
                       const Spacer(),
                     ],
                   ),
                   TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context, SlideTransition1(const ForgetPassword()));
-                      },
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          "have_you_forgotten_your_password".i18n(),
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              color: HexColor('#FF004C'),
-                              fontFamily: AppConstants.arabicFont1),
-                        ),
-                      )),
+                    onPressed: () {
+                      Navigator.push(
+                          context, SlideTransition1(const ForgetPassword()));
+                    },
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "have_you_forgotten_your_password".i18n(),
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: HexColor('#FF004C'),
+                                ),
+                      ),
+                    ),
+                  ),
                   SizedBox(height: 43.h),
                   SlideTransition(
                     position: _offsetAnimation,
@@ -188,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen>
                         child: CustomText(
                           text: "sign_in".i18n(),
                           textAlign: TextAlign.center,
-                          color: Colors.white,
+                          color: ColorResources.white1,
                           txtSize: 17.sp,
                           fontWeight: FontWeight.w600,
                         ),
@@ -202,14 +202,15 @@ class _LoginScreenState extends State<LoginScreen>
                   ),
                   SizedBox(height: 40.h),
                   Center(
-                      child: Text(
-                    "or_login_using".i18n(),
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.w500,
-                        color: ColorResources.appGreyColor),
-                  )),
+                    child: Text(
+                      "or_login_using".i18n(),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                    ),
+                  ),
                   SizedBox(height: 25.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -217,7 +218,9 @@ class _LoginScreenState extends State<LoginScreen>
                       SizedBox(
                           height: 32.h,
                           width: 32.w,
-                          child: SvgPicture.asset(IconResources.Apple)),
+                          child: FaIcon(FontAwesomeIcons.apple, size: 32.dg,)), 
+                          
+                          //Fa.asset(IconResources.Apple)),
                       SizedBox(width: 24.w),
                       SizedBox(
                           height: 32.h,
@@ -238,10 +241,11 @@ class _LoginScreenState extends State<LoginScreen>
                     children: [
                       Text(
                         "do_not_have_account".i18n(),
-                        style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w400,
-                            color: ColorResources.appGreyColor),
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
                       ),
                       TextButton(
                         onPressed: () {
@@ -251,11 +255,13 @@ class _LoginScreenState extends State<LoginScreen>
                         //style: ButtonStyle()
                         child: Text(
                           "create_new_account".i18n(),
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              color: ColorResources.black,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: AppConstants.arabicFont1),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                       ),
                     ],

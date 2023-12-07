@@ -16,7 +16,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.only(top: 25.h),
@@ -74,7 +73,7 @@ class HomeView extends StatelessWidget {
        borderRadius: BorderRadius.all(
          Radius.circular(32.r),
        ),
-       color: ColorResources.white1,
+       color: Theme.of(context).primaryColor,
      ),
      child: Column(
        mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,20 +88,29 @@ class HomeView extends StatelessWidget {
                children: [
                  Text(
                    'Getting away الوحدة الأولى',
-                   style: TextStyle(
-                     color: ColorResources.black,
+                   style: Theme.of(context)
+                       .textTheme
+                       .displayMedium
+                       ?.copyWith(
                      fontSize: 16.sp,
                      fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,
+                     //color: Theme.of(context).primaryColor,
+                     // color: ColorResources.black,
                      fontWeight: FontWeight.w400,
                    ),
                  ),
                  SizedBox(height: 4.h),
                  Text(
                    'عدد الدروس : 8',
-                   style: TextStyle(
-                     color: ColorResources.black.withOpacity(0.5),
+                   style: Theme.of(context)
+                       .textTheme
+                       .displayMedium
+                       ?.copyWith(
                      fontSize: 14.sp,
                      fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,
+                     //color: Theme.of(context).primaryColor,
+                     // color: ColorResources.black,
+
                      fontWeight: FontWeight.w400,
                    ),
                  ),
@@ -142,16 +150,21 @@ class HomeView extends StatelessWidget {
                    isRTL: true,
                    width: 200.w,
                    lineHeight: 6.0,
+                   backgroundColor:
+                   Theme.of(context).colorScheme.inverseSurface,
                    percent: 0.52,barRadius:Radius.circular(4.r) ,
                    progressColor: ColorResources.brownDark,
                  ),
                  Text(
                    '52 %',
                    textAlign: TextAlign.center,
-                   style: TextStyle(
-                     color: ColorResources.black,
+                   style: Theme.of(context)
+                       .textTheme
+                       .displayMedium
+                       ?.copyWith(
                      fontSize: 12.sp,
-                     fontFamily: 'Roboto',
+                     //color: Theme.of(context).primaryColor,
+                     // color: ColorResources.black,
                      fontWeight: FontWeight.w400,
                    ),
                  ),

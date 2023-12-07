@@ -12,7 +12,7 @@ class ChooseLessonScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorResources.grey5,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w),
@@ -55,29 +55,51 @@ class ChooseLessonScreen extends StatelessWidget {
                           Text(
                             'الوحدة الأولى',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 18,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
                           ),
                           SizedBox(height: 8.h),
                           Text(
                             'Getting away',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: ColorResources.primary,
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              height: 0.07,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400,
+                                  height: 0.07.h,
+                                ),
                           ),
                         ],
                       ),
                       //SizedBox(width: 10),
                     ],
+                  ),
+                  Container(
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 1,
+                          color: Theme.of(context).indicatorColor,
+                        ),
+                        borderRadius: BorderRadius.circular(32.r),
+                      ),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_outlined,
+                        size: 20.dg,
+                      ), //circle_chevron_left
+                    ),
                   ),
                 ],
               ),
@@ -100,11 +122,13 @@ class ChooseLessonScreen extends StatelessWidget {
                           //width: 327.w,
                           height: 80.h,
                           clipBehavior: Clip.antiAlias,
-                          decoration: ShapeDecoration(
-                            color: ColorResources.white1,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32),
+                          decoration: BoxDecoration(
+                            //color: ColorResources.white1,
+                            border: Border.all(
+                              width: 1,
+                              color: Theme.of(context).indicatorColor,
                             ),
+                            borderRadius: BorderRadius.circular(32.r),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -129,11 +153,17 @@ class ChooseLessonScreen extends StatelessWidget {
                                   Text(
                                     'الحصة الأولى',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16.sp,
-                                      fontFamily: 'Roboto',
-                                      fontWeight: FontWeight.w400,
+                                    style: Text(
+                                      'الحصة الأولى',
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w400,
+                                        height: 0.07.h,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(width: 12.w),

@@ -90,10 +90,15 @@ class QuestionBankView extends StatelessWidget {
                alignment: Alignment.centerRight,
                child: Text(
                  'الوحدة الثانية: Supporting the community ',
-                 style: TextStyle(
-                   color: ColorResources.black,
-                   fontSize: 16.sp,
+                 style: Theme.of(context)
+                     .textTheme
+                     .displayMedium
+                     ?.copyWith(
                    fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,
+                   fontSize: 16.sp,
+
+                   //color: Theme.of(context).primaryColor,
+                   // color: ColorResources.black,
                    fontWeight: FontWeight.w400,
                  ),
                ),

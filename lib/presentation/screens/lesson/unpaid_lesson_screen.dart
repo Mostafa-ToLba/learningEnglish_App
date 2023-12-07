@@ -47,7 +47,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorResources.grey5,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w),
@@ -90,24 +90,30 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                           Text(
                             'الوحدة الأولى',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 18,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 18.sp,
+                                  //color: Theme.of(context).primaryColor,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
                           ),
                           SizedBox(height: 8.h),
                           Text(
                             'Getting away',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: ColorResources.primary,
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              height: 0.07,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+                                  //color: Theme.of(context).primaryColor,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                  height: 0.07.h,
+                                ),
                           ),
                         ],
                       ),
@@ -185,12 +191,15 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                           Text(
                             "test_yourself".i18n(),
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                              fontSize: 16.sp,
+                              //color: Theme.of(context).primaryColor,
+                              // color: ColorResources.black,
                               fontWeight: FontWeight.w400,
-                              letterSpacing: -0.17,
+                              letterSpacing: -0.17.h,
                             ),
                           ),
                           SizedBox(width: 16.w),
@@ -227,14 +236,19 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                        width: 28.r,
-                        height: 28.r,
-                        padding: EdgeInsets.only(right: 3.w),
-                        decoration: const ShapeDecoration(
-                          color: Color(0xFF49423A),
-                          shape: OvalBorder(),
+                      width: 26.w,
+                      height: 26.h,
+                      decoration: ShapeDecoration(
+                        color: ColorResources
+                            .buttonColor, // TODO: Check this color
+                        shape: const OvalBorder(),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          Icons.arrow_back_ios_new_outlined,
+                          size: 16.dm,
                         ),
-                        child: SvgPicture.asset(IconResources.arrowleft,color: Colors.white,)
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -243,23 +257,21 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                         Text(
                           "homework".i18n(),
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: ColorResources.black,
-                            fontSize: 16,
-                            fontFamily: 'Roboto',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                            fontSize: 16.sp,
+                            //color: Theme.of(context).primaryColor,
+                            // color: ColorResources.black,
                             fontWeight: FontWeight.w400,
-                            letterSpacing: -0.17,
+                            letterSpacing: -0.17.h,
                           ),
                         ),
-                        SizedBox(width: 16.w),
-                        Container(
-                          height: 32.r,
-                          width: 32.r,
-                          decoration:  BoxDecoration(borderRadius: BorderRadius.circular(10.r),
-                              image: const DecorationImage(image: AssetImage(
-                                "assets/images/homework.png",
-                              ),
-                              )
+                        CircleAvatar(
+                          radius: 32.r,
+                          backgroundImage: const AssetImage(
+                            "assets/images/homework.png",
                           ),
                         ),
                       ],

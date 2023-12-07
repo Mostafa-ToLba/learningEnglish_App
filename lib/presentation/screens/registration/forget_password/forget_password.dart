@@ -65,55 +65,51 @@ class _ForgetPasswordState extends State<ForgetPassword>
                 children: [
                   Align(
                     alignment: Alignment.topLeft,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        width: 40
-                            .r, // Set the width and height to your desired size
-                        height: 40.r, padding: EdgeInsets.only(right: 4.w),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white, // White background
-                          border: Border.all(
-                            color: Colors.grey, // Grey border color
-                            width: 1.0, // Border width
-                          ),
+                    child:  Container(
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 1,
+                          color: Theme.of(context).indicatorColor,
                         ),
-                        child: Center(
-                            child: SvgPicture.asset(
-                          IconResources.arrowleft,
-                          height: 25.h,
-                        )),
+                        borderRadius: BorderRadius.circular(32.r),
                       ),
                     ),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_outlined,
+                        size: 20.dg,
+                      ), //circle_chevron_left
+                    ),
                   ),
+                ),
                   SizedBox(height: 30.h),
                   Text(
                     "forgot_password".i18n(),
-                    style: TextStyle(
-                        fontSize: 20.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   SizedBox(
                     height: 8.h,
                   ),
                   Text(
                     "forgot_password_screen_subtitle".i18n(),
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        color: ColorResources.appGreyColor),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 15.sp,
+                        ),
                   ),
                   SizedBox(height: 64.h),
                   Text(
                     "email".i18n(),
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
                   ),
                   SizedBox(height: 14.h),
                   CustomTextField(

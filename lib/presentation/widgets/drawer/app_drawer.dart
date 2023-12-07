@@ -52,6 +52,7 @@ class AppDrawer extends StatelessWidget {
 
               SizedBox(height: 64.h),
               _buildRow(
+                context,
                 FontAwesomeIcons.moon,
                 mode ? "light_mode".i18n() : "dark_mode".i18n(),
                 () {
@@ -62,6 +63,7 @@ class AppDrawer extends StatelessWidget {
               ),
               SizedBox(height: 48.h),
               _buildRow(
+                context,
                 FontAwesomeIcons.whatsapp,
                 "contact_us".i18n(),
                 () {},
@@ -69,18 +71,21 @@ class AppDrawer extends StatelessWidget {
               SizedBox(height: 48.h),
 
               _buildRow(
+                context,
                 FontAwesomeIcons.googlePlay,
                 "rate_us".i18n(),
                 () {},
               ),
               SizedBox(height: 48.h),
               _buildRow(
+                context,
                 FontAwesomeIcons.gear,
                 "settings".i18n(),
                 () {},
               ),
               SizedBox(height: 48.h),
               _buildRow(
+                context,
                 FontAwesomeIcons.circleQuestion,
                 "help".i18n(),
                 () {},
@@ -92,7 +97,8 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  Widget _buildRow(IconData icon, String title, VoidCallback onTap) {
+  Widget _buildRow(
+      BuildContext context, IconData icon, String title, VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -108,11 +114,11 @@ class AppDrawer extends StatelessWidget {
             SizedBox(width: 10.w),
             Text(
               title.i18n(),
-              style: TextStyle(
-                color: ColorResources.white1,
-                fontSize: 16.h,
-                fontWeight: FontWeight.w400,
-              ),
+              style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                    fontSize: 16.sp,
+                    // color: ColorResources.black,
+                    fontWeight: FontWeight.w400,
+                  ),
             ),
           ],
         ),

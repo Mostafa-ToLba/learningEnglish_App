@@ -6,18 +6,21 @@ class ColorResources {
   static Color get black => const Color(0xFF000000);
   static Color get blue => const Color(0xFF7BB7FF);
 
+  
   static Color get white1 => const Color(0xFFFFFFFF);
   static Color get white2 => const Color(0xFFE0E5EB);
   static Color get white3 => const Color(0xFFD4D4D4);
 
   static Color get background => const Color(0xFFBBBBBB);
   static Color get hintText => const Color(0xFF5A5A5A);
-
+  static Color get blackBackground => const Color(0xFF0A0A0A);
   static Color get red => const Color(0xFFFF0000);
   static Color get redDark => const Color(0xFFFF1E1E);
   static Color get redLight => const Color(0x19FF1E1E);
   static Color get lightGrey => const Color(0xFFEDEDED);
 
+
+  static Color get shadow => const Color(0x3FFFFFFF);
   static Color get brownLight => const Color(0x7FECDDCC);
   static Color get brownDark => const  Color(0xFF49423A);
   static Color get drawerBackground => const Color(0xFF443D35);
@@ -39,6 +42,6 @@ class ColorResources {
   static Color get greenLight =>  const Color.fromARGB(40, 135, 179, 166);
 
   static Color get arrowRightBackground =>const Color(0xFF35302B);
-  static Color get profileText => Colors.black.withOpacity(0.6499999761581421);
+  //static Color get profileText => Colors.black.withOpacity(0.6499999761581421);
   static Color get buttonColor => const Color(0xFF49423A);
 }

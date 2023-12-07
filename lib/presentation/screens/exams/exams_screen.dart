@@ -12,6 +12,7 @@ import 'package:localization/localization.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:localization/localization.dart';
 
 class ExamsScreen extends StatefulWidget {
   const ExamsScreen({super.key});
@@ -31,7 +32,7 @@ class _ExamsScreenState extends State<ExamsScreen> with TickerProviderStateMixin
   Widget build(BuildContext context) {
     final examsVM = Provider.of<ExamsViewModel>(context);
     return Scaffold(
-      backgroundColor: ColorResources.grey5,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body:PageView.builder(
         controller: examsVM.pageController,
         scrollDirection: Axis.vertical,
@@ -108,10 +109,8 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                           children: [
                             Text(
                               'Exams',
-                              style: TextStyle(
-                                color: ColorResources.black,
+                              style: Theme.of(context).textTheme.displayMedium?.copyWith(
                                 fontSize: 22.sp,
-                                fontFamily: 'Roboto',
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -119,10 +118,8 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                             Text(
                               'Unit 1/ Lesson 1',
                               textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                color: ColorResources.appGreyColor,
+                              style: Theme.of(context).textTheme.displayMedium?.copyWith(
                                 fontSize: 14.sp,
-                                fontFamily: 'Roboto',
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -148,12 +145,10 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                     Text(
                       '10/${widget.index+1}',
                       textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        color: ColorResources.black,
-                        fontSize: 14,
-                        fontFamily: 'Roboto',
+                      style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w400,
-                        height: 0.16,
+                        height: 0.16.h,
                       ),
                     ),
                   ],
@@ -209,12 +204,13 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                                   child: Text(
                                     '  the question thar is shown to students and it is a multi line based on the length of the question and to make sure that srolling is working fine',
                                     //textAlign: TextAlign.justify,
-                                    style: TextStyle(
-                                      color: ColorResources.black,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium
+                                        ?.copyWith(
                                       fontSize: 18.sp,
-                                      fontFamily: 'Roboto',
                                       fontWeight: FontWeight.w400,
-                                    ),
+                                    )
                                   ),
                                 ),
                               ],
@@ -364,7 +360,16 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                           ExpansionTile(
                             title: Align(
                               alignment: Alignment.centerRight,
-                              child: Text("explanation".i18n()),
+                              child: Text(
+                                "explanation".i18n(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
                             controlAffinity: ListTileControlAffinity.trailing,
                             children: const <Widget>[
@@ -431,11 +436,11 @@ class _ExamWidgetsState extends State<ExamWidgets> {
            children: [
              Text(
                '${model.questionNums[index]}. ${model.questionList[index]}',
-               style: TextStyle(
-                 //overflow: TextOverflow.,
-                 color: ColorResources.black.withOpacity(0.75),
+               style: Theme.of(context)
+                   .textTheme
+                   .displayMedium
+                   ?.copyWith(
                  fontSize: 17.sp,
-                 fontFamily: 'Roboto',
                  fontWeight: FontWeight.w400,
                ),
              ),

@@ -51,7 +51,7 @@ class _ResultsScreenState extends State<ResultsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorResources.white1,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w),
@@ -59,25 +59,27 @@ class _ResultsScreenState extends State<ResultsScreen>
             //mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 40.w,
-                height: 40.h,
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      width: 1,
-                      color: Colors.black.withOpacity(0.25),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  width: 40.w,
+                  height: 40.h,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        width: 1,
+                        color: Theme.of(context).indicatorColor.withOpacity(0.5),
+                      ),
+                      borderRadius: BorderRadius.circular(32),
                     ),
-                    borderRadius: BorderRadius.circular(32),
                   ),
-                ),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.arrow_back_ios_new_outlined,
-                    color: ColorResources.brownDark,
-                    size: 20.dm,
-                  ), //circle_chevron_left
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.arrow_back_ios_new_outlined,
+                      size: 20.dg,
+                    ), //circle_chevron_left
+                  ),
                 ),
               ),
               Center(
@@ -93,10 +95,10 @@ class _ResultsScreenState extends State<ResultsScreen>
                         ),
                       ),
                     ),
-                    SizedBox(height: 36.h),
+                    SizedBox(height: 38.h),
                     CircularPercentIndicator(
-                      radius: 80.r,
-                      lineWidth: 10.0,
+                      radius: 100.r,
+                      lineWidth: 8.0,
                       animation: true,
                       percent: 0.7,
                       center: Column(
@@ -105,46 +107,56 @@ class _ResultsScreenState extends State<ResultsScreen>
                         children: [
                           Text(
                             "70.0%",
-                            style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 32.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w900,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 32.sp,
+
+                                  //color: Theme.of(context).primaryColor,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w900,
+                                ),
                           ),
                           Text(
                             '10 of 10',
-                            style: TextStyle(
-                              color: ColorResources.black.withOpacity(0.5),
-                              fontSize: 16.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
                           ),
                         ],
                       ),
                       circularStrokeCap: CircularStrokeCap.round,
                       progressColor: ColorResources.brownDark,
                     ),
-                    SizedBox(height: 85.h),
+                    SizedBox(height: 32.h),
                     Text(
                       'results_perfect_title'.i18n(),
-                      style: TextStyle(
-                        color: ColorResources.black,
-                        fontSize: 22.sp,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 22.sp,
+
+                                //color: Theme.of(context).primaryColor.withOpacity(0.5),
+                                // color: ColorResources.black,
+                                fontWeight: FontWeight.w400,
+                              ),
                     ),
                     SizedBox(height: 16.h),
                     Text(
                       'results_perfect_subtitle'.i18n(),
-                      style: TextStyle(
-                        color: ColorResources.black.withOpacity(0.5),
-                        fontSize: 16.sp,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                            fontSize: 16.sp,
+                            // color: ColorResources.black,
+                            fontWeight: FontWeight.w400,
+                          ),
                     ),
                     SizedBox(height: 40.h),
                     SlideTransition(
@@ -167,22 +179,22 @@ class _ResultsScreenState extends State<ResultsScreen>
                       ),
                     ),
                     SizedBox(height: 4.h),
-                TextButton(
-                  child: Text(
-                    "try_again".i18n(),
-                    textAlign: TextAlign.justify,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w400,
-                      height: 0.12,
+                    TextButton(
+                      child: Text(
+                        "try_again".i18n(),
+                        textAlign: TextAlign.justify,
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 16.sp,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                  height: 0.12.h,
+                                ),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
                   ],
                 ),
               )

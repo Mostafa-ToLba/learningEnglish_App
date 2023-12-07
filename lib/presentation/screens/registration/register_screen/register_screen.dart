@@ -94,28 +94,22 @@ class _RegisterScreenState extends State<RegisterScreen>
                 children: [
                   Text(
                     "welcome".i18n(),
-                    style: TextStyle(
-                        fontSize: 20.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 20.sp, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 8.h,
                   ),
                   Text(
                     "login_screen_subtitle".i18n(),
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        color: ColorResources.appGreyColor),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 15.sp, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 30.h),
                   Text(
                     "name".i18n(),
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 16.sp, fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 14.h),
                   CustomTextField(
@@ -132,10 +126,8 @@ class _RegisterScreenState extends State<RegisterScreen>
                   SizedBox(height: 16.h),
                   Text(
                     "phone_number".i18n(),
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 16.sp, fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 14.h),
                   CustomTextField(
@@ -152,10 +144,8 @@ class _RegisterScreenState extends State<RegisterScreen>
                   SizedBox(height: 20.h),
                   Text(
                     "parent_phone_number".i18n(),
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 16.sp, fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 20.h),
                   CustomTextField(
@@ -173,10 +163,8 @@ class _RegisterScreenState extends State<RegisterScreen>
                   // TODO: check if the email is after the parent's phone number in the figma ui design
                   Text(
                     "email".i18n(),
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 16.sp, fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 14.h),
                   CustomTextField(
@@ -193,10 +181,8 @@ class _RegisterScreenState extends State<RegisterScreen>
                   SizedBox(height: 16.h),
                   Text(
                     "password".i18n(),
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 16.sp, fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 14.h),
                   CustomTextField(
@@ -235,7 +221,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                         if (formKey.currentState!.validate()) {
                           //     formKey.currentState!.save();
                         }
-                      /*          
+                        /*          
                         Navigator.push(
                             context, SlideTransition1(const LoginScreen()));
                       */
@@ -246,11 +232,10 @@ class _RegisterScreenState extends State<RegisterScreen>
                   Center(
                       child: Text(
                     "or_login_using".i18n(),
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.w500,
-                        color: ColorResources.appGreyColor),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
                   )),
                   SizedBox(height: 25.h),
                   Row(
@@ -280,10 +265,11 @@ class _RegisterScreenState extends State<RegisterScreen>
                     children: [
                       Text(
                         "do_you_have_account".i18n(),
-                        style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w400,
-                            color: ColorResources.appGreyColor),
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
                       ),
                       TextButton(
                         onPressed: () {
@@ -292,10 +278,13 @@ class _RegisterScreenState extends State<RegisterScreen>
                         },
                         child: Text(
                           "sign_in".i18n(),
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              color: HexColor('#FF004C'),
-                              fontFamily: AppConstants.arabicFont1),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                fontSize: 16.sp,
+                                color: HexColor('#FF004C'),
+                              ),
                         ),
                       )
                     ],

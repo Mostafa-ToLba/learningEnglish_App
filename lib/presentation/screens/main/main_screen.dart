@@ -21,6 +21,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey(); // Create a key
 
   int _selectedIndex = 2;
   static const List<Widget> _widgetOptions = <Widget>[
@@ -48,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
       background: ColorResources.buttonColor,
       child: Scaffold(
         drawerEnableOpenDragGesture: false,
-        backgroundColor: ColorResources.grey5,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: _widgetOptions.elementAt(_selectedIndex),
         bottomNavigationBar: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(56.r)),
@@ -56,9 +57,12 @@ class _MainScreenState extends State<MainScreen> {
             showSelectedLabels: false,
             showUnselectedLabels: false,
             elevation: 5,
-            backgroundColor: ColorResources.white1,
-            unselectedIconTheme: IconThemeData(color: ColorResources.brownDark),
-            selectedIconTheme: IconThemeData(color: ColorResources.white1,),
+            backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+            selectedItemColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+            unselectedItemColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(IconResources.profile),

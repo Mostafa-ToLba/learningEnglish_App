@@ -33,10 +33,9 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
             children: [
               Text(
                 'أهلا بك ',
-                style: TextStyle(
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
                   fontSize: 14.sp,
                   fontFamily: AppConstants.arabicFont1,
-                  color: ColorResources.appGreyColor,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -44,9 +43,8 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
               Text(
                 name,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
                   overflow: TextOverflow.ellipsis,
-                  color: ColorResources.black,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w400,
                   height: 0.07.h,
@@ -54,12 +52,15 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(width: 12.w),
-          CircleAvatar(
-            radius: 20.r,
-            backgroundImage: NetworkImage(imageURL),
+          const Spacer(),
+          IconButton(
+            onPressed: onMenuPressed,
+            icon: Icon(
+              Icons.menu,
+              color: Theme.of(context).iconTheme.color,
+              size: 30.dg,
+            ),
           ),
-
         ],
       ),
     );

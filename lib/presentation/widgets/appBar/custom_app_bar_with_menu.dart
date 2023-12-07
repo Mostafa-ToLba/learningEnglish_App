@@ -28,10 +28,10 @@ class CustomAppBarWithMenu extends StatelessWidget {
           Text(
             //'بنك الأسئلة',
             text,
-            style: TextStyle(
-              color: ColorResources.black,
-              fontFamily: AppConstants.arabicFont1,
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
               fontSize: 18.sp,
+              fontFamily: AppConstants.arabicFont1,
+              // color: ColorResources.black,
               fontWeight: FontWeight.w400,
             ),
           ),

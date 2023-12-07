@@ -53,6 +53,7 @@ class _NewPasswordDoneScreenState extends State<NewPasswordDoneScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding:
@@ -63,33 +64,32 @@ class _NewPasswordDoneScreenState extends State<NewPasswordDoneScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  /*
                   Align(
                     alignment: Alignment.topLeft,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        width: 40
-                            .r, // Set the width and height to your desired size
-                        height: 40.r, padding: EdgeInsets.only(right: 4.w),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white, // White background
-                          border: Border.all(
-                            color: Colors.grey, // Grey border color
-                            width: 1.0, // Border width
+                    child: Container(
+                      decoration: ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            width: 1,
+                            color: Theme.of(context).indicatorColor,
                           ),
+                          borderRadius: BorderRadius.circular(32.r),
                         ),
-                        child: Center(
-                            child: SvgPicture.asset(
-                          IconResources.arrowleft,
-                          height: 25.h,
-                        )),
+                      ),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_ios_new_outlined,
+                          size: 20.dg,
+                        ), //circle_chevron_left
                       ),
                     ),
                   ),
-                  SizedBox(height: 50.h),
+                  */
+                  SizedBox(height: 135.h),
                   Container(
                     width:
                         120.h, // Set the width and height to your desired size
@@ -109,22 +109,23 @@ class _NewPasswordDoneScreenState extends State<NewPasswordDoneScreen>
                   ),
                   Text(
                     "password_confirmation_complete".i18n(),
-                    style: TextStyle(
-                        fontSize: 20.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   SizedBox(
                     height: 8.h,
                   ),
                   Center(
-                      child: Text(
-                    "password_confirmation_screen_subtitle".i18n(),
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        fontFamily: AppConstants.arabicFont1,
-                        color: ColorResources.appGreyColor),
-                  )),
+                    child: Text(
+                      "password_confirmation_screen_subtitle".i18n(),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 15.sp,
+                              ),
+                    ),
+                  ),
                   SizedBox(height: 32.h),
                   SlideTransition(
                     position: _offsetAnimation,
@@ -134,7 +135,7 @@ class _NewPasswordDoneScreenState extends State<NewPasswordDoneScreen>
                         child: CustomText(
                           text: "sign_in".i18n(),
                           textAlign: TextAlign.center,
-                          color: Colors.white,
+                          color: ColorResources.white1,
                           txtSize: 17.sp,
                           fontWeight: FontWeight.w600,
                         ),

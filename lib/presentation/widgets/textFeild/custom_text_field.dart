@@ -76,12 +76,11 @@ class CustomTextField extends StatelessWidget {
             keyboardType: textInputType,
             decoration: InputDecoration(
               hintText: hintText,
-              hintStyle: TextStyle(
-                color: hintColor,
-                fontSize: 16.sp,
-                fontFamily: AppConstants.arabicFont1,
-                fontWeight: FontWeight.w500,
-              ),
+              hintStyle: Theme.of(context).textTheme.displayMedium?.copyWith(
+                    color: hintColor,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
               focusedBorder: isRegister == true
                   ? OutlineInputBorder(
                       borderRadius: BorderRadius.circular(32.r),
