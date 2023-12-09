@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/images/images.dart';
 import 'package:localization/localization.dart';
+import 'package:provider/provider.dart';
 
 class CustomAppBarWithImageAndMenu extends StatelessWidget {
   final VoidCallback onMenuPressed;
   final String imageURL;
   final String name;
+  final bool? menuIcon;
   const CustomAppBarWithImageAndMenu(
       {super.key,
       required this.onMenuPressed,
       required this.imageURL,
-      required this.name});
+      required this.name,this.menuIcon=true});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +24,10 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
       padding: EdgeInsets.only(left: 24.w, right: 24.w),
       child: Row(
         children: [
+          if(menuIcon!)
           IconButton(
             onPressed: onMenuPressed,
-            icon: const Image(image: AssetImage(Images.menu1),)
+            icon: Image(image: const AssetImage(Images.menu1,),color:Theme.of(context).textTheme.displayMedium!.color,)
           ),
           const Spacer(),
           Column(
@@ -44,7 +48,7 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   overflow: TextOverflow.ellipsis,
-                  color: ColorResources.black,
+                  color: Theme.of(context).textTheme.displayMedium!.color,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w400,
                   height: 0.07.h,
@@ -55,6 +59,7 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
           SizedBox(width: 12.w),
           CircleAvatar(
             radius: 20.r,
+            backgroundColor: Theme.of(context).textTheme.displayMedium!.color,
             backgroundImage: NetworkImage(imageURL),
           ),
 

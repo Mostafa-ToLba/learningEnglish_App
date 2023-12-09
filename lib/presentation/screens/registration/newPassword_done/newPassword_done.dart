@@ -108,7 +108,7 @@ class _NewPasswordDoneScreenState extends State<NewPasswordDoneScreen>
                     height: 52.h,
                   ),
                   Text(
-                    "password_confirmation_complete".i18n(),
+                    "تم اعاده تعيير كلمة السر",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
@@ -119,7 +119,7 @@ class _NewPasswordDoneScreenState extends State<NewPasswordDoneScreen>
                   ),
                   Center(
                     child: Text(
-                      "password_confirmation_screen_subtitle".i18n(),
+                      'تم اعاده تعيير كلمة السر بنجاح',
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 fontSize: 15.sp,
@@ -133,7 +133,7 @@ class _NewPasswordDoneScreenState extends State<NewPasswordDoneScreen>
                       widgetInCenter: Align(
                         alignment: Alignment.center,
                         child: CustomText(
-                          text: "sign_in".i18n(),
+                          text: "تسجيل الدخول".i18n(),
                           textAlign: TextAlign.center,
                           color: ColorResources.white1,
                           txtSize: 17.sp,

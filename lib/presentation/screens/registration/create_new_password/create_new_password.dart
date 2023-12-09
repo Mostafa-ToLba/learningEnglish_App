@@ -62,7 +62,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword>
             key: formKey,
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Align(
                     alignment: Alignment.topLeft,
@@ -89,7 +89,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword>
                 ),
                   SizedBox(height: 30.h),
                   Text(
-                    "new_password".i18n(),
+                    'كلمه سر جديده',
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
@@ -99,14 +99,23 @@ class _CreateNewPasswordState extends State<CreateNewPassword>
                     height: 8.h,
                   ),
                   Text(
-                    "enter_new_password_screen_subtitle".i18n(),
+                    'يجب أن تكون كلمة السر الجديدة مختلفة عن تلك',
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 15.sp,
                         ),
                   ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  Text(
+                    'المستخدمة سابقا',
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      fontSize: 15.sp,
+                    ),
+                  ),
                   SizedBox(height: 30.h),
                   Text(
-                    "the_new_password".i18n(),
+                    'كلمة السر الجديدة',
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
@@ -131,7 +140,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword>
                   ),
                   SizedBox(height: 16.h),
                   Text(
-                    "confirm_new_password".i18n(),
+                    'تأكيد كلمة السر',
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
@@ -161,7 +170,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword>
                       widgetInCenter: Align(
                         alignment: Alignment.center,
                         child: CustomText(
-                          text: "confirm_password_change".i18n(),
+                          text: 'تغيير كلمة السر',
                           textAlign: TextAlign.center,
                           color: ColorResources.white1,
                           txtSize: 17.sp,

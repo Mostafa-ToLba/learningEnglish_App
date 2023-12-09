@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/presentation/screens/codeEntrance/code_entrance_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/exams_screen.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
+import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class UnpaidLessonScreen extends StatefulWidget {
@@ -46,6 +48,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeVm = Provider.of<ThemesViewModel>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
@@ -68,7 +71,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                         height: 40.r, padding: EdgeInsets.only(right: 4.w),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white, // White background
+                          color: themeVm.isDark?Colors.black:Colors.white, // White background
                           border: Border.all(
                             color: Colors.grey, // Grey border color
                             width: 1.0, // Border width
@@ -77,6 +80,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                         child: Center(
                             child: SvgPicture.asset(
                               IconResources.arrowleft,
+                              color: themeVm.isDark?Colors.white:Colors.black,
                               height: 25.h,
                             )),
                       ),
@@ -153,7 +157,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 20.h),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -164,11 +168,9 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                   width: double.infinity,
                   padding: EdgeInsets.all(24.dg),
                   //margin: EdgeInsets.all(24.dg),
-                  decoration: ShapeDecoration(
-                    color: ColorResources.white1,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32.r),
-                    ),
+                  decoration:BoxDecoration(
+                    color: themeVm.isDark?ColorResources.containerColor:Colors.white,
+                    borderRadius: BorderRadius.circular(32.r),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -189,15 +191,13 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "test_yourself".i18n(),
+                           'اختبر نفسك',
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
                                 ?.copyWith(
                               fontSize: 16.sp,
-                              //color: Theme.of(context).primaryColor,
-                              // color: ColorResources.black,
                               fontWeight: FontWeight.w400,
                               letterSpacing: -0.17.h,
                             ),
@@ -219,17 +219,15 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 20.h),
               Container(
                 height: 80.h,
                 width: double.infinity,
                 padding: EdgeInsets.all(24.dg),
                 //margin: EdgeInsets.all(24.dg),
-                decoration: ShapeDecoration(
-                  color: ColorResources.white1,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32.r),
-                  ),
+                decoration:BoxDecoration(
+                  color: themeVm.isDark?ColorResources.containerColor:Colors.white,
+                  borderRadius: BorderRadius.circular(32.r),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -250,7 +248,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "homework".i18n(),
+                          'الواجب المنزلي',
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme

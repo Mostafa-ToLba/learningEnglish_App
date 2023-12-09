@@ -61,15 +61,15 @@ class _LoginScreenState extends State<LoginScreen>
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(
-              top: 100.h, left: 25.w, right: 25.w, bottom: 10.h),
+              top: 60.h, left: 25.w, right: 25.w, bottom: 10.h),
           child: Form(
             key: formKey,
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    "welcome_back".i18n(),
+                    'أهلا بعودتك !',
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
@@ -79,14 +79,14 @@ class _LoginScreenState extends State<LoginScreen>
                     height: 8.h,
                   ),
                   Text(
-                    "login_screen_subtitle".i18n(),
+                      "اهلا بك ، من فضلك ادخلك بيانات حسابك",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 15.sp,
                         ),
                   ),
                   SizedBox(height: 30.h),
                   Text(
-                    "email".i18n(),
+                   'البريد الالكتروني',
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen>
                   ),
                   SizedBox(height: 16.h),
                   Text(
-                    "password".i18n(),
+                    "كلمة السر",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
@@ -151,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                       SizedBox(width: 0.w),
                       Text(
-                        "remember_me".i18n(),
+                        "تذكرني",
                         style:
                             Theme.of(context).textTheme.displayMedium?.copyWith(
                                   fontSize: 14.sp,
@@ -159,26 +159,27 @@ class _LoginScreenState extends State<LoginScreen>
                                 ),
                       ),
                       const Spacer(),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context, SlideTransition1(const ForgetPassword()));
+                        },
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "هل نسيت كلمة السر؟",
+                            style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: HexColor('#FF004C'),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context, SlideTransition1(const ForgetPassword()));
-                    },
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "have_you_forgotten_your_password".i18n(),
-                        style:
-                            Theme.of(context).textTheme.displayMedium?.copyWith(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: HexColor('#FF004C'),
-                                ),
-                      ),
-                    ),
-                  ),
+
                   SizedBox(height: 43.h),
                   SlideTransition(
                     position: _offsetAnimation,
@@ -186,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen>
                       widgetInCenter: Align(
                         alignment: Alignment.center,
                         child: CustomText(
-                          text: "sign_in".i18n(),
+                          text: "تسجيل الدخول",
                           textAlign: TextAlign.center,
                           color: ColorResources.white1,
                           txtSize: 17.sp,
@@ -203,7 +204,7 @@ class _LoginScreenState extends State<LoginScreen>
                   SizedBox(height: 40.h),
                   Center(
                     child: Text(
-                      "or_login_using".i18n(),
+                      "أو تسجيل الدخول بواسطة",
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 fontSize: 16.sp,
@@ -239,14 +240,6 @@ class _LoginScreenState extends State<LoginScreen>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "do_not_have_account".i18n(),
-                        style:
-                            Theme.of(context).textTheme.displayMedium?.copyWith(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                      ),
                       TextButton(
                         onPressed: () {
                           Navigator.push(context,
@@ -254,15 +247,23 @@ class _LoginScreenState extends State<LoginScreen>
                         },
                         //style: ButtonStyle()
                         child: Text(
-                          "create_new_account".i18n(),
+                          "تسجيل جديد",
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium
                               ?.copyWith(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
+                      ),
+                      Text(
+                        "ليس لديك حساب؟",
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
                       ),
                     ],
                   ),

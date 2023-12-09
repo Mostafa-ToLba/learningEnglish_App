@@ -91,9 +91,7 @@ class OnBoardingScreen extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       if (isLast) {
-                        context
-                            .read<SettingsBloc>()
-                            .add(const SettingsEvent.boardingScreensWatched());
+                    //    context.read<SettingsBloc>().add(const SettingsEvent.boardingScreensWatched());
 
                         Navigator.pushReplacement(
                             context,
@@ -137,9 +135,9 @@ class OnBoardingScreen extends StatelessWidget {
                     onTap: () {
                       //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen(),));
 
-                      context
-                          .read<SettingsBloc>()
-                          .add(const SettingsEvent.boardingScreensWatched());
+                  //    context
+                   //       .read<SettingsBloc>()
+                   //       .add(const SettingsEvent.boardingScreensWatched());
                       Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -5,6 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/login_screen/login_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
+import 'package:learning_anglish_app/presentation/widgets/phoneTextField/phoneTextField.dart';
+import 'package:learning_anglish_app/presentation/widgets/profileTextField/profileTextField.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
@@ -65,11 +67,10 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
               //padding: EdgeInsets.all(16.dg),
               child: ListView(
                 children: [
-                  SizedBox(height: 16.h),
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      "name".i18n(),
+                      "الأسم",
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 fontSize: 16.sp,
@@ -85,31 +86,13 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                     ),
                   ),
                   SizedBox(height: 16.h),
-                  Container(
-                    width: double.infinity,
-                    height: 56.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(32.r),
-                     
+                    CustomProfileTextField(hintText: 'Your name',hintColor:Colors.grey[500],
                     ),
-                    child: TextFormField(
-                      textAlign: TextAlign.end,
-                      decoration: InputDecoration(
-                        hintText: 'محمد السيد أحمد',
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 22.h, horizontal: 24.w),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(32.r),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                    ),
-                  ),
                   SizedBox(height: 16.h),
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      "email".i18n(),
+                      "البريد الالكتروني",
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 fontSize: 16.sp,
@@ -125,32 +108,13 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                     ),
                   ),
                   SizedBox(height: 16.h),
-                  Container(
-                    width: double.infinity,
-                    height: 56.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(32.r),
-                      
-                    ),
-                    child: TextFormField(
-                      textAlign: TextAlign.end,
-                      style: const TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                        hintText: 'Mohamed999@gmail.com',
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 22.h, horizontal: 24.w),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(32.r),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                    ),
+                  CustomProfileTextField(hintText: 'Your email',hintColor:Colors.grey[500],
                   ),
                   SizedBox(height: 16.h),
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      'phone_number'.i18n(),
+                      'رقم الهاتف',
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 fontSize: 16.sp,
@@ -166,33 +130,12 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                     ),
                   ),
                   SizedBox(height: 16.h),
-                  Container(
-                    width: double.infinity,
-                    height: 56.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(32.r),
-                      
-                    ),
-                    child: IntlPhoneField(
-
-                      disableLengthCheck: true,
-                      textAlign: TextAlign.start,
-                      decoration: InputDecoration(
-                        hintText: '1234567890',
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 22.h, horizontal: 24.w),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(32.r),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                    ),
-                  ),
+                  CustomPhoneTextField(hintText: '1023223332',hintColor: Colors.grey[500],textColor: Colors.black,),
                   SizedBox(height: 16.h),
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      "parent_phone_number".i18n(),
+                      "رقم ولي الأمر",
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 fontSize: 16.sp,
@@ -208,29 +151,8 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                     ),
                   ),
                   SizedBox(height: 16.h),
-                  Container(
-                    width: double.infinity,
-                    height: 56.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(32.r),
-                     
-                    ),
-                    child: IntlPhoneField(
-                      disableLengthCheck: true,
-                      textAlign: TextAlign.start,
-                      decoration: InputDecoration(
-                        hintText: '1234567890',
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 22.h, horizontal: 24.w),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(32.r),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-                  SizedBox(height: 16.h),
+                  CustomPhoneTextField(hintText: '1023223332',hintColor: Colors.grey[500],textColor: Colors.black,),
+                  SizedBox(height: 25.h),
                   SlideTransition(
                     position: _offsetAnimation,
                     child: CustomButton(
@@ -262,71 +184,6 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                       },
                     ),
                   ),
-                  /*
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor:
-                          const MaterialStatePropertyAll<Color>(Colors.brown),
-                      foregroundColor:
-                          const MaterialStatePropertyAll<Color>(Colors.white),
-                      fixedSize: MaterialStatePropertyAll<Size>(
-                        Size(double.infinity,
-                            MediaQuery.sizeOf(context).height * 0.09),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.sizeOf(context).width * 0.1,
-                        ),
-                        const Row(
-                          children: [
-                            Text('تغيير الباسورد'),
-                            Icon(Icons.lock, color: Colors.white),
-                          ],
-                        ),
-                        Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            color: Colors.white,
-                          ),
-                          child: const Icon(
-                            Icons.keyboard_arrow_right,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  
-                  
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      elevation: const MaterialStatePropertyAll<double>(0),
-                      backgroundColor: const MaterialStatePropertyAll<Color>(
-                          Colors.transparent),
-                      foregroundColor:
-                          const MaterialStatePropertyAll<Color>(Colors.red),
-                      fixedSize: MaterialStatePropertyAll<Size>(
-                        Size(double.infinity,
-                            MediaQuery.sizeOf(context).height * 0.09),
-                      ),
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('تسجيل الخروج'),
-                        Icon(Icons.logout, color: Colors.red),
-                      ],
-                    ),
-                  ),
-                  */
-
                   SizedBox(height: 4.h),
                   TextButton(
                     child: Row(

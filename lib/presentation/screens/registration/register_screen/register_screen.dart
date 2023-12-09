@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/login_screen/login_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
@@ -90,10 +91,10 @@ class _RegisterScreenState extends State<RegisterScreen>
             key: formKey,
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    "welcome".i18n(),
+                    "! أهلا بك",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 20.sp, fontWeight: FontWeight.bold),
                   ),
@@ -101,13 +102,13 @@ class _RegisterScreenState extends State<RegisterScreen>
                     height: 8.h,
                   ),
                   Text(
-                    "login_screen_subtitle".i18n(),
+                    "اهلا بك ، من فضلك سجل بيانات حسابك",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 15.sp, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 30.h),
                   Text(
-                    "name".i18n(),
+                    "الأسم",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 16.sp, fontWeight: FontWeight.w500),
                   ),
@@ -125,7 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                   ),
                   SizedBox(height: 16.h),
                   Text(
-                    "phone_number".i18n(),
+                    "رقم الهاتف",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 16.sp, fontWeight: FontWeight.w500),
                   ),
@@ -143,7 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                   ),
                   SizedBox(height: 20.h),
                   Text(
-                    "parent_phone_number".i18n(),
+                    "رقم ولي الأمر",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 16.sp, fontWeight: FontWeight.w500),
                   ),
@@ -162,7 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                   SizedBox(height: 16.h),
                   // TODO: check if the email is after the parent's phone number in the figma ui design
                   Text(
-                    "email".i18n(),
+                    "البريد الألكتروني",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 16.sp, fontWeight: FontWeight.w500),
                   ),
@@ -180,7 +181,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                   ),
                   SizedBox(height: 16.h),
                   Text(
-                    "password".i18n(),
+                    "كلمة السر",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 16.sp, fontWeight: FontWeight.w500),
                   ),
@@ -209,7 +210,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                       widgetInCenter: Align(
                         alignment: Alignment.center,
                         child: CustomText(
-                          text: "create_an_account".i18n(),
+                          text: "انشاء حساب",
                           textAlign: TextAlign.center,
                           color: Colors.white,
                           txtSize: 17.sp,
@@ -221,17 +222,14 @@ class _RegisterScreenState extends State<RegisterScreen>
                         if (formKey.currentState!.validate()) {
                           //     formKey.currentState!.save();
                         }
-                        /*          
-                        Navigator.push(
-                            context, SlideTransition1(const LoginScreen()));
-                      */
+
                       },
                     ),
                   ),
                   SizedBox(height: 40.h),
                   Center(
                       child: Text(
-                    "or_login_using".i18n(),
+                        "أو التسجيل بواسطة",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
@@ -244,7 +242,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                       SizedBox(
                           height: 32.h,
                           width: 32.w,
-                          child: SvgPicture.asset(IconResources.Apple)),
+                          child: FaIcon(FontAwesomeIcons.apple, size: 32.dg,)),
                       SizedBox(width: 24.w),
                       SizedBox(
                           height: 32.h,
@@ -263,30 +261,31 @@ class _RegisterScreenState extends State<RegisterScreen>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "do_you_have_account".i18n(),
-                        style:
-                            Theme.of(context).textTheme.displayMedium?.copyWith(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                      ),
                       TextButton(
                         onPressed: () {
                           Navigator.push(
                               context, SlideTransition1(const LoginScreen()));
                         },
                         child: Text(
-                          "sign_in".i18n(),
+                          'تسجيل الدخول',
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium
                               ?.copyWith(
-                                fontSize: 16.sp,
-                                color: HexColor('#FF004C'),
-                              ),
+                            fontSize: 16.sp,
+                            color: HexColor('#FF004C'),
+                          ),
                         ),
-                      )
+                      ),
+                      Text(
+                        "هل لديك حساب بالفعل ؟",
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                      ),
+
                     ],
                   ),
                 ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/exams_vm/exams_vm.dart';
+import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/presentation/screens/result/results_page.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
@@ -65,6 +66,7 @@ class _ExamWidgetsState extends State<ExamWidgets> {
   }
   @override
   Widget build(BuildContext context) {
+    final themeVm = Provider.of<ThemesViewModel>(context);
     return Consumer<ExamsViewModel>(
       builder: (BuildContext contextt, model, Widget? child) {
         return SafeArea(
@@ -88,7 +90,7 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                           height: 40.r, padding: EdgeInsets.only(right: 4.w),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors.white, // White background
+                            color: themeVm.isDark?Colors.black:Colors.white, // White background
                             border: Border.all(
                               color: Colors.grey, // Grey border color
                               width: 1.0, // Border width
@@ -97,6 +99,7 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                           child: Center(
                               child: SvgPicture.asset(
                                 IconResources.arrowleft,
+                                color: themeVm.isDark?Colors.white:Colors.black,
                                 height: 25.h,
                               )),
                         ),
@@ -139,8 +142,9 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                       barRadius:Radius.circular(8.r) ,
                       width: 305.w,
                       lineHeight: 8.0,
-                      percent: 0.9,
-                      progressColor: ColorResources.black,
+                      percent: 0.6,
+                      backgroundColor:const Color(0xff1c1c1a),
+                      progressColor: ColorResources.white1,
                     ),
                     Text(
                       '10/${widget.index+1}',
@@ -158,7 +162,7 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                   child: SingleChildScrollView(
                     child: Container(
                       decoration: ShapeDecoration(
-                        color: ColorResources.white1,
+                        color: themeVm.isDark?Colors.black:ColorResources.white1,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(56.r),
                         ),
@@ -189,17 +193,20 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                                     ),
                                   ),
                                   child: Center(
-                                    child: Text(
-                                      '${widget.index+1}',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14.sp,
-                                        //fontFamily: 'Inter',
-                                        fontWeight: FontWeight.bold,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(top: 8.sp),
+                                      child: Text(
+                                        '${widget.index+1}',
+                                        style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w400,
+                                          height: 0.16.h,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
+                                SizedBox(width: 4.w),
                                 Expanded(
                                   child: Text(
                                     '  the question thar is shown to students and it is a multi line based on the length of the question and to make sure that srolling is working fine',
@@ -444,7 +451,7 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                  fontWeight: FontWeight.w400,
                ),
              ),
-             Spacer(),
+             const Spacer(),
              if(selectedQuestion)
              FaIcon(
                FontAwesomeIcons.circleDot,

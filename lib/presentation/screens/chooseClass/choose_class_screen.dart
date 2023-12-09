@@ -54,13 +54,13 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   int selectedIndex = 0;
   List<String> classList = [
-    "first_class".i18n(),
-    "second_class".i18n(),
-    "third_class".i18n(),
+    'الصف الأول الثانوي',
+    'الصف الثاني الثانوي',
+    'الصف الثالث الثانوي',
   ];
   @override
   Widget build(BuildContext context) {
-    final mode = context.watch<SettingsBloc>().state.mode;
+  //  final mode = context.watch<SettingsBloc>().state.mode;
     /*
     final appTheme =
         mode ? appThemeData[AppTheme.dark] : appThemeData[AppTheme.light];
@@ -68,16 +68,13 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
     return Scaffold(
       key: _key,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      drawer: AppDrawer(
-        mode: mode,
-        onExitPressed: () => _key.currentState!.closeDrawer(),
-      ),
       body: SafeArea(
           child: Padding(
         padding: EdgeInsets.only(top: 25.h),
         child: Column(
           children: [
             CustomAppBarWithImageAndMenu(
+              menuIcon: false,
               onMenuPressed: () {
                 _key.currentState!.openDrawer();
               },
@@ -98,10 +95,10 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
               width: 1.sw,
               padding: EdgeInsets.only(top: 34.h, right: 24.w, left: 24.w),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    "choose_class".i18n(),
+                    ': اختر الصف ',
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 16.sp, fontWeight: FontWeight.w500),
                   ),
@@ -154,9 +151,7 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
                       ),
                       color: ColorResources.buttonColor,
                       onTap: () {
-                        context
-                            .read<SettingsBloc>()
-                            .add(const SettingsEvent.choosingClassDone());
+                     //   context.read<SettingsBloc>().add(const SettingsEvent.choosingClassDone());
                         Route route = MaterialPageRoute(
                             builder: (context) => const MainScreen());
                         Navigator.pushReplacement(context, route);

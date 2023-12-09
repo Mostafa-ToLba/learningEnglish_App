@@ -5,12 +5,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:learning_anglish_app/blocs/settings_bloc/settings_bloc.dart';
+import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/presentation/screens/main/home_view.dart';
 import 'package:learning_anglish_app/presentation/screens/main/profile_settings_view.dart';
 import 'package:learning_anglish_app/presentation/screens/main/question_bank_view.dart';
 import 'package:learning_anglish_app/presentation/widgets/drawer/app_drawer.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
+import 'package:provider/provider.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
 class MainScreen extends StatefulWidget {
@@ -24,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey(); // Create a key
 
   int _selectedIndex = 2;
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     ProfileSettingsView(),
     QuestionBankView(),
     HomeView(),
@@ -39,6 +41,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
   //  final mode = context.watch<SettingsBloc>().state.mode;
+
     return SideMenu(
       key: MainScreen.sideMenuKey,
       type: SideMenuType.slideNRotate,
@@ -63,9 +66,10 @@ class _MainScreenState extends State<MainScreen> {
             Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
             unselectedItemColor:
             Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+            unselectedIconTheme: Theme.of(context).bottomNavigationBarTheme.unselectedIconTheme,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: SvgPicture.asset(IconResources.profile),
+                icon: SvgPicture.asset(IconResources.profile,color:Theme.of(context).textTheme.displayMedium?.color),
                 label: 'Profile',
                 activeIcon: Container(
                   width: 48.w,
@@ -74,11 +78,11 @@ class _MainScreenState extends State<MainScreen> {
                     borderRadius: BorderRadius.circular(40.r),
                     color: ColorResources.brownDark,
                   ),
-                  child: SvgPicture.asset(IconResources.profile,fit: BoxFit.scaleDown,color: Colors.white),
+                  child: SvgPicture.asset(IconResources.profile,fit: BoxFit.scaleDown,color:Colors.white),
                 ),
               ),
               BottomNavigationBarItem(
-                icon: SvgPicture.asset(IconResources.bank),
+                icon: SvgPicture.asset(IconResources.bank,color: Theme.of(context).textTheme.displayMedium?.color,),
                 label: 'Questions',
                 activeIcon: Container(
                   width: 48.w,
@@ -91,7 +95,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               BottomNavigationBarItem(
-                icon: SvgPicture.asset(IconResources.home,color: Colors.black),
+                icon: SvgPicture.asset(IconResources.home,color: Theme.of(context).textTheme.displayMedium?.color),
                 label: 'Home',
                 activeIcon: Container(
                   width: 48.w,
@@ -115,6 +119,7 @@ class _MainScreenState extends State<MainScreen> {
 
 
 Widget buildMenu(context) {
+  final themeVm = Provider.of<ThemesViewModel>(context);
   return SingleChildScrollView(
     padding:  EdgeInsets.symmetric(vertical: 10.h,),
     child: Column(
@@ -144,7 +149,7 @@ Widget buildMenu(context) {
           horizontalTitleGap: 20.w,
           onTap: ()
           {
-
+            themeVm.setTheme(!themeVm.isDark);
           },
           trailing: Icon(Icons.dark_mode, size: 25.sp, color: Colors.white),
           title:  Text('الوضع الليلي',textDirection: TextDirection.rtl,

@@ -61,7 +61,7 @@ class _ForgetPasswordState extends State<ForgetPassword>
             key: formKey,
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Align(
                     alignment: Alignment.topLeft,
@@ -88,7 +88,7 @@ class _ForgetPasswordState extends State<ForgetPassword>
                 ),
                   SizedBox(height: 30.h),
                   Text(
-                    "forgot_password".i18n(),
+                    "نسيت كلمة السر",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
@@ -98,14 +98,23 @@ class _ForgetPasswordState extends State<ForgetPassword>
                     height: 8.h,
                   ),
                   Text(
-                    "forgot_password_screen_subtitle".i18n(),
+                      "لا تقلق! هذا يحدث الرجاء إدخال عنوان البريد الإلكتروني",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 15.sp,
                         ),
                   ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                Text(
+                  "المرتبط بحسابك",
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                    fontSize: 15.sp,
+                  ),
+                ),
                   SizedBox(height: 64.h),
                   Text(
-                    "email".i18n(),
+                    "البريد الالكتروني",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
@@ -121,6 +130,7 @@ class _ForgetPasswordState extends State<ForgetPassword>
                       return null;
                     },
                     textInputType: TextInputType.emailAddress,
+
                   ),
                   SizedBox(height: 24.h),
                   SlideTransition(
@@ -129,7 +139,7 @@ class _ForgetPasswordState extends State<ForgetPassword>
                       widgetInCenter: Align(
                         alignment: Alignment.center,
                         child: CustomText(
-                          text: "enter_verfication_code".i18n(),
+                          text: "ارسال الرمز",
                           textAlign: TextAlign.center,
                           color: Colors.white,
                           txtSize: 17.sp,

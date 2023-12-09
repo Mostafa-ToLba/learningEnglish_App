@@ -62,7 +62,7 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
             key: formKey,
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Align(
                     alignment: Alignment.topLeft,
@@ -89,7 +89,7 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
                   ),
                   SizedBox(height: 30.h),
                   Text(
-                    "verification_code".i18n(),
+                    "رمز التحقق",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 20.sp, fontWeight: FontWeight.bold),
                   ),
@@ -97,10 +97,19 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
                     height: 8.h,
                   ),
                   Text(
-                    "verification_screen_subtitle".i18n(),
+                    "أدخل رمز التحقق الذي أرسلناه للتو على عنوان بريدك",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 15.sp,
                         ),
+                  ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Text(
+                    "الالكتروني",
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      fontSize: 15.sp,
+                    ),
                   ),
                   SizedBox(height: 64.h),
                   PinCodeTextField(
@@ -141,7 +150,7 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
                       widgetInCenter: Align(
                         alignment: Alignment.center,
                         child: CustomText(
-                          text: "verify".i18n(),
+                          text: 'التحقق',
                           textAlign: TextAlign.center,
                           color: Colors.white,
                           txtSize: 17.sp,

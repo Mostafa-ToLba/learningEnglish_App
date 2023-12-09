@@ -1,16 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/presentation/screens/lesson/unpaid_lesson_screen.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
+import 'package:provider/provider.dart';
 
 class ChooseLessonScreen extends StatelessWidget {
-  const ChooseLessonScreen({super.key});
-
+   ChooseLessonScreen({super.key});
+   final List<Color> colors = [
+     Colors.red,
+     Colors.blue,
+     Colors.green,
+     Colors.yellow,
+     Colors.orange,
+     Colors.purple,
+     Colors.teal,
+     Colors.pink,
+     Colors.indigo,
+     Colors.cyan,
+     // Added 10 colors
+   ];
   @override
   Widget build(BuildContext context) {
+    final themeVM = Provider.of<ThemesViewModel>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
@@ -33,7 +49,7 @@ class ChooseLessonScreen extends StatelessWidget {
                         height: 40.r, padding: EdgeInsets.only(right: 4.w),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white, // White background
+                          color: themeVM.isDark?Colors.black:Colors.white, // White background
                           border: Border.all(
                             color: Colors.grey, // Grey border color
                             width: 1.0, // Border width
@@ -64,7 +80,7 @@ class ChooseLessonScreen extends StatelessWidget {
                                   fontWeight: FontWeight.w400,
                                 ),
                           ),
-                          SizedBox(height: 8.h),
+                          SizedBox(height: 12.h),
                           Text(
                             'Getting away',
                             textAlign: TextAlign.center,
@@ -90,7 +106,7 @@ class ChooseLessonScreen extends StatelessWidget {
               Expanded(
                 child: ListView.builder(
                   itemCount: 3,
-                  itemBuilder: (context, index) {
+                  itemBuilder: (context, index,) {
                     return Padding(
                       padding: EdgeInsets.only(top: 16.h),
                       child: GestureDetector(
@@ -99,16 +115,10 @@ class ChooseLessonScreen extends StatelessWidget {
                               SlideTransition1(const UnpaidLessonScreen()));
                         },
                         child: Container(
-                          //margin: EdgeInsets.all(25.dg),
-                          //width: 327.w,
                           height: 80.h,
                           clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
-                            //color: ColorResources.white1,
-                            border: Border.all(
-                              width: 1,
-                              color: Theme.of(context).indicatorColor,
-                            ),
+                            color: themeVM.isDark?ColorResources.containerColor:Colors.white,
                             borderRadius: BorderRadius.circular(32.r),
                           ),
                           child: Row(
@@ -144,10 +154,19 @@ class ChooseLessonScreen extends StatelessWidget {
                                       ),
                                     ),
                                   SizedBox(width: 12.w),
-                                  Icon(
-                                    Icons.folder,
-                                    color: Colors.green,
-                                    size: 30.dm,
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.folder,
+                                        color:  index < colors.length ? colors[index] : Colors.black,
+                                        size: 30.dm,
+                                      ),
+                                      Padding(
+                                        padding:  EdgeInsets.only(top: 7.h),
+                                        child: Text('${index+1}',style: TextStyle(color: Colors.white,fontSize: 13.sp),),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(width: 24.w),
                                 ],

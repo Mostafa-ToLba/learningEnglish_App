@@ -44,4 +44,8 @@ class ColorResources {
   static Color get arrowRightBackground =>const Color(0xFF35302B);
   //static Color get profileText => Colors.black.withOpacity(0.6499999761581421);
   static Color get buttonColor => const Color(0xFF49423A);
+
+  static Color get expansionBorder => const Color(0xFF918d8a);
+  static Color get containerColor => const Color(0xFF171716);
+
 }
