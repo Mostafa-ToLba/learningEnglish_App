@@ -152,42 +152,6 @@ class _CodeEntranceScreenState extends State<CodeEntranceScreen>
                   ),
                 ),
                 SizedBox(height: 4.h),
-                /*
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor:
-                          const MaterialStatePropertyAll<Color>(Colors.brown),
-                      foregroundColor:
-                          const MaterialStatePropertyAll<Color>(Colors.white),
-                      fixedSize: MaterialStatePropertyAll<Size>(
-                        Size(double.infinity,
-                            MediaQuery.sizeOf(context).height * 0.09),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.sizeOf(context).width * 0.1,
-                        ),
-                        Text("enter".i18n()),
-                        Container(
-                          height: 40,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.white,
-                          ),
-                          child: const Icon(
-                            Icons.keyboard_arrow_right,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  */
                 TextButton(
                   child: Text(
                     "go_back".i18n(),
@@ -202,23 +166,6 @@ class _CodeEntranceScreenState extends State<CodeEntranceScreen>
                     Navigator.pop(context);
                   },
                 ),
-                /*
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      elevation: const MaterialStatePropertyAll<double>(0),
-                      backgroundColor:
-                          const MaterialStatePropertyAll<Color>(Colors.white),
-                      foregroundColor:
-                          const MaterialStatePropertyAll<Color>(Colors.brown),
-                      fixedSize: MaterialStatePropertyAll<Size>(
-                        Size(double.infinity,
-                            MediaQuery.sizeOf(context).height * 0.09),
-                      ),
-                    ),
-                    child: Text("go_back".i18n()),
-                  ),
-                */
               ],
             ),
           ),

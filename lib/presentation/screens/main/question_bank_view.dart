@@ -89,7 +89,7 @@ class QuestionBankView extends StatelessWidget {
              width: .3
          ),
          borderRadius: BorderRadius.circular(32.r),
-         color: Theme.of(context).scaffoldBackgroundColor,
+         color: themeVM.isDark?Colors.black:Colors.white,
        ),
        child: Column(
          children: [

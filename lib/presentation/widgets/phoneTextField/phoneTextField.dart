@@ -53,10 +53,9 @@ class CustomPhoneTextField extends StatelessWidget {
         Container(
       width: double.infinity,
       height: 56.h,
-
       decoration: BoxDecoration(
         border: Border.all(
-          color: ColorResources.expansionBorder
+          color: themeVm.isDark?ColorResources.expansionBorder:Colors.transparent,
         ),
         color: themeVm.isDark?Colors.black:Colors.white,
         borderRadius: BorderRadius.circular(32.r),),

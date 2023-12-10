@@ -10,6 +10,7 @@ import 'package:learning_anglish_app/injection.dart';
 import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/onBoarding/onboarding_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/login_screen/login_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/splashScreen/splashScreen.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/theme/theme.dart';
 import 'package:localization/localization.dart';
@@ -85,7 +86,7 @@ class MainAppWidget extends StatelessWidget {
       systemNavigationBarColor: Colors.black,systemNavigationBarIconBrightness: Brightness.light,
       systemNavigationBarDividerColor: ColorResources.black,
     ));
-    return const OnBoardingScreen();
+    return  SplashScreen();
     /*
      bool areBoardingScreensWatched
      = context.watch<SettingsBloc>().state.areBoardingScreensWatched;

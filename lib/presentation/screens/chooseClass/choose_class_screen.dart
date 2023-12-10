@@ -142,7 +142,7 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
                       widgetInCenter: Align(
                         alignment: Alignment.center,
                         child: CustomText(
-                          text: "choose".i18n(),
+                          text: "إختيار",
                           textAlign: TextAlign.center,
                           color: ColorResources.white1,
                           txtSize: 17.sp,

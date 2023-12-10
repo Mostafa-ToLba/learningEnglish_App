@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen>
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    'أهلا بعودتك !',
+                    '! أهلا بعودتك',
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen>
                     height: 8.h,
                   ),
                   Text(
-                      "اهلا بك ، من فضلك ادخلك بيانات حسابك",
+                      "اهلا بك من فضلك ادخلك بيانات حسابك",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 15.sp,
                         ),

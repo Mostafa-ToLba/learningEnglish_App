@@ -55,7 +55,7 @@ class CustomProfileTextField extends StatelessWidget {
         height: 56.h,
         decoration: BoxDecoration(
           border: Border.all(
-            color: ColorResources.expansionBorder,
+            color: themeVm.isDark?ColorResources.expansionBorder:Colors.transparent,
           ),
           color: themeVm.isDark?Colors.black:Colors.white,
         borderRadius: BorderRadius.circular(32.r),),

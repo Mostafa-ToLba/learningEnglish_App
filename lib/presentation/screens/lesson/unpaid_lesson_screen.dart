@@ -4,6 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/presentation/screens/codeEntrance/code_entrance_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/exams_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/lesson/paid_lesson_screen.dart';
+import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
+import 'package:learning_anglish_app/presentation/widgets/customDialog/customDialog.dart';
+import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
@@ -129,8 +133,130 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
               SizedBox(height: 32.h),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context, SlideTransition1(const CodeEntranceScreen()));
+           //       Navigator.push(context, SlideTransition1(const CodeEntranceScreen()));
+
+                  ShowCustomDialog(
+                    context: context,
+                    content: StatefulBuilder(
+                      builder: (BuildContext context, void Function(void Function()) setStatee) {
+                        return Container(
+                          height: 550.h,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius:BorderRadius.circular(16.r) ,
+                             border: Border.all(
+                               color: themeVm.isDark?Colors.white:Colors.transparent,
+                               width: .1
+                             )
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(25.sp),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 96.w,
+                                  height: 96.h,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage("assets/images/enterUnitCode.png"),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 24.h),
+                                Text(
+                                  "قم بإدخال الكود",
+                                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                SizedBox(height: 15.h),
+                                Text(
+                                  "كي تتمكن من مشاهده الفيديو ، يجب إدخال الكود. يمكنك الحصول عليه من المعلم",
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w400,
+                                    //color: Theme.of(context).primaryColor.withOpacity(0.5),
+                                  ),
+                                ),
+                                SizedBox(height: 24.h),
+                                Container(
+                                  width: 279.w,
+                                  height: 56.h,
+                                  decoration: ShapeDecoration(
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                        width: 1,
+                                        color: Colors.black.withOpacity(0.25),
+                                      ),
+                                      borderRadius: BorderRadius.circular(32),
+                                    ),
+                                  ),
+                                  child: TextFormField(
+                                    textAlign: TextAlign.start,
+                                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    decoration: InputDecoration(
+                                      hintText: "ادخل الكود",
+                                      contentPadding: EdgeInsets.symmetric(
+                                          vertical: 17.h, horizontal: 24.w),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 24.h),
+                                CustomButton(
+                                  widgetInCenter: Align(
+                                    alignment: Alignment.center,
+                                    child: CustomText(
+                                      text: "إدخال".i18n(),
+                                      textAlign: TextAlign.center,
+                                      color: Colors.white,
+                                      txtSize: 17.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  color: ColorResources.buttonColor,
+                                  onTap: () {
+                                    /*
+                                    Route route = MaterialPageRoute(
+                                        builder: (context) => const PaidLessonScreen());
+                                    Navigator.pushReplacement(context, route);
+
+                                     */
+                                  },
+                                ),
+                                SizedBox(height: 4.h),
+                                TextButton(
+                                  child: Text(
+                                    "go_back".i18n(),
+                                    textAlign: TextAlign.justify,
+                                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w400,
+                                      height: 0.12.h,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),).showCustomDialg();
+
+
                 },
                 child: Container(
                   width: 327.w,

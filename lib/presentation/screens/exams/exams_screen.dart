@@ -142,9 +142,9 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                       barRadius:Radius.circular(8.r) ,
                       width: 305.w,
                       lineHeight: 8.0,
-                      percent: 0.6,
-                      backgroundColor:const Color(0xff1c1c1a),
-                      progressColor: ColorResources.white1,
+                      percent: (widget.index+1).toDouble() / 10.0,
+                      backgroundColor:Colors.grey[300],
+                      progressColor: const Color(0xff1c1c1a),
                     ),
                     Text(
                       '10/${widget.index+1}',
