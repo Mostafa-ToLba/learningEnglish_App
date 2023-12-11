@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/login_screen/login_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
-import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
 
 class NewPasswordDoneScreen extends StatefulWidget {

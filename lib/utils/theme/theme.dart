@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
@@ -12,7 +11,6 @@ enum AppTheme {
 final appThemeData = {
   AppTheme.light: ThemeData(
     brightness: Brightness.light,
-    backgroundColor: Colors.white,
     scaffoldBackgroundColor: ColorResources.grey5,
     indicatorColor: ColorResources.black,
     primaryColor: ColorResources.grey5,
@@ -50,7 +48,6 @@ final appThemeData = {
     ),
   ),
   AppTheme.dark: ThemeData(
-    backgroundColor: Colors.black,
     indicatorColor: ColorResources.white1,
     primaryColor: ColorResources.black,
     brightness: Brightness.dark,

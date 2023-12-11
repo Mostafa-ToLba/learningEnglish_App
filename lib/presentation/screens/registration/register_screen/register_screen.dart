@@ -220,7 +220,8 @@ class _RegisterScreenState extends State<RegisterScreen>
                       color: ColorResources.buttonColor,
                       onTap: () {
                         if (formKey.currentState!.validate()) {
-                          //     formKey.currentState!.save();
+                          Navigator.pushReplacement(
+                              context, SlideTransition1(const LoginScreen()));
                         }
 
                       },
@@ -263,7 +264,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                     children: [
                       TextButton(
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context, SlideTransition1(const LoginScreen()));
                         },
                         child: Text(

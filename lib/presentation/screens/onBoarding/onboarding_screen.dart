@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:learning_anglish_app/blocs/settings_bloc/settings_bloc.dart';
+import 'package:learning_anglish_app/business_logic/view_models/onboarding_vm/onboarding_vm.dart';
+import 'package:learning_anglish_app/injection.dart';
 import 'package:learning_anglish_app/presentation/screens/onBoarding/widgtes/build_onboarding.dart';
 import 'package:learning_anglish_app/presentation/screens/onBoarding/widgtes/onboarding_pages.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/login_screen/login_screen.dart';
-import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -91,8 +90,8 @@ class OnBoardingScreen extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       if (isLast) {
-                    //    context.read<SettingsBloc>().add(const SettingsEvent.boardingScreensWatched());
-
+                        //    context.read<SettingsBloc>().add(const SettingsEvent.boardingScreensWatched());
+                        getIt<OnboardingViewModel>().boardingScreensWatched();
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -135,10 +134,12 @@ class OnBoardingScreen extends StatelessWidget {
                     onTap: () {
                       //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen(),));
 
-                  //    context
-                   //       .read<SettingsBloc>()
-                   //       .add(const SettingsEvent.boardingScreensWatched());
-                      Navigator.push(
+                      //    context
+                      //       .read<SettingsBloc>()
+                      //       .add(const SettingsEvent.boardingScreensWatched());
+
+                      getIt<OnboardingViewModel>().boardingScreensWatched();
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const LoginScreen(),

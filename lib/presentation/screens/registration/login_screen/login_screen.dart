@@ -3,7 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:learning_anglish_app/business_logic/view_models/choosingclassdone_vm/choosingclass_vm.dart';
+import 'package:learning_anglish_app/injection.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseClass/choose_class_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/forget_password/forget_password.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/register_screen/register_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
@@ -60,8 +63,8 @@ class _LoginScreenState extends State<LoginScreen>
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(
-              top: 60.h, left: 25.w, right: 25.w, bottom: 10.h),
+          padding:
+              EdgeInsets.only(top: 60.h, left: 25.w, right: 25.w, bottom: 10.h),
           child: Form(
             key: formKey,
             child: SingleChildScrollView(
@@ -79,14 +82,14 @@ class _LoginScreenState extends State<LoginScreen>
                     height: 8.h,
                   ),
                   Text(
-                      "اهلا بك من فضلك ادخلك بيانات حسابك",
+                    "اهلا بك من فضلك ادخلك بيانات حسابك",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 15.sp,
                         ),
                   ),
                   SizedBox(height: 30.h),
                   Text(
-                   'البريد الالكتروني',
+                    'البريد الالكتروني',
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
@@ -161,19 +164,21 @@ class _LoginScreenState extends State<LoginScreen>
                       const Spacer(),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(
-                              context, SlideTransition1(const ForgetPassword()));
+                          Navigator.push(context,
+                              SlideTransition1(const ForgetPassword()));
                         },
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Text(
                             "هل نسيت كلمة السر؟",
-                            style:
-                            Theme.of(context).textTheme.displayMedium?.copyWith(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: HexColor('#FF004C'),
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: HexColor('#FF004C'),
+                                ),
                           ),
                         ),
                       ),
@@ -196,8 +201,19 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                       color: ColorResources.buttonColor,
                       onTap: () {
-                        Navigator.push(context,
-                            SlideTransition1(const ChooseClassScreen()));
+                        final provider = getIt<ChoosingClassViewModel>();
+                        provider.areChoosingClassDone();
+                        final onChoosingClassWatched = provider.hasShownBefore;
+                        if (onChoosingClassWatched == true) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MainScreen()),
+                          );
+                        } else {
+                          Navigator.pushReplacement(context,
+                              SlideTransition1(const ChooseClassScreen()));
+                        }
                       },
                     ),
                   ),
@@ -219,9 +235,12 @@ class _LoginScreenState extends State<LoginScreen>
                       SizedBox(
                           height: 32.h,
                           width: 32.w,
-                          child: FaIcon(FontAwesomeIcons.apple, size: 32.dg,)), 
-                          
-                          //Fa.asset(IconResources.Apple)),
+                          child: FaIcon(
+                            FontAwesomeIcons.apple,
+                            size: 32.dg,
+                          )),
+
+                      //Fa.asset(IconResources.Apple)),
                       SizedBox(width: 24.w),
                       SizedBox(
                           height: 32.h,
@@ -242,7 +261,7 @@ class _LoginScreenState extends State<LoginScreen>
                     children: [
                       TextButton(
                         onPressed: () {
-                          Navigator.push(context,
+                          Navigator.pushReplacement(context,
                               SlideTransition1(const RegisterScreen()));
                         },
                         //style: ButtonStyle()
@@ -252,9 +271,9 @@ class _LoginScreenState extends State<LoginScreen>
                               .textTheme
                               .displayMedium
                               ?.copyWith(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                       ),
                       Text(

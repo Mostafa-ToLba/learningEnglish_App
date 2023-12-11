@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'provider_setup.dart';
 
 enum NotifierState { busy, idle, error }
 

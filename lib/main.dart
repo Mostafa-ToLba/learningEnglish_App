@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:learning_anglish_app/blocs/settings_bloc/settings_bloc.dart';
 import 'package:learning_anglish_app/business_logic/setup/provider_setup.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/injection.dart';
-import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
-import 'package:learning_anglish_app/presentation/screens/onBoarding/onboarding_screen.dart';
-import 'package:learning_anglish_app/presentation/screens/registration/login_screen/login_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/splashScreen/splashScreen.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/theme/theme.dart';
@@ -32,6 +27,7 @@ class AppScreen extends StatefulWidget {
 }
 
 class _AppScreenState extends State<AppScreen> {
+ 
   @override
   Widget build(BuildContext context) {
     LocalJsonLocalization.delegate.directories = ['lib/i18n'];
@@ -42,7 +38,7 @@ class _AppScreenState extends State<AppScreen> {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (BuildContext context, Widget? child) {
-          final themeVm = Provider.of<ThemesViewModel>(context);
+           final themeVm = Provider.of<ThemesViewModel>(context);
           return MaterialApp(
             locale: const Locale('en'),
             localizationsDelegates: [
@@ -63,7 +59,9 @@ class _AppScreenState extends State<AppScreen> {
             showSemanticsDebugger: false,
             //theme: themeData,
             debugShowCheckedModeBanner: false,
-            theme: themeVm.isDark?appThemeData[AppTheme.dark]:appThemeData[AppTheme.light],
+            theme: themeVm.isDark == true
+                ? appThemeData[AppTheme.dark]
+                : appThemeData[AppTheme.light],
             home: const MainAppWidget(),
           );
         },
@@ -78,15 +76,18 @@ class MainAppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeVm = Provider.of<ThemesViewModel>(context);
-    themeVm.isDark==false? SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
-        statusBarColor: ColorResources.buttonColor,statusBarIconBrightness: Brightness.light
-    )):
-    SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
-        statusBarColor: ColorResources.buttonColor,statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: Colors.black,systemNavigationBarIconBrightness: Brightness.light,
-      systemNavigationBarDividerColor: ColorResources.black,
-    ));
-    return  SplashScreen();
+    themeVm.isDark == false
+        ? SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            statusBarColor: ColorResources.buttonColor,
+            statusBarIconBrightness: Brightness.light))
+        : SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            statusBarColor: ColorResources.buttonColor,
+            statusBarIconBrightness: Brightness.light,
+            systemNavigationBarColor: Colors.black,
+            systemNavigationBarIconBrightness: Brightness.light,
+            systemNavigationBarDividerColor: ColorResources.black,
+          ));
+    return SplashScreen();
     /*
      bool areBoardingScreensWatched
      = context.watch<SettingsBloc>().state.areBoardingScreensWatched;
