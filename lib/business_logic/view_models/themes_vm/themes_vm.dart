@@ -1,19 +1,27 @@
-
 import 'package:learning_anglish_app/business_logic/setup/base_notifier.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ThemesViewModel extends BaseNotifier
-{
-  bool isDark = false;
+String modePrefKey = 'mode';
 
-  setTheme(bool value) {
+class ThemesViewModel extends BaseNotifier {
+  final SharedPreferences sharedPreferences;
+  bool? isDark;
+  ThemesViewModel({required this.sharedPreferences});
+  void setTheme(bool value) {
     isDark = value;
- //   Preference.setBool(PrefKeys.themeStatus, value);
-    print("THEME IS CHANGED !!!!!!!!!!!!!!!!!!!!!!!!!!");
+    sharedPreferences.setBool(modePrefKey, value);
     notifyListeners();
   }
 
-  void getTheme(){
+  void getTheme() {
+    isDark = sharedPreferences.getBool(modePrefKey) ?? false;
+    switch (isDark) {
+      case true:
+        break;
+      default:
+        sharedPreferences.setBool(modePrefKey, false);
+    }
 
-  //  isDark = Preference.getBool(PrefKeys.themeStatus)??false;
+    // isDark = Preference.getBool(PrefKeys.themeStatus)??false;
   }
 }

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
-import 'package:learning_anglish_app/presentation/screens/codeEntrance/code_entrance_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/exams_screen.dart';
-import 'package:learning_anglish_app/presentation/screens/lesson/paid_lesson_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/customDialog/customDialog.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
@@ -12,6 +10,7 @@ import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
+import 'package:learning_anglish_app/injection.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -75,7 +74,9 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                         height: 40.r, padding: EdgeInsets.only(right: 4.w),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: themeVm.isDark?Colors.black:Colors.white, // White background
+                          color: themeVm.isDark == true
+                              ? Colors.black
+                              : Colors.white, // White background
                           border: Border.all(
                             color: Colors.grey, // Grey border color
                             width: 1.0, // Border width
@@ -83,10 +84,12 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                         ),
                         child: Center(
                             child: SvgPicture.asset(
-                              IconResources.arrowleft,
-                              color: themeVm.isDark?Colors.white:Colors.black,
-                              height: 25.h,
-                            )),
+                          IconResources.arrowleft,
+                          color: themeVm.isDark == true
+                              ? Colors.white
+                              : Colors.black,
+                          height: 25.h,
+                        )),
                       ),
                     ),
                   ),
@@ -133,22 +136,23 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
               SizedBox(height: 32.h),
               GestureDetector(
                 onTap: () {
-           //       Navigator.push(context, SlideTransition1(const CodeEntranceScreen()));
+                  //       Navigator.push(context, SlideTransition1(const CodeEntranceScreen()));
 
                   ShowCustomDialog(
                     context: context,
                     content: StatefulBuilder(
-                      builder: (BuildContext context, void Function(void Function()) setStatee) {
+                      builder: (BuildContext context,
+                          void Function(void Function()) setStatee) {
                         return Container(
                           height: 550.h,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            borderRadius:BorderRadius.circular(16.r) ,
-                             border: Border.all(
-                               color: themeVm.isDark?Colors.white:Colors.transparent,
-                               width: .1
-                             )
-                          ),
+                              borderRadius: BorderRadius.circular(16.r),
+                              border: Border.all(
+                                  color: themeVm.isDark == true
+                                      ? Colors.white
+                                      : Colors.transparent,
+                                  width: .1)),
                           child: Padding(
                             padding: EdgeInsets.all(25.sp),
                             child: Column(
@@ -160,7 +164,8 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                                   height: 96.h,
                                   decoration: const BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage("assets/images/enterUnitCode.png"),
+                                      image: AssetImage(
+                                          "assets/images/enterUnitCode.png"),
                                       fit: BoxFit.fill,
                                     ),
                                   ),
@@ -168,20 +173,26 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                                 SizedBox(height: 24.h),
                                 Text(
                                   "قم بإدخال الكود",
-                                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        fontSize: 18.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                 ),
                                 SizedBox(height: 15.h),
                                 Text(
                                   "كي تتمكن من مشاهده الفيديو ، يجب إدخال الكود. يمكنك الحصول عليه من المعلم",
                                   textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400,
-                                    //color: Theme.of(context).primaryColor.withOpacity(0.5),
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w400,
+                                        //color: Theme.of(context).primaryColor.withOpacity(0.5),
+                                      ),
                                 ),
                                 SizedBox(height: 24.h),
                                 Container(
@@ -198,10 +209,13 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                                   ),
                                   child: TextFormField(
                                     textAlign: TextAlign.start,
-                                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium
+                                        ?.copyWith(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                     decoration: InputDecoration(
                                       hintText: "ادخل الكود",
                                       contentPadding: EdgeInsets.symmetric(
@@ -239,11 +253,14 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                                   child: Text(
                                     "go_back".i18n(),
                                     textAlign: TextAlign.justify,
-                                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w400,
-                                      height: 0.12.h,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium
+                                        ?.copyWith(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w400,
+                                          height: 0.12.h,
+                                        ),
                                   ),
                                   onPressed: () {
                                     Navigator.pop(context);
@@ -254,9 +271,8 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                           ),
                         );
                       },
-                    ),).showCustomDialg();
-
-
+                    ),
+                  ).showCustomDialg();
                 },
                 child: Container(
                   width: 327.w,
@@ -294,8 +310,10 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                   width: double.infinity,
                   padding: EdgeInsets.all(24.dg),
                   //margin: EdgeInsets.all(24.dg),
-                  decoration:BoxDecoration(
-                    color: themeVm.isDark?ColorResources.containerColor:Colors.white,
+                  decoration: BoxDecoration(
+                    color: themeVm.isDark == true
+                        ? ColorResources.containerColor
+                        : Colors.white,
                     borderRadius: BorderRadius.circular(32.r),
                   ),
                   child: Row(
@@ -310,34 +328,37 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                             color: Color(0xFF49423A),
                             shape: OvalBorder(),
                           ),
-                          child: SvgPicture.asset(IconResources.arrowleft,color: Colors.white,)
-                      ),
+                          child: SvgPicture.asset(
+                            IconResources.arrowleft,
+                            color: Colors.white,
+                          )),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                           'اختبر نفسك',
+                            'اختبر نفسك',
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
                                 ?.copyWith(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: -0.17.h,
-                            ),
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: -0.17.h,
+                                ),
                           ),
                           SizedBox(width: 16.w),
                           Container(
                             height: 32.r,
                             width: 32.r,
-                            decoration:  BoxDecoration(borderRadius: BorderRadius.circular(10.r),
-                              image: const DecorationImage(image: AssetImage(
-                                "assets/images/testYourself.png",
-                              ),
-                              )
-                            ),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.r),
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                    "assets/images/testYourself.png",
+                                  ),
+                                )),
                           ),
                         ],
                       ),
@@ -351,8 +372,10 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                 width: double.infinity,
                 padding: EdgeInsets.all(24.dg),
                 //margin: EdgeInsets.all(24.dg),
-                decoration:BoxDecoration(
-                  color: themeVm.isDark?ColorResources.containerColor:Colors.white,
+                decoration: BoxDecoration(
+                  color: themeVm.isDark == true
+                      ? ColorResources.containerColor
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(32.r),
                 ),
                 child: Row(
@@ -367,8 +390,10 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                           color: Color(0xFF49423A),
                           shape: OvalBorder(),
                         ),
-                        child: SvgPicture.asset(IconResources.arrowleft,color: Colors.white,)
-                    ),
+                        child: SvgPicture.asset(
+                          IconResources.arrowleft,
+                          color: Colors.white,
+                        )),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -380,12 +405,12 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                               .textTheme
                               .displayMedium
                               ?.copyWith(
-                            fontSize: 16.sp,
-                            //color: Theme.of(context).primaryColor,
-                            // color: ColorResources.black,
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: -0.17.h,
-                          ),
+                                fontSize: 16.sp,
+                                //color: Theme.of(context).primaryColor,
+                                // color: ColorResources.black,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: -0.17.h,
+                              ),
                         ),
                         CircleAvatar(
                           radius: 32.r,

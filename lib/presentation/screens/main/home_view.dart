@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,10 +10,11 @@ import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:learning_anglish_app/injection.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
-   HomeView({super.key});
+  HomeView({super.key});
   final List<Color> colors = [
     Colors.red,
     Colors.blue,
@@ -37,11 +37,11 @@ class HomeView extends StatelessWidget {
           children: [
             CustomAppBarWithImageAndMenu(
               onMenuPressed: () {
-                final _state = MainScreen.sideMenuKey.currentState;
-                if (_state!.isOpened) {
-                  _state.closeSideMenu(); // close side menu
+                final state = MainScreen.sideMenuKey.currentState;
+                if (state!.isOpened) {
+                  state.closeSideMenu(); // close side menu
                 } else {
-                  _state.openSideMenu();
+                  state.openSideMenu();
                 }
               },
               imageURL:
@@ -51,19 +51,20 @@ class HomeView extends StatelessWidget {
             SizedBox(height: 30.h),
             Expanded(
               child: ListView.separated(
-                  itemBuilder: (context,index)=>AnimationConfiguration.staggeredList(
-                    position: index,
-                    delay: const Duration(milliseconds: 100),
-                    child: SlideAnimation(
-                      duration: const Duration(milliseconds: 2500),
-                      curve: Curves.fastLinearToSlowEaseIn,
-                      child: FadeInAnimation(
-                          curve: Curves.fastLinearToSlowEaseIn,
+                  itemBuilder: (context, index) =>
+                      AnimationConfiguration.staggeredList(
+                        position: index,
+                        delay: const Duration(milliseconds: 100),
+                        child: SlideAnimation(
                           duration: const Duration(milliseconds: 2500),
-                          child: HomeWidget(context,colors,index)),
-                    ),
-                  ),
-                  separatorBuilder: (context,index)=>SizedBox(height: 16.h),
+                          curve: Curves.fastLinearToSlowEaseIn,
+                          child: FadeInAnimation(
+                              curve: Curves.fastLinearToSlowEaseIn,
+                              duration: const Duration(milliseconds: 2500),
+                              child: HomeWidget(context, colors, index)),
+                        ),
+                      ),
+                  separatorBuilder: (context, index) => SizedBox(height: 16.h),
                   itemCount: 10),
             )
           ],
@@ -73,20 +74,18 @@ class HomeView extends StatelessWidget {
   }
 }
 
-
 class HomeWidget extends StatelessWidget {
- final List<Color> colors;
- final int index;
+  final List<Color> colors;
+  final int index;
 
-   const HomeWidget(BuildContext context, this.colors,this.index, {super.key});
-
+  const HomeWidget(BuildContext context, this.colors, this.index, {super.key});
+  
   @override
   Widget build(BuildContext context) {
     final themeVM = Provider.of<ThemesViewModel>(context);
-    return  GestureDetector(
+    return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context, SlideTransition1( ChooseLessonScreen()));
+        Navigator.push(context, SlideTransition1(ChooseLessonScreen()));
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 24.w),
@@ -96,13 +95,15 @@ class HomeWidget extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           border: Border.all(
-            color: themeVM.isDark?Colors.white:Colors.transparent,
+            color: themeVM.isDark == true ? Colors.white : Colors.transparent,
             width: .3,
           ),
           borderRadius: BorderRadius.all(
             Radius.circular(32.r),
           ),
-          color: themeVM.isDark?ColorResources.black:ColorResources.white1,
+          color: themeVM.isDark == true
+              ? ColorResources.black
+              : ColorResources.white1,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -117,38 +118,47 @@ class HomeWidget extends StatelessWidget {
                   children: [
                     Text(
                       'Getting away الوحدة الأولى',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                        fontSize: 16.sp,
-                        fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 16.sp,
+                                fontFamily: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.fontFamily,
+                                fontWeight: FontWeight.w400,
+                              ),
                     ),
                     SizedBox(height: 4.h),
                     Text(
                       'عدد الدروس : 8',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                        fontSize: 14.sp,
-                        fontFamily: Theme.of(context).textTheme.titleSmall?.fontFamily,
-                        color: themeVM.isDark?Colors.grey:Colors.grey,
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 14.sp,
+                                fontFamily: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.fontFamily,
+                                // TODO: Edit this
+                                color: themeVM.isDark == true
+                                    ? Colors.grey
+                                    : Colors.grey,
+                                fontWeight: FontWeight.w400,
+                              ),
                     ),
                   ],
                 ),
-                SizedBox(width: 10.w,),
+                SizedBox(
+                  width: 10.w,
+                ),
                 Container(
                   width: 28.w,
                   height: 30.h,
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0),
                   ),
-                  child: SvgPicture.asset(IconResources.book,color: index < colors.length?colors[index]:Colors.black),
+                  child: SvgPicture.asset(IconResources.book,
+                      color:
+                          index < colors.length ? colors[index] : Colors.black),
                 ),
                 // Icon(Icons.book, size: 32.dg, color: ColorResources.blue,),
               ],
@@ -166,8 +176,10 @@ class HomeWidget extends StatelessWidget {
                       color: Color(0xFF49423A),
                       shape: OvalBorder(),
                     ),
-                    child: SvgPicture.asset(IconResources.arrowleft,color: Colors.white,)
-                ),
+                    child: SvgPicture.asset(
+                      IconResources.arrowleft,
+                      color: Colors.white,
+                    )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -175,22 +187,21 @@ class HomeWidget extends StatelessWidget {
                       isRTL: true,
                       width: 200.w,
                       lineHeight: 6.0,
-                      backgroundColor:ColorResources.grey1,
-                      percent: 0.52,barRadius:Radius.circular(4.r) ,
+                      backgroundColor: ColorResources.grey1,
+                      percent: 0.52,
+                      barRadius: Radius.circular(4.r),
                       progressColor: ColorResources.brownDark,
                     ),
                     Text(
                       '52 %',
                       textAlign: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                        fontSize: 13.sp,
-                        //color: Theme.of(context).primaryColor,
-                        // color: ColorResources.black,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 13.sp,
+                                //color: Theme.of(context).primaryColor,
+                                // color: ColorResources.black,
+                                fontWeight: FontWeight.w500,
+                              ),
                     ),
                   ],
                 ),

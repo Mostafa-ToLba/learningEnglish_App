@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/create_new_password/create_new_password.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
-import 'package:learning_anglish_app/utils/icons/icons.dart';
-import 'package:localization/localization.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class ForgetPasswordCode extends StatefulWidget {
@@ -98,6 +95,7 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
                   ),
                   Text(
                     "أدخل رمز التحقق الذي أرسلناه للتو على عنوان بريدك",
+                    textAlign: TextAlign.end,
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 15.sp,
                         ),
@@ -107,13 +105,13 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
                   ),
                   Text(
                     "الالكتروني",
+                    textAlign: TextAlign.end,
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                      fontSize: 15.sp,
-                    ),
+                          fontSize: 15.sp,
+                        ),
                   ),
                   SizedBox(height: 64.h),
                   PinCodeTextField(
-                    
                     length: 4,
                     obscureText: false,
                     animationType: AnimationType.fade,
@@ -122,7 +120,8 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
                     //backgroundColor: Colors.transparent,
                     scrollPadding: EdgeInsets.zero,
                     cursorColor: Colors.black,
-                    separatorBuilder: (context, int) => SizedBox(
+                    separatorBuilder: (BuildContext context, int index) =>
+                        SizedBox(
                       width: 3.w,
                     ),
                     pinTheme: PinTheme(
@@ -130,13 +129,18 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
                       borderRadius: BorderRadius.circular(32.r),
                       fieldHeight: 64.h,
                       fieldWidth: 64.w,
-                      activeColor: Theme.of(context).indicatorColor.withOpacity(0.5),
+                      activeColor:
+                          Theme.of(context).indicatorColor.withOpacity(0.5),
                       //activeFillColor: Colors.white,
-                      inactiveColor: Theme.of(context).indicatorColor.withOpacity(0.5),
-                      selectedColor: Theme.of(context).indicatorColor.withOpacity(0.5),
+                      inactiveColor:
+                          Theme.of(context).indicatorColor.withOpacity(0.5),
+                      selectedColor:
+                          Theme.of(context).indicatorColor.withOpacity(0.5),
                       inactiveFillColor: Colors.white,
-                      disabledColor: Theme.of(context).indicatorColor.withOpacity(0.5),
-                      selectedFillColor: Theme.of(context).indicatorColor.withOpacity(0.5),
+                      disabledColor:
+                          Theme.of(context).indicatorColor.withOpacity(0.5),
+                      selectedFillColor:
+                          Theme.of(context).indicatorColor.withOpacity(0.5),
                       fieldOuterPadding: EdgeInsets.zero,
                     ),
                     animationDuration: const Duration(milliseconds: 300),

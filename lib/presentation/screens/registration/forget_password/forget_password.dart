@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/forget_password_code/forget_password_code.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/presentation/widgets/textFeild/custom_text_field.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
-import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
 
 class ForgetPassword extends StatefulWidget {
@@ -65,27 +63,27 @@ class _ForgetPasswordState extends State<ForgetPassword>
                 children: [
                   Align(
                     alignment: Alignment.topLeft,
-                    child:  Container(
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          width: 1,
-                          color: Theme.of(context).indicatorColor,
+                    child: Container(
+                      decoration: ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            width: 1,
+                            color: Theme.of(context).indicatorColor,
+                          ),
+                          borderRadius: BorderRadius.circular(32.r),
                         ),
-                        borderRadius: BorderRadius.circular(32.r),
+                      ),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_ios_new_outlined,
+                          size: 20.dg,
+                        ), //circle_chevron_left
                       ),
                     ),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.arrow_back_ios_new_outlined,
-                        size: 20.dg,
-                      ), //circle_chevron_left
-                    ),
                   ),
-                ),
                   SizedBox(height: 30.h),
                   Text(
                     "نسيت كلمة السر",
@@ -98,7 +96,8 @@ class _ForgetPasswordState extends State<ForgetPassword>
                     height: 8.h,
                   ),
                   Text(
-                      "لا تقلق! هذا يحدث الرجاء إدخال عنوان البريد الإلكتروني",
+                    "لا تقلق! هذا يحدث الرجاء إدخال عنوان البريد الإلكتروني",
+                    textAlign: TextAlign.end,
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 15.sp,
                         ),
@@ -106,15 +105,17 @@ class _ForgetPasswordState extends State<ForgetPassword>
                   SizedBox(
                     height: 2.h,
                   ),
-                Text(
-                  "المرتبط بحسابك",
-                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                    fontSize: 15.sp,
+                  Text(
+                    "المرتبط بحسابك",
+                    textAlign: TextAlign.end,
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 15.sp,
+                        ),
                   ),
-                ),
                   SizedBox(height: 64.h),
                   Text(
                     "البريد الالكتروني",
+                    
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
@@ -130,7 +131,6 @@ class _ForgetPasswordState extends State<ForgetPassword>
                       return null;
                     },
                     textInputType: TextInputType.emailAddress,
-
                   ),
                   SizedBox(height: 24.h),
                   SlideTransition(
