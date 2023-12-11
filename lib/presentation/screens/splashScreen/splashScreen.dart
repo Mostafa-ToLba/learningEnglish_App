@@ -83,6 +83,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                  ],
                ),
                Positioned(
+
                  right: 0.w,
                  top: 0.h,
                  child: SlideTransition(
