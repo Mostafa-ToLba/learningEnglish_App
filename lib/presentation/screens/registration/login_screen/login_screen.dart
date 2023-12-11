@@ -3,10 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:learning_anglish_app/business_logic/view_models/choosingclassdone_vm/choosingclass_vm.dart';
-import 'package:learning_anglish_app/injection.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseClass/choose_class_screen.dart';
-import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/forget_password/forget_password.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/register_screen/register_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
@@ -201,16 +198,7 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                       color: ColorResources.buttonColor,
                       onTap: () {
-                        final provider = getIt<ChoosingClassViewModel>();
-                        provider.areChoosingClassDone();
-                        final onChoosingClassWatched = provider.hasShownBefore;
-                        if (onChoosingClassWatched == true) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MainScreen()),
-                          );
-                        } else {
+                       {
                           Navigator.pushReplacement(context,
                               SlideTransition1(const ChooseClassScreen()));
                         }

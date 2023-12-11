@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/presentation/screens/onBoarding/onboarding_screen.dart';
@@ -64,6 +63,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
    Widget build(BuildContext context) {
      return  SafeArea(
          child: Scaffold(
+           backgroundColor: Colors.white,
            body: Stack(
              children: [
                Column(
@@ -83,7 +83,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                  ],
                ),
                Positioned(
-
                  right: 0.w,
                  top: 0.h,
                  child: SlideTransition(

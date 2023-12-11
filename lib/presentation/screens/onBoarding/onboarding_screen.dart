@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:learning_anglish_app/business_logic/view_models/onboarding_vm/onboarding_vm.dart';
-import 'package:learning_anglish_app/injection.dart';
 import 'package:learning_anglish_app/presentation/screens/onBoarding/widgtes/build_onboarding.dart';
 import 'package:learning_anglish_app/presentation/screens/onBoarding/widgtes/onboarding_pages.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/login_screen/login_screen.dart';
@@ -91,7 +89,7 @@ class OnBoardingScreen extends StatelessWidget {
                     onTap: () {
                       if (isLast) {
                         //    context.read<SettingsBloc>().add(const SettingsEvent.boardingScreensWatched());
-                        getIt<OnboardingViewModel>().boardingScreensWatched();
+                 //       getIt<OnboardingViewModel>().boardingScreensWatched();
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -138,7 +136,7 @@ class OnBoardingScreen extends StatelessWidget {
                       //       .read<SettingsBloc>()
                       //       .add(const SettingsEvent.boardingScreensWatched());
 
-                      getIt<OnboardingViewModel>().boardingScreensWatched();
+                  //    getIt<OnboardingViewModel>().boardingScreensWatched();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

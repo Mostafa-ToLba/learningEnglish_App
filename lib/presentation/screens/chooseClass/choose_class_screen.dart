@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:learning_anglish_app/business_logic/view_models/choosingclassdone_vm/choosingclass_vm.dart';
-import 'package:learning_anglish_app/injection.dart';
 import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_with_image_and%20_menu.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
@@ -149,7 +147,7 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
                       color: ColorResources.buttonColor,
                       onTap: () {
                         //   context.read<SettingsBloc>().add(const SettingsEvent.choosingClassDone());
-                        getIt<ChoosingClassViewModel>().choosingClassDone();
+
 
                         Route route = MaterialPageRoute(
                             builder: (context) => const MainScreen());

@@ -6,7 +6,7 @@ import 'package:learning_anglish_app/presentation/screens/lesson/unpaid_lesson_s
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
-import 'package:learning_anglish_app/injection.dart';
+import 'package:provider/provider.dart';
 
 class ChooseLessonScreen extends StatelessWidget {
   ChooseLessonScreen({super.key});
@@ -23,10 +23,9 @@ class ChooseLessonScreen extends StatelessWidget {
     Colors.cyan,
     // Added 10 colors
   ];
-  final themeVM = getIt<ThemesViewModel>();
   @override
   Widget build(BuildContext context) {
-    
+    final themeVM = Provider.of<ThemesViewModel>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
@@ -48,6 +47,7 @@ class ChooseLessonScreen extends StatelessWidget {
                             .r, // Set the width and height to your desired size
                         height: 40.r, padding: EdgeInsets.only(right: 4.w),
                         decoration: BoxDecoration(
+
                           shape: BoxShape.circle,
                           color: themeVM.isDark== true
                               ? Colors.black
@@ -120,6 +120,14 @@ class ChooseLessonScreen extends StatelessWidget {
                           height: 80.h,
                           clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: ColorResources.shadow,
+                                blurRadius: 10.r,
+                                offset: const Offset(0, 8,),
+                                spreadRadius: -8,
+                              )
+                            ],
                             color: themeVM.isDark == true
                                 ? ColorResources.containerColor
                                 : Colors.white,

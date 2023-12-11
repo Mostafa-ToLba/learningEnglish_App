@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
-import 'package:learning_anglish_app/injection.dart';
 import 'package:provider/provider.dart';
 
 class ShowCustomDialog {
@@ -14,7 +13,7 @@ class ShowCustomDialog {
     this.isTransparent = false,
   });
   Future showCustomDialg() async {
-    final isDark = Provider.of<ThemesViewModel>(context).isDark;
+    final isDark = Provider.of<ThemesViewModel>(context,listen: false).isDark;
     showGeneralDialog(
         context: context,
         barrierLabel: "Label",

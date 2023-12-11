@@ -11,7 +11,6 @@ import 'package:localization/localization.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:learning_anglish_app/injection.dart';
 
 class ExamsScreen extends StatefulWidget {
   const ExamsScreen({super.key});

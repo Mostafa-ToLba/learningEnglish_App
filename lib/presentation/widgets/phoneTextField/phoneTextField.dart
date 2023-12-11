@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
-import 'package:learning_anglish_app/injection.dart';
 import 'package:provider/provider.dart';
 
 

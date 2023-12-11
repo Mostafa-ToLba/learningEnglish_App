@@ -16,4 +16,10 @@ class IconResources {
   static const String profile = 'assets/icons/profile.svg';
   static const String book = 'assets/icons/book.svg';
   static const String lock = 'assets/icons/lock.svg';
+
+  static const String googlePlay = 'assets/icons/googleplay.svg';
+  static const String messageQuestion = 'assets/icons/messagequestion.svg';
+  static const String moon = 'assets/icons/moon.svg';
+  static const String setting2 = 'assets/icons/setting2.svg';
+  static const String whatsapp = 'assets/icons/whatsapp.svg';
 }

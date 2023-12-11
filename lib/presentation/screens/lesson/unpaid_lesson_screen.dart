@@ -10,7 +10,6 @@ import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
-import 'package:learning_anglish_app/injection.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -73,6 +72,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                             .r, // Set the width and height to your desired size
                         height: 40.r, padding: EdgeInsets.only(right: 4.w),
                         decoration: BoxDecoration(
+
                           shape: BoxShape.circle,
                           color: themeVm.isDark == true
                               ? Colors.black
@@ -311,6 +311,14 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                   padding: EdgeInsets.all(24.dg),
                   //margin: EdgeInsets.all(24.dg),
                   decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: ColorResources.shadow,
+                        blurRadius: 10.r,
+                        offset: const Offset(0, 8,),
+                        spreadRadius: -8,
+                      )
+                    ],
                     color: themeVm.isDark == true
                         ? ColorResources.containerColor
                         : Colors.white,
@@ -373,6 +381,14 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                 padding: EdgeInsets.all(24.dg),
                 //margin: EdgeInsets.all(24.dg),
                 decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: ColorResources.shadow,
+                      blurRadius: 10.r,
+                      offset: const Offset(0, 8,),
+                      spreadRadius: -8,
+                    )
+                  ],
                   color: themeVm.isDark == true
                       ? ColorResources.containerColor
                       : Colors.white,
