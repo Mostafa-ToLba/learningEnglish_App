@@ -11,4 +11,5 @@ List<SingleChildWidget> providers = [
 List<SingleChildWidget> independentServices = [
   ChangeNotifierProvider<ExamsViewModel>(create: (_) => ExamsViewModel()),
   ChangeNotifierProvider<ThemesViewModel>(create: (_) => ThemesViewModel()),
+  
 ];

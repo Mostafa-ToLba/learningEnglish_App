@@ -13,7 +13,8 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
       {super.key,
       required this.onMenuPressed,
       required this.imageURL,
-      required this.name,this.menuIcon=true});
+      required this.name,
+      this.menuIcon = true});
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +22,17 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
       padding: EdgeInsets.only(left: 24.w, right: 24.w),
       child: Row(
         children: [
-          if(menuIcon!)
-          IconButton(
-            onPressed: onMenuPressed,
-            icon: Image(image: const AssetImage(Images.menu1,),color:Theme.of(context).textTheme.displayMedium!.color,)
-          ),
+          if (menuIcon!)
+            IconButton(
+                onPressed: onMenuPressed,
+                icon: Image(
+                  image: const AssetImage(
+                    Images.menu1,
+                  ),
+                  width: 20.w,
+                  height: 20.h,
+                  color: Theme.of(context).textTheme.displayMedium!.color,
+                )),
           const Spacer(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -59,7 +66,6 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
             backgroundColor: Theme.of(context).textTheme.displayMedium!.color,
             backgroundImage: NetworkImage(imageURL),
           ),
-
         ],
       ),
     );

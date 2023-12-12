@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/business_logic/setup/provider_setup.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/data/cache_helper/cache_helper.dart';
+import 'package:learning_anglish_app/data/network/connection_status_singleton.dart';
 import 'package:learning_anglish_app/presentation/screens/splashScreen/splashScreen.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
-import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/theme/theme.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  ConnectionStatusSingleton connectionStatus =
+      ConnectionStatusSingleton.getInstance();
+  connectionStatus.initialize();
   await CasheHelper.init();
   AppConstants.dark = CasheHelper.getData(key: AppConstants.darkPreferences);
-  runApp( const AppScreen());
+  runApp(const AppScreen());
 }
 
 class AppScreen extends StatefulWidget {
-  const AppScreen( {super.key});
+  const AppScreen({super.key});
 
   @override
   State<AppScreen> createState() => _AppScreenState();
@@ -34,9 +36,10 @@ class _AppScreenState extends State<AppScreen> {
       providers: providers,
       child: Consumer<ThemesViewModel>(
         builder: (BuildContext context, model, Widget? child) {
-          model.isDark = CasheHelper.getData(key: AppConstants.darkPreferences)??false;
+          model.isDark =
+              CasheHelper.getData(key: AppConstants.darkPreferences) ?? false;
           model.setSystemChrome();
-          return  ScreenUtilInit(
+          return ScreenUtilInit(
             designSize: const Size(375, 812),
             minTextAdapt: true,
             splitScreenMode: true,
@@ -61,8 +64,8 @@ class _AppScreenState extends State<AppScreen> {
                 showSemanticsDebugger: false,
                 //theme: themeData,
                 debugShowCheckedModeBanner: false,
-                theme: model.isDark==false?
-                      appThemeData[AppTheme.light]
+                theme: model.isDark == false
+                    ? appThemeData[AppTheme.light]
                     : appThemeData[AppTheme.dark],
                 home: const SplashScreen(),
               );

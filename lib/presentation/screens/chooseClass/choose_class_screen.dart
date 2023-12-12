@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -18,9 +20,11 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
+
   @override
   void initState() {
     super.initState();
+
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(
@@ -55,11 +59,13 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
   ];
   @override
   Widget build(BuildContext context) {
+    //  final networkVM = Provider.of<NetworkViewModel>(context);
     //  final mode = context.watch<SettingsBloc>().state.mode;
     /*
     final appTheme =
         mode ? appThemeData[AppTheme.dark] : appThemeData[AppTheme.light];
-    */
+*/
+
     return Scaffold(
       key: _key,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -147,7 +153,6 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
                       color: ColorResources.buttonColor,
                       onTap: () {
                         //   context.read<SettingsBloc>().add(const SettingsEvent.choosingClassDone());
-
 
                         Route route = MaterialPageRoute(
                             builder: (context) => const MainScreen());
