@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:learning_anglish_app/business_logic/view_models/lessonScreen_vm/lessonScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
+import 'package:learning_anglish_app/presentation/screens/codeEntrance/code_entrance_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/exams_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/customDialog/customDialog.dart';
@@ -21,7 +23,7 @@ class UnpaidLessonScreen extends StatefulWidget {
 }
 
 class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
-  final String videoURL = 'https://youtu.be/YMx8Bbev6T4?si=Wl1_dabKsy51h8RJ';
+  final String videoURL = 'https://youtu.be/Gq6vypumFSc?si=l6tid6AQPB3oesFy';
   late YoutubePlayerController _controller;
 
   @override
@@ -30,7 +32,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
     _controller = YoutubePlayerController(
       initialVideoId: videoID!,
       flags: const YoutubePlayerFlags(
-        autoPlay: false,
+        autoPlay: false,controlsVisibleAtStart: true,disableDragSeek: true,
       ),
     );
     super.initState();
@@ -51,6 +53,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
   @override
   Widget build(BuildContext context) {
     final themeVm = Provider.of<ThemesViewModel>(context);
+    final lessonVM = Provider.of<LessonScreenViewModel>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
@@ -134,10 +137,9 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                 ],
               ),
               SizedBox(height: 32.h),
+              if(lessonVM.codeDone==false)
               GestureDetector(
                 onTap: () {
-                  //       Navigator.push(context, SlideTransition1(const CodeEntranceScreen()));
-
                   ShowCustomDialog(
                     context: context,
                     content: StatefulBuilder(
@@ -224,6 +226,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                                         borderRadius: BorderRadius.circular(25),
                                       ),
                                     ),
+                                    controller: lessonVM.lessonCodeController,
                                   ),
                                 ),
                                 SizedBox(height: 24.h),
@@ -239,13 +242,9 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                                     ),
                                   ),
                                   color: ColorResources.buttonColor,
-                                  onTap: () {
-                                    /*
-                                    Route route = MaterialPageRoute(
-                                        builder: (context) => const PaidLessonScreen());
-                                    Navigator.pushReplacement(context, route);
-
-                                     */
+                                  onTap: () async {
+                                    await lessonVM.showVideo();
+                                    lessonVM.codeDone? Navigator.pop(context):null;
                                   },
                                 ),
                                 SizedBox(height: 4.h),
@@ -299,9 +298,15 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                   ),
                 ),
               ),
+              if(lessonVM.codeDone)
+                YoutubePlayer(
+                  controller: _controller,
+                  showVideoProgressIndicator: true,
+                ),
               SizedBox(height: 20.h),
               GestureDetector(
                 onTap: () {
+                  _controller.dispose();
                   Navigator.push(
                       context, SlideTransition1(const ExamsScreen()));
                 },
@@ -345,7 +350,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'اختبر نفسك',
+                            'امتحان الحصة',
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme

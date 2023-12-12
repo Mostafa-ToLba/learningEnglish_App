@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/presentation/screens/onBoarding/onboarding_screen.dart';
@@ -5,7 +6,7 @@ import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart'
 
 
 class SplashScreen extends StatefulWidget {
-   const SplashScreen({super.key});
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -26,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     // Define the tween for the animation
     _animation = Tween<Offset>(
-      begin: const Offset(0, -1.5), // Off-screen top
+      begin: const Offset(0, -.1), // Off-screen top
       end: const Offset(0, 0), // On-screen
     ).animate(
       CurvedAnimation(
@@ -59,44 +60,46 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     super.dispose();
   }
 
-   @override
-   Widget build(BuildContext context) {
-     return  SafeArea(
-         child: Scaffold(
-           backgroundColor: Colors.white,
-           body: Stack(
-             children: [
-               Column(
-                 crossAxisAlignment: CrossAxisAlignment.center,
-                 mainAxisAlignment: MainAxisAlignment.start,
-                 children:
-                 [
-                   Padding(
-                     padding:  EdgeInsets.only(top: 380.h,left: 70.w),
-                     child: Stack(
-                       children: [
-                         CustomText(text: 'Extreme Academy',textAlign: TextAlign.center,txtSize: 30.sp,
-                         color: Colors.black),
-                       ],
-                     ),
-                   ),
-                 ],
-               ),
-               Positioned(
-                 right: 0.w,
-                 top: 0.h,
-                 child: SlideTransition(
-                   position: _animation,
-                   child: Container(
-                     height: 740.h,
-                     width: 30.w,
-                     decoration: const BoxDecoration(image:DecorationImage(image:
-                     AssetImage('assets/images/graduate.png',),),),
-                   ),
-                 ),
-               ),
-             ],
-           ),
-         ));
-   }
+  @override
+  Widget build(BuildContext context) {
+    return  SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children:
+                [
+                  Padding(
+                    padding:  EdgeInsets.only(top: 380.h,left: 0.w),
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: CustomText(text: 'Extreme Academy',textAlign: TextAlign.center,txtSize: 30.sp,
+                              color: Colors.black),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Positioned(
+                right: 50.w,
+                top: 0.h,
+                child: SlideTransition(
+                  position: _animation,
+                  child: Container(
+                    height: 740.h,
+                    width: 30.w,
+                    decoration: const BoxDecoration(image:DecorationImage(image:
+                    AssetImage('assets/images/graduate.png',),),),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
 }

@@ -13,21 +13,9 @@ class ThemesViewModel extends BaseNotifier {
     isDark = !value;
     CasheHelper.putBoolean(key: AppConstants.darkPreferences, value: !value);
     setSystemChrome();
-    print(isDark);
     notifyListeners();
   }
 
-  void getTheme() {
- //   isDark = sharedPreferences.getBool(modePrefKey) ?? false;
-    switch (isDark) {
-      case true:
-        break;
-      default:
-   //     sharedPreferences.setBool(modePrefKey, false);
-    }
-
-    // isDark = Preference.getBool(PrefKeys.themeStatus)??false;
-  }
 
   setSystemChrome()
   {

@@ -15,7 +15,6 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CasheHelper.init();
-  AppConstants.dark = CasheHelper.getData(key: AppConstants.darkPreferences);
   runApp( const AppScreen());
 }
 
@@ -42,6 +41,7 @@ class _AppScreenState extends State<AppScreen> {
             splitScreenMode: true,
             builder: (BuildContext context, Widget? child) {
               return MaterialApp(
+                title: 'Extreme Academy',
                 locale: const Locale('en'),
                 localizationsDelegates: [
                   // delegate from flutter_localization
