@@ -7,9 +7,7 @@ class CustomAppBarWithMenu extends StatelessWidget {
   final VoidCallback onIconPressed;
   final String text;
   const CustomAppBarWithMenu(
-      {super.key,
-      required this.onIconPressed,
-      required this.text});
+      {super.key, required this.onIconPressed, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +17,11 @@ class CustomAppBarWithMenu extends StatelessWidget {
         children: [
           IconButton(
             onPressed: onIconPressed,
-            icon:  Image(
-              image: AssetImage(Images.menu1),
+            icon: Image(
+              image: const AssetImage(Images.menu1),
+              width: 20.w,
+              height: 20.h,
+              color: Theme.of(context).textTheme.displayMedium!.color,
             ),
           ),
           const Spacer(),
@@ -28,11 +29,11 @@ class CustomAppBarWithMenu extends StatelessWidget {
             //'بنك الأسئلة',
             text,
             style: Theme.of(context).textTheme.displayMedium?.copyWith(
-              fontSize: 18.sp,
-              fontFamily: AppConstants.arabicFont1,
-              // color: ColorResources.black,
-              fontWeight: FontWeight.w400,
-            ),
+                  fontSize: 18.sp,
+                  fontFamily: AppConstants.arabicFont1,
+                  // color: ColorResources.black,
+                  fontWeight: FontWeight.w400,
+                ),
           ),
         ],
       ),

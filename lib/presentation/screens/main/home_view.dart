@@ -36,6 +36,7 @@ class HomeView extends StatelessWidget {
         child: Column(
           children: [
             CustomAppBarWithImageAndMenu(
+              menuIcon: true,
               onMenuPressed: () {
                 final state = MainScreen.sideMenuKey.currentState;
                 if (state!.isOpened) {
@@ -51,6 +52,7 @@ class HomeView extends StatelessWidget {
             SizedBox(height: 30.h),
             Expanded(
               child: ListView.separated(
+                  shrinkWrap: true,
                   itemBuilder: (context, index) =>
                       AnimationConfiguration.staggeredList(
                         position: index,
@@ -79,7 +81,7 @@ class HomeWidget extends StatelessWidget {
   final int index;
 
   const HomeWidget(BuildContext context, this.colors, this.index, {super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     final themeVM = Provider.of<ThemesViewModel>(context);
