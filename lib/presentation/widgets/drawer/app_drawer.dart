@@ -1,44 +1,14 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:learning_anglish_app/data/network/connection_status_singleton.dart';
 import 'package:learning_anglish_app/presentation/widgets/internetConnect/internet_connect_widget.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:provider/provider.dart';
 
-class AppDrawer extends StatefulWidget {
+class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
-
-  @override
-  State<AppDrawer> createState() => _AppDrawerState();
-}
-
-class _AppDrawerState extends State<AppDrawer> {
-  StreamSubscription? _connectionChangeStream;
-  bool isOffline = false;
-  void connectionChanged(dynamic hasConnection) {
-    setState(() {
-      isOffline = !hasConnection;
-    });
-  }
-
-  @override
-  void initState() {
-    ConnectionStatusSingleton connectionStatus =
-        ConnectionStatusSingleton.getInstance();
-    _connectionChangeStream =
-        connectionStatus.connectionChange.listen(connectionChanged);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _connectionChangeStream?.cancel();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +27,6 @@ class _AppDrawerState extends State<AppDrawer> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    NetworkConnectWidget(isOffline: isOffline),
                     const CircleAvatar(
                       backgroundColor: Colors.white,
                       radius: 22.0,

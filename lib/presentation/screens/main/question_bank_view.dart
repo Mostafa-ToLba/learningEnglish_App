@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:learning_anglish_app/business_logic/view_models/mainScreen_vm/mainScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/questionBankPerLesson/question_bank_per_lesson_screen.dart';
@@ -35,11 +36,11 @@ class QuestionBankView extends StatelessWidget {
           children: [
             CustomAppBarWithMenu(
               onIconPressed: () {
-                final _state = MainScreen.sideMenuKey.currentState;
-                if (_state!.isOpened) {
-                  _state.closeSideMenu(); // close side menu
+                final state = Provider.of<MainScreenViewModel>(context,listen: false).sideMenuKey.currentState;
+                if (state!.isOpened) {
+                  state.closeSideMenu(); // close side menu
                 } else {
-                  _state.openSideMenu();
+                  state.openSideMenu();
                 }
               },
               text: 'بنك الأسئلة',

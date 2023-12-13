@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/business_logic/setup/provider_setup.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/data/cache_helper/cache_helper.dart';
-import 'package:learning_anglish_app/data/network/connection_status_singleton.dart';
 import 'package:learning_anglish_app/presentation/screens/splashScreen/splashScreen.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/theme/theme.dart';
@@ -13,9 +12,6 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  ConnectionStatusSingleton connectionStatus =
-      ConnectionStatusSingleton.getInstance();
-  connectionStatus.initialize();
   await CasheHelper.init();
   runApp( const AppScreen());
 }

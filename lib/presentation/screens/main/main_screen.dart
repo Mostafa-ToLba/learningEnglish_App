@@ -1,42 +1,59 @@
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:learning_anglish_app/business_logic/view_models/mainScreen_vm/mainScreen_vm.dart';
 import 'package:learning_anglish_app/presentation/screens/main/home_view.dart';
 import 'package:learning_anglish_app/presentation/screens/main/profile_settings_view.dart';
 import 'package:learning_anglish_app/presentation/screens/main/question_bank_view.dart';
+import 'package:learning_anglish_app/presentation/widgets/connectionAppBar/connectionAppBar.dart';
 import 'package:learning_anglish_app/presentation/widgets/drawer/app_drawer.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
+import 'package:provider/provider.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
+
+import '../../widgets/internetConnect/internet_connect_widget.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
-  static final GlobalKey<SideMenuState> sideMenuKey =
-      GlobalKey<SideMenuState>();
+
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey(); // Create a key
 
-  int _selectedIndex = 2;
-  static final List<Widget> _widgetOptions = <Widget>[
-    const ProfileSettingsView(),
-    QuestionBankView(),
-    HomeView(),
-  ];
 
-  void _onItemTapped(int index) {
+/*
+  StreamSubscription? connectionChangeStream;
+  bool isOffline = false;
+  void connectionChanged(dynamic hasConnection) {
     setState(() {
-      _selectedIndex = index;
+      isOffline = !hasConnection;
     });
   }
 
+ */
+  @override
+  void initState() {
+    //connection
+    final mainScreenVm = Provider.of<MainScreenViewModel>(context,listen: false);
+    mainScreenVm.initConnectivity();
+    mainScreenVm.connectivitySubscription =
+        mainScreenVm.connectivity.onConnectivityChanged.listen(mainScreenVm.updateConnectionStatus);
+    //connection
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    final mainScreenVm = Provider.of<MainScreenViewModel>(context);
     return SideMenu(
-      key: MainScreen.sideMenuKey,
+      key: mainScreenVm.sideMenuKey,
       type: SideMenuType.slideNRotate,
       inverse: true,
       maxMenuWidth: 230.w,
@@ -44,9 +61,10 @@ class _MainScreenState extends State<MainScreen> {
       menu: const AppDrawer(),
       background: ColorResources.buttonColor,
       child: Scaffold(
+        appBar: mainScreenVm.connectionStatus==ConnectivityResult.none?connectionAppBar():null,
         drawerEnableOpenDragGesture: false,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: _widgetOptions.elementAt(_selectedIndex),
+        body: mainScreenVm.widgetOptions.elementAt(mainScreenVm.selectedIndex),
         bottomNavigationBar: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(56.r)),
           child: BottomNavigationBar(
@@ -110,8 +128,8 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
             ],
-            currentIndex: _selectedIndex,
-            onTap: _onItemTapped,
+            currentIndex: mainScreenVm.selectedIndex,
+            onTap: mainScreenVm.onItemTapped,
           ),
         ),
       ),

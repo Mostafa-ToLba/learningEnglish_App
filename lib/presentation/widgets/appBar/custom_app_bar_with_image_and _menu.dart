@@ -29,8 +29,8 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
                   image: const AssetImage(
                     Images.menu1,
                   ),
-                  width: 20.w,
-                  height: 20.h,
+           //       width: 20.w,
+           //       height: 20.h,
                   color: Theme.of(context).textTheme.displayMedium!.color,
                 )),
           const Spacer(),
