@@ -56,5 +56,12 @@ class MainScreenViewModel extends BaseNotifier
       connectionStatus = result;
     notifyListeners();
   }
+
+  connectionListen()
+  {
+    connectivitySubscription =
+        connectivity.onConnectivityChanged.listen(updateConnectionStatus);
+  }
+
 ///
 }

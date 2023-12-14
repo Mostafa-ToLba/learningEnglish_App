@@ -26,24 +26,12 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
 
-
-/*
-  StreamSubscription? connectionChangeStream;
-  bool isOffline = false;
-  void connectionChanged(dynamic hasConnection) {
-    setState(() {
-      isOffline = !hasConnection;
-    });
-  }
-
- */
   @override
   void initState() {
     //connection
     final mainScreenVm = Provider.of<MainScreenViewModel>(context,listen: false);
     mainScreenVm.initConnectivity();
-    mainScreenVm.connectivitySubscription =
-        mainScreenVm.connectivity.onConnectivityChanged.listen(mainScreenVm.updateConnectionStatus);
+    mainScreenVm.connectionListen();
     //connection
     super.initState();
   }
