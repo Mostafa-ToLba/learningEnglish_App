@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CasheHelper.init();
+  setupLocator();
   runApp( const AppScreen());
 }
 

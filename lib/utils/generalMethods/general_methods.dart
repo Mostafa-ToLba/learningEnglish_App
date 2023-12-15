@@ -9,10 +9,27 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:learning_anglish_app/data/cache_helper/cache_helper.dart';
 import 'package:learning_anglish_app/data/web_services/end_points.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
+import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 class General {
 
-  //***  refresh token */
+  static Future<void> showToast(
+      {required String message, Color? backColor, Color? textColor}) async {
+    Fluttertoast.showToast(
+        msg: message,
 
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 3,
+
+        webBgColor: "linear-gradient(to right, #000000, #000000)",
+        backgroundColor: backColor ?? ColorResources.buttonColor,
+        textColor: textColor ?? ColorResources.white1,
+        webPosition: "center",
+        fontSize: 18.0);
+  }
+
+
+  //***  refresh token */
   static Future<dynamic> refreshToke() async {
     if (AppConstants.token != "") {
       String? _oldtoken = CasheHelper.getData(key:PrefKeys.TOKEN) ?? "";

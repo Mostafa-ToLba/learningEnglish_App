@@ -17,4 +17,7 @@ class EndPoints {
   static const String USER = 'user/profile';
 
   static const String register = "Users/Register";
+  static const String login = "Users/login";
+  static const String forgetPassword = "Users/ForgetPassword";
+  static const String getLevels = "EducationalLevels/Get";
 }

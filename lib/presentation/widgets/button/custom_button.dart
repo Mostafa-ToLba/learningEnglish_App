@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/color_resource/color_resources.dart';
 
 class CustomButton extends StatefulWidget {
@@ -19,7 +22,7 @@ class CustomButton extends StatefulWidget {
       this.width,
       this.height,
       //this.leading,
-      this.widget})
+      this.widget,this.loading= false})
       : super(key: key);
   final Widget widgetInCenter;
   final double? textSize;
@@ -34,6 +37,8 @@ class CustomButton extends StatefulWidget {
   //final Color? colorTxt;
   final Widget? widget;
   final GestureTapCallback? onTap;
+  final bool loading;
+
 
   @override
   State<CustomButton> createState() => _CustomButtonState();
@@ -42,6 +47,7 @@ class CustomButton extends StatefulWidget {
 class _CustomButtonState extends State<CustomButton> {
   @override
   Widget build(BuildContext context) {
+   final themeVm = Provider.of<ThemesViewModel>(context);
     return InkWell(
       onTap: widget.onTap,
       borderRadius: BorderRadius.all(Radius.circular(32.r)),
@@ -56,7 +62,15 @@ class _CustomButtonState extends State<CustomButton> {
                 ? Theme.of(context).primaryColor
                 : widget.color,
           ),
-          child: Center(
+          child: widget.loading
+              ? Padding(
+                padding:  EdgeInsets.symmetric(vertical: 12.h),
+                child: Center(
+            child: SpinKitThreeBounce(
+                  color: themeVm.isDark==true ? ColorResources.black : ColorResources.white1,
+                  size: 1.sw < 600 ? 0.04.sh : 0.06.sh),
+          ),
+              ):Center(
             child: Padding(
               padding: EdgeInsets.only(right: 0.w),
               child: Row(

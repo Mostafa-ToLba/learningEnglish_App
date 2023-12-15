@@ -24,25 +24,6 @@ class HttpApi {
     return res;
   }
 
-  //*******************   login
-  Future<dynamic> login({Map<String, dynamic>? body}) async {
-    final res = await customDio.request(
-      EndPoints.LOGIN,
-      body: body,
-      type: RequestType.Post,
-    );
-    return res;
-  }
-
-  //*******************   SignUp
-  Future<dynamic> signUp({Map<String, dynamic>? body}) async {
-    final res = await customDio.request(
-      EndPoints.SIGNUP,
-      body: body,
-      type: RequestType.Post,
-    );
-    return res;
-  }
 
   //*******************   update user image   *************************//
   Future<dynamic> updateUserImage({String? imageURL}) async {
@@ -62,8 +43,50 @@ class HttpApi {
     );
     return res;
   }
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
+//*******************  Register   *************************//
 
+  Future<dynamic> register({Map<String, dynamic>? body}) async {
+    final res = await customDio.request(
+      EndPoints.register,
+      type: RequestType.Post,
+      body: body
+    );
+    return res;
+  }
+
+  //*******************  Register   *************************//
+
+  Future<dynamic> login({Map<String, dynamic>? body}) async {
+    final res = await customDio.request(
+        EndPoints.login,
+        type: RequestType.Post,
+        body: body
+    );
+    return res;
+  }
+
+  //*******************  Register   *************************//
+
+  Future<dynamic> forgetPassword({Map<String, dynamic>? body}) async {
+    final res = await customDio.request(
+        EndPoints.forgetPassword,
+        type: RequestType.Post,
+        body: body
+    );
+    return res;
+  }
+
+  //*******************  get education levels   *************************//
+
+  Future<dynamic> educationLevels() async {
+    final res = await customDio.request(
+        EndPoints.getLevels,
+        type: RequestType.Get,
+    );
+    return res;
+  }
 }
 
 

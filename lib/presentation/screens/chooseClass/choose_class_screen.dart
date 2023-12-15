@@ -1,16 +1,22 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:learning_anglish_app/business_logic/view_models/choosingclassdone_vm/choosingclass_vm.dart';
+import 'package:learning_anglish_app/data/models/educationLevels/educationLevels.dart';
 import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_with_image_and%20_menu.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
+import 'package:provider/provider.dart';
 
 class ChooseClassScreen extends StatefulWidget {
-  const ChooseClassScreen({super.key});
+  final String userName;
+
+  const ChooseClassScreen( this.userName, {super.key});
 
   @override
   State<ChooseClassScreen> createState() => _ChooseClassScreenState();
@@ -24,6 +30,9 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
   @override
   void initState() {
     super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      context.read<ChoosingClassViewModel>().getEducationLevels();
+    });
 
     _controller = AnimationController(
       vsync: this,
@@ -49,129 +58,121 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
     _controller.dispose();
     super.dispose();
   }
-
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-  int selectedIndex = 0;
-  List<String> classList = [
-    'الصف الأول الثانوي',
-    'الصف الثاني الثانوي',
-    'الصف الثالث الثانوي',
-  ];
   @override
   Widget build(BuildContext context) {
-    //  final networkVM = Provider.of<NetworkViewModel>(context);
-    //  final mode = context.watch<SettingsBloc>().state.mode;
-    /*
-    final appTheme =
-        mode ? appThemeData[AppTheme.dark] : appThemeData[AppTheme.light];
-*/
-
-    return Scaffold(
-      key: _key,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: SafeArea(
-          child: Padding(
-        padding: EdgeInsets.only(top: 25.h),
-        child: Column(
-          children: [
-            CustomAppBarWithImageAndMenu(
-              menuIcon: false,
-              onMenuPressed: () {
-                _key.currentState!.openDrawer();
-              },
-              imageURL:
-                  'https://images.unsplash.com/photo-1508184964240-ee96bb9677a7?auto=format&fit=crop&q=80&w=1887&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-              name: 'Mostafa Mahmoud',
-            ),
-            const Spacer(),
-            Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(56.r),
-                  topRight: Radius.circular(56.r),
-                ),
-              ),
-              height: 656.h,
-              width: 1.sw,
-              padding: EdgeInsets.only(top: 34.h, right: 24.w, left: 24.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    ': اختر الصف ',
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                        fontSize: 16.sp, fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 40.h),
-                  SizedBox(
-                    height: 220.h,
-                    child: ListView.separated(
-                      itemBuilder: (context, index) => InkWell(
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = index;
-                          });
-                        },
-                        child: AnimationConfiguration.staggeredList(
-                          position: index,
-                          delay: const Duration(milliseconds: 100),
-                          child: SlideAnimation(
-                            duration: const Duration(milliseconds: 2500),
-                            curve: Curves.fastLinearToSlowEaseIn,
-                            child: FadeInAnimation(
-                              curve: Curves.fastLinearToSlowEaseIn,
-                              duration: const Duration(milliseconds: 2500),
-                              child: classContainer(
-                                classList[index],
-                                context,
-                                isChosen: selectedIndex == index,
+    return Consumer<ChoosingClassViewModel>(
+      builder: (BuildContext context, model, Widget? child) {
+        return Scaffold(
+          key: model.key,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          body: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.only(top: 25.h),
+                child: Column(
+                  children: [
+                    CustomAppBarWithImageAndMenu(
+                      menuIcon: false,
+                      onMenuPressed: () {
+                        model.key.currentState!.openDrawer();
+                      },
+                      imageURL:
+                      'https://images.unsplash.com/photo-1508184964240-ee96bb9677a7?auto=format&fit=crop&q=80&w=1887&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                      name: widget.userName,
+                    ),
+                    const Spacer(),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(56.r),
+                          topRight: Radius.circular(56.r),
+                        ),
+                      ),
+                      height: 656.h,
+                      width: 1.sw,
+                      padding: EdgeInsets.only(top: 34.h, right: 24.w, left: 24.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            ': اختر الصف ',
+                            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 16.sp, fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(height: 40.h),
+                          model.educationLevelsModel==null?
+                          const Center(child: CircularProgressIndicator())
+                              :
+                          SizedBox(
+                            height: 220.h,
+                            child: ListView.separated(
+                              itemBuilder: (context, index) => InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    model.selectedIndex = index;
+                                  });
+                                },
+                                child: AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  delay: const Duration(milliseconds: 100),
+                                  child: SlideAnimation(
+                                    duration: const Duration(milliseconds: 2500),
+                                    curve: Curves.fastLinearToSlowEaseIn,
+                                    child: FadeInAnimation(
+                                      curve: Curves.fastLinearToSlowEaseIn,
+                                      duration: const Duration(milliseconds: 2500),
+                                      child: classContainer(
+                                        model.educationLevelsModel!.data![index],
+                                        context,
+                                        isChosen: model.selectedIndex == index,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
+                              separatorBuilder: (context, index) =>
+                                  SizedBox(height: 16.h),
+                              itemCount: model.educationLevelsModel!.data!.length,
                             ),
                           ),
-                        ),
-                      ),
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: 16.h),
-                      itemCount: 3,
-                    ),
-                  ),
-                  SizedBox(height: 25.h),
-                  SlideTransition(
-                    position: _offsetAnimation,
-                    child: CustomButton(
-                      widgetInCenter: Align(
-                        alignment: Alignment.center,
-                        child: CustomText(
-                          text: "إختيار",
-                          textAlign: TextAlign.center,
-                          color: ColorResources.white1,
-                          txtSize: 17.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      color: ColorResources.buttonColor,
-                      onTap: () {
-                        //   context.read<SettingsBloc>().add(const SettingsEvent.choosingClassDone());
+                          SizedBox(height: 25.h),
+                          SlideTransition(
+                            position: _offsetAnimation,
+                            child: CustomButton(
+                              widgetInCenter: Align(
+                                alignment: Alignment.center,
+                                child: CustomText(
+                                  text: "إختيار",
+                                  textAlign: TextAlign.center,
+                                  color: ColorResources.white1,
+                                  txtSize: 17.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              color: ColorResources.buttonColor,
+                              onTap: () {
+                                //   context.read<SettingsBloc>().add(const SettingsEvent.choosingClassDone());
 
-                        Route route = MaterialPageRoute(
-                            builder: (context) => const MainScreen());
-                        Navigator.pushReplacement(context, route);
-                      },
+                                Route route = MaterialPageRoute(
+                                    builder: (context) => const MainScreen());
+                                Navigator.pushReplacement(context, route);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      )),
+                  ],
+                ),
+              )
+          ),
+        );
+      },
     );
   }
 }
-
-Widget classContainer(String classList, BuildContext context,
-        {bool isChosen = false}) =>
+//String classList, BuildContext context, {bool isChosen = false}
+Widget classContainer(Level data, BuildContext context, {required bool isChosen}) =>
     Container(
       height: 56.h,
       width: 1.sw,
@@ -186,7 +187,7 @@ Widget classContainer(String classList, BuildContext context,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            classList,
+            data.name.toString(),
             style: Theme.of(context).textTheme.displayMedium?.copyWith(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
