@@ -1,8 +1,7 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:learning_anglish_app/presentation/widgets/internetConnect/internet_connect_widget.dart';
+import 'package:learning_anglish_app/presentation/screens/notification/notification%20_screen.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:provider/provider.dart';
@@ -64,6 +63,35 @@ class AppDrawer extends StatelessWidget {
                   ),
                 ),
                 textColor: Colors.white,
+              ),
+              ListTile(
+                horizontalTitleGap: 20.w,
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const NotificationScreen()));
+                },
+                trailing: Icon(
+                  Icons.notifications,
+                  size: 28.dg,
+                  color: Colors.white,
+                ),
+                // const Icon(Icons.star_border, size: 20.0, color: Colors.white),
+                title: Text(
+                  'الأشعارات',
+                  textDirection: TextDirection.rtl,
+                  style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w500,
+                    fontFamily:
+                        Theme.of(context).textTheme.titleSmall?.fontFamily,
+                  ),
+                ),
+                textColor: Colors.white,
+                dense: true,
+
+                // padding: EdgeInsets.zero,
               ),
               ListTile(
                 horizontalTitleGap: 20.w,

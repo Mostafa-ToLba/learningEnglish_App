@@ -9,8 +9,8 @@ import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:provider/provider.dart';
 
 class ChooseLessonScreen extends StatelessWidget {
-  ChooseLessonScreen({super.key});
-  final List<Color> colors = [
+  const ChooseLessonScreen({super.key});
+  final List<Color> colors = const [
     Colors.red,
     Colors.blue,
     Colors.green,

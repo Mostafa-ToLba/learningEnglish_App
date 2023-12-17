@@ -39,7 +39,10 @@ class HomeView extends StatelessWidget {
             CustomAppBarWithImageAndMenu(
               menuIcon: true,
               onMenuPressed: () {
-                final state = Provider.of<MainScreenViewModel>(context,listen: false).sideMenuKey.currentState;
+                final state =
+                    Provider.of<MainScreenViewModel>(context, listen: false)
+                        .sideMenuKey
+                        .currentState;
                 if (state!.isOpened) {
                   state.closeSideMenu(); // close side menu
                 } else {
@@ -69,7 +72,7 @@ class HomeView extends StatelessWidget {
                       ),
                   separatorBuilder: (context, index) => SizedBox(height: 16.h),
                   itemCount: 10),
-            )
+            ),
           ],
         ),
       ),
@@ -171,18 +174,19 @@ class HomeWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                    width: 28.r,
-                    height: 28.r,
-                    padding: EdgeInsets.only(right: 3.w),
-                    margin: EdgeInsets.only(left: 10.w),
-                    decoration: const ShapeDecoration(
-                      color: Color(0xFF49423A),
-                      shape: OvalBorder(),
-                    ),
-                    child: SvgPicture.asset(
-                      IconResources.arrowleft,
-                      color: Colors.white,
-                    )),
+                  width: 28.r,
+                  height: 28.r,
+                  padding: EdgeInsets.only(right: 3.w),
+                  margin: EdgeInsets.only(left: 10.w),
+                  decoration: const ShapeDecoration(
+                    color: Color(0xFF49423A),
+                    shape: OvalBorder(),
+                  ),
+                  child: SvgPicture.asset(
+                    IconResources.arrowleft,
+                    color: Colors.white,
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
