@@ -4,45 +4,7 @@ import '../data/web_services/web_services.dart';
 
 class HttpApi {
   CustomDio customDio = CustomDio();
-  //*******************   upload images
-  Future<dynamic> uploadImages({FormData? body}) async {
-    final res = await customDio.request(
-      EndPoints.UPLOAD_IMAGES,
-      body: body,
-      type: RequestType.Post,
-    );
-    return res;
-  }
 
-  //*******************   upload images
-  Future<dynamic> uploadImagesWeb({body}) async {
-    final res = await customDio.request(
-      "${EndPoints.UPLOAD_IMAGES}/64",
-      body: body,
-      type: RequestType.Post,
-    );
-    return res;
-  }
-
-
-  //*******************   update user image   *************************//
-  Future<dynamic> updateUserImage({String? imageURL}) async {
-    final res = await customDio.request(
-      EndPoints.UPDATE_IMAGE,
-      body: {"pictureUrl": imageURL},
-      type: RequestType.Put,
-    );
-    return res;
-  }
-
-  //*******************   Get user data   *************************//
-  Future<dynamic> getUserData() async {
-    final res = await customDio.request(
-      EndPoints.USER,
-      type: RequestType.Get,
-    );
-    return res;
-  }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 //*******************  Register   *************************//
@@ -87,6 +49,18 @@ class HttpApi {
     );
     return res;
   }
+
+  //*******************  get user profile   *************************//
+
+  Future<dynamic> userProfile() async {
+    final res = await customDio.request(
+      EndPoints.userProfile,
+      type: RequestType.Get,
+    );
+    return res;
+  }
+  //*******************  get user profile   *************************//
+
 }
 
 

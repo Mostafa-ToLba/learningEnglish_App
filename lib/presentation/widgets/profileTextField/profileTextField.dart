@@ -69,7 +69,7 @@ class CustomProfileTextField extends StatelessWidget {
               readOnly: readOnly!,
               controller: controller,
               keyboardType: textInputType,
-              style: TextStyle(color: Colors.black, fontSize: 16.sp),
+              style: TextStyle(color: themeVm.isDark == true ?Colors.white:Colors.black, fontSize: 16.sp),
               decoration: InputDecoration(
                 hintText: hintText,
                 contentPadding:

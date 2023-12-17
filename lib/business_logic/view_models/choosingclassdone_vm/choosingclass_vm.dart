@@ -16,7 +16,7 @@ class ChoosingClassViewModel extends BaseNotifier
     'الصف الثاني الثانوي',
     'الصف الثالث الثانوي',
   ];
-   EducationLevels? educationLevelsModel ;
+   EducationLevels educationLevelsModel = EducationLevels();
   void getEducationLevels() async {
     setBusy();
     try {

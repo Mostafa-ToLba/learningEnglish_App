@@ -100,9 +100,6 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
                                 fontSize: 16.sp, fontWeight: FontWeight.w500),
                           ),
                           SizedBox(height: 40.h),
-                          model.educationLevelsModel==null?
-                          const Center(child: CircularProgressIndicator())
-                              :
                           SizedBox(
                             height: 220.h,
                             child: ListView.separated(
@@ -122,7 +119,7 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
                                       curve: Curves.fastLinearToSlowEaseIn,
                                       duration: const Duration(milliseconds: 2500),
                                       child: classContainer(
-                                        model.educationLevelsModel!.data![index],
+                                        model.educationLevelsModel.data[index],
                                         context,
                                         isChosen: model.selectedIndex == index,
                                       ),
@@ -132,7 +129,7 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
                               ),
                               separatorBuilder: (context, index) =>
                                   SizedBox(height: 16.h),
-                              itemCount: model.educationLevelsModel!.data!.length,
+                              itemCount: model.educationLevelsModel.data.length,
                             ),
                           ),
                           SizedBox(height: 25.h),
@@ -187,7 +184,7 @@ Widget classContainer(Level data, BuildContext context, {required bool isChosen}
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            data.name.toString(),
+            data.name??'',
             style: Theme.of(context).textTheme.displayMedium?.copyWith(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,

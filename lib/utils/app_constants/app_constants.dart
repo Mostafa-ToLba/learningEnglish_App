@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class AppConstants {
 
   static const String baseUrl = '';
-
   static const String arabicFont1 = 'Tajawal';
   static const String arabicFont2 = 'ElMessiri';
   static const String darkPreferences = 'ElMessiri';

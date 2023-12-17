@@ -12,24 +12,24 @@ String educationLevelsToJson(EducationLevels data) => json.encode(data.toJson())
 class EducationLevels {
   final int? errorCode;
   final String? errorMessage;
-  final List<Level>? data;
+  final List<Level> data;
 
   EducationLevels({
     this.errorCode,
     this.errorMessage,
-    this.data,
+    this.data = const [],
   });
 
   factory EducationLevels.fromJson(Map<String, dynamic> json) => EducationLevels(
     errorCode: json["errorCode"],
     errorMessage: json["errorMessage"],
-    data: json["data"] == null ? [] : List<Level>.from(json["data"]!.map((x) => Level.fromJson(x))),
+    data: List<Level>.from(json["data"]!.map((x) => Level.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "errorCode": errorCode,
     "errorMessage": errorMessage,
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
   };
 }
 

@@ -17,7 +17,6 @@ class CustomDio {
       "Accept": "application/json",
       "Content-Type": "application/json",
       'authorization': 'Bearer $token',
-
     };
     Response response;
     final Dio dio = Dio();
