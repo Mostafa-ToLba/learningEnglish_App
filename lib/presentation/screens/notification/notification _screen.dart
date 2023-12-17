@@ -136,42 +136,33 @@ class NotificationWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      'اشعار رقم $index',
-                      style:
-                          Theme.of(context).textTheme.displayMedium?.copyWith(
-                                fontSize: 16.sp,
-                                fontFamily: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.fontFamily,
-                                fontWeight: FontWeight.w400,
-                              ),
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                'اشعار رقم $index',
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      fontSize: 16.sp,
+                      fontFamily:
+                          Theme.of(context).textTheme.titleSmall?.fontFamily,
+                      fontWeight: FontWeight.w400,
                     ),
-                    SizedBox(height: 4.h),
-                    Text(
-                      'تعليق على الاشعار رقم $index',
-                      style:
-                          Theme.of(context).textTheme.displayMedium?.copyWith(
-                                fontSize: 14.sp,
-                                fontFamily: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.fontFamily,
-                                // TODO: Edit this
-                                color: themeVM.isDark == true
-                                    ? Colors.grey
-                                    : Colors.grey,
-                                fontWeight: FontWeight.w400,
-                              ),
+              ),
+              SizedBox(height: 4.h),
+              Text(
+                'تعليق على الاشعار رقم $index',
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      fontSize: 14.sp,
+                      fontFamily:
+                          Theme.of(context).textTheme.titleSmall?.fontFamily,
+                      // TODO: Edit this
+                      color: themeVM.isDark == true ? Colors.grey : Colors.grey,
+                      fontWeight: FontWeight.w400,
                     ),
-                  ],
-                ),
-
-                SizedBox(width: 20.w),
+              ),
+            ],
+          ),
+          SizedBox(width: 20.w),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
@@ -183,7 +174,6 @@ class NotificationWidget extends StatelessWidget {
             height: double.infinity,
             width: 20.w,
           ),
-          
         ],
       ),
     );
