@@ -66,14 +66,16 @@ class CustomTextField extends StatelessWidget {
           height: 56.h,
           width: double.infinity,
           child: TextFormField(
-            textDirection: TextDirection.rtl,
+            textDirection: TextDirection.ltr,
             maxLines: 1,
-            textAlign: TextAlign.end,
+            textAlign: TextAlign.start,
             validator: validator,
             readOnly: readOnly!,
             controller: controller,
             keyboardType: textInputType,
+            style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w600,color: Colors.black),
             decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(left: 20.w,),
               hintText: hintText,
               hintStyle: Theme.of(context).textTheme.displayMedium?.copyWith(
                     color: hintColor,

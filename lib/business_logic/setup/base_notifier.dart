@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:learning_anglish_app/business_logic/http_api.dart';
+import 'package:learning_anglish_app/business_logic/setup/provider_setup.dart';
 
 enum NotifierState { busy, idle, error }
 
 class BaseNotifier extends ChangeNotifier {
   NotifierState _state = NotifierState.idle;
   bool _mounted = true;
- // final HttpApi api = locator<HttpApi>();
+  final HttpApi api = locator<HttpApi>();
 
 
   bool get mounted => _mounted;

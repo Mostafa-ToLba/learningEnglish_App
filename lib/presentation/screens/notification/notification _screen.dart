@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:learning_anglish_app/business_logic/view_models/notification_vm/notification_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
+import 'package:learning_anglish_app/utils/images/images.dart';
 import 'package:provider/provider.dart';
 
-class NotificationScreen extends StatelessWidget {
+class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
+
+  @override
+  State<NotificationScreen> createState() => _NotificationScreenState();
+}
+
+class _NotificationScreenState extends State<NotificationScreen> {
   final List<Color> colors = const [
     Colors.red,
     Colors.blue,
@@ -23,7 +32,17 @@ class NotificationScreen extends StatelessWidget {
     // Added 10 colors
   ];
   @override
+  void initState() {
+    //final themeVm = Provider.of<ThemesViewModel>(context);
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<NotificationViewModel>(context).getNotification();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final notificationVM = Provider.of<NotificationViewModel>(context);
     final themeVM = Provider.of<ThemesViewModel>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -76,27 +95,39 @@ class NotificationScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 30.h),
-              Expanded(
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) =>
-                      AnimationConfiguration.staggeredList(
-                    position: index,
-                    delay: const Duration(milliseconds: 100),
-                    child: SlideAnimation(
-                      duration: const Duration(milliseconds: 2500),
-                      curve: Curves.fastLinearToSlowEaseIn,
-                      child: FadeInAnimation(
-                        curve: Curves.fastLinearToSlowEaseIn,
-                        duration: const Duration(milliseconds: 2500),
-                        child: NotificationWidget(context, colors, index),
+              notificationVM.notificationModel!.data!.isNotEmpty
+                  ? Expanded(
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) =>
+                            AnimationConfiguration.staggeredList(
+                          position: index,
+                          delay: const Duration(milliseconds: 100),
+                          child: SlideAnimation(
+                            duration: const Duration(milliseconds: 2500),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            child: FadeInAnimation(
+                              curve: Curves.fastLinearToSlowEaseIn,
+                              duration: const Duration(milliseconds: 2500),
+                              child: Consumer<NotificationViewModel>(
+                                builder: (context, value, child) {
+                                  return NotificationWidget(
+                                      context, colors, index);
+                                },
+                              ),
+
+                              // child: NotificationWidget(context, colors, index),
+                            ),
+                          ),
+                        ),
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 16.h),
+                        itemCount: 10,
                       ),
+                    )
+                  : Center(
+                      child: Image.asset(Images.noNotification),
                     ),
-                  ),
-                  separatorBuilder: (context, index) => SizedBox(height: 16.h),
-                  itemCount: 10,
-                ),
-              ),
             ],
           ),
         ),
@@ -114,6 +145,7 @@ class NotificationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final notificationVM = Provider.of<NotificationViewModel>(context);
     final themeVM = Provider.of<ThemesViewModel>(context);
     return Container(
       decoration: BoxDecoration(
@@ -140,7 +172,7 @@ class NotificationWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                'اشعار رقم $index',
+                notificationVM.notificationModel!.data![index].title!,
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
                       fontSize: 16.sp,
                       fontFamily:
@@ -150,7 +182,7 @@ class NotificationWidget extends StatelessWidget {
               ),
               SizedBox(height: 4.h),
               Text(
-                'تعليق على الاشعار رقم $index',
+                notificationVM.notificationModel!.data![index].description!,
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
                       fontSize: 14.sp,
                       fontFamily:

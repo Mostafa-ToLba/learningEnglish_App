@@ -1,6 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_anglish_app/data/cache_helper/cache_helper.dart';
+import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/onBoarding/onboarding_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 
@@ -47,7 +49,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         Future.delayed(const Duration(seconds: 2), () {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const OnBoardingScreen()),
+            MaterialPageRoute(builder: (context) =>
+                CacheHelper.getData(key: PrefKeys.TOKEN)!=null?const MainScreen():const OnBoardingScreen()),
           );
         });
       }
@@ -100,6 +103,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               ),
             ],
           ),
-        ));
+        )
+    );
   }
 }

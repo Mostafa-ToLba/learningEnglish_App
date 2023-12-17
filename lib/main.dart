@@ -12,7 +12,8 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await CasheHelper.init();
+  await CacheHelper.init();
+  setupLocator();
   runApp( const AppScreen());
 }
 
@@ -31,7 +32,7 @@ class _AppScreenState extends State<AppScreen> {
       providers: providers,
       child: Consumer<ThemesViewModel>(
         builder: (BuildContext context, model, Widget? child) {
-          model.isDark = CasheHelper.getData(key: AppConstants.darkPreferences)??false;
+          model.isDark = CacheHelper.getData(key: AppConstants.darkPreferences)??false;
           model.setSystemChrome();
           return  ScreenUtilInit(
             designSize: const Size(375, 812),

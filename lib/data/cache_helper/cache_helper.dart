@@ -61,10 +61,22 @@ class LocalDataSourceProvider {
  */
 
 import 'dart:convert';
-
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CasheHelper {
+class Keys {
+  static final GlobalKey<NavigatorState> navigatorKey =
+  GlobalKey<NavigatorState>();
+}
+
+
+class PrefKeys {
+  static const String TOKEN = 'token';
+  static const String REFRESH_TOKEN = 'refresh_token';
+  static const String ONBOARDING = "on_boarding";
+}
+
+class CacheHelper {
   static late SharedPreferences sharedPreferences;
 
   static init() async {

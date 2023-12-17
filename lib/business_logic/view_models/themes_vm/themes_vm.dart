@@ -11,7 +11,7 @@ class ThemesViewModel extends BaseNotifier {
 
   void setTheme(bool value) {
     isDark = !value;
-    CasheHelper.putBoolean(key: AppConstants.darkPreferences, value: !value);
+    CacheHelper.putBoolean(key: AppConstants.darkPreferences, value: !value);
     setSystemChrome();
     notifyListeners();
   }
