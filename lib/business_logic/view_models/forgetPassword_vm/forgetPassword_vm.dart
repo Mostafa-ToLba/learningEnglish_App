@@ -2,7 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:learning_anglish_app/business_logic/setup/base_notifier.dart';
-import 'package:learning_anglish_app/presentation/screens/chooseClass/choose_class_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/registration/forget_password_code/forget_password_code.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
 import 'package:logger/logger.dart';
@@ -17,13 +17,12 @@ class ForgetPasswordViewModel extends BaseNotifier
     };
     setBusy();
     try {
-      Response<dynamic> res= await api.login(body: body);
+      Response<dynamic> res= await api.forgetPassword(body: body);
       General.showToast(message: res.data['errorMessage']);
-      if(res.data['data']['token']!=null)
+      if(res.data['data']==null)
       {
-        final String userName = res.data['data']['fullName'];
-        Navigator.pushReplacement(context,
-            SlideTransition1(ChooseClassScreen(userName)));
+        Navigator.push(context,
+            SlideTransition1(ForgetPasswordCode(email: emailController.text)));
       }
     } catch (e) {
       print(e.toString());

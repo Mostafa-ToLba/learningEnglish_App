@@ -13,6 +13,9 @@ class EndPoints {
   static const String register = "Users/Register";
   static const String login = "Users/login";
   static const String forgetPassword = "Users/ForgetPassword";
+  static const String resendEmail = "Users/ResendEmail";
+  static const String changePasswordConfirm = "Users/ChangePasswordConfirm";
+  static const String changeForgotPassword = "Users/changeForgotPassword";
   static const String getLevels = "EducationalLevels/Get";
   static const String userProfile = "Users/GetUserInfo";
   static const String notification = "Notification/GetAllNotifications";

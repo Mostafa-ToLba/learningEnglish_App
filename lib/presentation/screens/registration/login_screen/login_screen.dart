@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:learning_anglish_app/business_logic/view_models/login_vm/login_vm.dart';
-import 'package:learning_anglish_app/presentation/screens/chooseClass/choose_class_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/forget_password/forget_password.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/register_screen/register_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';

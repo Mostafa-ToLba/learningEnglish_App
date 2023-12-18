@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:learning_anglish_app/business_logic/http_api.dart';
 import 'package:learning_anglish_app/business_logic/view_models/choosingclassdone_vm/choosingclass_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/exams_vm/exams_vm.dart';
+import 'package:learning_anglish_app/business_logic/view_models/forgetPasswordCode_vm/forgetPasswordCode_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/forgetPassword_vm/forgetPassword_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/lessonScreen_vm/lessonScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/login_vm/login_vm.dart';
@@ -36,6 +37,7 @@ List<SingleChildWidget> independentServices = [
   ChangeNotifierProvider<LoginViewModel>(create: (_) => LoginViewModel()),
   ChangeNotifierProvider<ForgetPasswordViewModel>(
       create: (_) => ForgetPasswordViewModel()),
+      ChangeNotifierProvider<ForgetPasswordCodeViewModel>(create: (_) => ForgetPasswordCodeViewModel()),
   ChangeNotifierProvider<ChoosingClassViewModel>(
       create: (_) => ChoosingClassViewModel()),
   ChangeNotifierProvider<UserProfileViewModel>(
