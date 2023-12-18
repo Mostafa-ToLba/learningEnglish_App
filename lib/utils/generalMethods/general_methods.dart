@@ -32,7 +32,7 @@ class General {
   //***  refresh token */
   static Future<dynamic> refreshToke() async {
     if (AppConstants.token != "") {
-      String? _oldtoken = CasheHelper.getData(key:PrefKeys.TOKEN) ?? "";
+      String? _oldtoken = CacheHelper.getData(key:PrefKeys.TOKEN) ?? "";
       debugPrint("=================refresh token start");
       try {
         final Response response = await Dio().post(
@@ -46,12 +46,12 @@ class General {
             "response from refreshToken ============${response.data["token"]}");
         AppConstants.token = response.data["token"];
         AppConstants.refreshToken = response.data["refreshToken"];
-        await CasheHelper.SaveData(key:PrefKeys.TOKEN, value: response.data["token"].toString());
+        await CacheHelper.SaveData(key:PrefKeys.TOKEN, value: response.data["token"].toString());
 
-        await CasheHelper.SaveData(key:PrefKeys.REFRESH_TOKEN,
+        await CacheHelper.SaveData(key:PrefKeys.REFRESH_TOKEN,
             value: response.data["refreshToken"].toString());
 
-        String? newtoken = CasheHelper.getData(key: PrefKeys.TOKEN) ?? "";
+        String? newtoken = CacheHelper.getData(key: PrefKeys.TOKEN) ?? "";
         print("newtoken from refreshToken: $newtoken");
       } on DioError catch (error) {
         print(

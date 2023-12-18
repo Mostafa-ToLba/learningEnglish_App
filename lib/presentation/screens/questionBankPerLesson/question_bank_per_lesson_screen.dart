@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
-import 'package:localization/localization.dart';
+
+enum QuestionBankEnum { all, marked, unmarked }
+
+final Map<QuestionBankEnum, String> questionBankMap = {
+  QuestionBankEnum.all: "All",
+  QuestionBankEnum.marked: "Marked",
+  QuestionBankEnum.unmarked: "Unmarked",
+};
 
 class QuestionBankPerLessonScreen extends StatefulWidget {
   const QuestionBankPerLessonScreen({super.key});
@@ -13,7 +20,7 @@ class QuestionBankPerLessonScreen extends StatefulWidget {
 
 class _QuestionBankPerLessonScreenState
     extends State<QuestionBankPerLessonScreen> {
-  int? _value = 1;
+  QuestionBankEnum _value = QuestionBankEnum.all;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +69,6 @@ class _QuestionBankPerLessonScreenState
                       //SizedBox(width: 10),
                     ],
                   ),
-                
                   Container(
                     decoration: ShapeDecoration(
                       shape: RoundedRectangleBorder(
@@ -84,38 +90,8 @@ class _QuestionBankPerLessonScreenState
                       ), //circle_chevron_left
                     ),
                   ),
-                  ],
+                ],
               ),
-
-              /*
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const FaIcon(
-                        FontAwesomeIcons.circleChevronLeft,
-                        color: Colors.brown,
-                      ), //circle_chevron_left
-                    ),
-                    const Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text('الوحدة الأولى'),
-                            Text('Getting away'),
-                          ],
-                        ),
-                        //SizedBox(width: 10),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              */
               SizedBox(height: 32.h),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 24.h, vertical: 32.w),
@@ -132,12 +108,13 @@ class _QuestionBankPerLessonScreenState
                     Wrap(
                       //spacing: 16.w,
                       children: List<Widget>.generate(
-                        2,
+                        questionBankMap.length,
                         (int index) {
-                          final list = ["all_questions", "marked_questions"];
                           return ChoiceChip(
+                            showCheckmark: false,
+                            side: BorderSide.none,
                             label: Text(
-                              list.elementAt(index).i18n(),
+                              questionBankMap.values.elementAt(index),
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium
@@ -153,142 +130,129 @@ class _QuestionBankPerLessonScreenState
                                     fontWeight: FontWeight.w400, height: 0.09.h,
                                   ),
                             ),
-                            backgroundColor: _value == index
+                            backgroundColor: _value.index == index
                                 ? ColorResources.brownDark
                                 : Theme.of(context).primaryColor,
-                            selected: _value == index,
+                            selected: _value.index == index,
                             onSelected: (bool selected) {
                               setState(() {
-                                _value = selected ? index : null;
+                                _value = (selected
+                                    ? questionBankMap.keys.elementAt(index)
+                                    : questionBankMap.keys.elementAt(0));
                               });
                             },
                           );
                         },
                       ).toList(),
-                      /*/
-                      children: List<Widget>.from(
-                          ["all_questions", "marked_questions"]).toList(),
-(
-                        3,
-                        (int index) {
-                          return ChoiceChip(
-                            label: Text('Item $index'),
-                            selected: _value == index,
-                            onSelected: (bool selected) {
-                              setState(() {
-                                _value = selected ? index : null;
-                              });
-                            },
-                          );
-                        },
-                          */
                     ),
                     const Spacer(),
                   ],
                 ),
               ),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.only(right: 24.w, left: 24.w),
-                  //margin: EdgeInsets.symmetric(horizontal: 6.w),
-                  child: ListView(
-                    shrinkWrap: true,
-                    children: [
-                      
-                      SizedBox(height: 40.h),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.bookmark,
-                                  size: 24.dm,
-                                  //color: ColorResources.black,
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  '1- Last year, when I last met her, she told me she  _____ a letter every day for the last two months.  ',
-                                  textAlign: TextAlign.left,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium
-                                      ?.copyWith(
-                                        fontSize: 16.sp,
-                                        // color: ColorResources.black,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'A. had written',
-                            textAlign: TextAlign.left,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
+              switch (_value) {
+                //QuestionBankEnum.all => questionAllSelected(context),
+                QuestionBankEnum.all => questionAllSelected(context),
+                QuestionBankEnum.marked => Container(),
+                QuestionBankEnum.unmarked => Container(),
+              }
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget questionAllSelected(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.only(right: 24.w, left: 24.w),
+        //margin: EdgeInsets.symmetric(horizontal: 6.w),
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            SizedBox(height: 40.h),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.bookmark,
+                        size: 24.dm,
+                        //color: ColorResources.black,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        '1- Last year, when I last met her, she told me she  _____ a letter every day for the last two months.  ',
+                        textAlign: TextAlign.left,
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
                                   fontSize: 16.sp,
                                   // color: ColorResources.black,
                                   fontWeight: FontWeight.w400,
                                 ),
-                          ),
-                          Text(
-                            'B. has written',
-                            textAlign: TextAlign.left,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'A. had written',
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 16.sp,
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                      ),
+                      Text(
+                        'B. has written',
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
                                   fontSize: 16.sp,
                                   color: ColorResources.greenDark,
                                   // color: ColorResources.black,
                                   fontWeight: FontWeight.w400,
                                 ),
-                          ),
-                          Text(
-                            'C. wrote',
-                            textAlign: TextAlign.left,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
+                      ),
+                      Text(
+                        'C. wrote',
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
                                   fontSize: 16.sp,
                                   color: ColorResources.redDark,
                                   // color: ColorResources.black,
                                   fontWeight: FontWeight.w400,
                                 ),
-                          ),
-                          Text(
-                            'D. had been writing',
-                            textAlign: TextAlign.left,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
+                      ),
+                      Text(
+                        'D. had been writing',
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
                                   fontSize: 16.sp,
                                   // color: ColorResources.black,
                                   fontWeight: FontWeight.w400,
                                 ),
-                          ),
-                        ],
                       ),
-                      SizedBox(height: 40.h),
-
                     ],
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+            SizedBox(height: 40.h),
+          ],
         ),
       ),
     );

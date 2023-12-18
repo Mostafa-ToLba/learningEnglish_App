@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/business_logic/setup/provider_setup.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/data/cache_helper/cache_helper.dart';
+import 'package:learning_anglish_app/presentation/screens/notification/notification_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/splashScreen/splashScreen.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/theme/theme.dart';
@@ -12,7 +13,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await CasheHelper.init();
+  await CacheHelper.init();
   setupLocator();
   runApp( const AppScreen());
 }
@@ -32,7 +33,7 @@ class _AppScreenState extends State<AppScreen> {
       providers: providers,
       child: Consumer<ThemesViewModel>(
         builder: (BuildContext context, model, Widget? child) {
-          model.isDark = CasheHelper.getData(key: AppConstants.darkPreferences)??false;
+          model.isDark = CacheHelper.getData(key: AppConstants.darkPreferences)??false;
           model.setSystemChrome();
           return  ScreenUtilInit(
             designSize: const Size(375, 812),

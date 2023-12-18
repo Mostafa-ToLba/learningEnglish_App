@@ -30,7 +30,7 @@ class LoginViewModel extends BaseNotifier {
         {
           AppConstants.token = res.data['data']['token'];
           final String userName = res.data['data']['fullName'];
-          CasheHelper.SaveData(key: PrefKeys.TOKEN, value: AppConstants.token);
+          CacheHelper.SaveData(key: PrefKeys.TOKEN, value: AppConstants.token);
            Navigator.pushReplacement(context,
                SlideTransition1(ChooseClassScreen(userName)));
         }

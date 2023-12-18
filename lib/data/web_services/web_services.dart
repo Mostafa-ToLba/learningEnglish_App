@@ -12,7 +12,7 @@ class CustomDio {
       Map<String, dynamic>? headers,
       Map<String, dynamic>? quesryParameters,
       String? type}) async {
-    String? token = CasheHelper.getData(key: PrefKeys.TOKEN) ?? "";
+    String? token = CacheHelper.getData(key: PrefKeys.TOKEN) ?? "";
     Map<String, dynamic>? _basicheaders = {
       "Accept": "application/json",
       "Content-Type": "application/json",

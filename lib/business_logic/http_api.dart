@@ -29,14 +29,35 @@ class HttpApi {
     return res;
   }
 
-  //*******************  Register   *************************//
+  //*******************  Forget Password   *************************//
 
   Future<dynamic> forgetPassword({Map<String, dynamic>? body}) async {
-    final res = await customDio.request(
-        EndPoints.forgetPassword,
-        type: RequestType.Post,
-        body: body
-    );
+    final res = await customDio.request(EndPoints.forgetPassword,
+        type: RequestType.Post, body: body);
+    return res;
+  }
+
+  //*******************  Forget Password Code  *************************//
+
+  Future<dynamic> forgetPasswordCode({Map<String, dynamic>? body}) async {
+    final res = await customDio.request(EndPoints.changePasswordConfirm,
+        type: RequestType.Post, body: body);
+    return res;
+  }
+
+  //*******************  Resend email  *************************//
+
+  Future<dynamic> resendEmail({Map<String, dynamic>? body}) async {
+    final res = await customDio.request(EndPoints.changePasswordConfirm,
+        type: RequestType.Post, body: body);
+    return res;
+  }
+
+  //*******************  Resend email  *************************//
+
+  Future<dynamic> changeForgotPassword({Map<String, dynamic>? body}) async {
+    final res = await customDio.request(EndPoints.changeForgotPassword,
+        type: RequestType.Put, body: body);
     return res;
   }
 
@@ -73,4 +94,13 @@ class HttpApi {
 
 }
 
+  //*******************  get notifications  *************************//
 
+  Future<dynamic> notifications() async {
+    final res = await customDio.request(
+      EndPoints.notification,
+      type: RequestType.Get,
+    );
+    return res;
+  }
+}

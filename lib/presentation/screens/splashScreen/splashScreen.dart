@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) =>
-                CasheHelper.getData(key: PrefKeys.TOKEN)!=null?const MainScreen():const OnBoardingScreen()),
+                CacheHelper.getData(key: PrefKeys.TOKEN)!=null?const MainScreen():const OnBoardingScreen()),
           );
         });
       }

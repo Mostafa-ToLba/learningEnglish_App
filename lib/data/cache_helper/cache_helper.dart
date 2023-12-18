@@ -76,7 +76,7 @@ class PrefKeys {
   static const String ONBOARDING = "on_boarding";
 }
 
-class CasheHelper {
+class CacheHelper {
   static late SharedPreferences sharedPreferences;
 
   static init() async {

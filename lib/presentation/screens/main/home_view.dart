@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:learning_anglish_app/business_logic/view_models/lessonScreen_vm/lessonScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/mainScreen_vm/mainScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseLesson/choose_lesson_screen.dart';
-import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_with_image_and%20_menu.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
@@ -39,7 +37,10 @@ class HomeView extends StatelessWidget {
             CustomAppBarWithImageAndMenu(
               menuIcon: true,
               onMenuPressed: () {
-                final state = Provider.of<MainScreenViewModel>(context,listen: false).sideMenuKey.currentState;
+                final state =
+                    Provider.of<MainScreenViewModel>(context, listen: false)
+                        .sideMenuKey
+                        .currentState;
                 if (state!.isOpened) {
                   state.closeSideMenu(); // close side menu
                 } else {
@@ -69,7 +70,7 @@ class HomeView extends StatelessWidget {
                       ),
                   separatorBuilder: (context, index) => SizedBox(height: 16.h),
                   itemCount: 10),
-            )
+            ),
           ],
         ),
       ),
@@ -171,18 +172,19 @@ class HomeWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                    width: 28.r,
-                    height: 28.r,
-                    padding: EdgeInsets.only(right: 3.w),
-                    margin: EdgeInsets.only(left: 10.w),
-                    decoration: const ShapeDecoration(
-                      color: Color(0xFF49423A),
-                      shape: OvalBorder(),
-                    ),
-                    child: SvgPicture.asset(
-                      IconResources.arrowleft,
-                      color: Colors.white,
-                    )),
+                  width: 28.r,
+                  height: 28.r,
+                  padding: EdgeInsets.only(right: 3.w),
+                  margin: EdgeInsets.only(left: 10.w),
+                  decoration: const ShapeDecoration(
+                    color: Color(0xFF49423A),
+                    shape: OvalBorder(),
+                  ),
+                  child: SvgPicture.asset(
+                    IconResources.arrowleft,
+                    color: Colors.white,
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
