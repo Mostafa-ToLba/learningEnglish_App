@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:learning_anglish_app/business_logic/view_models/userProfile_vm/userProfile_vm.dart';
+import 'package:learning_anglish_app/data/web_services/end_points.dart';
 import 'package:learning_anglish_app/presentation/screens/notification/notification_screen.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
@@ -11,6 +13,7 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final profileVm = Provider.of<UserProfileViewModel>(context);
     return Consumer<ThemesViewModel>(
       builder: (BuildContext context, themeVm, Widget? child) {
         return SingleChildScrollView(
@@ -26,11 +29,10 @@ class AppDrawer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const CircleAvatar(
+                     CircleAvatar(
                       backgroundColor: Colors.white,
                       radius: 22.0,
-                      backgroundImage: NetworkImage(
-                          'https://images.unsplash.com/photo-1508184964240-ee96bb9677a7?auto=format&fit=crop&q=80&w=1887&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+                      backgroundImage: NetworkImage(EndPoints.imagesUrl+profileVm.userProfile!.data!.userImgUrl!),
                     ),
                     const SizedBox(height: 16.0),
                     Text(

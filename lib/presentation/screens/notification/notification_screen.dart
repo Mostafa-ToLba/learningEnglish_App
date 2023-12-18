@@ -5,6 +5,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/notification_vm/notification_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
+import 'package:learning_anglish_app/data/models/notification/notification_model.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:learning_anglish_app/utils/images/images.dart';
@@ -42,94 +43,90 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     final themeVM = Provider.of<ThemesViewModel>(context);
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Consumer<NotificationViewModel>(
+      builder: (BuildContext context, NotificationViewModel model, Widget? child) {
+      return Scaffold(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          body: SafeArea(
+            child: model.notificationModel?.data!=null? Padding(
+              padding: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w),
+              child: Column(
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        width: 40
-                            .r, // Set the width and height to your desired size
-                        height: 40.r,
-                        padding: EdgeInsets.only(right: 4.w),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: themeVM.isDark == true
-                              ? Colors.black
-                              : Colors.white, // White background
-                          border: Border.all(
-                            color: Colors.grey, // Grey border color
-                            width: 1.0, // Border width
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: 40
+                                .r, // Set the width and height to your desired size
+                            height: 40.r,
+                            padding: EdgeInsets.only(right: 4.w),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: themeVM.isDark == true
+                                  ? Colors.black
+                                  : Colors.white, // White background
+                              border: Border.all(
+                                color: Colors.grey, // Grey border color
+                                width: 1.0, // Border width
+                              ),
+                            ),
+                            child: Center(
+                                child: SvgPicture.asset(
+                                  IconResources.arrowleft,
+                                  height: 25.h,
+                                  color: Theme.of(context).indicatorColor,
+                                )),
                           ),
                         ),
-                        child: Center(
-                            child: SvgPicture.asset(
-                          IconResources.arrowleft,
-                          height: 25.h,
-                          color: Theme.of(context).indicatorColor,
-                        )),
                       ),
-                    ),
-                  ),
-                  Text(
-                    'الأشعارات',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      Text(
+                        'الأشعارات',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w400,
                         ),
+                      ),
+                    ],
                   ),
+                  SizedBox(height: 30.h),
+                 ((model.notificationModel?.data != [] &&
+                      model.notificationModel?.data != null)
+                      ? Expanded(
+                    child: ListView.separated(
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount:
+                      model.notificationModel!.data!.length,
+                      itemBuilder: (context, index) {
+                        return  NotificationWidget(colors, index,model.notificationModel!.data![index]);
+                      },
+                      separatorBuilder: (context, index) =>
+                          SizedBox(height: 16.h),
+                    ),
+                  )
+                      : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Image.asset(Images.noNotification),
+                      ),
+                    ],
+                  )),
                 ],
               ),
-              SizedBox(height: 30.h),
-              Consumer<NotificationViewModel>(
-                builder: (BuildContext context, NotificationViewModel model,
-                    Widget? child) {
-                  return model.busy == true
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        ) //: Text(model.notificationModel!.data.toString());
-                      : ((model.notificationModel?.data != [] &&
-                              model.notificationModel?.data != null)
-                          ? Expanded(
-                              child: ListView.separated(
-                                physics: const BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount:
-                                    model.notificationModel!.data!.length,
-                                itemBuilder: (context, index) {
-                                  return  NotificationWidget(colors, index);
-                                  },
-                                separatorBuilder: (context, index) =>
-                                    SizedBox(height: 16.h),
-                              ),
-                            )
-                          : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Center(
-                                  child: Image.asset(Images.noNotification),
-                                ),
-                              ],
-                            ));
-                },
-              ),
-            ],
+            ):
+            const Center(child: CircularProgressIndicator()),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -138,12 +135,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
 class NotificationWidget extends StatelessWidget {
   final List<Color> colors;
   final int index;
+  final NotificationDetails data;
 
-  const NotificationWidget(this.colors, this.index, {super.key});
+  const NotificationWidget(this.colors, this.index, this.data, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    final notificationVM = Provider.of<NotificationViewModel>(context);
     final themeVM = Provider.of<ThemesViewModel>(context);
     return Container(
       decoration: BoxDecoration(
@@ -174,7 +171,7 @@ class NotificationWidget extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      notificationVM.notificationModel!.data![index].title!,
+                      data.title??"",
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 fontSize: 16.sp,
@@ -190,7 +187,7 @@ class NotificationWidget extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                    notificationVM.notificationModel!.data![index].body!,
+                      data.body??'',
                     style:
                         Theme.of(context).textTheme.displayMedium?.copyWith(
                               fontSize: 14.sp,

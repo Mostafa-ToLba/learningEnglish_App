@@ -6,8 +6,8 @@ import 'package:learning_anglish_app/utils/images/images.dart';
 
 class CustomAppBarWithImageAndMenu extends StatelessWidget {
   final VoidCallback onMenuPressed;
-  final String imageURL;
-  final String name;
+  final String? imageURL;
+  final String? name;
   final bool? menuIcon;
   const CustomAppBarWithImageAndMenu(
       {super.key,
@@ -48,7 +48,7 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
               ),
               SizedBox(height: 12.h),
               Text(
-                name,
+                name??'',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   overflow: TextOverflow.ellipsis,
@@ -64,7 +64,7 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
           CircleAvatar(
             radius: 20.r,
             backgroundColor: Theme.of(context).textTheme.displayMedium!.color,
-            backgroundImage: NetworkImage(imageURL),
+            backgroundImage: NetworkImage(imageURL??''),
           ),
         ],
       ),

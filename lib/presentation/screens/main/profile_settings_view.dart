@@ -35,7 +35,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       context.read<UserProfileViewModel>().imageFile = null;
-      context.read<UserProfileViewModel>().getUserProfile();
+   //   context.read<UserProfileViewModel>().getUserProfile();
     });
     super.initState();
     _controller = AnimationController(

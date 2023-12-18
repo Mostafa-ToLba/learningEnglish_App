@@ -47,7 +47,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     final profileVm = Provider.of<UserProfileViewModel>(context);
     return SafeArea(
-      child: Padding(
+      child: profileVm.userProfile!=null?Padding(
         padding: EdgeInsets.only(top: 25.h),
         child: Column(
           children: [
@@ -64,8 +64,8 @@ class _HomeViewState extends State<HomeView> {
                   state.openSideMenu();
                 }
               },
-              imageURL:EndPoints.imagesUrl+profileVm.userProfile!.data!.userImgUrl.toString(),
-              name: profileVm.userProfile?.data?.fullName??'',
+              imageURL:EndPoints.imagesUrl+profileVm.userProfile!.data!.userImgUrl!,
+              name: profileVm.userProfile?.data?.fullName,
             ),
             SizedBox(height: 30.h),
             Expanded(
@@ -89,7 +89,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           ],
         ),
-      ),
+      ):const Center(child: CircularProgressIndicator()),
     );
   }
 }
