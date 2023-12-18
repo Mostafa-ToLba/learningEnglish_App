@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
-import 'package:localization/localization.dart';
-
+enum QuestionBankEnum {all, marked, unmarked}
+final Map<QuestionBankEnum, String>questionBankMao = {
+  QuestionBankEnum.all: "All questions",
+  QuestionBankEnum.marked: "Marked questions",
+  QuestionBankEnum.unmarked: "Unmarked questions",
+} ;
 class QuestionBankPerLessonScreen extends StatefulWidget {
   const QuestionBankPerLessonScreen({super.key});
 
@@ -86,36 +90,6 @@ class _QuestionBankPerLessonScreenState
                   ),
                   ],
               ),
-
-              /*
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const FaIcon(
-                        FontAwesomeIcons.circleChevronLeft,
-                        color: Colors.brown,
-                      ), //circle_chevron_left
-                    ),
-                    const Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text('الوحدة الأولى'),
-                            Text('Getting away'),
-                          ],
-                        ),
-                        //SizedBox(width: 10),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              */
               SizedBox(height: 32.h),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 24.h, vertical: 32.w),
@@ -134,10 +108,10 @@ class _QuestionBankPerLessonScreenState
                       children: List<Widget>.generate(
                         2,
                         (int index) {
-                          final list = ["all_questions", "marked_questions"];
+                          
                           return ChoiceChip(
                             label: Text(
-                              list.elementAt(index).i18n(),
+                              questionBankMao.values.elementAt(index),
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium
@@ -165,23 +139,6 @@ class _QuestionBankPerLessonScreenState
                           );
                         },
                       ).toList(),
-                      /*/
-                      children: List<Widget>.from(
-                          ["all_questions", "marked_questions"]).toList(),
-(
-                        3,
-                        (int index) {
-                          return ChoiceChip(
-                            label: Text('Item $index'),
-                            selected: _value == index,
-                            onSelected: (bool selected) {
-                              setState(() {
-                                _value = selected ? index : null;
-                              });
-                            },
-                          );
-                        },
-                          */
                     ),
                     const Spacer(),
                   ],

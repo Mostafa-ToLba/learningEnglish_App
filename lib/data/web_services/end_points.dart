@@ -16,4 +16,5 @@ class EndPoints {
   static const String getLevels = "EducationalLevels/Get";
   static const String userProfile = "Users/GetUserInfo";
   static const String notification = "Notification/GetAllNotifications";
+  static const String getUnits = 'Units/Get';
 }

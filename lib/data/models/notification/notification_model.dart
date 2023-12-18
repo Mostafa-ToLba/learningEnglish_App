@@ -35,23 +35,27 @@ class NotificationModel {
 class NotificationDetails {
     final int? id;
     final String? title;
-    final String? description;
+    final String? body;
+    final DateTime? createdOn;
 
     NotificationDetails({
         this.id,
         this.title,
-        this.description,
+        this.body,
+        this.createdOn,
     });
 
     factory NotificationDetails.fromJson(Map<String, dynamic> json) => NotificationDetails(
         id: json["id"],
         title: json["title"],
-        description: json["description"],
+        body: json["body"],
+        createdOn: json["createdOn"] == null ? null : DateTime.parse(json["createdOn"]),
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
-        "description": description,
+        "body": body,
+        "createdOn": createdOn?.toIso8601String(),
     };
 }
