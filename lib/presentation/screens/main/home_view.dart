@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/mainScreen_vm/mainScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
+import 'package:learning_anglish_app/business_logic/view_models/userProfile_vm/userProfile_vm.dart';
+import 'package:learning_anglish_app/data/web_services/end_points.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseLesson/choose_lesson_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_with_image_and%20_menu.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
@@ -12,8 +15,14 @@ import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   final List<Color> colors = [
     Colors.red,
     Colors.blue,
@@ -28,7 +37,15 @@ class HomeView extends StatelessWidget {
     // Added 10 colors
   ];
   @override
+  void initState() {
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      context.read<UserProfileViewModel>().getUserProfile();
+    });
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
+    final profileVm = Provider.of<UserProfileViewModel>(context);
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.only(top: 25.h),
@@ -47,9 +64,8 @@ class HomeView extends StatelessWidget {
                   state.openSideMenu();
                 }
               },
-              imageURL:
-                  'https://images.unsplash.com/photo-1508184964240-ee96bb9677a7?auto=format&fit=crop&q=80&w=1887&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-              name: 'Mostafa Mahmoud',
+              imageURL:EndPoints.imagesUrl+profileVm.userProfile!.data!.userImgUrl.toString(),
+              name: profileVm.userProfile?.data?.fullName??'',
             ),
             SizedBox(height: 30.h),
             Expanded(

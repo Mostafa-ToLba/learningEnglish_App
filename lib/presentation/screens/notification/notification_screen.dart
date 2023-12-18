@@ -41,7 +41,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final notificationVM = Provider.of<NotificationViewModel>(context);
     final themeVM = Provider.of<ThemesViewModel>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -97,7 +96,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               Consumer<NotificationViewModel>(
                 builder: (BuildContext context, NotificationViewModel model,
                     Widget? child) {
-                  return notificationVM.busy == true
+                  return model.busy == true
                       ? const Center(
                           child: CircularProgressIndicator(),
                         ) //: Text(model.notificationModel!.data.toString());
@@ -105,28 +104,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               model.notificationModel?.data != null)
                           ? Expanded(
                               child: ListView.separated(
+                                physics: const BouncingScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount:
                                     model.notificationModel!.data!.length,
                                 itemBuilder: (context, index) {
-                                  print(index);
-                                  return  AnimationConfiguration.staggeredList(
-                                  position: index,
-                                  delay: const Duration(milliseconds: 100),
-                                  child: SlideAnimation(
-                                    duration:
-                                        const Duration(milliseconds: 2500),
-                                    curve: Curves.fastLinearToSlowEaseIn,
-                                    child: FadeInAnimation(
-                                      curve: Curves.fastLinearToSlowEaseIn,
-                                      duration:
-                                          const Duration(milliseconds: 2500),
-                                      child: NotificationWidget(colors, index),
-                                      //child: Container(),
-                                      // child: NotificationWidget(context, colors, index),
-                                    ),
-                                  ),
-                                );},
+                                  return  NotificationWidget(colors, index);
+                                  },
                                 separatorBuilder: (context, index) =>
                                     SizedBox(height: 16.h),
                               ),
@@ -150,6 +134,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 }
 
+
 class NotificationWidget extends StatelessWidget {
   final List<Color> colors;
   final int index;
@@ -160,102 +145,74 @@ class NotificationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final notificationVM = Provider.of<NotificationViewModel>(context);
     final themeVM = Provider.of<ThemesViewModel>(context);
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              right: BorderSide(
-                color: index < colors.length ? colors[index] : Colors.black,
-                width: 15.0,
-              ),
-              /*
-              color: themeVM.isDark == true ? Colors.white : Colors.transparent,
-              width: .3,
-        */
-            ),
-            borderRadius: BorderRadius.all(
-              Radius.circular(32.r),
-            ),
-            color: themeVM.isDark == true
-                ? ColorResources.black
-                : ColorResources.white1,
-          ),
-          //margin: EdgeInsets.only(left: 24.w),
-          padding: EdgeInsets.only(left: 24.w),
-          width: double.infinity,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 24.h),
-                child: SizedBox(
-                  width: 280.w,
-                  child: Column(
-                    //padding: EdgeInsets.all(10.dm),
-
-                    children: [
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          notificationVM.notificationModel!.data![index].title!,
-                          style:
-                              Theme.of(context).textTheme.displayMedium?.copyWith(
-                                    fontSize: 16.sp,
-                                    fontFamily: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall
-                                        ?.fontFamily,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                        ),
-                      ),
-                      SizedBox(height: 4.h),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                        notificationVM.notificationModel!.data![index].body!,
-                        style:
-                            Theme.of(context).textTheme.displayMedium?.copyWith(
-                                  fontSize: 14.sp,
-                                  fontFamily: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall
-                                      ?.fontFamily,
-                                  // TODO: Edit this
-                                  color: themeVM.isDark == true
-                                      ? Colors.grey
-                                      : Colors.grey,
-                                  fontWeight: FontWeight.w400,
-                                ),  ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              //SizedBox(width: 20.w),
-            ],
-          ),
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.r),
         /*
-        Positioned(
-          right: 0,
-          height: double.infinity,
-          child: Container(
-            padding: EdgeInsets.only(left: 24.w),
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(32.r),
-                bottomRight: Radius.circular(32.r),
-              ),
-              color: index < colors.length ? colors[index] : Colors.black,
-            ),
+        border: Border(
+          right: BorderSide(
+            color: index < colors.length ? colors[index] : Colors.black,
+            width: 15.0,
           ),
         ),
-      */
-      ],
+
+         */
+        color: themeVM.isDark == true
+            ? ColorResources.black
+            : ColorResources.white1,
+      ),
+      width: double.infinity,
+      child: Row(
+         mainAxisAlignment:MainAxisAlignment.end,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 25.h),
+            child: SizedBox(
+              width: 280.w,
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      notificationVM.notificationModel!.data![index].title!,
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 16.sp,
+                                fontFamily: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.fontFamily,
+                                fontWeight: FontWeight.w400,
+                              ),
+                    ),
+                  ),
+                  SizedBox(height: 4.h),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                    notificationVM.notificationModel!.data![index].body!,
+                    style:
+                        Theme.of(context).textTheme.displayMedium?.copyWith(
+                              fontSize: 14.sp,
+                              fontFamily: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.fontFamily,
+                              // TODO: Edit this
+                              color: themeVM.isDark == true
+                                  ? Colors.grey
+                                  : Colors.grey,
+                              fontWeight: FontWeight.w400,
+                            ),  ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(width: 15.w),
+          Container(color: index < colors.length ? colors[index] : Colors.black,height:50.h,width: 2.w,),
+        ],
+      ),
     );
   }
 }

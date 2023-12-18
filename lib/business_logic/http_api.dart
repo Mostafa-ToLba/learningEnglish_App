@@ -11,9 +11,9 @@ class HttpApi {
 
   Future<dynamic> register({Map<String, dynamic>? body}) async {
     final res = await customDio.request(
-      EndPoints.register,
-      type: RequestType.Post,
-      body: body
+        EndPoints.register,
+        type: RequestType.Post,
+        body: body
     );
     return res;
   }
@@ -32,8 +32,11 @@ class HttpApi {
   //*******************  Forget Password   *************************//
 
   Future<dynamic> forgetPassword({Map<String, dynamic>? body}) async {
-    final res = await customDio.request(EndPoints.forgetPassword,
-        type: RequestType.Post, body: body);
+    final res = await customDio.request(
+        EndPoints.forgetPassword,
+        type: RequestType.Post,
+        body: body
+    );
     return res;
   }
 
@@ -65,8 +68,8 @@ class HttpApi {
 
   Future<dynamic> educationLevels() async {
     final res = await customDio.request(
-        EndPoints.getLevels,
-        type: RequestType.Get,
+      EndPoints.getLevels,
+      type: RequestType.Get,
     );
     return res;
   }
@@ -91,8 +94,6 @@ class HttpApi {
     );
     return res;
   }
-
-}
 
   //*******************  get notifications  *************************//
 
