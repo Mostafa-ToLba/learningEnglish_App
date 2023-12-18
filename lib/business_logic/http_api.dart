@@ -59,7 +59,17 @@ class HttpApi {
     );
     return res;
   }
-  //*******************  get user profile   *************************//
+
+  //*******************  update user profile   *************************//
+
+  Future<dynamic> updateProfile({Map<String, dynamic>? body}) async {
+    final res = await customDio.request(
+      EndPoints.updateProfile,
+      type: RequestType.Put,
+      body: body,
+    );
+    return res;
+  }
 
 }
 

@@ -66,6 +66,8 @@ class CustomPhoneTextField extends StatelessWidget {
             padding: EdgeInsets.only(top: 5.h),
             child: IntlPhoneField(
               disableLengthCheck: true,
+              readOnly:readOnly!,
+              controller: controller,
               style: TextStyle(color: themeVm.isDark == true ?Colors.white:Colors.black, fontSize: 16.sp,),
               textAlign: TextAlign.start,
               initialCountryCode: 'EG',

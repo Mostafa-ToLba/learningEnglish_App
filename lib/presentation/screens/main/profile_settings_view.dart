@@ -7,12 +7,17 @@ import 'package:learning_anglish_app/business_logic/view_models/userProfile_vm/u
 import 'package:learning_anglish_app/data/web_services/end_points.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/login_screen/login_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
+import 'package:learning_anglish_app/presentation/widgets/confirmDialog/confirmDialog.dart';
+import 'package:learning_anglish_app/presentation/widgets/customDialog/customDialog.dart';
 import 'package:learning_anglish_app/presentation/widgets/phoneTextField/phoneTextField.dart';
 import 'package:learning_anglish_app/presentation/widgets/profileTextField/profileTextField.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
+import 'package:learning_anglish_app/presentation/widgets/update/animatedUpdate.dart';
+import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class ProfileSettingsView extends StatefulWidget {
@@ -95,7 +100,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                       ),
                       SizedBox(height: 16.h),
                       CustomProfileTextField(hintText: 'Your name',hintColor:Colors.grey[500],
-                        controller: model.nameController,readOnly: true,
+                        controller: model.nameController,readOnly: false,
                       ),
                       SizedBox(height: 16.h),
                       Align(
@@ -118,7 +123,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                       ),
                       SizedBox(height: 16.h),
                       CustomProfileTextField(hintText: 'Your email',hintColor:Colors.grey[500],
-                        controller: model.emailController,readOnly: true,
+                        controller: model.emailController,readOnly: false,
                       ),
                       SizedBox(height: 16.h),
                       Align(
@@ -141,7 +146,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                       ),
                       SizedBox(height: 16.h),
                       CustomPhoneTextField(hintText: '1023223332',hintColor: Colors.grey[500],textColor: Colors.black,
-                      controller: model.phoneController,readOnly: true,
+                      controller: model.phoneController,readOnly: false,
                       ),
                       SizedBox(height: 16.h),
                       Align(
@@ -165,7 +170,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                       SizedBox(height: 16.h),
                       CustomPhoneTextField(hintText: '1023223332',hintColor: Colors.grey[500],textColor: Colors.black,
                         controller: model.parentPhoneController,
-                        readOnly: true,
+                        readOnly: false,
                       ),
                       SizedBox(height: 25.h),
                       SlideTransition(
@@ -193,9 +198,59 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                           ),
                           color: ColorResources.buttonColor,
                           onTap: () {
-                            Route route = MaterialPageRoute(
-                                builder: (context) => const LoginScreen());
-                            Navigator.pushReplacement(context, route);
+                     //       model.updateUserProfile(context: context);
+                            /*
+                            ShowCustomDialog(context: context,
+                              content: Padding(
+                                padding: EdgeInsets.all(16.0.r),
+                                child: StatefulBuilder(
+                                    builder: (context, newSetState) {
+                                      return Center(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            const Text(
+                                              'هل ترغب في تحديث ملفك الشخصي؟',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(fontSize: 24.0),
+                                            ),
+                                            const SizedBox(height: 20.0),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    // Add your update profile logic here
+                                                    print('تم تحديث الملف الشخصي بنجاح.');
+                                                    // You can navigate to the profile update screen or perform necessary actions
+                                                  },
+                                                  child: const Text('تحديث'),
+                                                ),
+                                                const SizedBox(width: 20.0),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    // Add your cancel update logic here
+                                                    print('تم إلغاء التحديث.');
+                                                    // You can navigate back or perform any other cancel action
+                                                  },
+                                                  child: const Text('إلغاء'),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                ),
+                              ),
+                            ).showCustomDialg();
+
+                             */
+                          //  showUpdateProfileDialogg(context);
+
+                            ConfirmCustomDialog(title: 'تحديث الملف الشخصي',
+                            title2: 'هل ترغب حقا في تحديث ملفك الشخصي؟',
+                            buttonText: 'تحديث',onTabPressed: model.updateUserProfile).showUpdateProfileDialogg(context);
                           },
                         ),
                       ),
@@ -329,3 +384,85 @@ class Avatar extends StatelessWidget {
     );
   }
 }
+void showUpdateProfileDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('تحديث الملف الشخصي'),
+        content: const Text('هل ترغب حقا في تحديث ملفك الشخصي؟'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              // Add your cancel update logic here
+              Navigator.of(context).pop();
+            },
+            child: const Text('إلغاء'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Add your update profile logic here
+              print('تم تحديث الملف الشخصي بنجاح.');
+              Navigator.of(context).pop();
+              // You can navigate to the profile update screen or perform necessary actions
+            },
+            child: const Text('تحديث'),
+          ),
+        ],
+      );
+    },
+  );
+}
+void showUpdateProfileDialogg(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title:  Row(
+          children: [
+            SvgPicture.asset(IconResources.profile,
+                color: Theme.of(context).textTheme.displayMedium?.color),
+            const SizedBox(width: 10),
+            const Text('تحديث الملف الشخصي',style: TextStyle(color: Colors.black),),
+          ],
+        ),
+        content: const Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'هل ترغب حقا في تحديث ملفك الشخصي؟',
+              textAlign: TextAlign.right,
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              // Add your cancel update logic here
+              Navigator.of(context).pop();
+            },
+            child: const Text('إلغاء'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: ColorResources.buttonColor, // Button color
+              onPrimary: Colors.white, // Text color
+              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 13.h),
+              textStyle: TextStyle(fontSize: 15.sp,fontFamily:AppConstants.arabicFont1),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              elevation: 5,
+            ),
+            onPressed: () {
+
+            },
+            child: const Text('تحديث'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
