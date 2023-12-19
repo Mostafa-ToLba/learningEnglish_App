@@ -111,7 +111,7 @@ class HomeWidget extends StatelessWidget {
     final themeVM = Provider.of<ThemesViewModel>(context);
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, SlideTransition1(ChooseLessonScreen()));
+        Navigator.push(context, SlideTransition1(ChooseLessonScreen(data[index].id??0)));
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 24.w),

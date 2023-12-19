@@ -21,4 +21,7 @@ class EndPoints {
   static const String updateProfile = "Users/UpdateUserProfile";
   static const String notification = "Notification/GetAllNotifications";
   static String getUnits(int levelId) => "Units/Get/$levelId";
+  static String getLessons(int unitId) => "Lessons/Get/$unitId";
+  static const String lessonCodes = "Codes/UseCode";
+
 }

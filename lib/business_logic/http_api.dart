@@ -103,4 +103,25 @@ class HttpApi {
     );
     return res;
   }
+
+  //*******************  get lessons  *************************//
+
+  Future<dynamic> lessons({unitId}) async {
+    final res = await customDio.request(
+      EndPoints.getLessons(unitId),
+      type: RequestType.Get,
+    );
+    return res;
+  }
+
+  //*******************  lesson codes  *************************//
+
+  Future<dynamic> lessonCode({Map<String, dynamic>? body}) async {
+    final res = await customDio.request(
+      EndPoints.lessonCodes,
+      type: RequestType.Post,
+      body: body
+    );
+    return res;
+  }
 }
