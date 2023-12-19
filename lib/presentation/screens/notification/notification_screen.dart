@@ -20,19 +20,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  final List<Color> colors = const [
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-    Colors.yellow,
-    Colors.orange,
-    Colors.purple,
-    Colors.teal,
-    Colors.pink,
-    Colors.indigo,
-    Colors.cyan,
-    // Added 10 colors
-  ];
+
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -47,102 +35,97 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Consumer<NotificationViewModel>(
+          builder: (BuildContext context, model, Widget? child) {
+            return model.notificationModel==null?const Center(child: CircularProgressIndicator()):Padding(
+              padding: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w),
+              child: Column(
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        width: 40
-                            .r, // Set the width and height to your desired size
-                        height: 40.r,
-                        padding: EdgeInsets.only(right: 4.w),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: themeVM.isDark == true
-                              ? Colors.black
-                              : Colors.white, // White background
-                          border: Border.all(
-                            color: Colors.grey, // Grey border color
-                            width: 1.0, // Border width
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: 40
+                                .r, // Set the width and height to your desired size
+                            height: 40.r,
+                            padding: EdgeInsets.only(right: 4.w),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: themeVM.isDark == true
+                                  ? Colors.black
+                                  : Colors.white, // White background
+                              border: Border.all(
+                                color: Colors.grey, // Grey border color
+                                width: 1.0, // Border width
+                              ),
+                            ),
+                            child: Center(
+                                child: SvgPicture.asset(
+                                  IconResources.arrowleft,
+                                  height: 25.h,
+                                  color: Theme.of(context).indicatorColor,
+                                )),
                           ),
                         ),
-                        child: Center(
-                            child: SvgPicture.asset(
-                          IconResources.arrowleft,
-                          height: 25.h,
-                          color: Theme.of(context).indicatorColor,
-                        )),
                       ),
-                    ),
-                  ),
-                  Text(
-                    'الأشعارات',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      Text(
+                        'الأشعارات',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w400,
                         ),
+                      ),
+                    ],
                   ),
+                  SizedBox(height: 30.h),
+                  ((model.notificationModel?.data != [] &&
+                  model.notificationModel?.data != null)
+                  ? Expanded(
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  itemCount:
+                  model.notificationModel!.data!.length,
+                  itemBuilder: (context, index) {
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      delay: const Duration(milliseconds: 100),
+                      child: SlideAnimation(
+                        duration:
+                        const Duration(milliseconds: 2500),
+                        curve: Curves.fastLinearToSlowEaseIn,
+                        child: FadeInAnimation(
+                          curve: Curves.fastLinearToSlowEaseIn,
+                          duration:
+                          const Duration(milliseconds: 2500),
+                          child: NotificationWidget(
+                            model.colors,
+                            index,
+                            model.notificationModel!.data![index],
+                          ),
+                          //child: Container(),
+                          // child: NotificationWidget(context, colors, index),
+                        ),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) =>
+                      SizedBox(height: 16.h),
+                ),
+              )
+                  : Center(
+                child: Image.asset(Images.noNotification),
+              )),
                 ],
               ),
-              SizedBox(height: 30.h),
-              Consumer<NotificationViewModel>(
-                builder: (BuildContext context, NotificationViewModel model,
-                    Widget? child) {
-                  return model.busy == true
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        ) //: Text(model.notificationModel!.data.toString());
-                      : ((model.notificationModel?.data != [] &&
-                              model.notificationModel?.data != null)
-                          ? Expanded(
-                              child: ListView.separated(
-                                shrinkWrap: true,
-                                itemCount:
-                                    model.notificationModel!.data!.length,
-                                itemBuilder: (context, index) {
-                                  return AnimationConfiguration.staggeredList(
-                                    position: index,
-                                    delay: const Duration(milliseconds: 100),
-                                    child: SlideAnimation(
-                                      duration:
-                                          const Duration(milliseconds: 2500),
-                                      curve: Curves.fastLinearToSlowEaseIn,
-                                      child: FadeInAnimation(
-                                        curve: Curves.fastLinearToSlowEaseIn,
-                                        duration:
-                                            const Duration(milliseconds: 2500),
-                                        child: NotificationWidget(
-                                          colors,
-                                          index,
-                                          model.notificationModel!.data![index],
-                                        ),
-                                        //child: Container(),
-                                        // child: NotificationWidget(context, colors, index),
-                                      ),
-                                    ),
-                                  );
-                                },
-                                separatorBuilder: (context, index) =>
-                                    SizedBox(height: 16.h),
-                              ),
-                            )
-                          : Center(
-                              child: Image.asset(Images.noNotification),
-                            ));
-                },
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
@@ -159,35 +142,10 @@ class NotificationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeVM = Provider.of<ThemesViewModel>(context);
-    print(data.createdOn);
-    final today = DateTime.now();
-    print("today");
-    print(today);
-
-    print(today.isAtSameYearAs(data.createdOn!)); // true
-    print(today.isAtSameMonthAs(data.createdOn!)); // false
-    print(today.isAtSameDayAs(data.createdOn!)); // false
-    print(DateTime.now().difference(data.createdOn!).inHours);
-    final subtractedData = DateTime.now().difference(data.createdOn!).inHours;
-
-    if (DateTime.now().difference(data.createdOn!).inHours > 24) {
-      print("one day after");
-    } else {
-      print("not a day after");
-    }
-    final isAtSameDay = today.isAtSameDayAs(data.createdOn!);
+    final notificatioVm = Provider.of<NotificationViewModel>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        isAtSameDay
-            ? Row(
-                children: [
-                  const SizedBox(width: 50, child: Divider(thickness: 2)),
-                  Text('$subtractedData day(s) ago'),
-                  const SizedBox(width: 50, child: Divider(thickness: 2)),
-                ],
-              )
-            : const Card(),
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.r),
@@ -200,7 +158,7 @@ class NotificationWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 25.h),
+                padding: EdgeInsets.only(top: 20.h,bottom: 10.h),
                 child: SizedBox(
                   width: 280.w,
                   child: Column(
@@ -242,6 +200,28 @@ class NotificationWidget extends StatelessWidget {
                                     : Colors.grey,
                                 fontWeight: FontWeight.w400,
                               ),
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text(
+                          notificatioVm.formatTimestampForArabic(time: data.createdOn??''),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                            fontSize: 14.sp,
+                            fontFamily: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.fontFamily,
+                            // TODO: Edit this
+                            color: themeVM.isDark == true
+                                ? Colors.grey
+                                : Colors.grey,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ],

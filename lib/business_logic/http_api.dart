@@ -55,14 +55,11 @@ class HttpApi {
   }
   //*******************  Get units  *************************//
 
-  Future<dynamic> units({Map<String, dynamic>? body}) async {
-    /*
-    final res = await customDio.request('http://mostafatolba-001-site1.etempurl.com/api/Units/Get/1',
-        type: RequestType.Get);
-    */
-
-    final res = await customDio.request(EndPoints.getUnits,
-        type: RequestType.Get, body: body);
+  Future<dynamic> units({int levelId=1}) async {
+    final res = await customDio.request(
+        EndPoints.getUnits(levelId),
+        type: RequestType.Get,
+    );
     return res;
   }
 

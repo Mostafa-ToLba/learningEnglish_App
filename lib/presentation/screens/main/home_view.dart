@@ -3,9 +3,11 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:learning_anglish_app/business_logic/view_models/home_vm/home_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/mainScreen_vm/mainScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/userProfile_vm/userProfile_vm.dart';
+import 'package:learning_anglish_app/data/models/units/units_model.dart';
 import 'package:learning_anglish_app/data/web_services/end_points.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseLesson/choose_lesson_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_with_image_and%20_menu.dart';
@@ -40,6 +42,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      context.read<HomeViewModel>().getUnits(levelId: 1);
       context.read<UserProfileViewModel>().getUserProfile();
     });
     super.initState();
@@ -47,8 +50,9 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final profileVm = Provider.of<UserProfileViewModel>(context);
+    final homeVm = Provider.of<HomeViewModel>(context);
     return SafeArea(
-      child: profileVm.userProfile!=null?Padding(
+      child: profileVm.userProfile!=null && homeVm.unitModel!=null?Padding(
         padding: EdgeInsets.only(top: 25.h),
         child: Column(
           children: [
@@ -82,11 +86,11 @@ class _HomeViewState extends State<HomeView> {
                           child: FadeInAnimation(
                               curve: Curves.fastLinearToSlowEaseIn,
                               duration: const Duration(milliseconds: 2500),
-                              child: HomeWidget(context, colors, index)),
+                              child: HomeWidget(context, colors, index,homeVm.unitModel!.data)),
                         ),
                       ),
                   separatorBuilder: (context, index) => SizedBox(height: 16.h),
-                  itemCount: 10),
+                  itemCount: homeVm.unitModel!.data.length),
             ),
           ],
         ),
@@ -98,8 +102,9 @@ class _HomeViewState extends State<HomeView> {
 class HomeWidget extends StatelessWidget {
   final List<Color> colors;
   final int index;
+  final List<UnitDetails> data;
 
-  const HomeWidget(BuildContext context, this.colors, this.index, {super.key});
+  const HomeWidget(BuildContext context, this.colors, this.index, this.data, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +143,7 @@ class HomeWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      'Getting away الوحدة الأولى',
+                      data[index].name??'',
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 fontSize: 16.sp,

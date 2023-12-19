@@ -4,14 +4,15 @@ import 'package:learning_anglish_app/business_logic/view_models/choosingclassdon
 import 'package:learning_anglish_app/business_logic/view_models/exams_vm/exams_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/forgetPasswordCode_vm/forgetPasswordCode_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/forgetPassword_vm/forgetPassword_vm.dart';
+import 'package:learning_anglish_app/business_logic/view_models/home_vm/home_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/lessonScreen_vm/lessonScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/login_vm/login_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/mainScreen_vm/mainScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/notification_vm/notification_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/register_vm/register_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
-import 'package:learning_anglish_app/business_logic/view_models/unit_vm/unit_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/userProfile_vm/userProfile_vm.dart';
+import 'package:learning_anglish_app/presentation/screens/main/home_view.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -42,7 +43,7 @@ List<SingleChildWidget> independentServices = [
       create: (_) => ForgetPasswordCodeViewModel()),
   ChangeNotifierProvider<ChoosingClassViewModel>(
       create: (_) => ChoosingClassViewModel()),
-  ChangeNotifierProvider<UnitViewModel>(create: (_) => UnitViewModel()),
+  ChangeNotifierProvider<HomeViewModel>(create: (_) => HomeViewModel()),
   ChangeNotifierProvider<UserProfileViewModel>(
       create: (_) => UserProfileViewModel()),
   ChangeNotifierProvider<NotificationViewModel>(
