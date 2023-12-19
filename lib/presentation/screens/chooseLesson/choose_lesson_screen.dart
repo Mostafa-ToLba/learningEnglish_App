@@ -47,9 +47,8 @@ class ChooseLessonScreen extends StatelessWidget {
                             .r, // Set the width and height to your desired size
                         height: 40.r, padding: EdgeInsets.only(right: 4.w),
                         decoration: BoxDecoration(
-
                           shape: BoxShape.circle,
-                          color: themeVM.isDark== true
+                          color: themeVM.isDark == true
                               ? Colors.black
                               : Colors.white, // White background
                           border: Border.all(
@@ -124,7 +123,10 @@ class ChooseLessonScreen extends StatelessWidget {
                               BoxShadow(
                                 color: ColorResources.shadow,
                                 blurRadius: 10.r,
-                                offset: const Offset(0, 8,),
+                                offset: const Offset(
+                                  0,
+                                  8,
+                                ),
                                 spreadRadius: -8,
                               )
                             ],
@@ -161,7 +163,7 @@ class ChooseLessonScreen extends StatelessWidget {
                                         .displayMedium
                                         ?.copyWith(
                                           fontSize: 16.sp,
-                                          fontWeight: FontWeight.w400,
+                                          fontWeight: FontWeight.w600,
                                           height: 0.07.h,
                                         ),
                                   ),
@@ -186,6 +188,12 @@ class ChooseLessonScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ],
+                                  ),
+                                  SizedBox(width: 12.w),
+                                  Icon(
+                                    Icons.monetization_on_rounded,
+                                    color: Colors.green,
+                                    size: 30.dg,
                                   ),
                                   SizedBox(width: 24.w),
                                 ],

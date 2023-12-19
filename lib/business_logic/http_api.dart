@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import '../data/web_services/end_points.dart';
 import '../data/web_services/web_services.dart';
 
@@ -10,33 +9,24 @@ class HttpApi {
 //*******************  Register   *************************//
 
   Future<dynamic> register({Map<String, dynamic>? body}) async {
-    final res = await customDio.request(
-        EndPoints.register,
-        type: RequestType.Post,
-        body: body
-    );
+    final res = await customDio.request(EndPoints.register,
+        type: RequestType.Post, body: body);
     return res;
   }
 
   //*******************  Register   *************************//
 
   Future<dynamic> login({Map<String, dynamic>? body}) async {
-    final res = await customDio.request(
-        EndPoints.login,
-        type: RequestType.Post,
-        body: body
-    );
+    final res = await customDio.request(EndPoints.login,
+        type: RequestType.Post, body: body);
     return res;
   }
 
   //*******************  Forget Password   *************************//
 
   Future<dynamic> forgetPassword({Map<String, dynamic>? body}) async {
-    final res = await customDio.request(
-        EndPoints.forgetPassword,
-        type: RequestType.Post,
-        body: body
-    );
+    final res = await customDio.request(EndPoints.forgetPassword,
+        type: RequestType.Post, body: body);
     return res;
   }
 
@@ -56,11 +46,23 @@ class HttpApi {
     return res;
   }
 
-  //*******************  Resend email  *************************//
+  //*******************  Forgot Password  *************************//
 
   Future<dynamic> changeForgotPassword({Map<String, dynamic>? body}) async {
     final res = await customDio.request(EndPoints.changeForgotPassword,
         type: RequestType.Put, body: body);
+    return res;
+  }
+  //*******************  Get units  *************************//
+
+  Future<dynamic> units({Map<String, dynamic>? body}) async {
+    /*
+    final res = await customDio.request('http://mostafatolba-001-site1.etempurl.com/api/Units/Get/1',
+        type: RequestType.Get);
+    */
+
+    final res = await customDio.request(EndPoints.getUnits,
+        type: RequestType.Get, body: body);
     return res;
   }
 

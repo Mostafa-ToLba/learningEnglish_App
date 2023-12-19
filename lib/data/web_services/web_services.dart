@@ -18,6 +18,8 @@ class CustomDio {
       "Content-Type": "application/json",
       'authorization': 'Bearer $token',
     };
+    print("token");
+    print(token);
     Response response;
     final Dio dio = Dio();
 
@@ -43,14 +45,16 @@ class CustomDio {
         case RequestType.Get:
           {
             print('hello from get');
-            response =  quesryParameters == null ?await dio.get(
-              serverPath + endPoint,
-              options: options,
-            ):await dio.get(
-              serverPath + endPoint,
-              options: options,
-              queryParameters: quesryParameters,
-            );
+            response = quesryParameters == null
+                ? await dio.get(
+                    serverPath + endPoint,
+                    options: options,
+                  )
+                : await dio.get(
+                    serverPath + endPoint,
+                    options: options,
+                    queryParameters: quesryParameters,
+                  );
           }
           break;
         //**************** Post Request ********************** */
@@ -139,8 +143,7 @@ class CustomDio {
         throw CustomDioException("Session is not authenticated", 401);
       } else {
         throw CustomDioException(
-            e.response?.data ??
-                "Bad Network Or Server Not available now",
+            e.response?.data ?? "Bad Network Or Server Not available now",
             e.response!.statusCode ?? 500);
       }
     }

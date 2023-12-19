@@ -8,9 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:learning_anglish_app/business_logic/setup/base_notifier.dart';
 import 'package:learning_anglish_app/data/models/userProfile/userProfile.dart';
 import 'package:learning_anglish_app/data/web_services/end_points.dart';
-import 'package:learning_anglish_app/presentation/widgets/customDialog/customDialog.dart';
-import 'package:learning_anglish_app/presentation/widgets/update/animatedUpdate.dart';
-import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
 import 'package:logger/logger.dart';
 

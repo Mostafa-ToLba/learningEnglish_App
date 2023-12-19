@@ -16,7 +16,8 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
-  HomeView({super.key});
+  final String id;
+  const HomeView({super.key, required this.id});
 
   @override
   State<HomeView> createState() => _HomeViewState();
