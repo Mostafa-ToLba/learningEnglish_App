@@ -352,10 +352,40 @@ class Avatar extends StatelessWidget {
     final profileVm = Provider.of<UserProfileViewModel>(context);
     return Stack(
       children: [
-        CircleAvatar(
-          radius: radius,
-          backgroundImage:profileVm.imageFile !=null ? FileImage(profileVm.imageFile!)
-          as ImageProvider<Object>:NetworkImage(profileVm.image==''?image:EndPoints.imagesUrl+profileVm.image,),
+        InkWell(
+          onTap: ()
+          {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Dialog(shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.r)),
+
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop(); // Dismiss the dialog on tap
+                    },
+                    child: SizedBox(
+                      width: 400.w, // Adjust dimensions as needed
+                      height: 400.h,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20.r),
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image: profileVm.imageFile !=null ? FileImage(profileVm.imageFile!)
+                        as ImageProvider<Object>:NetworkImage(profileVm.image==''?image:EndPoints.imagesUrl+profileVm.image,),),
+                      )// Display the profile image
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+          child: CircleAvatar(
+            radius: radius,
+            backgroundImage:profileVm.imageFile !=null ? FileImage(profileVm.imageFile!)
+            as ImageProvider<Object>:NetworkImage(profileVm.image==''?image:EndPoints.imagesUrl+profileVm.image,),
+          ),
         ),
         Positioned(
           bottom: 6.h,
@@ -384,85 +414,5 @@ class Avatar extends StatelessWidget {
     );
   }
 }
-void showUpdateProfileDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('تحديث الملف الشخصي'),
-        content: const Text('هل ترغب حقا في تحديث ملفك الشخصي؟'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              // Add your cancel update logic here
-              Navigator.of(context).pop();
-            },
-            child: const Text('إلغاء'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              // Add your update profile logic here
-              print('تم تحديث الملف الشخصي بنجاح.');
-              Navigator.of(context).pop();
-              // You can navigate to the profile update screen or perform necessary actions
-            },
-            child: const Text('تحديث'),
-          ),
-        ],
-      );
-    },
-  );
-}
-void showUpdateProfileDialogg(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title:  Row(
-          children: [
-            SvgPicture.asset(IconResources.profile,
-                color: Theme.of(context).textTheme.displayMedium?.color),
-            const SizedBox(width: 10),
-            const Text('تحديث الملف الشخصي',style: TextStyle(color: Colors.black),),
-          ],
-        ),
-        content: const Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'هل ترغب حقا في تحديث ملفك الشخصي؟',
-              textAlign: TextAlign.right,
-            ),
-          ],
-        ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              // Add your cancel update logic here
-              Navigator.of(context).pop();
-            },
-            child: const Text('إلغاء'),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: ColorResources.buttonColor, // Button color
-              onPrimary: Colors.white, // Text color
-              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 13.h),
-              textStyle: TextStyle(fontSize: 15.sp,fontFamily:AppConstants.arabicFont1),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              elevation: 5,
-            ),
-            onPressed: () {
 
-            },
-            child: const Text('تحديث'),
-          ),
-        ],
-      );
-    },
-  );
-}
 
