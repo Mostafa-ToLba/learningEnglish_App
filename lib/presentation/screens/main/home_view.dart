@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/mainScreen_vm/mainScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
+import 'package:learning_anglish_app/business_logic/view_models/unit_vm/unit_vm.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseLesson/choose_lesson_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_with_image_and%20_menu.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
@@ -12,8 +14,15 @@ import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
-class HomeView extends StatelessWidget {
-  HomeView({super.key});
+class HomeView extends StatefulWidget {
+  final String id;
+  const HomeView({super.key, required this.id});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   final List<Color> colors = [
     Colors.red,
     Colors.blue,
@@ -27,6 +36,14 @@ class HomeView extends StatelessWidget {
     Colors.cyan,
     // Added 10 colors
   ];
+  @override
+  void initState() {
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      context.read<UnitViewModel>().getUnits(widget.id);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,24 +69,49 @@ class HomeView extends StatelessWidget {
               name: 'Mostafa Mahmoud',
             ),
             SizedBox(height: 30.h),
-            Expanded(
-              child: ListView.separated(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) =>
-                      AnimationConfiguration.staggeredList(
-                        position: index,
-                        delay: const Duration(milliseconds: 100),
-                        child: SlideAnimation(
-                          duration: const Duration(milliseconds: 2500),
-                          curve: Curves.fastLinearToSlowEaseIn,
-                          child: FadeInAnimation(
-                              curve: Curves.fastLinearToSlowEaseIn,
-                              duration: const Duration(milliseconds: 2500),
-                              child: HomeWidget(context, colors, index)),
-                        ),
-                      ),
-                  separatorBuilder: (context, index) => SizedBox(height: 16.h),
-                  itemCount: 10),
+            Consumer<UnitViewModel>(
+              builder:
+                  (BuildContext context, UnitViewModel model, Widget? child) {
+                return model.busy == true
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      ) //: Text(model.notificationModel!.data.toString());
+                    : ((model.unitModel?.data != [] &&
+                            model.unitModel?.data != null)
+                        ? Expanded(
+                            child: ListView.separated(
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) =>
+                                    AnimationConfiguration.staggeredList(
+                                      position: index,
+                                      delay: const Duration(milliseconds: 100),
+                                      child: SlideAnimation(
+                                        duration:
+                                            const Duration(milliseconds: 2500),
+                                        curve: Curves.fastLinearToSlowEaseIn,
+                                        child: FadeInAnimation(
+                                            curve:
+                                                Curves.fastLinearToSlowEaseIn,
+                                            duration: const Duration(
+                                                milliseconds: 2500),
+                                            child: HomeWidget(
+                                                context, colors, index)),
+                                      ),
+                                    ),
+                                separatorBuilder: (context, index) =>
+                                    SizedBox(height: 16.h),
+                                itemCount: model.unitModel!.data!.length),
+                          )
+                        : const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text('No units'),
+                              ),
+                            ],
+                          ));
+              },
             ),
           ],
         ),

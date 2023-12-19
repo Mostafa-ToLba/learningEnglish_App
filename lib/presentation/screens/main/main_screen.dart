@@ -1,13 +1,9 @@
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/mainScreen_vm/mainScreen_vm.dart';
-import 'package:learning_anglish_app/presentation/screens/main/home_view.dart';
-import 'package:learning_anglish_app/presentation/screens/main/profile_settings_view.dart';
-import 'package:learning_anglish_app/presentation/screens/main/question_bank_view.dart';
 import 'package:learning_anglish_app/presentation/widgets/connectionAppBar/connectionAppBar.dart';
 import 'package:learning_anglish_app/presentation/widgets/drawer/app_drawer.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
@@ -15,7 +11,7 @@ import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:provider/provider.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
-import '../../widgets/internetConnect/internet_connect_widget.dart';
+
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

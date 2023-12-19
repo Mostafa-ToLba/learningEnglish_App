@@ -41,7 +41,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final notificationVM = Provider.of<NotificationViewModel>(context);
     final themeVM = Provider.of<ThemesViewModel>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -97,7 +96,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               Consumer<NotificationViewModel>(
                 builder: (BuildContext context, NotificationViewModel model,
                     Widget? child) {
-                  return notificationVM.busy == true
+                  return model.busy == true
                       ? const Center(
                           child: CircularProgressIndicator(),
                         ) //: Text(model.notificationModel!.data.toString());
@@ -160,6 +159,9 @@ class NotificationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final notificationVM = Provider.of<NotificationViewModel>(context);
     final themeVM = Provider.of<ThemesViewModel>(context);
+    print(notificationVM.notificationModel!.data![index].createdOn);
+
+
     return Stack(
       children: [
         Container(

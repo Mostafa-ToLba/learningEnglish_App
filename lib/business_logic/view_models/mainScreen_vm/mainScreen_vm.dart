@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -10,24 +9,24 @@ import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import '../../../presentation/screens/main/profile_settings_view.dart';
 import 'dart:developer' as developer;
 
-class MainScreenViewModel extends BaseNotifier
-{
+class MainScreenViewModel extends BaseNotifier {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-  final GlobalKey<SideMenuState> sideMenuKey =
-  GlobalKey<SideMenuState>();
+  final GlobalKey<SideMenuState> sideMenuKey = GlobalKey<SideMenuState>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey(); // Create a key
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-  GlobalKey<ScaffoldMessengerState>();
+      GlobalKey<ScaffoldMessengerState>();
   int selectedIndex = 2;
-   final List<Widget> widgetOptions = <Widget>[
+  final List<Widget> widgetOptions = <Widget>[
     const ProfileSettingsView(),
     QuestionBankView(),
-    HomeView(),
+    // TODO: edit this
+    HomeView(
+      id: '1',
+    ),
   ];
 
   void onItemTapped(int index) {
-
-      selectedIndex = index;
+    selectedIndex = index;
     notifyListeners();
   }
 
@@ -53,15 +52,14 @@ class MainScreenViewModel extends BaseNotifier
   }
 
   Future<void> updateConnectionStatus(ConnectivityResult result) async {
-      connectionStatus = result;
+    connectionStatus = result;
     notifyListeners();
   }
 
-  connectionListen()
-  {
+  connectionListen() {
     connectivitySubscription =
         connectivity.onConnectivityChanged.listen(updateConnectionStatus);
   }
 
-///
+  ///
 }
