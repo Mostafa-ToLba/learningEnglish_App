@@ -193,7 +193,7 @@ class ChooseLessonScreen extends StatelessWidget {
                                   Icon(
                                     Icons.monetization_on_rounded,
                                     color: Colors.green,
-                                    size: 20.dm,
+                                    size: 30.dg,
                                   ),
                                   SizedBox(width: 24.w),
                                 ],

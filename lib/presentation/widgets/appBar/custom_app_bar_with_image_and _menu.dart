@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_anglish_app/data/web_services/end_points.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/images/images.dart';
 
 class CustomAppBarWithImageAndMenu extends StatelessWidget {
   final VoidCallback onMenuPressed;
-  final String imageURL;
-  final String name;
+  final String? imageURL;
+  final String? name;
   final bool? menuIcon;
   const CustomAppBarWithImageAndMenu(
       {super.key,
@@ -29,7 +30,7 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
                   image: const AssetImage(
                     Images.menu1,
                   ),
-                width: 20.w,
+                  width: 20.w,
                   height: 20.h,
                   color: Theme.of(context).textTheme.displayMedium!.color,
                 )),
@@ -48,7 +49,7 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
               ),
               SizedBox(height: 12.h),
               Text(
-                name,
+                name ?? '',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   overflow: TextOverflow.ellipsis,
@@ -64,7 +65,9 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
           CircleAvatar(
             radius: 20.r,
             backgroundColor: Theme.of(context).textTheme.displayMedium!.color,
-            backgroundImage: NetworkImage(imageURL),
+            child: imageURL != '' 
+                ? Image.network(EndPoints.imagesUrl + imageURL!)
+                : Image.asset(Images.emptyProfileImage),
           ),
         ],
       ),

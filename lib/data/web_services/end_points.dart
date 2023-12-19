@@ -18,6 +18,7 @@ class EndPoints {
   static const String changeForgotPassword = "Users/changeForgotPassword";
   static const String getLevels = "EducationalLevels/Get";
   static const String userProfile = "Users/GetUserInfo";
+  static const String updateProfile = "Users/UpdateUserProfile";
   static const String notification = "Notification/GetAllNotifications";
   static const String getUnits = 'Units/Get';
 }

@@ -5,10 +5,12 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/notification_vm/notification_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
+import 'package:learning_anglish_app/data/models/notification/notification_model.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:learning_anglish_app/utils/images/images.dart';
 import 'package:provider/provider.dart';
+import 'package:time/time.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -108,36 +110,34 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 itemCount:
                                     model.notificationModel!.data!.length,
                                 itemBuilder: (context, index) {
-                                  print(index);
-                                  return  AnimationConfiguration.staggeredList(
-                                  position: index,
-                                  delay: const Duration(milliseconds: 100),
-                                  child: SlideAnimation(
-                                    duration:
-                                        const Duration(milliseconds: 2500),
-                                    curve: Curves.fastLinearToSlowEaseIn,
-                                    child: FadeInAnimation(
-                                      curve: Curves.fastLinearToSlowEaseIn,
+                                  return AnimationConfiguration.staggeredList(
+                                    position: index,
+                                    delay: const Duration(milliseconds: 100),
+                                    child: SlideAnimation(
                                       duration:
                                           const Duration(milliseconds: 2500),
-                                      child: NotificationWidget(colors, index),
-                                      //child: Container(),
-                                      // child: NotificationWidget(context, colors, index),
+                                      curve: Curves.fastLinearToSlowEaseIn,
+                                      child: FadeInAnimation(
+                                        curve: Curves.fastLinearToSlowEaseIn,
+                                        duration:
+                                            const Duration(milliseconds: 2500),
+                                        child: NotificationWidget(
+                                          colors,
+                                          index,
+                                          model.notificationModel!.data![index],
+                                        ),
+                                        //child: Container(),
+                                        // child: NotificationWidget(context, colors, index),
+                                      ),
                                     ),
-                                  ),
-                                );},
+                                  );
+                                },
                                 separatorBuilder: (context, index) =>
                                     SizedBox(height: 16.h),
                               ),
                             )
-                          : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Center(
-                                  child: Image.asset(Images.noNotification),
-                                ),
-                              ],
+                          : Center(
+                              child: Image.asset(Images.noNotification),
                             ));
                 },
               ),
@@ -152,111 +152,111 @@ class _NotificationScreenState extends State<NotificationScreen> {
 class NotificationWidget extends StatelessWidget {
   final List<Color> colors;
   final int index;
+  final NotificationDetails data;
 
-  const NotificationWidget(this.colors, this.index, {super.key});
+  const NotificationWidget(this.colors, this.index, this.data, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    final notificationVM = Provider.of<NotificationViewModel>(context);
     final themeVM = Provider.of<ThemesViewModel>(context);
-    print(notificationVM.notificationModel!.data![index].createdOn);
+    print(data.createdOn);
+    final today = DateTime.now();
+    print("today");
+    print(today);
 
+    print(today.isAtSameYearAs(data.createdOn!)); // true
+    print(today.isAtSameMonthAs(data.createdOn!)); // false
+    print(today.isAtSameDayAs(data.createdOn!)); // false
+    print(DateTime.now().difference(data.createdOn!).inHours);
+    final subtractedData = DateTime.now().difference(data.createdOn!).inHours;
 
-    return Stack(
+    if (DateTime.now().difference(data.createdOn!).inHours > 24) {
+      print("one day after");
+    } else {
+      print("not a day after");
+    }
+    final isAtSameDay = today.isAtSameDayAs(data.createdOn!);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        isAtSameDay
+            ? Row(
+                children: [
+                  const SizedBox(width: 50, child: Divider(thickness: 2)),
+                  Text('$subtractedData day(s) ago'),
+                  const SizedBox(width: 50, child: Divider(thickness: 2)),
+                ],
+              )
+            : const Card(),
         Container(
           decoration: BoxDecoration(
-            border: Border(
-              right: BorderSide(
-                color: index < colors.length ? colors[index] : Colors.black,
-                width: 15.0,
-              ),
-              /*
-              color: themeVM.isDark == true ? Colors.white : Colors.transparent,
-              width: .3,
-        */
-            ),
-            borderRadius: BorderRadius.all(
-              Radius.circular(32.r),
-            ),
+            borderRadius: BorderRadius.circular(20.r),
             color: themeVM.isDark == true
                 ? ColorResources.black
                 : ColorResources.white1,
           ),
-          //margin: EdgeInsets.only(left: 24.w),
-          padding: EdgeInsets.only(left: 24.w),
           width: double.infinity,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 24.h),
+                padding: EdgeInsets.symmetric(vertical: 25.h),
                 child: SizedBox(
                   width: 280.w,
                   child: Column(
-                    //padding: EdgeInsets.all(10.dm),
-
                     children: [
                       Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          notificationVM.notificationModel!.data![index].title!,
-                          style:
-                              Theme.of(context).textTheme.displayMedium?.copyWith(
-                                    fontSize: 16.sp,
-                                    fontFamily: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall
-                                        ?.fontFamily,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                          data.title ?? "",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                fontSize: 16.sp,
+                                fontFamily: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.fontFamily,
+                                fontWeight: FontWeight.w400,
+                              ),
                         ),
                       ),
                       SizedBox(height: 4.h),
                       Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                        notificationVM.notificationModel!.data![index].body!,
-                        style:
-                            Theme.of(context).textTheme.displayMedium?.copyWith(
-                                  fontSize: 14.sp,
-                                  fontFamily: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall
-                                      ?.fontFamily,
-                                  // TODO: Edit this
-                                  color: themeVM.isDark == true
-                                      ? Colors.grey
-                                      : Colors.grey,
-                                  fontWeight: FontWeight.w400,
-                                ),  ),
+                          data.body ?? '',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                fontSize: 14.sp,
+                                fontFamily: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.fontFamily,
+                                // TODO: Edit this
+                                color: themeVM.isDark == true
+                                    ? Colors.grey
+                                    : Colors.grey,
+                                fontWeight: FontWeight.w400,
+                              ),
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
-
-              //SizedBox(width: 20.w),
+              SizedBox(width: 15.w),
+              Container(
+                color: index < colors.length ? colors[index] : Colors.black,
+                height: 50.h,
+                width: 2.w,
+              ),
             ],
           ),
         ),
-        /*
-        Positioned(
-          right: 0,
-          height: double.infinity,
-          child: Container(
-            padding: EdgeInsets.only(left: 24.w),
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(32.r),
-                bottomRight: Radius.circular(32.r),
-              ),
-              color: index < colors.length ? colors[index] : Colors.black,
-            ),
-          ),
-        ),
-      */
       ],
     );
   }

@@ -5,7 +5,8 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/mainScreen_vm/mainScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
-import 'package:learning_anglish_app/business_logic/view_models/unit_vm/unit_vm.dart';
+import 'package:learning_anglish_app/business_logic/view_models/userProfile_vm/userProfile_vm.dart';
+import 'package:learning_anglish_app/data/web_services/end_points.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseLesson/choose_lesson_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_with_image_and%20_menu.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
@@ -39,15 +40,15 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      context.read<UnitViewModel>().getUnits(widget.id);
+      context.read<UserProfileViewModel>().getUserProfile();
     });
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
+    final profileVm = Provider.of<UserProfileViewModel>(context);
     return SafeArea(
-      child: Padding(
+      child: profileVm.userProfile!=null?Padding(
         padding: EdgeInsets.only(top: 25.h),
         child: Column(
           children: [
@@ -64,58 +65,32 @@ class _HomeViewState extends State<HomeView> {
                   state.openSideMenu();
                 }
               },
-              imageURL:
-                  'https://images.unsplash.com/photo-1508184964240-ee96bb9677a7?auto=format&fit=crop&q=80&w=1887&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-              name: 'Mostafa Mahmoud',
+              imageURL:EndPoints.imagesUrl+profileVm.userProfile!.data!.userImgUrl!,
+              name: profileVm.userProfile?.data?.fullName,
             ),
             SizedBox(height: 30.h),
-            Consumer<UnitViewModel>(
-              builder:
-                  (BuildContext context, UnitViewModel model, Widget? child) {
-                return model.busy == true
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      ) //: Text(model.notificationModel!.data.toString());
-                    : ((model.unitModel?.data != [] &&
-                            model.unitModel?.data != null)
-                        ? Expanded(
-                            child: ListView.separated(
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) =>
-                                    AnimationConfiguration.staggeredList(
-                                      position: index,
-                                      delay: const Duration(milliseconds: 100),
-                                      child: SlideAnimation(
-                                        duration:
-                                            const Duration(milliseconds: 2500),
-                                        curve: Curves.fastLinearToSlowEaseIn,
-                                        child: FadeInAnimation(
-                                            curve:
-                                                Curves.fastLinearToSlowEaseIn,
-                                            duration: const Duration(
-                                                milliseconds: 2500),
-                                            child: HomeWidget(
-                                                context, colors, index)),
-                                      ),
-                                    ),
-                                separatorBuilder: (context, index) =>
-                                    SizedBox(height: 16.h),
-                                itemCount: model.unitModel!.data!.length),
-                          )
-                        : const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text('No units'),
-                              ),
-                            ],
-                          ));
-              },
+            Expanded(
+              child: ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) =>
+                      AnimationConfiguration.staggeredList(
+                        position: index,
+                        delay: const Duration(milliseconds: 100),
+                        child: SlideAnimation(
+                          duration: const Duration(milliseconds: 2500),
+                          curve: Curves.fastLinearToSlowEaseIn,
+                          child: FadeInAnimation(
+                              curve: Curves.fastLinearToSlowEaseIn,
+                              duration: const Duration(milliseconds: 2500),
+                              child: HomeWidget(context, colors, index)),
+                        ),
+                      ),
+                  separatorBuilder: (context, index) => SizedBox(height: 16.h),
+                  itemCount: 10),
             ),
           ],
         ),
-      ),
+      ):const Center(child: CircularProgressIndicator()),
     );
   }
 }

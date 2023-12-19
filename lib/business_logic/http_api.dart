@@ -14,7 +14,7 @@ class HttpApi {
     return res;
   }
 
-  //*******************  Login   *************************//
+  //*******************  Register   *************************//
 
   Future<dynamic> login({Map<String, dynamic>? body}) async {
     final res = await customDio.request(EndPoints.login,
@@ -60,7 +60,7 @@ class HttpApi {
     final res = await customDio.request('http://mostafatolba-001-site1.etempurl.com/api/Units/Get/1',
         type: RequestType.Get);
     */
-    
+
     final res = await customDio.request(EndPoints.getUnits,
         type: RequestType.Get, body: body);
     return res;
@@ -82,6 +82,17 @@ class HttpApi {
     final res = await customDio.request(
       EndPoints.userProfile,
       type: RequestType.Get,
+    );
+    return res;
+  }
+
+  //*******************  update user profile   *************************//
+
+  Future<dynamic> updateProfile({Map<String, dynamic>? body}) async {
+    final res = await customDio.request(
+      EndPoints.updateProfile,
+      type: RequestType.Put,
+      body: body,
     );
     return res;
   }

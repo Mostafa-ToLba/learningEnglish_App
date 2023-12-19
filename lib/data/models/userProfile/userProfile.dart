@@ -39,7 +39,11 @@ class Data {
   final List<String>? role;
   final int? userType;
   final bool? status;
-  final dynamic userImgUrl;
+  final String? userImgUrl;
+  final String? phoneNumber;
+  final String? parentPhoneNumber;
+  final dynamic educationalLevelId;
+  final dynamic educationalLevelName;
 
   Data({
     this.email,
@@ -48,6 +52,10 @@ class Data {
     this.userType,
     this.status,
     this.userImgUrl,
+    this.phoneNumber,
+    this.parentPhoneNumber,
+    this.educationalLevelId,
+    this.educationalLevelName,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -57,6 +65,10 @@ class Data {
     userType: json["userType"],
     status: json["status"],
     userImgUrl: json["userImgUrl"],
+    phoneNumber: json["phoneNumber"],
+    parentPhoneNumber: json["parentPhoneNumber"],
+    educationalLevelId: json["educationalLevelId"],
+    educationalLevelName: json["educationalLevelName"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -66,5 +78,9 @@ class Data {
     "userType": userType,
     "status": status,
     "userImgUrl": userImgUrl,
+    "phoneNumber": phoneNumber,
+    "parentPhoneNumber": parentPhoneNumber,
+    "educationalLevelId": educationalLevelId,
+    "educationalLevelName": educationalLevelName,
   };
 }

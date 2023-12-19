@@ -46,6 +46,7 @@ final appThemeData = {
       selectedItemColor: ColorResources.white1,
       unselectedItemColor: ColorResources.brownDark,
     ),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(color: Colors.black,)
   ),
   AppTheme.dark: ThemeData(
     indicatorColor: ColorResources.white1,
@@ -84,5 +85,6 @@ final appThemeData = {
          unselectedItemColor: ColorResources.white1,
     ),
     //primaryColor: ColorResources.black,
+      progressIndicatorTheme: const ProgressIndicatorThemeData(color: Colors.white)
   ),
 };
