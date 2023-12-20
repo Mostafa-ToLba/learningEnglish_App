@@ -98,7 +98,6 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
-
 class HomeWidget extends StatelessWidget {
   final List<Color> colors;
   final int index;
@@ -151,7 +150,7 @@ class HomeWidget extends StatelessWidget {
                                     .textTheme
                                     .titleSmall
                                     ?.fontFamily,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                               ),
                     ),
                     SizedBox(height: 4.h),

@@ -111,7 +111,7 @@ class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
               ),
               Expanded(
                 child: ListView.separated
-                  (itemBuilder: (context,index)=> LessonWidget(index,homeVm.colors,homeVm.lessonsModel!.data[index]),
+                  (itemBuilder: (context,index)=> LessonWidget(index,homeVm.colors,homeVm.lessonsModel!.data[index],widget.id),
                     separatorBuilder: (context,index)=>SizedBox(height: 10.h),
                     itemCount:homeVm.lessonsModel!.data.length)
               ),
@@ -127,8 +127,9 @@ class LessonWidget extends StatelessWidget {
   final int index;
   final List<Color> colors;
   final Lesson data;
+  final int unitId;
 
-  const LessonWidget(this.index, this.colors, this.data, {super.key});
+  const LessonWidget(this.index, this.colors, this.data, this.unitId, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +138,7 @@ class LessonWidget extends StatelessWidget {
       onTap: () {
         Navigator.push(context,
             SlideTransition1(UnpaidLessonScreen(data.studentOwnIt,data.unitName,data.name,
-            data.videoUrl,data.id)));
+            data.videoUrl,data.id,unitId)));
       },
       child: Container(
         height: 90.h,

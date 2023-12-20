@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:learning_anglish_app/business_logic/setup/base_notifier.dart';
 import 'package:learning_anglish_app/data/models/lessons/lessons.dart';
 import 'package:learning_anglish_app/data/models/units/units_model.dart';
+import 'package:learning_anglish_app/presentation/widgets/customDialog/customDialog.dart';
+import 'package:learning_anglish_app/presentation/widgets/update/animatedUpdate.dart';
 import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
 import 'package:logger/logger.dart';
 
@@ -55,11 +57,9 @@ class HomeViewModel extends BaseNotifier {
   }
 
   //*******************  post lesson code  *************************//
-
+  bool validCode =false;
   TextEditingController codeController = TextEditingController();
-  void postLessonCode({lessonId}) async {
-    print('******* ${lessonId}********');
-    print('*******${codeController.text}********');
+  void postLessonCode({lessonId,context,unitId}) async {
     Map<String,dynamic> body = {
       "code": codeController.text,
       "lessonId": lessonId,
@@ -67,7 +67,16 @@ class HomeViewModel extends BaseNotifier {
     setBusy();
     try {
       Response<dynamic> res = await api.lessonCode(body:body);
-      General.showToast(message: res.data['errorMessage'] );
+      General.showToast(message: res.data['errorMessage']??'تم الشراء بنجاح');
+      if(res.data['errorCode']==0) {
+        validCode = true;
+        Navigator.pop(context);
+        ShowCustomDialog(
+            context: context, content:AnimatedUpdate(
+            updatedMassage: 'تم شراء الحصة بنجاح')
+        ).showCustomDialg(context);
+        getLessons(unitId:unitId);
+      }
    //   getUserProfile();
     } catch (e) {
       Logger().e(e.toString());

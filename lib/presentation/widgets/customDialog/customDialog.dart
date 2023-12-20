@@ -12,7 +12,7 @@ class ShowCustomDialog {
     this.content,
     this.isTransparent = false,
   });
-  Future showCustomDialg() async {
+  Future showCustomDialg(context) async {
     final isDark = Provider.of<ThemesViewModel>(context,listen: false).isDark;
     showGeneralDialog(
         context: context,

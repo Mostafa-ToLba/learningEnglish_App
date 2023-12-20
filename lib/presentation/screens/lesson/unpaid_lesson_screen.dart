@@ -21,23 +21,27 @@ class UnpaidLessonScreen extends StatefulWidget {
   final String? name;
   final String? videoUrl;
   final int? lessonId;
+  final int? unitId;
 
-  const UnpaidLessonScreen(this.studentOwnIt,this.unitName,this.name, this.videoUrl,this.lessonId, {super.key});
+  const UnpaidLessonScreen(this.studentOwnIt,this.unitName,this.name, this.videoUrl,this.lessonId,
+      this.unitId, {super.key});
 
   @override
   State<UnpaidLessonScreen> createState() => _UnpaidLessonScreenState();
 }
 
 class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
+
   @override
   void initState() {
+    final homeVm = Provider.of<HomeViewModel>(context,listen: false);
+    homeVm.validCode = widget.studentOwnIt! ;
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
+    final homeVm = Provider.of<HomeViewModel>(context);
     final themeVm = Provider.of<ThemesViewModel>(context);
-    final homeVM = Provider.of<HomeViewModel>(context);
- //   final lessonVM = Provider.of<LessonScreenViewModel>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
@@ -123,7 +127,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
               SizedBox(height: 32.h),
               GestureDetector(
                 onTap: () {
-                  if(widget.studentOwnIt!)
+                  if(homeVm.validCode)
                     {
                       Navigator.push(context,
                         MaterialPageRoute (
@@ -138,134 +142,10 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                       content: StatefulBuilder(
                         builder: (BuildContext context,
                             void Function(void Function()) setStatee) {
-                          return Container(
-                            height: 550.h,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.r),
-                                border: Border.all(
-                                    color: themeVm.isDark == true
-                                        ? Colors.white
-                                        : Colors.transparent,
-                                    width: .1)),
-                            child: Padding(
-                              padding: EdgeInsets.all(25.sp),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 96.w,
-                                    height: 96.h,
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/enterUnitCode.png"),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 24.h),
-                                  Text(
-                                    "قم بإدخال الكود",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayMedium
-                                        ?.copyWith(
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  SizedBox(height: 15.h),
-                                  Text(
-                                    "كي تتمكن من مشاهده الفيديو ، يجب إدخال الكود. يمكنك الحصول عليه من المعلم",
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayMedium
-                                        ?.copyWith(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                      //color: Theme.of(context).primaryColor.withOpacity(0.5),
-                                    ),
-                                  ),
-                                  SizedBox(height: 24.h),
-                                  Container(
-                                    width: 279.w,
-                                    height: 56.h,
-                                    decoration: ShapeDecoration(
-                                      shape: RoundedRectangleBorder(
-                                        side: BorderSide(
-                                          width: 1,
-                                          color: Colors.black.withOpacity(0.25),
-                                        ),
-                                        borderRadius: BorderRadius.circular(32),
-                                      ),
-                                    ),
-                                    child: TextFormField(
-                                      textAlign: TextAlign.start,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.copyWith(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      decoration: InputDecoration(
-                                        hintText: "ادخل الكود",
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 17.h, horizontal: 24.w),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(25),
-                                        ),
-                                      ),
-                                      controller: homeVM.codeController,
-                                    ),
-                                  ),
-                                  SizedBox(height: 24.h),
-                                  CustomButton(
-                                    widgetInCenter: Align(
-                                      alignment: Alignment.center,
-                                      child: CustomText(
-                                        text: "إدخال".i18n(),
-                                        textAlign: TextAlign.center,
-                                        color: Colors.white,
-                                        txtSize: 17.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    color: ColorResources.buttonColor,
-                                    onTap: () async {
-                                      //    await lessonVM.showVideo();
-                                      //    lessonVM.codeDone? Navigator.pop(context):null;
-                                      homeVM.postLessonCode(lessonId: widget.lessonId);
-                                    },
-                                  ),
-                                  SizedBox(height: 4.h),
-                                  TextButton(
-                                    child: Text(
-                                      "go_back".i18n(),
-                                      textAlign: TextAlign.justify,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.copyWith(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w400,
-                                        height: 0.12.h,
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                          return CodeDialogWidget(widget.lessonId!,widget.unitId!);
                         },
                       ),
-                    ).showCustomDialg();
+                    ).showCustomDialg(context);
                   }
                 },
                 child: Container(
@@ -296,7 +176,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
               SizedBox(height: 20.h),
               GestureDetector(
                 onTap: () {
-                  if(widget.studentOwnIt!)
+                  if(homeVm.validCode)
                   {
                     Navigator.push(
                         context, SlideTransition1(const ExamsScreen()));
@@ -308,134 +188,10 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                       content: StatefulBuilder(
                         builder: (BuildContext context,
                             void Function(void Function()) setStatee) {
-                          return Container(
-                            height: 550.h,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.r),
-                                border: Border.all(
-                                    color: themeVm.isDark == true
-                                        ? Colors.white
-                                        : Colors.transparent,
-                                    width: .1)),
-                            child: Padding(
-                              padding: EdgeInsets.all(25.sp),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 96.w,
-                                    height: 96.h,
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/enterUnitCode.png"),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 24.h),
-                                  Text(
-                                    "قم بإدخال الكود",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayMedium
-                                        ?.copyWith(
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  SizedBox(height: 15.h),
-                                  Text(
-                                    "كي تتمكن من مشاهده الفيديو ، يجب إدخال الكود. يمكنك الحصول عليه من المعلم",
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayMedium
-                                        ?.copyWith(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                      //color: Theme.of(context).primaryColor.withOpacity(0.5),
-                                    ),
-                                  ),
-                                  SizedBox(height: 24.h),
-                                  Container(
-                                    width: 279.w,
-                                    height: 56.h,
-                                    decoration: ShapeDecoration(
-                                      shape: RoundedRectangleBorder(
-                                        side: BorderSide(
-                                          width: 1,
-                                          color: Colors.black.withOpacity(0.25),
-                                        ),
-                                        borderRadius: BorderRadius.circular(32),
-                                      ),
-                                    ),
-                                    child: TextFormField(
-                                      textAlign: TextAlign.start,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.copyWith(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      decoration: InputDecoration(
-                                        hintText: "ادخل الكود",
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 17.h, horizontal: 24.w),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(25),
-                                        ),
-                                      ),
-                                      controller: homeVM.codeController,
-                                    ),
-                                  ),
-                                  SizedBox(height: 24.h),
-                                  CustomButton(
-                                    widgetInCenter: Align(
-                                      alignment: Alignment.center,
-                                      child: CustomText(
-                                        text: "إدخال".i18n(),
-                                        textAlign: TextAlign.center,
-                                        color: Colors.white,
-                                        txtSize: 17.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    color: ColorResources.buttonColor,
-                                    onTap: () async {
-                                      //    await lessonVM.showVideo();
-                                      //    lessonVM.codeDone? Navigator.pop(context):null;
-                                      homeVM.postLessonCode(lessonId: widget.lessonId);
-                                    },
-                                  ),
-                                  SizedBox(height: 4.h),
-                                  TextButton(
-                                    child: Text(
-                                      "go_back".i18n(),
-                                      textAlign: TextAlign.justify,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.copyWith(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w400,
-                                        height: 0.12.h,
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                          return CodeDialogWidget(widget.lessonId!,widget.unitId!);
                         },
                       ),
-                    ).showCustomDialg();
+                    ).showCustomDialg(context);
                   }
 
                 },
@@ -512,7 +268,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
               InkWell(
                 onTap: ()
                 {
-                  if(widget.studentOwnIt!)
+                  if(homeVm.validCode)
                   {
                     Navigator.push(
                         context, SlideTransition1(const ExamsScreen()));
@@ -524,134 +280,10 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                       content: StatefulBuilder(
                         builder: (BuildContext context,
                             void Function(void Function()) setStatee) {
-                          return Container(
-                            height: 550.h,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.r),
-                                border: Border.all(
-                                    color: themeVm.isDark == true
-                                        ? Colors.white
-                                        : Colors.transparent,
-                                    width: .1)),
-                            child: Padding(
-                              padding: EdgeInsets.all(25.sp),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 96.w,
-                                    height: 96.h,
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/enterUnitCode.png"),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 24.h),
-                                  Text(
-                                    "قم بإدخال الكود",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayMedium
-                                        ?.copyWith(
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  SizedBox(height: 15.h),
-                                  Text(
-                                    "كي تتمكن من مشاهده الفيديو ، يجب إدخال الكود. يمكنك الحصول عليه من المعلم",
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayMedium
-                                        ?.copyWith(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                      //color: Theme.of(context).primaryColor.withOpacity(0.5),
-                                    ),
-                                  ),
-                                  SizedBox(height: 24.h),
-                                  Container(
-                                    width: 279.w,
-                                    height: 56.h,
-                                    decoration: ShapeDecoration(
-                                      shape: RoundedRectangleBorder(
-                                        side: BorderSide(
-                                          width: 1,
-                                          color: Colors.black.withOpacity(0.25),
-                                        ),
-                                        borderRadius: BorderRadius.circular(32),
-                                      ),
-                                    ),
-                                    child: TextFormField(
-                                      textAlign: TextAlign.start,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.copyWith(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      decoration: InputDecoration(
-                                        hintText: "ادخل الكود",
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 17.h, horizontal: 24.w),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(25),
-                                        ),
-                                      ),
-                                      controller: homeVM.codeController,
-                                    ),
-                                  ),
-                                  SizedBox(height: 24.h),
-                                  CustomButton(
-                                    widgetInCenter: Align(
-                                      alignment: Alignment.center,
-                                      child: CustomText(
-                                        text: "إدخال".i18n(),
-                                        textAlign: TextAlign.center,
-                                        color: Colors.white,
-                                        txtSize: 17.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    color: ColorResources.buttonColor,
-                                    onTap: () async {
-                                      //    await lessonVM.showVideo();
-                                      //    lessonVM.codeDone? Navigator.pop(context):null;
-                                      homeVM.postLessonCode(lessonId: widget.lessonId);
-                                    },
-                                  ),
-                                  SizedBox(height: 4.h),
-                                  TextButton(
-                                    child: Text(
-                                      "go_back".i18n(),
-                                      textAlign: TextAlign.justify,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.copyWith(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w400,
-                                        height: 0.12.h,
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                          return CodeDialogWidget(widget.lessonId!,widget.unitId!);
                         },
                       ),
-                    ).showCustomDialg();
+                    ).showCustomDialg(context);
                   }
                 },
                 child: Container(
@@ -726,3 +358,153 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
     );
   }
 }
+
+ class CodeDialogWidget extends StatefulWidget {
+  final int lessonId;
+  final int unitId;
+
+   const CodeDialogWidget( this.lessonId, this.unitId, {super.key});
+
+  @override
+  State<CodeDialogWidget> createState() => _CodeDialogWidgetState();
+}
+
+class _CodeDialogWidgetState extends State<CodeDialogWidget> {
+  @override
+  void initState() {
+    final homeVm = Provider.of<HomeViewModel>(context,listen: false);
+    homeVm.codeController.clear();
+    super.initState();
+  }
+   @override
+   Widget build(BuildContext context) {
+     final themeVm = Provider.of<ThemesViewModel>(context);
+     final homeVm = Provider.of<HomeViewModel>(context);
+     return  Container(
+       height: 550.h,
+       width: double.infinity,
+       decoration: BoxDecoration(
+           borderRadius: BorderRadius.circular(16.r),
+           border: Border.all(
+               color: themeVm.isDark == true
+                   ? Colors.white
+                   : Colors.transparent,
+               width: .1)),
+       child: Padding(
+         padding: EdgeInsets.all(25.sp),
+         child: Column(
+           mainAxisAlignment: MainAxisAlignment.center,
+           crossAxisAlignment: CrossAxisAlignment.center,
+           children: [
+             Container(
+               width: 96.w,
+               height: 96.h,
+               decoration: const BoxDecoration(
+                 image: DecorationImage(
+                   image: AssetImage(
+                       "assets/images/enterUnitCode.png"),
+                   fit: BoxFit.fill,
+                 ),
+               ),
+             ),
+             SizedBox(height: 24.h),
+             Text(
+               "قم بإدخال الكود",
+               style: Theme.of(context)
+                   .textTheme
+                   .displayMedium
+                   ?.copyWith(
+                 fontSize: 18.sp,
+                 fontWeight: FontWeight.w400,
+               ),
+             ),
+             SizedBox(height: 15.h),
+             Text(
+               "كي تتمكن من مشاهده الفيديو ، يجب إدخال الكود. يمكنك الحصول عليه من المعلم",
+               textAlign: TextAlign.center,
+               style: Theme.of(context)
+                   .textTheme
+                   .displayMedium
+                   ?.copyWith(
+                 fontSize: 14.sp,
+                 fontWeight: FontWeight.w400,
+                 //color: Theme.of(context).primaryColor.withOpacity(0.5),
+               ),
+             ),
+             SizedBox(height: 24.h),
+             Container(
+               width: 279.w,
+               height: 56.h,
+               decoration: ShapeDecoration(
+                 shape: RoundedRectangleBorder(
+                   side: BorderSide(
+                     width: 1,
+                     color: Colors.black.withOpacity(0.25),
+                   ),
+                   borderRadius: BorderRadius.circular(32),
+                 ),
+               ),
+               child: TextFormField(
+                 textAlign: TextAlign.start,
+                 style: Theme.of(context)
+                     .textTheme
+                     .displayMedium
+                     ?.copyWith(
+                   fontSize: 14.sp,
+                   fontWeight: FontWeight.w400,
+                 ),
+                 decoration: InputDecoration(
+                   hintText: "ادخل الكود",
+                   contentPadding: EdgeInsets.symmetric(
+                       vertical: 17.h, horizontal: 24.w),
+                   border: OutlineInputBorder(
+                     borderRadius: BorderRadius.circular(25),
+                   ),
+                 ),
+                 controller: homeVm.codeController,
+               ),
+             ),
+             SizedBox(height: 24.h),
+             CustomButton(
+               widgetInCenter: Align(
+                 alignment: Alignment.center,
+                 child: CustomText(
+                   text: "إدخال".i18n(),
+                   textAlign: TextAlign.center,
+                   color: Colors.white,
+                   txtSize: 17.sp,
+                   fontWeight: FontWeight.w600,
+                 ),
+               ),
+               color: ColorResources.buttonColor,
+               onTap: () async {
+                 //    await lessonVM.showVideo();
+                 //    lessonVM.codeDone? Navigator.pop(context):null;
+                 homeVm.postLessonCode(lessonId: widget.lessonId,context: context,unitId:widget.unitId);
+               },
+             ),
+             SizedBox(height: 4.h),
+             TextButton(
+               child: Text(
+                 "go_back".i18n(),
+                 textAlign: TextAlign.justify,
+                 style: Theme.of(context)
+                     .textTheme
+                     .displayMedium
+                     ?.copyWith(
+                   fontSize: 16.sp,
+                   fontWeight: FontWeight.w400,
+                   height: 0.12.h,
+                 ),
+               ),
+               onPressed: () {
+                 Navigator.pop(context);
+               },
+             ),
+           ],
+         ),
+       ),
+     );
+   }
+}
+
