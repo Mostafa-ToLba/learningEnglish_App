@@ -14,7 +14,7 @@ class HttpApi {
     return res;
   }
 
-  //*******************  Register   *************************//
+  //*******************  login   *************************//
 
   Future<dynamic> login({Map<String, dynamic>? body}) async {
     final res = await customDio.request(EndPoints.login,
@@ -46,7 +46,7 @@ class HttpApi {
     return res;
   }
 
-  //*******************  Forgot Password  *************************//
+  //*******************  Change Forgot Password  *************************//
 
   Future<dynamic> changeForgotPassword({Map<String, dynamic>? body}) async {
     final res = await customDio.request(EndPoints.changeForgotPassword,
@@ -55,14 +55,21 @@ class HttpApi {
   }
   //*******************  Get units  *************************//
 
-  Future<dynamic> units({Map<String, dynamic>? body}) async {
-    /*
-    final res = await customDio.request('http://mostafatolba-001-site1.etempurl.com/api/Units/Get/1',
-        type: RequestType.Get);
-    */
+  Future<dynamic> units({int unitId = 1}) async {
+    final res = await customDio.request(
+      EndPoints.getUnits(unitId),
+      type: RequestType.Get,
+    );
+    return res;
+  }
 
-    final res = await customDio.request(EndPoints.getUnits,
-        type: RequestType.Get, body: body);
+  //*******************  Get exams  *************************//
+
+  Future<dynamic> exams({required int examId}) async {
+    final res = await customDio.request(
+      EndPoints.getExams(examId),
+      type: RequestType.Get,
+    );
     return res;
   }
 

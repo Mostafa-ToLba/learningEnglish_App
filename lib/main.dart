@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/business_logic/setup/provider_setup.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/data/cache_helper/cache_helper.dart';
+import 'package:learning_anglish_app/presentation/screens/exams/exams_with_radio.dart';
 import 'package:learning_anglish_app/presentation/screens/notification/notification_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/splashScreen/splashScreen.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
@@ -64,7 +65,7 @@ class _AppScreenState extends State<AppScreen> {
                 theme: model.isDark==false?
                       appThemeData[AppTheme.light]
                     : appThemeData[AppTheme.dark],
-                home: const SplashScreen(),
+                home: const ExamsWithRadioScreen(),
               );
             },
           );

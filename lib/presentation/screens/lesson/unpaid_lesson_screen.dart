@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/lessonScreen_vm/lessonScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
+import 'package:learning_anglish_app/presentation/screens/exams/exams_with_radio.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/exams_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/customDialog/customDialog.dart';
@@ -306,7 +307,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
               GestureDetector(
                 onTap: () {
                   Navigator.push(
-                      context, SlideTransition1(const ExamsScreen()));
+                      context, SlideTransition1(const ExamsWithRadioScreen()));
                 },
                 child: Container(
                   height: 80.h,

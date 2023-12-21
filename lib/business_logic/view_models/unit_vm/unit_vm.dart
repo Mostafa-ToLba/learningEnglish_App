@@ -7,11 +7,10 @@ import 'package:logger/logger.dart';
 class UnitViewModel extends BaseNotifier {
   UnitModel? unitModel;
 
-  void getUnits(String unitId) async {
-    Map<String, dynamic> body = {"id": int.parse(unitId)};
+  void getUnits(int unitId) async {
     setBusy();
     try {
-      Response<dynamic> res = await api.units(body: body);
+      Response<dynamic> res = await api.units(unitId: unitId);
       General.showToast(message: res.data['errorMessage']);
       unitModel = UnitModel.fromJson(res.data);
     } catch (e) {
