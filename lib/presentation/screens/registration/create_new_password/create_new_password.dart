@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:learning_anglish_app/business_logic/view_models/changeForgotPassword_vm/changeForgotPassword_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/forgetPassword_vm/forgetPassword_vm.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
@@ -146,7 +145,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword>
                           }
                           return null;
                         },
-                        textInputType: TextInputType.emailAddress,
+                        textInputType: TextInputType.visiblePassword,
                         controller: model.newPasswordController,
                       ),
                       SizedBox(height: 16.h),
@@ -174,6 +173,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword>
                           return null;
                         },
                         textInputType: TextInputType.visiblePassword,
+                        
                         controller: model.confirmNewPasswordController,
                       ),
                       SizedBox(height: 43.h),
