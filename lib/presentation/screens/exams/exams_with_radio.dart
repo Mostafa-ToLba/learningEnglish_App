@@ -329,6 +329,8 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
                                     ),
                                     color: ColorResources.buttonColor,
                                     onTap: () {
+                                      final examsResult = AnswersModel(examId: model.examModel!.data!.id, result: answers,);
+                                      model.saveExamResult(examsResult);
                                       print(answers);
                                       Logger().d(answers);
                                       /*

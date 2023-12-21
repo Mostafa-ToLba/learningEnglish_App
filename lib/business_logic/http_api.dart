@@ -73,6 +73,14 @@ class HttpApi {
     return res;
   }
 
+  //******************* Save Exam Result  *************************//
+
+  Future<dynamic> saveExamResult({Map<String, dynamic>? body}) async {
+    final res = await customDio.request(EndPoints.saveExamResult,
+        type: RequestType.Post, body: body);
+    return res;
+  }
+
   //*******************  get education levels   *************************//
 
   Future<dynamic> educationLevels() async {

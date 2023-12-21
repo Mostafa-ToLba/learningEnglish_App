@@ -20,6 +20,7 @@ class EndPoints {
   static const String userProfile = "Users/GetUserInfo";
   static const String updateProfile = "Users/UpdateUserProfile";
   static const String notification = "Notification/GetAllNotifications";
+  static const String saveExamResult = "Exams/SaveExamResult";
   static String getLessons(int unitId) => "Lessons/Get/$unitId";
   static String getUnits(int levelId) => "Units/Get/$levelId";
   static String getExams(int examId) => "Exams/Get/$examId";
