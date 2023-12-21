@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:learning_anglish_app/business_logic/view_models/changeForgotPassword_vm/changeForgotPassword_vm.dart';
+import 'package:learning_anglish_app/business_logic/view_models/forgetPassword_vm/forgetPassword_vm.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/presentation/widgets/textFeild/custom_text_field.dart';
@@ -53,7 +53,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword>
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
-    return Consumer<ChangeForgotPasswordViewModel>(
+    return Consumer<ForgetPasswordViewModel>(
       builder: (BuildContext context, model, Widget? child) {
         return Scaffold(
           body: SafeArea(
@@ -145,7 +145,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword>
                           }
                           return null;
                         },
-                        textInputType: TextInputType.emailAddress,
+                        textInputType: TextInputType.visiblePassword,
                         controller: model.newPasswordController,
                       ),
                       SizedBox(height: 16.h),
@@ -173,6 +173,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword>
                           return null;
                         },
                         textInputType: TextInputType.visiblePassword,
+                        
                         controller: model.confirmNewPasswordController,
                       ),
                       SizedBox(height: 43.h),
@@ -190,6 +191,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword>
                             ),
                           ),
                           color: ColorResources.buttonColor,
+                          loading: model.busy,
                           onTap: () {
                             model.changeForgotPassword(
                                 context: context, userId: widget.userId);

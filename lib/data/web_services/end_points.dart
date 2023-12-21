@@ -24,4 +24,6 @@ class EndPoints {
   static String getLessons(int unitId) => "Lessons/Get/$unitId";
   static const String lessonCodes = "Codes/UseCode";
 
+  static const String saveExamResult = "Exams/SaveExamResult";
+  static String getExams(int examId) => "Exams/Get/$examId";
 }

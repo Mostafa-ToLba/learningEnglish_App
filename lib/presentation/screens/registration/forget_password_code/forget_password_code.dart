@@ -1,6 +1,8 @@
+import 'dart:async';
+import 'package:learning_anglish_app/business_logic/view_models/forgetPassword_vm/forgetPassword_vm.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:learning_anglish_app/business_logic/view_models/forgetPasswordCode_vm/forgetPasswordCode_vm.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
@@ -19,8 +21,11 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
+  bool isReadyToResend = false;
   @override
   void initState() {
+    activateTimer();
+
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(
@@ -41,6 +46,26 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
     super.initState();
   }
 
+  int _current = 60;
+  void activateTimer() {
+    setState(() {
+      isReadyToResend = false;
+    });
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      if (_current == 0) {
+        setState(() {
+          timer.cancel();
+          isReadyToResend = true;
+          _current = 60;
+        });
+      } else {
+        setState(() {
+          _current--;
+        });
+      }
+    });
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -50,7 +75,7 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    return Consumer<ForgetPasswordCodeViewModel>(
+    return Consumer<ForgetPasswordViewModel>(
       builder: (BuildContext context, model, Widget? child) {
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -62,7 +87,7 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
                 key: formKey,
                 child: SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Align(
                         alignment: Alignment.topLeft,
@@ -120,6 +145,7 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
                       ),
                       SizedBox(height: 64.h),
                       PinCodeTextField(
+                        autoDisposeControllers: false,
                         length: 4,
                         obscureText: false,
                         animationType: AnimationType.fade,
@@ -177,8 +203,46 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
                               email: widget.email,
                             );
                           },
+                          loading: model.busy,
                         ),
                       ),
+                      SizedBox(height: 4.h),
+                      isReadyToResend
+                          ? TextButton(
+                              child: Text(
+                                "ارسال بريد اخر",
+                                textAlign: TextAlign.justify,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                      fontSize: 16.sp,
+                                      // color: ColorResources.black,
+                                      fontWeight: FontWeight.w400,
+                                      height: 0.12.h,
+                                    ),
+                              ),
+                              onPressed: () {
+                                activateTimer();
+                                model.resendEmail(context: context);
+                              },
+                            )
+                          : Padding(
+                              padding: EdgeInsets.only(top: 20.h),
+                              child: Text(
+                                'لارسال بريد اخر انتظر $_current ثانية',
+                                textAlign: TextAlign.justify,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                      fontSize: 16.sp,
+                                      // color: ColorResources.black,
+                                      fontWeight: FontWeight.w400,
+                                      height: 0.12.h,
+                                    ),
+                              ),
+                            ),
                     ],
                   ),
                 ),

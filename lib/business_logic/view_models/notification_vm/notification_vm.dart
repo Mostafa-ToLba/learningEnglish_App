@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:learning_anglish_app/business_logic/setup/base_notifier.dart';
 import 'package:learning_anglish_app/data/models/notification/notification_model.dart';
-import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
 import 'package:logger/logger.dart';
 
 class NotificationViewModel extends BaseNotifier {

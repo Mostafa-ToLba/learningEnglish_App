@@ -56,37 +56,12 @@ class _NewPasswordDoneScreenState extends State<NewPasswordDoneScreen>
         child: Padding(
           padding:
               EdgeInsets.only(top: 40.h, left: 25.w, right: 25.w, bottom: 10.h),
-          child: Form(
-            key: formKey,
-            child: SingleChildScrollView(
+          child:  SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  /*
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      decoration: ShapeDecoration(
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            width: 1,
-                            color: Theme.of(context).indicatorColor,
-                          ),
-                          borderRadius: BorderRadius.circular(32.r),
-                        ),
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.arrow_back_ios_new_outlined,
-                          size: 20.dg,
-                        ), //circle_chevron_left
-                      ),
-                    ),
-                  ),
-                  */
+                
+                
                   SizedBox(height: 135.h),
                   Container(
                     width:
@@ -150,7 +125,7 @@ class _NewPasswordDoneScreenState extends State<NewPasswordDoneScreen>
             ),
           ),
         ),
-      ),
+      
     );
   }
 }

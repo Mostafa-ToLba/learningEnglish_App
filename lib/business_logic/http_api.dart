@@ -41,12 +41,12 @@ class HttpApi {
   //*******************  Resend email  *************************//
 
   Future<dynamic> resendEmail({Map<String, dynamic>? body}) async {
-    final res = await customDio.request(EndPoints.changePasswordConfirm,
+    final res = await customDio.request(EndPoints.resendEmail,
         type: RequestType.Post, body: body);
     return res;
   }
 
-  //*******************  Forgot Password  *************************//
+  //*******************  Change Forgot Password  *************************//
 
   Future<dynamic> changeForgotPassword({Map<String, dynamic>? body}) async {
     final res = await customDio.request(EndPoints.changeForgotPassword,

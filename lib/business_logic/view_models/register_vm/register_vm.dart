@@ -10,7 +10,16 @@ class RegisterViewModel extends BaseNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-
+  @override
+  void dispose() {
+    nameController.dispose();
+    phoneController.dispose();
+    parentPhoneController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
   void register({required BuildContext context}) async {
     Map<String, dynamic> body =   {
       "fullName": nameController.text,
@@ -23,7 +32,7 @@ class RegisterViewModel extends BaseNotifier {
     };
     setBusy();
     try {
-      var res = await api.register(body: body);
+      await api.register(body: body);
 
     } catch (e) {
       Logger().e(e.toString());
