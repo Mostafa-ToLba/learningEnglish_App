@@ -7,7 +7,11 @@ class LessonScreenViewModel extends BaseNotifier {
   int lessonCode = 0;
   bool codeDone =false;
   TextEditingController lessonCodeController = TextEditingController();
-
+  @override
+  void dispose() {
+    lessonCodeController.dispose();
+    super.dispose();
+  }
   showVideo()
   {
     if(lessonCodeController.text=='12345')

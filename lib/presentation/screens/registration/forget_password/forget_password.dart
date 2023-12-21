@@ -156,6 +156,7 @@ class _ForgetPasswordState extends State<ForgetPassword>
                           onTap: () {
                             model.forgetPassword(context: context);
                           },
+                          loading: model.busy,
                         ),
                       ),
                     ],

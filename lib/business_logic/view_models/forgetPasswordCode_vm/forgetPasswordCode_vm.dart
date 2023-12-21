@@ -10,7 +10,11 @@ import 'package:logger/logger.dart';
 class ForgetPasswordCodeViewModel extends BaseNotifier
 {
   TextEditingController codeControler = TextEditingController();
-
+  @override
+  void dispose() {
+    codeControler.dispose();
+    super.dispose();
+  }
   void forgetPasswordCode({required BuildContext context, required String email}) async {
     Map<String, dynamic> body = {
       "randomCode": codeControler.text,
