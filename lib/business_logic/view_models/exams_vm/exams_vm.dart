@@ -24,8 +24,8 @@ class ExamsViewModel extends BaseNotifier
 
   chooseQuestion({index})
   {
-    selectedIndex = index ;
-    print(index);
+  //  selectedIndex = index ;
+  //  print(index);
     notifyListeners();
   }
 }

@@ -5,6 +5,7 @@ import 'package:learning_anglish_app/business_logic/view_models/home_vm/home_vm.
 import 'package:learning_anglish_app/business_logic/view_models/lessonScreen_vm/lessonScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/exams_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/testExam/testExam.dart';
 import 'package:learning_anglish_app/presentation/screens/videoScreen/videoScreen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/customDialog/customDialog.dart';
@@ -178,8 +179,13 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                 onTap: () {
                   if(homeVm.validCode)
                   {
+                    /*
                     Navigator.push(
                         context, SlideTransition1(const ExamsScreen()));
+
+                     */
+                    Navigator.push(
+                        context, SlideTransition1(const TestExam()));
                   }
                   else
                   {
