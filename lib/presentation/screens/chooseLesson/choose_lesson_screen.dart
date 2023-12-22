@@ -1,35 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:learning_anglish_app/business_logic/view_models/home_vm/home_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
+import 'package:learning_anglish_app/data/models/lessons/lessons.dart';
 import 'package:learning_anglish_app/presentation/screens/lesson/unpaid_lesson_screen.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:provider/provider.dart';
 
-class ChooseLessonScreen extends StatelessWidget {
-  ChooseLessonScreen({super.key});
-  final List<Color> colors = [
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-    Colors.yellow,
-    Colors.orange,
-    Colors.purple,
-    Colors.teal,
-    Colors.pink,
-    Colors.indigo,
-    Colors.cyan,
-    // Added 10 colors
-  ];
+class ChooseLessonScreen extends StatefulWidget {
+  final int id;
+  const ChooseLessonScreen(this.id, {super.key});
+  @override
+  State<ChooseLessonScreen> createState() => _ChooseLessonScreenState();
+}
+
+class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
+  @override
+  void initState() {
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      context.read<HomeViewModel>().getLessons(unitId:widget.id);
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    final themeVM = Provider.of<ThemesViewModel>(context);
+    final homeVm = Provider.of<HomeViewModel>(context);
+    final themVm = Provider.of<ThemesViewModel>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
-        child: Padding(
+        child: homeVm.lessonsModel==null?const Center(child: CircularProgressIndicator()):
+        homeVm.lessonsModel!.data.isEmpty?const Center(child: Text('لا يوجد حصص')):Padding(
           padding: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w),
           child: Column(
             children: [
@@ -48,7 +53,7 @@ class ChooseLessonScreen extends StatelessWidget {
                         height: 40.r, padding: EdgeInsets.only(right: 4.w),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: themeVM.isDark == true
+                          color: themVm.isDark == true
                               ? Colors.black
                               : Colors.white, // White background
                           border: Border.all(
@@ -71,7 +76,7 @@ class ChooseLessonScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            'الوحدة الأولى',
+                            homeVm.lessonsModel?.data[0].unitName??'',
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
@@ -102,109 +107,13 @@ class ChooseLessonScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 16.h,
+                height: 34.h,
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(top: 16.h),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              SlideTransition1(const UnpaidLessonScreen()));
-                        },
-                        child: Container(
-                          height: 80.h,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: ColorResources.shadow,
-                                blurRadius: 10.r,
-                                offset: const Offset(
-                                  0,
-                                  8,
-                                ),
-                                spreadRadius: -8,
-                              )
-                            ],
-                            color: themeVM.isDark == true
-                                ? ColorResources.containerColor
-                                : Colors.white,
-                            borderRadius: BorderRadius.circular(32.r),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                width: 24.w,
-                                height: 24.h,
-                                margin: EdgeInsets.only(left: 24.w),
-                                decoration: const ShapeDecoration(
-                                  color: Color(0xFF49423A),
-                                  shape: OvalBorder(),
-                                ),
-                                child: Icon(
-                                  Icons.keyboard_arrow_left,
-                                  color: Colors.white,
-                                  size: 20.dm,
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    'الحصة الأولى',
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayMedium
-                                        ?.copyWith(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w600,
-                                          height: 0.07.h,
-                                        ),
-                                  ),
-                                  SizedBox(width: 12.w),
-                                  Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.folder,
-                                        color: index < colors.length
-                                            ? colors[index]
-                                            : Colors.black,
-                                        size: 30.dm,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(top: 7.h),
-                                        child: Text(
-                                          '${index + 1}',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 13.sp),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(width: 12.w),
-                                  Icon(
-                                    Icons.monetization_on_rounded,
-                                    color: Colors.green,
-                                    size: 30.dg,
-                                  ),
-                                  SizedBox(width: 24.w),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                child: ListView.separated
+                  (itemBuilder: (context,index)=> LessonWidget(index,homeVm.colors,homeVm.lessonsModel!.data[index],widget.id),
+                    separatorBuilder: (context,index)=>SizedBox(height: 10.h),
+                    itemCount:homeVm.lessonsModel!.data.length)
               ),
             ],
           ),
@@ -213,3 +122,142 @@ class ChooseLessonScreen extends StatelessWidget {
     );
   }
 }
+
+class LessonWidget extends StatelessWidget {
+  final int index;
+  final List<Color> colors;
+  final Lesson data;
+  final int unitId;
+
+  const LessonWidget(this.index, this.colors, this.data, this.unitId, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final themVm = Provider.of<ThemesViewModel>(context);
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context,
+            SlideTransition1(UnpaidLessonScreen(data.studentOwnIt,data.unitName,data.name,
+            data.videoUrl,data.id,unitId)));
+      },
+      child: Container(
+        height: 90.h,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: ColorResources.shadow,
+              blurRadius: 10.r,
+              offset: const Offset(
+                0,
+                8,
+              ),
+              spreadRadius: -8,
+            )
+          ],
+          color: themVm.isDark == true
+              ? ColorResources.containerColor
+              : Colors.white,
+          borderRadius: BorderRadius.circular(32.r),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: 24.w,
+              height: 24.h,
+              margin: EdgeInsets.only(left: 24.w),
+              decoration: const ShapeDecoration(
+                color: Color(0xFF49423A),
+                shape: OvalBorder(),
+              ),
+              child: Icon(
+                Icons.keyboard_arrow_left,
+                color: Colors.white,
+                size: 20.dm,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      data.name??'',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: 5.h,),
+                    Text(
+                      'الوحده : ${data.unitName}',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: 5.h,),
+                    Row(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CircleAvatar(radius: 5.r,backgroundColor: data.studentOwnIt!?Colors.green:Colors.red,),
+                        SizedBox(width: 10.w,),
+                        Text(
+                          data.studentOwnIt! ?'الحصة مفتوحة':'لم يتم شرائها',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(width: 12.w),
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Icon(
+                      Icons.folder,
+                      color: index < colors.length
+                          ? colors[index]
+                          : Colors.black,
+                      size: 30.dm,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 7.h),
+                      child: Text(
+                        '${index + 1}',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13.sp),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(width: 20.w),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+

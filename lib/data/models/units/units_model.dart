@@ -11,12 +11,12 @@ String unitModelToJson(UnitModel data) => json.encode(data.toJson());
 class UnitModel {
     final int? errorCode;
     final dynamic errorMessage;
-    final List<UnitDetails>? data;
+    final List<UnitDetails> data;
 
     UnitModel({
         this.errorCode,
         this.errorMessage,
-        this.data,
+        this.data =const[],
     });
 
     factory UnitModel.fromJson(Map<String, dynamic> json) => UnitModel(
@@ -28,7 +28,7 @@ class UnitModel {
     Map<String, dynamic> toJson() => {
         "errorCode": errorCode,
         "errorMessage": errorMessage,
-        "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
     };
 }
 

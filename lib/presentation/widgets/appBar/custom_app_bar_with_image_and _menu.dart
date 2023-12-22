@@ -30,8 +30,6 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
                   image: const AssetImage(
                     Images.menu1,
                   ),
-                  width: 20.w,
-                  height: 20.h,
                   color: Theme.of(context).textTheme.displayMedium!.color,
                 )),
           const Spacer(),
@@ -49,7 +47,7 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
               ),
               SizedBox(height: 12.h),
               Text(
-                name ?? '',
+                name??'',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   overflow: TextOverflow.ellipsis,
@@ -62,12 +60,39 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
             ],
           ),
           SizedBox(width: 12.w),
-          CircleAvatar(
-            radius: 20.r,
-            backgroundColor: Theme.of(context).textTheme.displayMedium!.color,
-            child: imageURL != '' 
-                ? Image.network(EndPoints.imagesUrl + imageURL!)
-                : Image.asset(Images.emptyProfileImage),
+          InkWell(
+            onTap: ()
+            {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Dialog(shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.r)),
+
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop(); // Dismiss the dialog on tap
+                      },
+                      child: SizedBox(
+                          width: 400.w, // Adjust dimensions as needed
+                          height: 400.h,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20.r),
+                            child: Image(
+                              fit: BoxFit.cover,
+                              image:NetworkImage(imageURL??''),),
+                          )// Display the profile image
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+            child: CircleAvatar(
+              radius: 20.r,
+              backgroundColor: Theme.of(context).textTheme.displayMedium!.color,
+              backgroundImage: NetworkImage(imageURL??''),
+            ),
           ),
         ],
       ),

@@ -67,7 +67,7 @@ class ConfirmCustomDialog {
                 ShowCustomDialog(
                     context: context, content:AnimatedUpdate(
                     updatedMassage: 'تم تحديث الملف الشخصي بنجاح')
-                ).showCustomDialg();
+                ).showCustomDialg(context);
               } ,
               child:  Text(buttonText??""),
             ),
