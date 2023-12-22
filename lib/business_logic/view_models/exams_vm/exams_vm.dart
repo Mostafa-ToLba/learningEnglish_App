@@ -132,15 +132,51 @@ class ExamsViewModel extends BaseNotifier {
   StudentExamsModel? studentExamsModel;
   int? examResultId;
   ExamResultDetailsModel? examResultDetailsModel;
+  bool? isToken;
+  void isStudentTookExam(BuildContext context, int examId) async {
+    setBusy();
+    try {
+      Response<dynamic> res = await api.getStudentExams();
+      res.data['errorMessage'] != null
+          ? General.showToast(message: res.data['errorMessage'])
+          : null;
+      studentExamsModel = StudentExamsModel.fromJson(res.data);
+      if (studentExamsModel?.data != []) {
+        isToken = studentExamsModel!.data!.any((map) {
+          bool result = map.examId == examModel!.data!.id!;
+          result ? examResultId = map.examId : null;
+          return result;
+        });
+       
+      }
+       if (isToken != true) {
+        } else {
+          Navigator.pop(context);
+          General.showToast(message: "You took the exam before");
+        }
+    } catch (e) {
+      print(e.toString());
+      Logger().e(e.toString());
+      setError();
+    }
+    setIdle();
+  }
 
   void getExams(int examId) async {
     setBusy();
     try {
+      //  if (isToken == true) {
       Response<dynamic> res = await api.exams(examId: examId);
       res.data['errorMessage'] != null
           ? General.showToast(message: res.data['errorMessage'])
           : null;
       examModel = ExamModel.fromJson(res.data);
+      /*
+      } else {
+        Navigator.pop(context);
+        //General.showToast(message: "You took the exam before");
+      }
+      */
     } catch (e) {
       print(e.toString());
       Logger().e(e.toString());
@@ -181,16 +217,18 @@ class ExamsViewModel extends BaseNotifier {
       //General.showToast(message: res.data['errorMessage'] ?? 'Data done');
       studentExamsModel = StudentExamsModel.fromJson(res.data);
       if (studentExamsModel?.data != []) {
+        print(studentExamsModel?.data);
         studentExamsModel!.data!.any((map) {
-          map.examId == examModel!.data!.id! ? examResultId = map.examId : null;
-          if (examResultId != null) {
-            return true;
-          }
-
-          return false;
-        });
-        Navigator.push(context, SlideTransition1(ExamsSolvedScreen()));
+          bool result = map.examId == examModel!.data!.id!;
+          result ? examResultId = map.examResultId : null;
+          return result;
+        });print(examResultId);
+       Navigator.push(context, SlideTransition1(ExamsSolvedScreen()));
       }
+
+    
+
+
     } catch (e) {
       print(e.toString());
       Logger().e(e.toString());
@@ -204,8 +242,11 @@ class ExamsViewModel extends BaseNotifier {
     try {
       Response<dynamic> res =
           await api.getStudentExamResultDetails(examResultId!);
-      General.showToast(message: res.data['errorMessage'] ?? '');
+      res.data['errorMessage'] != null
+          ? General.showToast(message: res.data['errorMessage'])
+          : null;
       examResultDetailsModel = ExamResultDetailsModel.fromJson(res.data);
+      print(examResultDetailsModel!.data);
     } catch (e) {
       print(e.toString());
       Logger().e(e.toString());

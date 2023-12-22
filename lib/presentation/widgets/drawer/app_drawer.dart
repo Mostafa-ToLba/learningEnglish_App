@@ -47,8 +47,10 @@ class _AppDrawerState extends State<AppDrawer> {
                           CircleAvatar(
                             backgroundColor: Colors.white,
                             radius: 22.0,
+                            /*
                             backgroundImage: NetworkImage(EndPoints.imagesUrl +
                                 profileVm.userProfile!.data!.userImgUrl!),
+                                */
                           ),
                           const SizedBox(height: 16.0),
                           Text(
