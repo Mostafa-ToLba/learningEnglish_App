@@ -69,7 +69,8 @@ class _HomeViewState extends State<HomeView> {
                   state.openSideMenu();
                 }
               },
-              imageURL:EndPoints.imagesUrl+profileVm.userProfile!.data!.userImgUrl!,
+              //imageURL:EndPoints.imagesUrl+profileVm.userProfile!.data!.userImgUrl!,
+              imageURL: 'https://imgs.search.brave.com/MgKy-1ezKe9DbGOWhODKxIufmmTMUeBT6iWORiLEpKM/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuYWxsLWZyZWUt/ZG93bmxvYWQuY29t/L2ltYWdlcy9ncmFw/aGljbGFyZ2UvY2F0/X3Byb2ZpbGVfMTk2/ODA2LmpwZw',
               name: profileVm.userProfile?.data?.fullName,
             ),
             SizedBox(height: 30.h),

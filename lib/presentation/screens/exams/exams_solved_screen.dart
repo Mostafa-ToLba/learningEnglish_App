@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:learning_anglish_app/business_logic/view_models/exams_vm/exams_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
+import 'package:learning_anglish_app/presentation/screens/main/home_view.dart';
 import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
@@ -39,7 +40,6 @@ class _ExamsSolvedScreenState extends State<ExamsSolvedScreen> {
   int questionIndex = 1;
   @override
   Widget build(BuildContext context) {
-    final examResultId = Provider.of<ExamsViewModel>(context).examResultId;
     final themeVm = Provider.of<ThemesViewModel>(context);
     return Consumer<ExamsViewModel>(
       builder: (BuildContext contextt, model, Widget? child) {
@@ -339,8 +339,7 @@ class _ExamsSolvedScreenState extends State<ExamsSolvedScreen> {
                                     ),
                                     color: ColorResources.buttonColor,
                                     onTap: () {
-                                      Navigator.pushReplacement(context,
-                                          SlideTransition1(const MainScreen()));
+                                      //Navigator.popUntil(context, MainScreen());
                                     },
                                   ),
                                 ],

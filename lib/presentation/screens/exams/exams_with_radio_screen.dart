@@ -1,4 +1,3 @@
-// emaxs_with_radio
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,14 +10,14 @@ import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart'
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
-import 'package:logger/logger.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class ExamsWithRadioScreen extends StatefulWidget {
-  const ExamsWithRadioScreen({super.key});
+  final int examId;
+  const ExamsWithRadioScreen({super.key, required this.examId});
 
   @override
   State<ExamsWithRadioScreen> createState() => _ExamsWithRadioScreenState();
@@ -31,7 +30,9 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
     //final examVM = Provider.of<ExamsViewModel>(context, listen: false);
     //examVM.selectedIndex = 0;
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      context.read<ExamsViewModel>().getExams(13);
+      
+      context.read<ExamsViewModel>().getExams(widget.examId);
+      context.read<ExamsViewModel>().isStudentTookExam(context, widget.examId);
     });
     super.initState();
   }
@@ -284,37 +285,6 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
                                                   questionId: questionId,
                                                   answers: answers),
                                               SizedBox(height: 0.h),
-                                              ExpansionTile(
-                                                title: Align(
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: Text(
-                                                    "explanation".i18n(),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .displayMedium
-                                                        ?.copyWith(
-                                                          fontSize: 16.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                  ),
-                                                ),
-                                                controlAffinity:
-                                                    ListTileControlAffinity
-                                                        .trailing,
-                                                children: <Widget>[
-                                                  ListTile(
-                                                    title: Text(
-                                                      model
-                                                          .examModel!
-                                                          .data!
-                                                          .questions![index]
-                                                          .answerReview!,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
                                             ],
                                           ),
                                         );
