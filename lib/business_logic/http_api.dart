@@ -14,7 +14,7 @@ class HttpApi {
     return res;
   }
 
-  //*******************  Register   *************************//
+  //*******************  login   *************************//
 
   Future<dynamic> login({Map<String, dynamic>? body}) async {
     final res = await customDio.request(EndPoints.login,
@@ -53,7 +53,6 @@ class HttpApi {
         type: RequestType.Put, body: body);
     return res;
   }
-
   //*******************  Get units  *************************//
 
   Future<dynamic> units({int levelId = 1}) async {
@@ -118,11 +117,45 @@ class HttpApi {
   //*******************  lesson codes  *************************//
 
   Future<dynamic> lessonCode({Map<String, dynamic>? body}) async {
+    final res = await customDio.request(EndPoints.lessonCodes,
+        type: RequestType.Post, body: body);
+    return res;
+  }
+  //*******************  Get exams  *************************//
+
+  Future<dynamic> exams({required int examId}) async {
+    final res = await customDio.request(
+      EndPoints.getExams(examId),
+      type: RequestType.Get,
+    );
+    return res;
+  }
+
+  //******************* Save Exam Result  *************************//
+
+  Future<dynamic> saveExamResult({Map<String, dynamic>? body}) async {
+    final res = await customDio.request(EndPoints.saveExamResult,
+        type: RequestType.Post, body: body);
+    return res;
+  }
+  //*******************  Get Student Exams  *************************//
+
+  Future<dynamic> getStudentExams() async {
     final res = await customDio.request(
         EndPoints.lessonCodes,
         type: RequestType.Post,
-        body: body
+      EndPoints.getStudentExams,
+      type: RequestType.Get,
     );
+    return res;
+  }
+
+  //******************* Get Student Exam Result Details  *************************//
+
+  Future<dynamic> getStudentExamResultDetails(int examResultId) async {
+    final res = await customDio.request(
+        EndPoints.getStudentExamResultDetails(examResultId),
+        type: RequestType.Get);
     return res;
   }
 

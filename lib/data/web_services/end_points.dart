@@ -1,4 +1,3 @@
-
 class RequestType {
   static const String Get = 'get';
   static const String Post = 'post';
@@ -6,8 +5,9 @@ class RequestType {
   static const String Delete = 'delete';
 }
 
-class EndPoints {  
-  static const String baseURL = "http://mostafatolba-001-site1.etempurl.com/api/";
+class EndPoints {
+  static const String baseURL =
+      "http://mostafatolba-001-site1.etempurl.com/api/";
   static const String imagesUrl = "http://mostafatolba-001-site1.etempurl.com";
   static const String REFRESH_TOKEN = 'identity/refresh';
   static const String register = "Users/Register";
@@ -26,4 +26,8 @@ class EndPoints {
 
   static const String saveExamResult = "Exams/SaveExamResult";
   static String getExams(int examId) => "Exams/Get/$examId";
+  static const String saveExamResult = "Exams/SaveExamResult";
+  static const String getStudentExams = "Exams/GetStudentExams";
+  static String getStudentExamResultDetails(int examResultId) => "Exams/GetStudentExamResultDetails?examResultId=$examResultId";
+  static const String lessonCodes = "Codes/UseCode";
 }

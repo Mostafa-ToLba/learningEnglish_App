@@ -67,7 +67,7 @@ class _AppScreenState extends State<AppScreen> {
                 theme: model.isDark == false
                     ? appThemeData[AppTheme.light]
                     : appThemeData[AppTheme.dark],
-                home: const SplashScreen(),
+                home: const ExamsWithRadioScreen(),
               );
             },
           );

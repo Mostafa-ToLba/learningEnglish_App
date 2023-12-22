@@ -1,46 +1,45 @@
-// emaxs_with_radio
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:learning_anglish_app/business_logic/view_models/exams_vm/exams_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
-import 'package:learning_anglish_app/data/models/answers/answers_model.dart';
+import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
+import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
-import 'package:localization/localization.dart';
-import 'package:logger/logger.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
-class ExamsWithRadioScreen extends StatefulWidget {
-  const ExamsWithRadioScreen({super.key});
+class ExamsSolvedScreen extends StatefulWidget {
+  const ExamsSolvedScreen({super.key});
 
   @override
-  State<ExamsWithRadioScreen> createState() => _ExamsWithRadioScreenState();
+  State<ExamsSolvedScreen> createState() => _ExamsSolvedScreenState();
 }
 
-class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
-  //List<ExamModel> examModelList = List.empty(growable: true);  @override
+class _ExamsSolvedScreenState extends State<ExamsSolvedScreen> {
   @override
   void initState() {
     //final examVM = Provider.of<ExamsViewModel>(context, listen: false);
     //examVM.selectedIndex = 0;
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      context.read<ExamsViewModel>().getExams(13);
+      final examResultId = Provider.of<ExamsViewModel>(context, listen: false).examResultId;
+      if (examResultId != null) {
+        context.read<ExamsViewModel>().getStudentExamResultDetails();
+      }
     });
     super.initState();
   }
 
-  List<Result> answers = List.empty(growable: true);
-  static Set<int> questionId = Set();
   int questionIndex = 1;
   @override
   Widget build(BuildContext context) {
+    final examResultId = Provider.of<ExamsViewModel>(context).examResultId;
     final themeVm = Provider.of<ThemesViewModel>(context);
     return Consumer<ExamsViewModel>(
       builder: (BuildContext contextt, model, Widget? child) {
@@ -51,7 +50,7 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
                   child: CircularProgressIndicator(),
                 ),
               ) //: Text(model.notificationModel!.data.toString());
-            : ((model.examModel?.data != null)
+            : ((model.examResultDetailsModel?.data != null)
                 ? Scaffold(
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     body: SafeArea(
@@ -141,13 +140,17 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
                                   width: 305.w,
                                   lineHeight: 8.0,
                                   percent: (questionIndex).toDouble() /
-                                      model.examModel!.data!.questions!.length,
+                                      model
+                                          .examResultDetailsModel!
+                                          .data![0]
+                                          .questions!
+                                          .length,
                                   backgroundColor: Colors.grey[300],
                                   progressColor: const Color(0xff1c1c1a),
                                 ),
                                 Text(
                                   //'10/${index + 1}',
-                                  '${model.examModel!.data!.questions!.length}/$questionIndex',
+                                  '${model.examResultDetailsModel!.data![0].questions!.length}/$questionIndex',
                                   textAlign: TextAlign.justify,
                                   style: Theme.of(context)
                                       .textTheme
@@ -186,7 +189,10 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
                                       physics: const BouncingScrollPhysics(),
                                       scrollDirection: Axis.vertical,
                                       itemCount: model
-                                          .examModel!.data!.questions!.length,
+                                          .examResultDetailsModel!
+                                          .data![0]
+                                          .questions!
+                                          .length,
                                       itemBuilder: (context, index) {
                                         return VisibilityDetector(
                                           key: Key(index.toString()),
@@ -258,8 +264,8 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
                                                     Expanded(
                                                       child: Text(
                                                         model
-                                                            .examModel!
-                                                            .data!
+                                                            .examResultDetailsModel!
+                                                            .data![0]
                                                             .questions![index]
                                                             .questionBody!,
                                                         //textAlign: TextAlign.justify,
@@ -280,16 +286,14 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
                                               SizedBox(height: 10.h),
                                               // choicesBody(index),
                                               QuestionWidget(
-                                                  index: index,
-                                                  questionId: questionId,
-                                                  answers: answers),
+                                                  index: index),
                                               SizedBox(height: 0.h),
                                               ExpansionTile(
                                                 title: Align(
                                                   alignment:
                                                       Alignment.centerRight,
                                                   child: Text(
-                                                    "explanation".i18n(),
+                                                    "explanation",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .displayMedium
@@ -307,8 +311,8 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
                                                   ListTile(
                                                     title: Text(
                                                       model
-                                                          .examModel!
-                                                          .data!
+                                                          .examResultDetailsModel!
+                                                          .data![0]
                                                           .questions![index]
                                                           .answerReview!,
                                                     ),
@@ -326,7 +330,7 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
                                     widgetInCenter: Align(
                                       alignment: Alignment.center,
                                       child: CustomText(
-                                        text: "continue".i18n(),
+                                        text: "continue",
                                         textAlign: TextAlign.center,
                                         color: Colors.white,
                                         txtSize: 17.sp,
@@ -335,21 +339,8 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
                                     ),
                                     color: ColorResources.buttonColor,
                                     onTap: () {
-                                      final examsResult = AnswersModel(
-                                        examId: model.examModel!.data!.id,
-                                        result: answers,
-                                      );
-
-                                      model.saveExamResult(
-                                          context, examsResult);
-                                      /*
-                              model.pageController.nextPage(
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.ease,
-                              );
-                              */
-                                      //print(examModelList);
-                                      //  Navigator.push(context, SlideTransition1(const ResultsScreen()));
+                                      Navigator.pushReplacement(context,
+                                          SlideTransition1(const MainScreen()));
                                     },
                                   ),
                                 ],
@@ -373,13 +364,11 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
 
 class QuestionWidget extends StatefulWidget {
   final int index;
-  final Set<int> questionId;
-  final List<Result> answers;
+
   const QuestionWidget({
     super.key,
     required this.index,
-    required this.questionId,
-    required this.answers,
+
   });
 
   @override
@@ -387,85 +376,87 @@ class QuestionWidget extends StatefulWidget {
 }
 
 class _QuestionWidgetState extends State<QuestionWidget> {
-  int? groupValue;
   @override
   Widget build(BuildContext context) {
     return Consumer<ExamsViewModel>(
       builder: (BuildContext context, model, Widget? child) {
         return Wrap(
           children: List<Widget>.generate(
-            model.examModel!.data!.questions![widget.index].answers!.length,
+            model.examResultDetailsModel!.data![0]
+                .questions![widget.index].answers!.length,
             (int answerIndex) {
-              return InkWell(
-                onTap: () {
-                  setState(() {
-                    groupValue = answerIndex;
-                    int questionId =
-                        model.examModel!.data!.questions![widget.index].id!;
-                    int answerId = model.examModel!.data!
-                        .questions![widget.index].answers![answerIndex].id!;
+              final isCorrect = model
+                  .examResultDetailsModel!
+                  .data![0]
+                  .questions![widget.index]
+                  .answers![answerIndex]
+                  .isCorrect!;
 
-                    bool exists = widget.answers
-                        .any((answer) => answer.questionId == questionId);
-                    if (exists) {
-                      widget.answers[widget.index].changeAnswerId(answerId);
-                    } else {
-                      widget.questionId.add(questionId);
-                      widget.answers.add(
-                          Result(questionId: questionId, answerId: answerId));
-                    }
-                  });
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 5.h),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: groupValue == answerIndex ? 2 : 1,
-                        color: groupValue == answerIndex
-                            ? ColorResources.brownDark
-                            : ColorResources.grey2,
-                      ),
-                      borderRadius: BorderRadius.circular(32),
+              final studentAnswer = model
+                  .examResultDetailsModel!
+                  .data![0]
+                  .questions![widget.index]
+                  .answers![answerIndex]
+                  .studentAnswer!;
+
+              return Container(
+                margin: EdgeInsets.symmetric(vertical: 5.h),
+                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      width: isCorrect || studentAnswer ? 2 : 1,
+                      color: isCorrect || studentAnswer
+                          ? isCorrect
+                              ? ColorResources.greenDark
+                              : ColorResources.redDark
+                          : ColorResources.grey2,
                     ),
-                    color: groupValue == answerIndex
-                        ? ColorResources.brownLight
-                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(32),
                   ),
-                  child: Row(
-                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        model.examModel!.data!.questions![widget.index]
-                            .answers![answerIndex].answerBody!,
-                        style:
-                            Theme.of(context).textTheme.displayMedium?.copyWith(
-                                  fontSize: 17.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: groupValue == answerIndex
-                                      ? ColorResources.brownDark
-                                      : ColorResources.appGreyColor,
-                                ),
-                      ),
-                      const Spacer(),
-                      if (groupValue == answerIndex)
-                        FaIcon(
-                          FontAwesomeIcons.circleDot,
-                          color: ColorResources.brownDark,
-                          size: 20.dg,
-                        ),
-                      /*
-                      Radio<int>(
-                        activeColor: ColorResources.buttonColor,
-                        value: answerIndex,
-                        groupValue: groupValue,
-                        toggleable: true,
-                        */
-                    ],
-                  ),
+                  color: isCorrect || studentAnswer
+                      ? isCorrect
+                          ? ColorResources.greenLight
+                          : ColorResources.redLight
+                      : Colors.transparent,
+                ),
+                child: Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      model
+                          .examResultDetailsModel!
+                          .data![0]
+                          .questions![widget.index]
+                          .answers![answerIndex]
+                          .answerBody!,
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 17.sp,
+                                fontWeight: FontWeight.w400,
+                                color: isCorrect || studentAnswer
+                                    ? isCorrect
+                                        ? ColorResources.greenDark
+                                        : ColorResources.redDark
+                                    : ColorResources.brownDark,
+                              ),
+                    ),
+                    const Spacer(),
+                    isCorrect || studentAnswer
+                        ? isCorrect
+                            ? FaIcon(
+                                FontAwesomeIcons.check,
+                                color: ColorResources.greenDark,
+                                size: 20.dg,
+                              )
+                            : FaIcon(
+                                FontAwesomeIcons.x,
+                                color: ColorResources.redDark,
+                                size: 20.dg,
+                              )
+                        : Card(),
+                  ],
                 ),
               );
             },
