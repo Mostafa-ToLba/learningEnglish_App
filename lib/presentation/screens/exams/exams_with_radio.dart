@@ -161,7 +161,7 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
                             SizedBox(height: 45.h),
                             Expanded(
                               child: ListView(
-                                physics: BouncingScrollPhysics(),
+                                physics: const BouncingScrollPhysics(),
                                 children: [
                                   Container(
                                     decoration: ShapeDecoration(
@@ -183,7 +183,7 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
                                       children: [
                                         ListView.builder(
                                           shrinkWrap: true,
-                                          physics: BouncingScrollPhysics(),
+                                          physics: const BouncingScrollPhysics(),
                                           scrollDirection: Axis.vertical,
                                           itemCount: model.examModel!.data!
                                               .questions!.length,
@@ -312,6 +312,137 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
                                             );
                                           },
                                         ),
+                                        /*
+                                        ListView.separated(
+                                            itemBuilder: (context, index) {
+                                              return Column(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                    const EdgeInsets.all(8.0),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .start,
+                                                      children: [
+                                                        Container(
+                                                          width: 32.w,
+                                                          height: 32.h,
+                                                          clipBehavior:
+                                                          Clip.antiAlias,
+                                                          decoration:
+                                                          ShapeDecoration(
+                                                            shape:
+                                                            RoundedRectangleBorder(
+                                                              side: BorderSide(
+                                                                width: 1,
+                                                                color:
+                                                                ColorResources
+                                                                    .red,
+                                                              ),
+                                                              borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                  50.dg),
+                                                            ),
+                                                          ),
+                                                          child: Center(
+                                                            child: Padding(
+                                                              padding:
+                                                              EdgeInsets.only(
+                                                                  top: 8.sp),
+                                                              child: Text(
+                                                                '${index + 1}',
+                                                                style: Theme.of(
+                                                                    context)
+                                                                    .textTheme
+                                                                    .displayMedium
+                                                                    ?.copyWith(
+                                                                  fontSize:
+                                                                  14.sp,
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                                  height:
+                                                                  0.16.h,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: 4.w),
+                                                        Expanded(
+                                                          child: Text(
+                                                            model
+                                                                .examModel!
+                                                                .data!
+                                                                .questions![index]
+                                                                .questionBody!,
+                                                            //textAlign: TextAlign.justify,
+                                                            style:
+                                                            Theme.of(context)
+                                                                .textTheme
+                                                                .displayMedium
+                                                                ?.copyWith(
+                                                              fontSize:
+                                                              16.sp,
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w400,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 10.h),
+                                                  // choicesBody(index),
+                                                  QuestionWidget(
+                                                      index: index,
+                                                      questionId: questionId,
+                                                      answers: answers),
+                                                  SizedBox(height: 0.h),
+                                                  ExpansionTile(
+                                                    title: Align(
+                                                      alignment:
+                                                      Alignment.centerRight,
+                                                      child: Text(
+                                                        "explanation".i18n(),
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .displayMedium
+                                                            ?.copyWith(
+                                                          fontSize: 16.sp,
+                                                          fontWeight:
+                                                          FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    controlAffinity:
+                                                    ListTileControlAffinity
+                                                        .trailing,
+                                                    children: <Widget>[
+                                                      ListTile(
+                                                        title: Text(
+                                                          model
+                                                              .examModel!
+                                                              .data!
+                                                              .questions![index]
+                                                              .answerReview!,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                            separatorBuilder: (context, index)=>SizedBox(height: 10.h),
+                                            itemCount: model.examModel!.data!
+                                                .questions!.length,),
+
+                                         */
                                       ],
                                     ),
                                   ),

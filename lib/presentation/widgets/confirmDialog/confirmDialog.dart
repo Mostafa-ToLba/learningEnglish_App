@@ -27,8 +27,8 @@ class ConfirmCustomDialog {
             children: [
               SvgPicture.asset(IconResources.profile,
                   color: Theme.of(context).textTheme.displayMedium?.color),
-              const SizedBox(width: 10),
-               Text(title??'',style: TextStyle(color: Colors.black),),
+               SizedBox(width: 10.w),
+               Text(title??'',style: TextStyle(color: Colors.black,fontSize: 18.sp),),
             ],
           ),
           content:  Column(
@@ -37,7 +37,7 @@ class ConfirmCustomDialog {
             children: <Widget>[
               Text(
                 title2??'',
-                textAlign: TextAlign.right,
+                textAlign: TextAlign.right,style: TextStyle(fontSize: 16.sp,),
               ),
             ],
           ),

@@ -53,12 +53,13 @@ class HttpApi {
         type: RequestType.Put, body: body);
     return res;
   }
+
   //*******************  Get units  *************************//
 
-  Future<dynamic> units({int levelId=1}) async {
+  Future<dynamic> units({int levelId = 1}) async {
     final res = await customDio.request(
-        EndPoints.getUnits(levelId),
-        type: RequestType.Get,
+      EndPoints.getUnits(levelId),
+      type: RequestType.Get,
     );
     return res;
   }
@@ -118,10 +119,30 @@ class HttpApi {
 
   Future<dynamic> lessonCode({Map<String, dynamic>? body}) async {
     final res = await customDio.request(
-      EndPoints.lessonCodes,
-      type: RequestType.Post,
-      body: body
+        EndPoints.lessonCodes,
+        type: RequestType.Post,
+        body: body
     );
     return res;
   }
+
+  //*******************   Get exams  *************************//
+
+  Future<dynamic> exams({required int examId}) async {
+    final res = await customDio.request(
+      EndPoints.getExams(examId),
+      type: RequestType.Get,
+    );
+    return res;
+  }
+
+
+  //*******************   saveExamResult  *************************//
+
+  Future<dynamic> saveExamResult({Map<String, dynamic>? body}) async {
+    final res = await customDio.request(EndPoints.saveExamResult,
+        type: RequestType.Post, body: body);
+    return res;
+  }
+
 }
