@@ -193,9 +193,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                     Navigator.push(
                         context, SlideTransition1(const TestExam()));
                   }
-                  else
-                  {
-                  } else {
+                   else {
                     ShowCustomDialog(
                       context: context,
                       content: StatefulBuilder(

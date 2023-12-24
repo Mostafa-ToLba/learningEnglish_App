@@ -151,8 +151,8 @@ class ExamsViewModel extends BaseNotifier {
       }
        if (isToken != true) {
         } else {
-          Navigator.pop(context);
-          General.showToast(message: "You took the exam before");
+    //      Navigator.pop(context);
+    //      General.showToast(message: "You took the exam before");
         }
     } catch (e) {
       print(e.toString());

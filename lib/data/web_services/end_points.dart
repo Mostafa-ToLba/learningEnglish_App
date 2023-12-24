@@ -26,8 +26,6 @@ class EndPoints {
 
   static const String saveExamResult = "Exams/SaveExamResult";
   static String getExams(int examId) => "Exams/Get/$examId";
-  static const String saveExamResult = "Exams/SaveExamResult";
   static const String getStudentExams = "Exams/GetStudentExams";
   static String getStudentExamResultDetails(int examResultId) => "Exams/GetStudentExamResultDetails?examResultId=$examResultId";
-  static const String lessonCodes = "Codes/UseCode";
 }

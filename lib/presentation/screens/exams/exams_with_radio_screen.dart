@@ -167,160 +167,177 @@ class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
                                 children: [
                                   SizedBox(height: 45.h),
                                   Container(
-                                    decoration: ShapeDecoration(
-                                      color: themeVm.isDark == true
-                                          ? Colors.black
-                                          : ColorResources.white1,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(56.r),
-                                      ),
-                                    ),
-                                    //padding: const EdgeInsets.all(8.0),
-                                    margin: EdgeInsets.only(
-                                        right: 8.w, left: 8.w), //, top: 45.h),
-                                    padding: EdgeInsets.only(
-                                        right: 20.w, left: 20.w, top: 25.h),
-
-                                    child: ListView.builder(
+                                    // decoration: ShapeDecoration(
+                                    //   color: themeVm.isDark == true
+                                    //       ? Colors.black
+                                    //       : ColorResources.grey1,
+                                    //   shape: RoundedRectangleBorder(
+                                    //     borderRadius:
+                                    //         BorderRadius.circular(56.r),
+                                    //   ),
+                                    // ),
+                                    // //padding: const EdgeInsets.all(8.0),
+                                    // margin: EdgeInsets.only(
+                                    //     right: 8.w, left: 8.w), //, top: 45.h),
+                                    // padding: EdgeInsets.only(
+                                    //     right: 20.w, left: 20.w, top: 25.h),
+                                    child: ListView.separated(
                                       shrinkWrap: true,
                                       physics: const BouncingScrollPhysics(),
                                       scrollDirection: Axis.vertical,
                                       itemCount: model
                                           .examModel!.data!.questions!.length,
                                       itemBuilder: (context, index) {
-                                        return VisibilityDetector(
-                                          key: Key(index.toString()),
-                                          onVisibilityChanged:
-                                              (VisibilityInfo info) {
-                                            if (info.visibleFraction == 1) {
-                                              setState(() {
-                                                questionIndex = index + 1;
-                                              });
-                                            }
-                                          },
-                                          child: Column(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      width: 32.w,
-                                                      height: 32.h,
-                                                      clipBehavior:
-                                                          Clip.antiAlias,
-                                                      decoration:
-                                                          ShapeDecoration(
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          side: BorderSide(
-                                                            width: 1,
-                                                            color:
-                                                                ColorResources
-                                                                    .red,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      50.dg),
-                                                        ),
-                                                      ),
-                                                      child: Center(
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  top: 8.sp),
-                                                          child: Text(
-                                                            '${index + 1}',
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .displayMedium
-                                                                ?.copyWith(
-                                                                  fontSize:
-                                                                      14.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  height:
-                                                                      0.16.h,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: 4.w),
-                                                    Expanded(
-                                                      child: Text(
-                                                        model
-                                                            .examModel!
-                                                            .data!
-                                                            .questions![index]
-                                                            .questionBody!,
-                                                        //textAlign: TextAlign.justify,
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .displayMedium
-                                                            ?.copyWith(
-                                                              fontSize: 16.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
+                                        return Container(
+                                          margin: EdgeInsets.only(
+                                              right: 8.w, left: 8.w), //, top: 45.h),
+                                          padding: EdgeInsets.only(
+                                              right: 20.w, left: 20.w, top: 25.h),
+                                          decoration: ShapeDecoration(
+                                            color: themeVm.isDark == true
+                                                ? Colors.black
+                                                : ColorResources.white1,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(56.r),
+                                            ),
+                                          ),
+                                          child: VisibilityDetector(
+                                            key: Key(index.toString()),
+                                            onVisibilityChanged:
+                                                (VisibilityInfo info) {
+                                              if (info.visibleFraction == 1) {
+                                                setState(() {
+                                                  questionIndex = index + 1;
+                                                });
+                                              }
+                                            },
+                                            child: Column(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Container(
+                                                        width: 32.w,
+                                                        height: 32.h,
+                                                        clipBehavior:
+                                                            Clip.antiAlias,
+                                                        decoration:
+                                                            ShapeDecoration(
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            side: BorderSide(
+                                                              width: 1,
+                                                              color:
+                                                                  ColorResources
+                                                                      .red,
                                                             ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        50.dg),
+                                                          ),
+                                                        ),
+                                                        child: Center(
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    top: 8.sp),
+                                                            child: Text(
+                                                              '${index + 1}',
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .displayMedium
+                                                                  ?.copyWith(
+                                                                    fontSize:
+                                                                        14.sp,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    height:
+                                                                        0.16.h,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                      SizedBox(width: 4.w),
+                                                      Expanded(
+                                                        child: Text(
+                                                          model
+                                                              .examModel!
+                                                              .data!
+                                                              .questions![index]
+                                                              .questionBody!,
+                                                          //textAlign: TextAlign.justify,
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .displayMedium
+                                                              ?.copyWith(
+                                                                fontSize: 16.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(height: 10.h),
-                                              // choicesBody(index),
-                                              QuestionWidget(
-                                                  index: index,
-                                                  questionId: questionId,
-                                                  answers: answers),
-                                              SizedBox(height: 0.h),
-                                            ],
+                                                SizedBox(height: 10.h),
+                                                // choicesBody(index),
+                                                QuestionWidget(
+                                                    index: index,
+                                                    questionId: questionId,
+                                                    answers: answers),
+                                                SizedBox(height: 0.h),
+                                              ],
+                                            ),
                                           ),
                                         );
-                                      },
+                                      }, separatorBuilder: (BuildContext context, int index)=>SizedBox(height: 20.h),
                                     ),
                                   ),
                                   SizedBox(height: 15.h),
-                                  CustomButton(
-                                    widgetInCenter: Align(
-                                      alignment: Alignment.center,
-                                      child: CustomText(
-                                        text: "continue".i18n(),
-                                        textAlign: TextAlign.center,
-                                        color: Colors.white,
-                                        txtSize: 17.sp,
-                                        fontWeight: FontWeight.w600,
+                                  Padding(
+                                    padding:  EdgeInsets.symmetric(horizontal: 20.w),
+                                    child: CustomButton(
+                                      widgetInCenter: Align(
+                                        alignment: Alignment.center,
+                                        child: CustomText(
+                                          text: 'انهاء الامتحان',
+                                          textAlign: TextAlign.center,
+                                          color: Colors.white,
+                                          txtSize: 15.sp,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
-                                    ),
-                                    color: ColorResources.buttonColor,
-                                    onTap: () {
-                                      final examsResult = AnswersModel(
-                                        examId: model.examModel!.data!.id,
-                                        result: answers,
-                                      );
+                                      color: ColorResources.buttonColor,
+                                      onTap: () {
+                                        final examsResult = AnswersModel(
+                                          examId: model.examModel!.data!.id,
+                                          result: answers,
+                                        );
 
-                                      model.saveExamResult(
-                                          context, examsResult);
-                                      /*
+                                        model.saveExamResult(
+                                            context, examsResult);
+                                        /*
                               model.pageController.nextPage(
                                 duration: const Duration(milliseconds: 500),
                                 curve: Curves.ease,
                               );
                               */
-                                      //print(examModelList);
-                                      //  Navigator.push(context, SlideTransition1(const ResultsScreen()));
-                                    },
+                                        //print(examModelList);
+                                        //  Navigator.push(context, SlideTransition1(const ResultsScreen()));
+                                      },
+                                    ),
                                   ),
                                 ],
                               ),
