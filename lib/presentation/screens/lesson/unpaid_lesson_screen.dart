@@ -8,7 +8,6 @@ import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes
 import 'package:learning_anglish_app/data/models/lessons/lessons.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/exams_unsolved_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/homework_screen.dart';
-import 'package:learning_anglish_app/presentation/screens/testExam/testExam.dart';
 import 'package:learning_anglish_app/presentation/screens/videoScreen/videoScreen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/customDialog/customDialog.dart';
@@ -43,6 +42,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
     homeVm.validCode = widget.studentOwnIt!;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final homeVm = Provider.of<HomeViewModel>(context);
@@ -206,7 +206,6 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                       ),
                     ).showCustomDialg(context);
                   }
-                  ;
                 },
                 child: Container(
                   height: 80.h,
@@ -283,8 +282,10 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                     homeVm.checkExamsByLesson(widget.lessonId!);
                     homeVm.checkExamsByExamType(context, ExamType.exam);
                     if (homeVm.examId != null) {
-                      context.read<ExamsViewModel>().getExams(homeVm.examId!);
-                      context.read<ExamsViewModel>().isStudentTookExam(context, homeVm.examId!);
+                     // context.read<ExamsViewModel>().getExams(homeVm.examId!);
+                      context
+                          .read<ExamsViewModel>()
+                          .isStudentTookExam(context, homeVm.examId!);
                     } else {
                       General.showToast(
                           message:
@@ -353,8 +354,6 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                                 .displayMedium
                                 ?.copyWith(
                                   fontSize: 16.sp,
-                                  //color: Theme.of(context).primaryColor,
-                                  // color: ColorResources.black,
                                   fontWeight: FontWeight.w400,
                                   letterSpacing: -0.17.h,
                                 ),

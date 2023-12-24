@@ -45,7 +45,7 @@ class ExamsViewModel extends BaseNotifier {
       studentExamsModel = StudentExamsModel.fromJson(res.data);
       if (studentExamsModel?.data != []) {
         isToken = studentExamsModel!.data!.any((map) {
-          bool result = map.examId == examModel!.data!.id!;
+          bool result = map.examId == examId;
           result ? examResultId = map.examResultId : null;
           return result;
         });
