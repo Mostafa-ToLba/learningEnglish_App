@@ -282,7 +282,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                     homeVm.checkExamsByLesson(widget.lessonId!);
                     homeVm.checkExamsByExamType(context, ExamType.exam);
                     if (homeVm.examId != null) {
-                      context.read<ExamsViewModel>().getExams(homeVm.examId!);
+                     // context.read<ExamsViewModel>().getExams(homeVm.examId!);
                       context
                           .read<ExamsViewModel>()
                           .isStudentTookExam(context, homeVm.examId!);

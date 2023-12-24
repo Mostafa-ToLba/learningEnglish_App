@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/exams_vm/exams_vm.dart';
@@ -26,11 +27,11 @@ class ExamsUnsolvedScreen extends StatefulWidget {
 class _ExamsUnsolvedScreenState extends State<ExamsUnsolvedScreen> {
   @override
   void initState() {
-    /*
+    
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       context.read<ExamsViewModel>().getExams(widget.examId);
     });
-    */
+    
     super.initState();
   }
 
