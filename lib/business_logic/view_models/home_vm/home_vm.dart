@@ -97,12 +97,11 @@ class HomeViewModel extends BaseNotifier {
     examList = [];
     if (lessonsModel?.data != null) {
       lessonsModel!.data!.any((lesson) {
-        if (lesson.id == lessonId!) {
+        if (lesson.id == lessonId) {
           print(lesson.exams![0].examType);
           print(lesson.exams![0].id);
           examList = lesson.exams;
-                    print(examList!.length);
-
+          print(examList!.length);
           return true;
         }
         return false;
@@ -114,7 +113,6 @@ class HomeViewModel extends BaseNotifier {
   //*******************  check if there is exams by examtype  *************************//
   int? examId;
   void checkExamsByExamType(BuildContext context, ExamType examtype) {
-  
     if (examList != List.empty()) {
       examList!.any((exam) {
         print(exam);
@@ -129,7 +127,5 @@ class HomeViewModel extends BaseNotifier {
           message:
               "No ${examTypeForToast.values.elementAt(examtype.index)} for this lesson yet");
     }
-
-    
   }
 }

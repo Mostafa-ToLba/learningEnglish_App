@@ -138,7 +138,7 @@ class LessonWidget extends StatelessWidget {
       onTap: () {
         Navigator.push(context,
             SlideTransition1(UnpaidLessonScreen(data.studentOwnIt,data.unitName,data.name,
-            data!.videoUrl,data!.id,unitId)));
+            data.videoUrl,data.id,unitId)));
       },
       child: Container(
         height: 90.h,

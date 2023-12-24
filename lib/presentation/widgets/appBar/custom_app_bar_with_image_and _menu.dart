@@ -27,11 +27,14 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
             IconButton(
                 onPressed: onMenuPressed,
                 icon: Image(
+                  height: 30.r,
+                  width: 30.r,
                   image: const AssetImage(
                     Images.menu1,
                   ),
                   color: Theme.of(context).textTheme.displayMedium!.color,
-                )),
+                )
+            ),
           const Spacer(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,

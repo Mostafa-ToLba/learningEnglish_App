@@ -8,8 +8,6 @@ import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes
 import 'package:learning_anglish_app/data/models/lessons/lessons.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/exams_unsolved_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/homework_screen.dart';
-import 'package:learning_anglish_app/presentation/screens/exams/exams_with_radio_screen.dart';
-import 'package:learning_anglish_app/presentation/screens/exams/exams_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/testExam/testExam.dart';
 import 'package:learning_anglish_app/presentation/screens/videoScreen/videoScreen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
@@ -286,9 +284,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                     homeVm.checkExamsByExamType(context, ExamType.exam);
                     if (homeVm.examId != null) {
                       context.read<ExamsViewModel>().getExams(homeVm.examId!);
-                      context
-                          .read<ExamsViewModel>()
-                          .isStudentTookExam(context, homeVm.examId!);
+                      context.read<ExamsViewModel>().isStudentTookExam(context, homeVm.examId!);
                     } else {
                       General.showToast(
                           message:

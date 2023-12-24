@@ -293,7 +293,7 @@ Widget question(int index, {selectedQuestion = false}) =>
       builder: (BuildContext context, model, Widget? child) {
         return InkWell(
           onTap: () {
-            model.chooseQuestion(index: index);
+    //        model.chooseQuestion(index: index);
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 18.h),
@@ -312,6 +312,7 @@ Widget question(int index, {selectedQuestion = false}) =>
               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                /*
                 Text(
                   '${model.questionNums[index]}. ${model.questionList[index]}',
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
@@ -319,6 +320,8 @@ Widget question(int index, {selectedQuestion = false}) =>
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+
+                 */
                 const Spacer(),
                 if (selectedQuestion)
                   FaIcon(
@@ -350,7 +353,7 @@ class _QuestionState extends State<Question> {
         return InkWell(
           onTap: () {
             selectedContainer = widget.index;
-            model.chooseQuestion();
+     //       model.chooseQuestion();
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 18.h),
@@ -369,6 +372,7 @@ class _QuestionState extends State<Question> {
               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                /*
                 Text(
                   '${model.questionNums[widget.index]}. ${model.questionList[widget.index]}',
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
@@ -376,6 +380,8 @@ class _QuestionState extends State<Question> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+
+                 */
                 const Spacer(),
                 if (selectedContainer ==widget.index)
                   FaIcon(
