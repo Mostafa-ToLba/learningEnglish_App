@@ -12,14 +12,14 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class ExamsScreen extends StatefulWidget {
-  const ExamsScreen({super.key});
+class HomeworkScreen extends StatefulWidget {
+  const HomeworkScreen({super.key});
 
   @override
-  State<ExamsScreen> createState() => _ExamsScreenState();
+  State<HomeworkScreen> createState() => _HomeworkScreenState();
 }
 
-class _ExamsScreenState extends State<ExamsScreen>
+class _HomeworkScreenState extends State<HomeworkScreen>
     with TickerProviderStateMixin {
   @override
   void initState() {
@@ -28,33 +28,55 @@ class _ExamsScreenState extends State<ExamsScreen>
 
   @override
   Widget build(BuildContext context) {
-    final examsVM = Provider.of<ExamsViewModel>(context);
-    return Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: PageView.builder(
-            controller: examsVM.pageController,
-            scrollDirection: Axis.vertical,
-            itemCount: 10,
-            onPageChanged: (int page) {
-              setState(() {
-                examsVM.currentPage = page + 1;
-              });
-            },
-            itemBuilder: (context, index) {
-              return ExamWidgets(context, index);
-            }));
+    return Consumer<ExamsViewModel>(
+        builder: (BuildContext contextt, model, Widget? child) {
+      return model.busy == true
+          ? Scaffold(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              body: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            ) //: Text(model.notificationModel!.data.toString());
+          : ((model.examModel?.data != null)
+              ? Scaffold(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  body: PageView.builder(
+                    controller: model.pageController,
+                    scrollDirection: Axis.vertical,
+                    itemCount: model.examModel!.data!.questions!.length,
+                    onPageChanged: (int page) {
+                      setState(() {
+                        model.isShowAnswerChecked = false;
+                        model.selectedIndex = null;
+                        model.currentPage = page + 1;
+                      });
+                    },
+                    itemBuilder: (context, index) {
+                      print("index");
+                      print(index);
+                      return HomeworkWidgets(context, index);
+                    },
+                  ),
+                )
+              : Scaffold(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  body: const Center(
+                    child: Text("No exams"),
+                  ),
+                ));
+    });
   }
 }
 
-class ExamWidgets extends StatefulWidget {
+class HomeworkWidgets extends StatefulWidget {
   final int index;
-  const ExamWidgets(BuildContext context, this.index, {super.key});
+  const HomeworkWidgets(BuildContext context, this.index, {super.key});
 
   @override
-  State<ExamWidgets> createState() => _ExamWidgetsState();
+  State<HomeworkWidgets> createState() => _HomeworkWidgetsState();
 }
 
-class _ExamWidgetsState extends State<ExamWidgets> {
+class _HomeworkWidgetsState extends State<HomeworkWidgets> {
   @override
   void initState() {
     final examVM = Provider.of<ExamsViewModel>(context, listen: false);
@@ -80,6 +102,8 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                       alignment: Alignment.topLeft,
                       child: InkWell(
                         onTap: () {
+                          model.isShowAnswerChecked = false;
+                          model.selectedIndex = null;
                           Navigator.pop(context);
                         },
                         child: Container(
@@ -150,7 +174,8 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                       barRadius: Radius.circular(8.r),
                       width: 305.w,
                       lineHeight: 8.0,
-                      percent: (widget.index + 1).toDouble() / 10.0,
+                      percent: (widget.index + 1).toDouble() /
+                          model.examModel!.data!.questions!.length,
                       backgroundColor: Colors.grey[300],
                       progressColor: const Color(0xff1c1c1a),
                     ),
@@ -225,7 +250,11 @@ class _ExamWidgetsState extends State<ExamWidgets> {
                                 SizedBox(width: 4.w),
                                 Expanded(
                                   child: Text(
-                                      '  the question thar is shown to students and it is a multi line based on the length of the question and to make sure that srolling is working fine',
+                                      model
+                                          .examModel!
+                                          .data!
+                                          .questions![widget.index]
+                                          .questionBody!,
                                       //textAlign: TextAlign.justify,
                                       style: Theme.of(context)
                                           .textTheme
@@ -241,168 +270,69 @@ class _ExamWidgetsState extends State<ExamWidgets> {
 
                           // answer one (not selected)
                           SizedBox(height: 10.h),
-                          SizedBox(
-                            height: 280.h,
-                            child: ListView.separated(
-                                physics: const ScrollPhysics(),
-                                itemBuilder: (context, index) => question(index,
-                                    selectedQuestion:
-                                        model.selectedIndex == index),
-                                separatorBuilder: (context, index) =>
-                                    SizedBox(height: 10.h),
-                                itemCount: 4),
-                          ),
-
-                          // answer two (selected and right)
-                          /*
-                      SizedBox(height: 10.h),
-                      Container(
-                        width: 311.w,
-                        height: 56.h,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 24.w, vertical: 18.h),
-                        decoration: ShapeDecoration(
-                          color: ColorResources.greenLight,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              width: 1,
-                              color: ColorResources.greenDark,
-                            ),
-                            borderRadius: BorderRadius.circular(32),
-                          ),
-                        ),
-                        child: Row(
-                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'B. Answer Two',
-                                style: TextStyle(
-                                  color: ColorResources.greenDark,
-                                  fontSize: 17.sp,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w600,
+                          model.isShowAnswerChecked
+                              ? QuestionWidget(index: widget.index)
+                              : SizedBox(
+                                  height: 280.h,
+                                  child: ListView.separated(
+                                      physics: const BouncingScrollPhysics(),
+                                      itemBuilder: (context, answerIndex) =>
+                                          question(widget.index, answerIndex,
+                                              selectedQuestion:
+                                                  model.selectedIndex ==
+                                                      answerIndex),
+                                      separatorBuilder: (context, index) =>
+                                          SizedBox(height: 10.h),
+                                      itemCount: 4),
                                 ),
-                              ),
-                            ),
-                            SizedBox(width: 20.w),
-                            Icon(
-                              Icons.check_circle_outline_rounded,
-                              color: ColorResources.greenDark,
-                              size: 20.dg,
-                            ),
-                          ],
-                        ),
-                      ),
-                      // answer three (selected and wrong)
-                      SizedBox(height: 10.h),
-                      Container(
-                        width: 311.w,
-                        height: 56.h,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 24.w, vertical: 18.h),
-                        decoration: ShapeDecoration(
-                          color: ColorResources.redLight,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              width: 1,
-                              color: ColorResources.redDark,
-                            ),
-                            borderRadius: BorderRadius.circular(32),
-                          ),
-                        ),
-                        child: Row(
-                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'C. Answer Three',
-                                style: TextStyle(
-                                  color: ColorResources.redDark,
-                                  fontSize: 17,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 20.w),
-                            FaIcon(
-                              FontAwesomeIcons.circleXmark,
-                              color: ColorResources.redDark,
-                              size: 20.dg,
-                            ),
-                          ],
-                        ),
-                      ),
-                      // answer four (selected and not determined yet)
-
-                      SizedBox(height: 10.h),
-                      Container(
-                        width: 311.w,
-                        height: 56.h,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 24.w, vertical: 18.h),
-                        decoration: ShapeDecoration(
-                          color: ColorResources.brownLight,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              width: 1,
-                              color: ColorResources.brownDark,
-                            ),
-                            borderRadius: BorderRadius.circular(32),
-                          ),
-                        ),
-                        child: Row(
-                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'D. Answer Four',
-                                style: TextStyle(
-                                  color: ColorResources.brownDark,
-                                  fontSize: 17.sp,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 20.w),
-                            FaIcon(
-                              FontAwesomeIcons.circleDot,
-                              color: ColorResources.brownDark,
-                              size: 20.dg,
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      */
-
                           SizedBox(height: 0.h),
-                          ExpansionTile(
-                            title: Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                "explanation".i18n(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium
-                                    ?.copyWith(
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w500,
+                          model.isShowAnswerChecked
+                              ? ExpansionTile(
+                                  title: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      "explanation".i18n(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     ),
+                                  ),
+                                  controlAffinity:
+                                      ListTileControlAffinity.trailing,
+                                  children: <Widget>[
+                                    ListTile(
+                                      title: Text(model
+                                          .examModel!
+                                          .data!
+                                          .questions![widget.index]
+                                          .answerReview!),
+                                    ),
+                                  ],
+                                )
+                              : const Card(),
+                          SizedBox(height: 15.h),
+                          CustomButton(
+                            widgetInCenter: Align(
+                              alignment: Alignment.center,
+                              child: CustomText(
+                                text: "Check answer",
+                                textAlign: TextAlign.center,
+                                color: Colors.white,
+                                txtSize: 17.sp,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
-                            controlAffinity: ListTileControlAffinity.trailing,
-                            children: const <Widget>[
-                              ListTile(
-                                  title: Text(
-                                      'This is tile number 3aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')),
-                            ],
+                            color: ColorResources.buttonColor,
+                            onTap: () {
+                              model.checkAnswer();
+                              //  Navigator.push(context, SlideTransition1(const ResultsScreen()));
+                            },
                           ),
+
                           SizedBox(height: 15.h),
                           CustomButton(
                             widgetInCenter: Align(
@@ -438,42 +368,159 @@ class _ExamWidgetsState extends State<ExamWidgets> {
   }
 }
 
-Widget question(int index, {selectedQuestion = false}) =>
+class QuestionWidget extends StatefulWidget {
+  final int index;
+
+  const QuestionWidget({
+    super.key,
+    required this.index,
+  });
+
+  @override
+  State<QuestionWidget> createState() => _QuestionWidgetState();
+}
+
+class _QuestionWidgetState extends State<QuestionWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ExamsViewModel>(
+      builder: (BuildContext context, model, Widget? child) {
+        return Wrap(
+          children: List<Widget>.generate(
+            model.examModel!.data!.questions![widget.index].answers!.length,
+            (int answerIndex) {
+              print(answerIndex);
+              final isCorrect = model.examModel!.data!.questions![widget.index]
+                  .answers![answerIndex].isCorrect!;
+
+
+                   print("isCorrectanswers ${model.examModel!.data!.questions![widget.index]
+                  .answers![answerIndex].isCorrect!}"); 
+                print("isCorrect $isCorrect"); 
+              final studentSelectedIndex = model.selectedIndex;
+              print("studentSelectedIndex $studentSelectedIndex"); 
+              final studentAnswer = (studentSelectedIndex != null)
+                  ? model.examModel!.data!.questions![widget.index]
+                      .answers![studentSelectedIndex].isCorrect 
+                  : null;
+              print("studentAnswer $studentAnswer"); 
+              print("studentAnswer ${model.examModel!.data!.questions![widget.index]
+                      .answers![studentSelectedIndex!]}"); 
+              print( isCorrect || (studentAnswer != null));
+              return Container(
+                margin: EdgeInsets.symmetric(vertical: 5.h),
+                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      width: isCorrect || (studentAnswer != null)
+                          ? 2
+                          : 1,
+                      color: isCorrect || (studentAnswer != null)
+                          ? isCorrect
+                              ? ColorResources.greenDark
+                              : ColorResources.redDark
+                          : ColorResources.grey2,
+                    ),
+                    borderRadius: BorderRadius.circular(32),
+                  ),
+                  color: isCorrect || (studentAnswer != null)
+                      ? isCorrect
+                          ? ColorResources.greenLight
+                          : ColorResources.redLight
+                      : Colors.transparent,
+                ),
+                child: Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      model.examModel!.data!.questions![widget.index]
+                          .answers![answerIndex].answerBody!,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                            fontSize: 17.sp,
+                            fontWeight: FontWeight.w400,
+                            color:
+                                isCorrect || (studentAnswer != null)
+                                    ? isCorrect
+                                        ? ColorResources.greenDark
+                                        : ColorResources.redDark
+                                    : ColorResources.brownDark,
+                          ),
+                    ),
+                    const Spacer(),
+                    isCorrect || (studentAnswer != null)
+                        ? isCorrect
+                            ? FaIcon(
+                                FontAwesomeIcons.check,
+                                color: ColorResources.greenDark,
+                                size: 20.dg,
+                              )
+                            : FaIcon(
+                                FontAwesomeIcons.x,
+                                color: ColorResources.redDark,
+                                size: 20.dg,
+                              )
+                        : Card(),
+                  ],
+                ),
+              );
+            },
+          ).toList(),
+        );
+      },
+    );
+  }
+}
+
+Widget question(int quesionIndex, int answerIndex,
+        {selectedQuestion = false}) =>
     Consumer<ExamsViewModel>(
       builder: (BuildContext context, model, Widget? child) {
         return InkWell(
           onTap: () {
-            model.chooseQuestion(index: index);
+            model.chooseAnswerInHomeworkAndExams(answerIndex);
           },
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 18.h),
+            margin: EdgeInsets.symmetric(vertical: 5.h),
+            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
             decoration: ShapeDecoration(
               shape: RoundedRectangleBorder(
                 side: BorderSide(
-                  width: selectedQuestion ? 2 : 1,
-                  color: selectedQuestion
-                      ? ColorResources.greenDark
+                  width: model.selectedIndex == answerIndex ? 2 : 1,
+                  color: model.selectedIndex == answerIndex
+                      ? ColorResources.brownDark
                       : ColorResources.grey2,
                 ),
                 borderRadius: BorderRadius.circular(32),
               ),
+              color: model.selectedIndex == answerIndex
+                  ? ColorResources.brownLight
+                  : Colors.transparent,
             ),
             child: Row(
               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  '${model.questionNums[index]}. ${model.questionList[index]}',
+                  model.examModel!.data!.questions![quesionIndex]
+                      .answers![answerIndex].answerBody!,
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 17.sp,
                         fontWeight: FontWeight.w400,
+                        color: model.selectedIndex == answerIndex
+                            ? ColorResources.brownDark
+                            : ColorResources.appGreyColor,
                       ),
                 ),
                 const Spacer(),
-                if (selectedQuestion)
+                if (model.selectedIndex == answerIndex)
                   FaIcon(
                     FontAwesomeIcons.circleDot,
-                    color: ColorResources.greenDark,
+                    color: ColorResources.brownDark,
                     size: 20.dg,
                   ),
               ],
