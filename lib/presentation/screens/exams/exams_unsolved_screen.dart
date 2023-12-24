@@ -7,6 +7,7 @@ import 'package:learning_anglish_app/data/models/answers/answers_model.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
+import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -301,13 +302,22 @@ class _ExamsUnsolvedScreenState extends State<ExamsUnsolvedScreen> {
                                     ),
                                     color: ColorResources.buttonColor,
                                     onTap: () {
-                                      final examsResult = AnswersModel(
-                                        examId: model.examModel!.data!.id,
-                                        result: answers,
-                                      );
+                                      if (answers.length !=
+                                          model.examModel!.data!
+                                              .numberOfQuestions) {
+                                        General.showToast(
+                                            message:
+                                                "Please answer all questions");
+                                      } else {
+                                        final examsResult = AnswersModel(
+                                          examId: model.examModel!.data!.id,
+                                          result: answers,
+                                        );
 
-                                      model.saveExamResult(
-                                          context, examsResult);
+                                        model.saveExamResult(
+                                            context, examsResult);
+                                      }
+
                                       /*
                               model.pageController.nextPage(
                                 duration: const Duration(milliseconds: 500),
