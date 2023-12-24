@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/exams_vm/exams_vm.dart';
@@ -15,25 +14,22 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class ExamsWithRadioScreen extends StatefulWidget {
+class ExamsUnsolvedScreen extends StatefulWidget {
   final int examId;
-  const ExamsWithRadioScreen({super.key, required this.examId});
+  const ExamsUnsolvedScreen({super.key, required this.examId});
 
   @override
-  State<ExamsWithRadioScreen> createState() => _ExamsWithRadioScreenState();
+  State<ExamsUnsolvedScreen> createState() => _ExamsUnsolvedScreenState();
 }
 
-class _ExamsWithRadioScreenState extends State<ExamsWithRadioScreen> {
-  //List<ExamModel> examModelList = List.empty(growable: true);  @override
+class _ExamsUnsolvedScreenState extends State<ExamsUnsolvedScreen> {
   @override
   void initState() {
-    //final examVM = Provider.of<ExamsViewModel>(context, listen: false);
-    //examVM.selectedIndex = 0;
+    /*
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      
       context.read<ExamsViewModel>().getExams(widget.examId);
-      context.read<ExamsViewModel>().isStudentTookExam(context, widget.examId);
     });
+    */
     super.initState();
   }
 

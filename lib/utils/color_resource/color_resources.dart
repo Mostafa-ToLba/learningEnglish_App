@@ -5,7 +5,7 @@ class ColorResources {
   static Color get primary => const Color(0xFF777777);
   static Color get black => const Color(0xFF000000);
   static Color get blue => const Color(0xFF7BB7FF);
-
+  static Color get transparent => Colors.transparent;
   
   static Color get white1 => const Color(0xFFFFFFFF);
   static Color get white2 => const Color(0xFFE0E5EB);

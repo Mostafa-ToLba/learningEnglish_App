@@ -6,6 +6,7 @@ import 'package:learning_anglish_app/data/models/answers/answers_model.dart';
 import 'package:learning_anglish_app/data/models/results/results_model.dart';
 import 'package:learning_anglish_app/data/models/studentExams/student_exams_model.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/exams_solved_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/exams/exams_unsolved_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/result/results_screen.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
@@ -15,22 +16,14 @@ import '/business_logic/setup/base_notifier.dart';
 class ExamsViewModel extends BaseNotifier {
   final PageController pageController = PageController();
   int currentPage = 0;
+  bool isShowAnswerChecked = false;
+  int? selectedIndex;
+  void checkAnswer() {
+    isShowAnswerChecked = true;
+    notifyListeners();
+  }
 
-  int selectedIndex = 0;
-  List<String> questionList = [
-    "had written",
-    "has written",
-    "had been written",
-    "wrote",
-  ];
-
-  List<String> questionNums = [
-    "A",
-    "B",
-    "C",
-    "D",
-  ];
-  chooseQuestion({index}) {
+  void chooseAnswerInHomeworkAndExams(int index) {
     selectedIndex = index;
     print(index);
     notifyListeners();
@@ -44,25 +37,35 @@ class ExamsViewModel extends BaseNotifier {
   bool? isToken;
   void isStudentTookExam(BuildContext context, int examId) async {
     setBusy();
+
     try {
       Response<dynamic> res = await api.getStudentExams();
       res.data['errorMessage'] != null
           ? General.showToast(message: res.data['errorMessage'])
           : null;
+
       studentExamsModel = StudentExamsModel.fromJson(res.data);
+      //Logger().d(studentExamsModel);
+
       if (studentExamsModel?.data != []) {
         isToken = studentExamsModel!.data!.any((map) {
           bool result = map.examId == examModel!.data!.id!;
-          result ? examResultId = map.examId : null;
+          result ? examResultId = map.examResultId : null;
           return result;
         });
-       
       }
-       if (isToken != true) {
-        } else {
-          Navigator.pop(context);
-          General.showToast(message: "You took the exam before");
-        }
+      /*
+      print("isToken");
+      print(isToken);
+      print("examResultId");
+      print(examResultId);
+      */
+      if (isToken == true) {
+        Navigator.push(context, SlideTransition1(ExamsSolvedScreen()));
+      } else {
+        Navigator.push(
+            context, SlideTransition1(ExamsUnsolvedScreen(examId: examId)));
+      }
     } catch (e) {
       print(e.toString());
       Logger().e(e.toString());
@@ -80,12 +83,8 @@ class ExamsViewModel extends BaseNotifier {
           ? General.showToast(message: res.data['errorMessage'])
           : null;
       examModel = ExamModel.fromJson(res.data);
-      /*
-      } else {
-        Navigator.pop(context);
-        //General.showToast(message: "You took the exam before");
-      }
-      */
+      print("examModel");
+      Logger().d(examModel?.data);
     } catch (e) {
       print(e.toString());
       Logger().e(e.toString());
@@ -119,6 +118,8 @@ class ExamsViewModel extends BaseNotifier {
   void getStudentExams(BuildContext context) async {
     setBusy();
     try {
+      print("examResultId");
+      Logger().d(examResultId);
       Response<dynamic> res = await api.getStudentExams();
       res.data['errorMessage'] != null
           ? General.showToast(message: res.data['errorMessage'])
@@ -131,13 +132,9 @@ class ExamsViewModel extends BaseNotifier {
           bool result = map.examId == examModel!.data!.id!;
           result ? examResultId = map.examResultId : null;
           return result;
-        });print(examResultId);
-       Navigator.push(context, SlideTransition1(ExamsSolvedScreen()));
+        });
+        print(examResultId);
       }
-
-    
-
-
     } catch (e) {
       print(e.toString());
       Logger().e(e.toString());
@@ -155,7 +152,6 @@ class ExamsViewModel extends BaseNotifier {
           ? General.showToast(message: res.data['errorMessage'])
           : null;
       examResultDetailsModel = ExamResultDetailsModel.fromJson(res.data);
-      print(examResultDetailsModel!.data);
     } catch (e) {
       print(e.toString());
       Logger().e(e.toString());

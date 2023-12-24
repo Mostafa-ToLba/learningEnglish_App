@@ -8,8 +8,15 @@ import 'package:learning_anglish_app/presentation/widgets/update/animatedUpdate.
 import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
 import 'package:logger/logger.dart';
 
-class HomeViewModel extends BaseNotifier {
+enum ExamType { exam, homework, questionbank }
 
+final examTypeForToast = {
+  ExamType.exam: "exams",
+  ExamType.homework: "homework",
+  ExamType.questionbank: "questions"
+};
+
+class HomeViewModel extends BaseNotifier {
   //*******************  units  *************************//
   UnitModel? unitModel;
   void getUnits({levelId}) async {
@@ -25,8 +32,7 @@ class HomeViewModel extends BaseNotifier {
     setIdle();
   }
 
-
-   //*******************  Lessons  *************************//
+  //*******************  Lessons  *************************//
 
   final List<Color> colors = [
     Colors.red,
@@ -42,7 +48,7 @@ class HomeViewModel extends BaseNotifier {
     // Added 10 colors
   ];
 
-  Lessons? lessonsModel ;
+  Lessons? lessonsModel;
   void getLessons({unitId}) async {
     setBusy();
     try {
@@ -57,31 +63,68 @@ class HomeViewModel extends BaseNotifier {
   }
 
   //*******************  post lesson code  *************************//
-  bool validCode =false;
+  bool validCode = false;
   TextEditingController codeController = TextEditingController();
-  void postLessonCode({lessonId,context,unitId}) async {
-    Map<String,dynamic> body = {
+  void postLessonCode({lessonId, context, unitId}) async {
+    Map<String, dynamic> body = {
       "code": codeController.text,
       "lessonId": lessonId,
     };
     setBusy();
     try {
-      Response<dynamic> res = await api.lessonCode(body:body);
-      General.showToast(message: res.data['errorMessage']??'تم الشراء بنجاح');
-      if(res.data['errorCode']==0) {
+      Response<dynamic> res = await api.lessonCode(body: body);
+      General.showToast(message: res.data['errorMessage'] ?? 'تم الشراء بنجاح');
+      if (res.data['errorCode'] == 0) {
         validCode = true;
         Navigator.pop(context);
         ShowCustomDialog(
-            context: context, content:AnimatedUpdate(
-            updatedMassage: 'تم شراء الحصة بنجاح')
-        ).showCustomDialg(context);
-        getLessons(unitId:unitId);
+                context: context,
+                content: AnimatedUpdate(updatedMassage: 'تم شراء الحصة بنجاح'))
+            .showCustomDialg(context);
+        getLessons(unitId: unitId);
       }
-   //   getUserProfile();
+      //   getUserProfile();
     } catch (e) {
       Logger().e(e.toString());
       setError();
     }
     setIdle();
+  }
+
+  //*******************  check if there is exams in lesson  *************************//
+  List<Exame>? examList;
+  void checkExamsByLesson(int lessonId) {
+    if (lessonsModel?.data != null) {
+      lessonsModel!.data.any((lesson) {
+        if (lesson.id == lessonId!) {
+          examList = lesson.exames;
+          return true;
+        }
+        return false;
+      });
+    } else {
+      General.showToast(message: "No exams for this lesson yet");
+    }
+  }
+  //*******************  check if there is exams by examtype  *************************//
+  int? examId;
+  void checkExamsByExamType(BuildContext context, ExamType examtype) {
+  
+    if (examList != List.empty()) {
+      examList!.any((exam) {
+        print(exam);
+        if (exam.examType == examtype.index) {
+          examId = exam.id;
+          return true;
+        }
+        return false;
+      });
+    } else {
+      General.showToast(
+          message:
+              "No ${examTypeForToast.values.elementAt(examtype.index)} for this lesson yet");
+    }
+
+    
   }
 }

@@ -109,7 +109,7 @@ class _ResultsScreenState extends State<ResultsScreen>
                                     ),
                                     Text(
                                       //'10 of 10',
-                                      "${model.resultsModel!.data!.score!.toDouble()} of ${model.resultsModel!.data!.degree!.toDouble()}",
+                                      "${model.resultsModel!.data!.score!} of ${model.resultsModel!.data!.degree!}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .displayMedium

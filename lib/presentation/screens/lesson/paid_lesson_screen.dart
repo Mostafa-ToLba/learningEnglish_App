@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:learning_anglish_app/presentation/screens/exams/exams_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/exams/homework_screen.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:localization/localization.dart';
@@ -135,7 +135,7 @@ class _PaidLessonScreenState extends State<PaidLessonScreen> {
               GestureDetector(
                 onTap: () {
                   Navigator.push(
-                      context, SlideTransition1(const ExamsScreen()));
+                      context, SlideTransition1(const HomeworkScreen()));
                 },
                 child: Container(
                   height: 80.h,

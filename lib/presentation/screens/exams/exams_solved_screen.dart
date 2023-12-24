@@ -5,11 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:learning_anglish_app/business_logic/view_models/exams_vm/exams_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
-import 'package:learning_anglish_app/presentation/screens/main/home_view.dart';
-import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
-import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -29,10 +26,10 @@ class _ExamsSolvedScreenState extends State<ExamsSolvedScreen> {
     //final examVM = Provider.of<ExamsViewModel>(context, listen: false);
     //examVM.selectedIndex = 0;
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      final examResultId = Provider.of<ExamsViewModel>(context, listen: false).examResultId;
-      if (examResultId != null) {
+      //final examResultId = Provider.of<ExamsViewModel>(context, listen: false).examResultId;
+      //if (examResultId != null) {
         context.read<ExamsViewModel>().getStudentExamResultDetails();
-      }
+      //}
     });
     super.initState();
   }
