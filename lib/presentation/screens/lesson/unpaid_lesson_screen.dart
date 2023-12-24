@@ -185,7 +185,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                     homeVm.checkExamsByExamType(context, ExamType.homework);
                     if (homeVm.examId != null) {
                       print("examId");
-           print(homeVm.examId);            
+                      print(homeVm.examId);
                       context.read<ExamsViewModel>().getExams(homeVm.examId!);
                       Navigator.push(
                           context, SlideTransition1(const HomeworkScreen()));

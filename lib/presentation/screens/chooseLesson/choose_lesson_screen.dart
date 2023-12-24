@@ -34,7 +34,7 @@ class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: homeVm.lessonsModel==null?const Center(child: CircularProgressIndicator()):
-        homeVm.lessonsModel!.data.isEmpty?const Center(child: Text('لا يوجد حصص')):Padding(
+        homeVm.lessonsModel!.data == null ?const Center(child: Text('لا يوجد حصص')):Padding(
           padding: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w),
           child: Column(
             children: [
@@ -76,7 +76,7 @@ class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            homeVm.lessonsModel?.data[0].unitName??'',
+                            homeVm.lessonsModel?.data![0].unitName??'',
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
@@ -111,9 +111,9 @@ class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
               ),
               Expanded(
                 child: ListView.separated
-                  (itemBuilder: (context,index)=> LessonWidget(index,homeVm.colors,homeVm.lessonsModel!.data[index],widget.id),
+                  (itemBuilder: (context,index)=> LessonWidget(index,homeVm.colors,homeVm.lessonsModel!.data![index],widget.id),
                     separatorBuilder: (context,index)=>SizedBox(height: 10.h),
-                    itemCount:homeVm.lessonsModel!.data.length)
+                    itemCount:homeVm.lessonsModel!.data!.length)
               ),
             ],
           ),
@@ -138,7 +138,7 @@ class LessonWidget extends StatelessWidget {
       onTap: () {
         Navigator.push(context,
             SlideTransition1(UnpaidLessonScreen(data.studentOwnIt,data.unitName,data.name,
-            data.videoUrl,data.id,unitId)));
+            data!.videoUrl,data!.id,unitId)));
       },
       child: Container(
         height: 90.h,

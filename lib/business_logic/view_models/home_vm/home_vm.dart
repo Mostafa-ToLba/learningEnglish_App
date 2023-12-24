@@ -92,12 +92,17 @@ class HomeViewModel extends BaseNotifier {
   }
 
   //*******************  check if there is exams in lesson  *************************//
-  List<Exame>? examList;
+  List<Exam>? examList;
   void checkExamsByLesson(int lessonId) {
+    examList = [];
     if (lessonsModel?.data != null) {
-      lessonsModel!.data.any((lesson) {
+      lessonsModel!.data!.any((lesson) {
         if (lesson.id == lessonId!) {
-          examList = lesson.exames;
+          print(lesson.exams![0].examType);
+          print(lesson.exams![0].id);
+          examList = lesson.exams;
+                    print(examList!.length);
+
           return true;
         }
         return false;
