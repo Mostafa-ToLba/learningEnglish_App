@@ -7,7 +7,7 @@ class AppConstants {
   static const String arabicFont2 = 'ElMessiri';
   static const String darkPreferences = 'ElMessiri';
   static bool? dark ;
-  static String token = "";
+  static String? token = "";
   static String refreshToken = "";
 }
 

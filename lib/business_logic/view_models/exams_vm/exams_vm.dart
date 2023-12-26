@@ -19,6 +19,7 @@ class ExamsViewModel extends BaseNotifier {
   bool isShowAnswerChecked = false;
   int? selectedIndex;
   void checkAnswer() {
+    selectedIndex ==null?General.showToast(message: 'اختار اجابة'):
     isShowAnswerChecked = true;
     notifyListeners();
   }
@@ -51,12 +52,6 @@ class ExamsViewModel extends BaseNotifier {
         });
        
       }
-      /*
-      print("isToken");
-      print(isToken);
-      print("examResultId");
-      print(examResultId);
-      */
       if (isToken == true) {
         Navigator.push(context, SlideTransition1(ExamsSolvedScreen()));
       } else {

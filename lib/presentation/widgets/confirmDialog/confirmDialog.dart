@@ -47,7 +47,7 @@ class ConfirmCustomDialog {
 
                 Navigator.of(context).pop();
               },
-              child: const Text('إلغاء'),
+              child:  Text('إلغاء',style: TextStyle(fontSize: 15.sp),),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(

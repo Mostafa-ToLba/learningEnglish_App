@@ -85,35 +85,35 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
                 textColor: Colors.white,
               ),
-              ListTile(
-                horizontalTitleGap: 20.w,
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const NotificationScreen()));
-                },
-                trailing: Icon(
-                  Icons.notifications,
-                  size: 28.dg,
-                  color: Colors.white,
-                ),
-                // const Icon(Icons.star_border, size: 20.0, color: Colors.white),
-                title: Text(
-                  'الأشعارات',
-                  textDirection: TextDirection.rtl,
-                  style: TextStyle(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w500,
-                    fontFamily:
-                        Theme.of(context).textTheme.titleSmall?.fontFamily,
-                  ),
-                ),
-                textColor: Colors.white,
-                dense: true,
-
-                // padding: EdgeInsets.zero,
-              ),
+              // ListTile(
+              //   horizontalTitleGap: 20.w,
+              //   onTap: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: (context) => const NotificationScreen()));
+              //   },
+              //   trailing: Icon(
+              //     Icons.notifications,
+              //     size: 28.dg,
+              //     color: Colors.white,
+              //   ),
+              //   // const Icon(Icons.star_border, size: 20.0, color: Colors.white),
+              //   title: Text(
+              //     'الأشعارات',
+              //     textDirection: TextDirection.rtl,
+              //     style: TextStyle(
+              //       fontSize: 15.sp,
+              //       fontWeight: FontWeight.w500,
+              //       fontFamily:
+              //           Theme.of(context).textTheme.titleSmall?.fontFamily,
+              //     ),
+              //   ),
+              //   textColor: Colors.white,
+              //   dense: true,
+              //
+              //   // padding: EdgeInsets.zero,
+              // ),
               ListTile(
                 horizontalTitleGap: 20.w,
                 onTap: () {},

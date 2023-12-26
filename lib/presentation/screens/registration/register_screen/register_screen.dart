@@ -30,11 +30,6 @@ class _RegisterScreenState extends State<RegisterScreen>
   @override
   void initState() {
     super.initState();
-    //  nameController.addListener(_updateTypingStatus);
-    //  phoneController.addListener(_updateTypingStatus);
-    //  phone2Controller.addListener(_updateTypingStatus);
-    //  emailController.addListener(_updateTypingStatus);
-    //  passwordController.addListener(_updateTypingStatus);
     _controller = AnimationController(
       vsync: this,
       duration: Duration(
@@ -60,27 +55,6 @@ class _RegisterScreenState extends State<RegisterScreen>
     super.dispose();
   }
 
-  bool isChecked = false;
-  TextEditingController nameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController phone2Controller = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  bool isTyping = false;
-  bool phoneTyping = false;
-  bool phone2Typing = false;
-  bool emailTyping = false;
-  bool passwordTyping = false;
-
-  void _updateTypingStatus() {
-    setState(() {
-      isTyping = nameController.text.isNotEmpty;
-      phoneTyping = phoneController.text.isNotEmpty;
-      phone2Typing = phone2Controller.text.isNotEmpty;
-      emailTyping = emailController.text.isNotEmpty;
-      passwordTyping = passwordController.text.isNotEmpty;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -226,8 +200,6 @@ class _RegisterScreenState extends State<RegisterScreen>
                           onTap: () {
                             if (formKey.currentState!.validate()) {
                               model.register(context: context);
-                              Navigator.pushReplacement(
-                                  context, SlideTransition1(const LoginScreen()));
                             }
                           },
                           loading: model.busy,

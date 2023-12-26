@@ -134,8 +134,8 @@ class _PaidLessonScreenState extends State<PaidLessonScreen> {
                   ),SizedBox(height: 16.h),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context, SlideTransition1(const HomeworkScreen()));
+              //    Navigator.push(
+               //       context, SlideTransition1(const HomeworkScreen()));
                 },
                 child: Container(
                   height: 80.h,

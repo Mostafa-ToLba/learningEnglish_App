@@ -13,7 +13,8 @@ import 'package:provider/provider.dart';
 
 class ChooseLessonScreen extends StatefulWidget {
   final int id;
-  const ChooseLessonScreen(this.id, {super.key});
+  final String screenType;
+  const ChooseLessonScreen(this.id, this.screenType, {super.key});
   @override
   State<ChooseLessonScreen> createState() => _ChooseLessonScreenState();
 }
@@ -22,7 +23,7 @@ class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      context.read<HomeViewModel>().getLessons(unitId:widget.id);
+        context.read<HomeViewModel>().getLessons(unitId:widget.id);
     });
     super.initState();
   }
@@ -34,7 +35,7 @@ class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: homeVm.lessonsModel==null?const Center(child: CircularProgressIndicator()):
-        homeVm.lessonsModel!.data == null ?const Center(child: Text('لا يوجد حصص')):Padding(
+        homeVm.lessonsModel!.data!.isEmpty ? const Center(child: Text('لا يوجد حصص')):Padding(
           padding: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w),
           child: Column(
             children: [
@@ -111,7 +112,7 @@ class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
               ),
               Expanded(
                 child: ListView.separated
-                  (itemBuilder: (context,index)=> LessonWidget(index,homeVm.colors,homeVm.lessonsModel!.data![index],widget.id),
+                  (itemBuilder: (context,index)=> LessonWidget(index,homeVm.colors,homeVm.lessonsModel!.data![index],widget.id,widget.screenType),
                     separatorBuilder: (context,index)=>SizedBox(height: 10.h),
                     itemCount:homeVm.lessonsModel!.data!.length)
               ),
@@ -129,7 +130,9 @@ class LessonWidget extends StatelessWidget {
   final Lesson data;
   final int unitId;
 
-  const LessonWidget(this.index, this.colors, this.data, this.unitId, {super.key});
+  final String screenType;
+
+  const LessonWidget(this.index, this.colors, this.data, this.unitId, this.screenType, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +141,7 @@ class LessonWidget extends StatelessWidget {
       onTap: () {
         Navigator.push(context,
             SlideTransition1(UnpaidLessonScreen(data.studentOwnIt,data.unitName,data.name,
-            data.videoUrl,data.id,unitId)));
+            data.videoUrl,data.id,unitId,screenType)));
       },
       child: Container(
         height: 90.h,

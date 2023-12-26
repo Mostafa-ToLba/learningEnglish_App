@@ -280,9 +280,12 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                           ],
                         ),
                         onPressed: () {
-                          Route route = MaterialPageRoute(
-                              builder: (context) => const LoginScreen());
-                          Navigator.pushReplacement(context, route);
+                          model.signOut().then((value)
+                          {
+                            Route route = MaterialPageRoute(
+                                builder: (context) => const LoginScreen());
+                            Navigator.pushReplacement(context, route);
+                          });
                         },
                       ),
                     ],

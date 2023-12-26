@@ -157,6 +157,15 @@ class HttpApi {
     return res;
   }
 
+  //******************* signOut  *************************//
+
+  Future<dynamic> signOut() async {
+    final res = await customDio.request(
+        EndPoints.signOut,
+        type: RequestType.Post
+    );
+    return res;
+  }
 
 
 }

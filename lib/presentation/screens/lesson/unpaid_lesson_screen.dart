@@ -8,6 +8,7 @@ import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes
 import 'package:learning_anglish_app/data/models/lessons/lessons.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/exams_unsolved_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/homework_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/chooseExamScreen/chooseExamScreen.dart';
 import 'package:learning_anglish_app/presentation/screens/videoScreen/videoScreen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/customDialog/customDialog.dart';
@@ -26,9 +27,10 @@ class UnpaidLessonScreen extends StatefulWidget {
   final String? videoUrl;
   final int? lessonId;
   final int? unitId;
+  final String screenType;
 
   const UnpaidLessonScreen(this.studentOwnIt, this.unitName, this.name,
-      this.videoUrl, this.lessonId, this.unitId,
+      this.videoUrl, this.lessonId, this.unitId, this.screenType,
       {super.key});
 
   @override
@@ -177,23 +179,25 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                   ),
                 ),
               ),
+
               SizedBox(height: 20.h),
+
               GestureDetector(
                 onTap: () {
                   if (homeVm.validCode) {
-                    homeVm.checkExamsByLesson(widget.lessonId!);
-                    homeVm.checkExamsByExamType(context, ExamType.homework);
-                    if (homeVm.examId != null) {
-                      print("examId");
-                      print(homeVm.examId);
-                      context.read<ExamsViewModel>().getExams(homeVm.examId!);
-                      Navigator.push(
-                          context, SlideTransition1(const HomeworkScreen()));
-                    } else {
-                      General.showToast(
-                          message:
-                              "No ${examTypeForToast.values.elementAt(ExamType.homework.index)} for this lesson yet");
-                    }
+                    Navigator.push(context, SlideTransition1(HomeworkScreen(widget.lessonId!,widget.screenType)));
+                    // homeVm.checkExamsByLesson(widget.lessonId!);
+                    // homeVm.checkExamsByExamType(context, ExamType.homework);
+                    // if (homeVm.examId != null) {
+                    //   print("examId");
+                    //   print(homeVm.examId);
+                    //   context.read<ExamsViewModel>().getExams(homeVm.examId!);
+                    //   Navigator.push(context, SlideTransition1(const HomeworkScreen()));
+                    // } else {
+                    //   General.showToast(
+                    //       message:
+                    //           "No ${examTypeForToast.values.elementAt(ExamType.homework.index)} for this lesson yet");
+                    // }
                   } else {
                     ShowCustomDialog(
                       context: context,
@@ -250,7 +254,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'الواجب المنزلي',
+                            widget.screenType=='home'?'الواجب المنزلي':'بنك الأسئلة',
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
@@ -275,22 +279,24 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                   ),
                 ),
               ),
+
               SizedBox(height: 20.h),
-              InkWell(
+              if(widget.screenType =="home")
+              GestureDetector(
                 onTap: () {
                   if (homeVm.validCode) {
-                    homeVm.checkExamsByLesson(widget.lessonId!);
-                    homeVm.checkExamsByExamType(context, ExamType.exam);
-                    if (homeVm.examId != null) {
-                     // context.read<ExamsViewModel>().getExams(homeVm.examId!);
-                      context
-                          .read<ExamsViewModel>()
-                          .isStudentTookExam(context, homeVm.examId!);
-                    } else {
-                      General.showToast(
-                          message:
-                              "No ${examTypeForToast.values.elementAt(ExamType.exam.index)} for this lesson yet");
-                    }
+                    Navigator.push(context, SlideTransition1(ChooseExamScreen(widget.lessonId!)));
+
+                    // homeVm.checkExamsByLesson(widget.lessonId!);
+                    // homeVm.checkExamsByExamType(context, ExamType.exam);
+                    // if (homeVm.examId != null) {
+                    //  // context.read<ExamsViewModel>().getExams(homeVm.examId!);
+                    //   context.read<ExamsViewModel>().isStudentTookExam(context, homeVm.examId!);
+                    // } else {
+                    //   General.showToast(
+                    //       message:
+                    //           "No ${examTypeForToast.values.elementAt(ExamType.exam.index)} for this lesson yet");
+                    // }
                   } else {
                     ShowCustomDialog(
                       context: context,
@@ -376,6 +382,108 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                   ),
                 ),
               ),
+
+              // if(widget.screenType =="home")
+              //   GestureDetector(
+              //     onTap: () {
+              //       if (homeVm.validCode) {
+              //         Navigator.push(context, SlideTransition1(ChooseExamScreen(widget.lessonId!)));
+              //
+              //         // homeVm.checkExamsByLesson(widget.lessonId!);
+              //         // homeVm.checkExamsByExamType(context, ExamType.exam);
+              //         // if (homeVm.examId != null) {
+              //         //  // context.read<ExamsViewModel>().getExams(homeVm.examId!);
+              //         //   context.read<ExamsViewModel>().isStudentTookExam(context, homeVm.examId!);
+              //         // } else {
+              //         //   General.showToast(
+              //         //       message:
+              //         //           "No ${examTypeForToast.values.elementAt(ExamType.exam.index)} for this lesson yet");
+              //         // }
+              //       } else {
+              //         ShowCustomDialog(
+              //           context: context,
+              //           content: StatefulBuilder(
+              //             builder: (BuildContext context,
+              //                 void Function(void Function()) setStatee) {
+              //               return CodeDialogWidget(
+              //                   widget.lessonId!, widget.unitId!);
+              //             },
+              //           ),
+              //         ).showCustomDialg(context);
+              //       }
+              //     },
+              //     child: Container(
+              //       height: 80.h,
+              //       width: double.infinity,
+              //       padding: EdgeInsets.all(24.dg),
+              //       //margin: EdgeInsets.all(24.dg),
+              //       decoration: BoxDecoration(
+              //         boxShadow: [
+              //           BoxShadow(
+              //             color: ColorResources.shadow,
+              //             blurRadius: 10.r,
+              //             offset: const Offset(
+              //               0,
+              //               8,
+              //             ),
+              //             spreadRadius: -8,
+              //           )
+              //         ],
+              //         color: themeVm.isDark == true
+              //             ? ColorResources.containerColor
+              //             : Colors.white,
+              //         borderRadius: BorderRadius.circular(32.r),
+              //       ),
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //         crossAxisAlignment: CrossAxisAlignment.center,
+              //         children: [
+              //           Container(
+              //               width: 28.r,
+              //               height: 28.r,
+              //               padding: EdgeInsets.only(right: 3.w),
+              //               decoration: const ShapeDecoration(
+              //                 color: Color(0xFF49423A),
+              //                 shape: OvalBorder(),
+              //               ),
+              //               child: SvgPicture.asset(
+              //                 IconResources.arrowleft,
+              //                 color: Colors.white,
+              //               )),
+              //           Row(
+              //             mainAxisAlignment: MainAxisAlignment.end,
+              //             crossAxisAlignment: CrossAxisAlignment.center,
+              //             children: [
+              //               Text(
+              //                 'امتحان الحصة',
+              //                 textAlign: TextAlign.center,
+              //                 style: Theme.of(context)
+              //                     .textTheme
+              //                     .displayMedium
+              //                     ?.copyWith(
+              //                   fontSize: 16.sp,
+              //                   fontWeight: FontWeight.w400,
+              //                   letterSpacing: -0.17.h,
+              //                 ),
+              //               ),
+              //               SizedBox(width: 16.w),
+              //               Container(
+              //                 height: 32.r,
+              //                 width: 32.r,
+              //                 decoration: BoxDecoration(
+              //                     borderRadius: BorderRadius.circular(10.r),
+              //                     image: const DecorationImage(
+              //                       image: AssetImage(
+              //                         "assets/images/testYourself.png",
+              //                       ),
+              //                     )),
+              //               ),
+              //             ],
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
             ],
           ),
         ),

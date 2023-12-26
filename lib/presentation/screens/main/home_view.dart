@@ -59,6 +59,7 @@ class _HomeViewState extends State<HomeView> {
             CustomAppBarWithImageAndMenu(
               menuIcon: true,
               onMenuPressed: () {
+       //         mainScreenVm.scaffoldkey.currentState!.openDrawer();
                 final state =
                     Provider.of<MainScreenViewModel>(context, listen: false)
                         .sideMenuKey
@@ -111,7 +112,7 @@ class HomeWidget extends StatelessWidget {
     final themeVM = Provider.of<ThemesViewModel>(context);
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, SlideTransition1(ChooseLessonScreen(data[index].id??0)));
+        Navigator.push(context, SlideTransition1(ChooseLessonScreen(data[index].id!,'home')));
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 24.w),
@@ -156,7 +157,7 @@ class HomeWidget extends StatelessWidget {
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      'عدد الدروس : 8',
+                      data[index].educationalLevelName??'',
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 fontSize: 14.sp,

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/exams_vm/exams_vm.dart';
+import 'package:learning_anglish_app/business_logic/view_models/home_vm/home_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
+import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -13,7 +15,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class HomeworkScreen extends StatefulWidget {
-  const HomeworkScreen({super.key});
+  final int lessonId;
+  final String screenType;
+  const HomeworkScreen(this.lessonId, this.screenType, {super.key});
 
   @override
   State<HomeworkScreen> createState() => _HomeworkScreenState();
@@ -23,6 +27,19 @@ class _HomeworkScreenState extends State<HomeworkScreen>
     with TickerProviderStateMixin {
   @override
   void initState() {
+    final homeVm = Provider.of<HomeViewModel>(context,listen: false);
+    homeVm.checkExamsByLesson(widget.lessonId);
+    homeVm.checkExamsByExamType(context, widget.screenType=='home'?ExamType.homework:ExamType.questionbank);
+    if (homeVm.examId != null) {
+      print("examId");
+      print(homeVm.examId);
+      context.read<ExamsViewModel>().getExams(homeVm.examId!);
+    } else {
+      General.showToast(
+          message:
+          "No ${examTypeForToast.values.elementAt(ExamType.homework.index)} for this lesson yet");
+      Navigator.of(context);
+    }
     super.initState();
   }
 
@@ -146,7 +163,7 @@ class _HomeworkWidgetsState extends State<HomeworkWidgets> {
                                     fontWeight: FontWeight.w500,
                                   ),
                             ),
-                            SizedBox(height: 22.h),
+                            SizedBox(height: 12.h),
                             Text(
                               'Unit 1/ Lesson 1',
                               textAlign: TextAlign.justify,
@@ -166,27 +183,27 @@ class _HomeworkWidgetsState extends State<HomeworkWidgets> {
                     SizedBox(width: 30.w),
                   ],
                 ),
-                SizedBox(height: 32.h),
+                SizedBox(height: 20.h),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     LinearPercentIndicator(
-                      isRTL: true,
+                      isRTL: false,
                       barRadius: Radius.circular(8.r),
                       width: 305.w,
-                      lineHeight: 8.0,
+                      lineHeight: 7.h,
                       percent: (widget.index + 1).toDouble() /
                           model.examModel!.data!.questions!.length,
                       backgroundColor: Colors.grey[300],
                       progressColor: const Color(0xff1c1c1a),
                     ),
                     Text(
-                      '10/${widget.index + 1}',
+                      '${widget.index + 1} / ${model.examModel!.data!.questions!.length}',
                       textAlign: TextAlign.justify,
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400,
-                                height: 0.16.h,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
                               ),
                     ),
                   ],
@@ -205,75 +222,73 @@ class _HomeworkWidgetsState extends State<HomeworkWidgets> {
                       ),
                       //padding: const EdgeInsets.all(8.0),
                       margin: EdgeInsets.only(
-                          right: 8.w, left: 8.w), //, top: 45.h),
-                      padding:
-                          EdgeInsets.only(right: 20.w, left: 20.w, top: 25.h),
+                          right: 3.w, left: 3.w), //, top: 45.h),
+                      padding: EdgeInsets.only(right: 20.w, left: 20.w, top: 25.h),
                       child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: 32.w,
-                                  height: 32.h,
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: ShapeDecoration(
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                        width: 1,
-                                        color: ColorResources.red,
-                                      ),
-                                      borderRadius:
-                                          BorderRadius.circular(50.dg),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 32.w,
+                                height: 32.h,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: ShapeDecoration(
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                      width: 1,
+                                      color: ColorResources.red,
                                     ),
-                                  ),
-                                  child: Center(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(top: 8.sp),
-                                      child: Text(
-                                        '${widget.index + 1}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayMedium
-                                            ?.copyWith(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w400,
-                                              height: 0.16.h,
-                                            ),
-                                      ),
-                                    ),
+                                    borderRadius:
+                                        BorderRadius.circular(50.dg),
                                   ),
                                 ),
-                                SizedBox(width: 4.w),
-                                Expanded(
-                                  child: Text(
-                                      model
-                                          .examModel!
-                                          .data!
-                                          .questions![widget.index]
-                                          .questionBody!,
-                                      //textAlign: TextAlign.justify,
+                                child: Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 8.sp),
+                                    child: Text(
+                                      '${widget.index + 1}',
                                       style: Theme.of(context)
                                           .textTheme
                                           .displayMedium
                                           ?.copyWith(
-                                            fontSize: 18.sp,
+                                            fontSize: 14.sp,
                                             fontWeight: FontWeight.w400,
-                                          )),
+                                            height: 0.16.h,
+                                          ),
+                                    ),
+                                  ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(width: 6.w),
+                              Expanded(
+                                child: Text(
+                                    model
+                                        .examModel!
+                                        .data!
+                                        .questions![widget.index]
+                                        .questionBody!,
+                                    //textAlign: TextAlign.justify,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium
+                                        ?.copyWith(
+                                      fontSize: 18.sp,
+                                      fontWeight:
+                                      FontWeight
+                                          .w500,
+                                        )),
+                              ),
+                            ],
                           ),
-
                           // answer one (not selected)
-                          SizedBox(height: 10.h),
+                          SizedBox(height: 12.h),
                           model.isShowAnswerChecked
                               ? QuestionWidget(index: widget.index)
-                              : SizedBox(
-                                  height: 280.h,
+                              :
+                          SizedBox(
+                                  height: 300.h,
                                   child: ListView.separated(
                                       physics: const BouncingScrollPhysics(),
                                       itemBuilder: (context, answerIndex) =>
@@ -285,6 +300,7 @@ class _HomeworkWidgetsState extends State<HomeworkWidgets> {
                                           SizedBox(height: 10.h),
                                       itemCount: 4),
                                 ),
+
                           SizedBox(height: 0.h),
                           model.isShowAnswerChecked
                               ? ExpansionTile(
@@ -333,27 +349,27 @@ class _HomeworkWidgetsState extends State<HomeworkWidgets> {
                             },
                           ),
 
-                          SizedBox(height: 15.h),
-                          CustomButton(
-                            widgetInCenter: Align(
-                              alignment: Alignment.center,
-                              child: CustomText(
-                                text: "continue".i18n(),
-                                textAlign: TextAlign.center,
-                                color: Colors.white,
-                                txtSize: 17.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            color: ColorResources.buttonColor,
-                            onTap: () {
-                              model.pageController.nextPage(
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.ease,
-                              );
-                              //  Navigator.push(context, SlideTransition1(const ResultsScreen()));
-                            },
-                          ),
+                          // SizedBox(height: 15.h),
+                          // CustomButton(
+                          //   widgetInCenter: Align(
+                          //     alignment: Alignment.center,
+                          //     child: CustomText(
+                          //       text: "continue".i18n(),
+                          //       textAlign: TextAlign.center,
+                          //       color: Colors.white,
+                          //       txtSize: 17.sp,
+                          //       fontWeight: FontWeight.w600,
+                          //     ),
+                          //   ),
+                          //   color: ColorResources.buttonColor,
+                          //   onTap: () {
+                          //     model.pageController.nextPage(
+                          //       duration: const Duration(milliseconds: 500),
+                          //       curve: Curves.ease,
+                          //     );
+                          //     //  Navigator.push(context, SlideTransition1(const ResultsScreen()));
+                          //   },
+                          // ),
                         ],
                       ),
                     ),
@@ -385,14 +401,13 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   Widget build(BuildContext context) {
     return Consumer<ExamsViewModel>(
       builder: (BuildContext context, model, Widget? child) {
-        return Wrap(
+        return Wrap(runSpacing: 10.h,
           children: List<Widget>.generate(
             model.examModel!.data!.questions![widget.index].answers!.length,
             (int answerIndex) {
               print(answerIndex);
               final isCorrect = model.examModel!.data!.questions![widget.index]
                   .answers![answerIndex].isCorrect!;
-
 
                    print("isCorrectanswers ${model.examModel!.data!.questions![widget.index]
                   .answers![answerIndex].isCorrect!}"); 
@@ -409,26 +424,32 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               print( isCorrect || (studentAnswer != null));
               return Container(
                 margin: EdgeInsets.symmetric(vertical: 5.h),
-                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 17.h),
                 decoration: ShapeDecoration(
                   shape: RoundedRectangleBorder(
                     side: BorderSide(
                       width: isCorrect || (studentAnswer != null)
                           ? 2
                           : 1,
-                      color: isCorrect || (studentAnswer != null)
-                          ? isCorrect
-                              ? ColorResources.greenDark
-                              : ColorResources.redDark
-                          : ColorResources.grey2,
+                      color:
+                      isCorrect?ColorResources.greenDark:(answerIndex==model.selectedIndex && studentAnswer!)?ColorResources.greenLight:
+                    (answerIndex==model.selectedIndex && studentAnswer==false)?ColorResources.redDark:ColorResources.grey2,
+                      // isCorrect || (studentAnswer != null)
+                      //     ? isCorrect
+                      //         ? ColorResources.greenDark
+                      //         : ColorResources.redDark
+                      //     : ColorResources.grey2,
                     ),
                     borderRadius: BorderRadius.circular(32),
                   ),
-                  color: isCorrect || (studentAnswer != null)
-                      ? isCorrect
-                          ? ColorResources.greenLight
-                          : ColorResources.redLight
-                      : Colors.transparent,
+                  color:isCorrect?ColorResources.greenLight:(answerIndex==model.selectedIndex && studentAnswer!)?ColorResources.greenLight:
+                  (answerIndex==model.selectedIndex && studentAnswer==false)?ColorResources.redLight:Colors.transparent,
+
+                  // isCorrect || (studentAnswer != null)
+                  //     ? isCorrect
+                  //         ? ColorResources.greenLight
+                  //         : ColorResources.redLight
+                  //     : Colors.transparent,
                 ),
                 child: Row(
                   //mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -444,14 +465,17 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                             fontSize: 17.sp,
                             fontWeight: FontWeight.w400,
                             color:
-                                isCorrect || (studentAnswer != null)
-                                    ? isCorrect
-                                        ? ColorResources.greenDark
-                                        : ColorResources.redDark
-                                    : ColorResources.brownDark,
+                                // isCorrect || (studentAnswer != null)
+                                //     ? isCorrect
+                                //         ? ColorResources.greenDark
+                                //         : ColorResources.redDark
+                                //     : ColorResources.brownDark,
+                            isCorrect?ColorResources.greenDark:(answerIndex==model.selectedIndex && studentAnswer!)?ColorResources.greenLight:
+                            (answerIndex==model.selectedIndex && studentAnswer==false)?ColorResources.redDark:ColorResources.brownDark,
                           ),
                     ),
                     const Spacer(),
+                    /*
                     isCorrect || (studentAnswer != null)
                         ? isCorrect
                             ? FaIcon(
@@ -465,6 +489,22 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                 size: 20.dg,
                               )
                         : Card(),
+
+                     */
+                    isCorrect?FaIcon(
+                      FontAwesomeIcons.check,
+                      color: ColorResources.greenDark,
+                      size: 20.dg,
+                    ):(answerIndex==model.selectedIndex && studentAnswer!)?FaIcon(
+                      FontAwesomeIcons.check,
+                      color: ColorResources.greenDark,
+                      size: 20.dg,
+                    ):
+                    (answerIndex==model.selectedIndex && studentAnswer==false)?FaIcon(
+                      FontAwesomeIcons.x,
+                      color: ColorResources.redDark,
+                      size: 20.dg,
+                    ):const Card(),
                   ],
                 ),
               );
@@ -476,17 +516,24 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   }
 }
 
-Widget question(int quesionIndex, int answerIndex,
+Widget questionn(int quesionIndex, int answerIndex,
         {selectedQuestion = false}) =>
     Consumer<ExamsViewModel>(
       builder: (BuildContext context, model, Widget? child) {
+        Color containerColor = Colors.transparent;
         return InkWell(
           onTap: () {
             model.chooseAnswerInHomeworkAndExams(answerIndex);
+
+
+
+
+
+
           },
           child: Container(
             margin: EdgeInsets.symmetric(vertical: 5.h),
-            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 17.h),
             decoration: ShapeDecoration(
               shape: RoundedRectangleBorder(
                 side: BorderSide(
@@ -497,9 +544,10 @@ Widget question(int quesionIndex, int answerIndex,
                 ),
                 borderRadius: BorderRadius.circular(32),
               ),
-              color: model.selectedIndex == answerIndex
-                  ? ColorResources.brownLight
-                  : Colors.transparent,
+              color: containerColor
+              // model.selectedIndex == answerIndex
+              //     ? ColorResources.brownLight
+              //     : Colors.transparent,
             ),
             child: Row(
               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -529,3 +577,74 @@ Widget question(int quesionIndex, int answerIndex,
         );
       },
     );
+
+class question extends StatefulWidget {
+  final int quesionIndex;
+  final int answerIndex;
+  final bool selectedQuestion;
+
+  const question(this.quesionIndex, this.answerIndex, {super.key, this.selectedQuestion=false});
+
+  @override
+  State<question> createState() => _questionState();
+}
+
+class _questionState extends State<question> {
+  @override
+  Widget build(BuildContext context) {
+
+    return
+    Consumer<ExamsViewModel>(
+      builder: (BuildContext context, model, Widget? child) {
+        return InkWell(
+          onTap: () {
+            model.chooseAnswerInHomeworkAndExams(widget.answerIndex);
+          },
+          child: Container(
+            margin: EdgeInsets.symmetric(vertical: 5.h),
+            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 17.h),
+            decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    width: model.selectedIndex == widget.answerIndex ? 2 : 1,
+                    color: model.selectedIndex == widget.answerIndex
+                        ? ColorResources.brownDark
+                        : ColorResources.grey2,
+                  ),
+                  borderRadius: BorderRadius.circular(32),
+                ),
+                color: model.selectedIndex == widget.answerIndex
+                  ? ColorResources.brownLight
+                  : Colors.transparent,
+            ),
+            child: Row(
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  model.examModel!.data!.questions![widget.quesionIndex]
+                      .answers![widget.answerIndex].answerBody!,
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                    fontSize: 17.sp,
+                    fontWeight: FontWeight.w400,
+                    color: model.selectedIndex == widget.answerIndex
+                        ? ColorResources.brownDark
+                        : ColorResources.appGreyColor,
+                  ),
+                ),
+                const Spacer(),
+                if (model.selectedIndex == widget.answerIndex)
+                  FaIcon(
+                    FontAwesomeIcons.circleDot,
+                    color: ColorResources.brownDark,
+                    size: 20.dg,
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+

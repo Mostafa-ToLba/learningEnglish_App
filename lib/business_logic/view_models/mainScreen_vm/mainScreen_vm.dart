@@ -5,21 +5,23 @@ import 'package:flutter/services.dart';
 import 'package:learning_anglish_app/business_logic/setup/base_notifier.dart';
 import 'package:learning_anglish_app/presentation/screens/main/home_view.dart';
 import 'package:learning_anglish_app/presentation/screens/main/question_bank_view.dart';
+import 'package:learning_anglish_app/presentation/screens/notification/notification_screen.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import '../../../presentation/screens/main/profile_settings_view.dart';
 import 'dart:developer' as developer;
 
 class MainScreenViewModel extends BaseNotifier {
+  var scaffoldkey = GlobalKey<ScaffoldState>();
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   final GlobalKey<SideMenuState> sideMenuKey = GlobalKey<SideMenuState>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey(); // Create a key
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>();
-  int selectedIndex = 2;
+  int selectedIndex = 3;
   final List<Widget> widgetOptions = <Widget>[
     const ProfileSettingsView(),
+    const NotificationScreen(),
     QuestionBankView(),
-    // TODO: edit this
     HomeView(
       id: '1',
     ),

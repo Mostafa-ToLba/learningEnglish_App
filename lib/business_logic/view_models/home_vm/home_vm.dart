@@ -98,8 +98,8 @@ class HomeViewModel extends BaseNotifier {
     if (lessonsModel?.data != null) {
       lessonsModel!.data!.any((lesson) {
         if (lesson.id == lessonId) {
-          print(lesson.exams![0].examType);
-          print(lesson.exams![0].id);
+     //     print(lesson.exams![0].examType);
+     //     print(lesson.exams![0].id);
           examList = lesson.exams;
           print(examList!.length);
           return true;

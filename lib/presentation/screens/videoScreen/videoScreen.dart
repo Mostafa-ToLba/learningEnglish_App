@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
@@ -22,7 +23,8 @@ class _VideoScreenState extends State<VideoScreen> {
 
   @override
   void initState() {
-    videoURL = 'https://www.youtube.com/watch?v=${widget.videoUrl}';
+   // videoURL = 'https://www.youtube.com/watch?v=${widget.videoUrl}';
+    videoURL = widget.videoUrl;
     final videoID = YoutubePlayer.convertUrlToId(videoURL);
     _controller = YoutubePlayerController(
       initialVideoId: videoID!,
@@ -34,10 +36,10 @@ class _VideoScreenState extends State<VideoScreen> {
   }
   @override
   void deactivate() {
-    _controller.pause();
+    _controller.dispose();
     super.deactivate();
   }
-
+  bool isFullscreen = false;
   @override
   void dispose() {
     _controller.dispose();
@@ -47,6 +49,23 @@ class _VideoScreenState extends State<VideoScreen> {
    Widget build(BuildContext context) {
     final themeVm = Provider.of<ThemesViewModel>(context);
      return  YoutubePlayerBuilder(
+       onEnterFullScreen: ()
+       {
+         setState(() {
+           isFullscreen = true;
+
+           // Hide the system navigation bar in fullscreen mode
+           SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+         });
+       },onExitFullScreen: ()
+     {
+       setState(() {
+         isFullscreen = false;
+
+         // Restore the visibility of the system navigation bar
+         SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+       });
+     },
        player: YoutubePlayer(
          controller: _controller,
          onReady: ()
