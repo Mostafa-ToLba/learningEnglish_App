@@ -35,7 +35,7 @@ class QuestionBankView extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeVm = Provider.of<HomeViewModel>(context);
     return SafeArea(
-      child: Padding(
+      child: homeVm.unitModel==null?const Center(child: CircularProgressIndicator()):Padding(
         padding: EdgeInsets.only(top: 25.h),
         child: Column(
           children: [
@@ -106,7 +106,7 @@ class _QuestionBankState extends State<QuestionBank> {
     return GestureDetector(
       onTap: ()
       {
-        Navigator.push(context, SlideTransition1(ChooseLessonScreen(widget.unitDetails.id??0,'bank')));
+        Navigator.push(context, SlideTransition1(ChooseLessonScreen(widget.unitDetails.id??0,'bank',widget.unitDetails.name!,widget.unitDetails.educationalLevelName!)));
       },
       child: Container(
         margin: EdgeInsets.only(
@@ -167,7 +167,7 @@ class _QuestionBankState extends State<QuestionBank> {
                     children: List.generate(homeVm.lessonsModel!.data!.length,
                             (index) {
 
-                             return Text(';,,,,,');
+                             return const Text(';,,,,,');
                             }
                         )
                     // <Widget>[

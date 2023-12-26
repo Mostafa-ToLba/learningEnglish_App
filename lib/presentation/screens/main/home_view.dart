@@ -77,6 +77,7 @@ class _HomeViewState extends State<HomeView> {
             SizedBox(height: 30.h),
             Expanded(
               child: ListView.separated(
+                  physics:const BouncingScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) =>
                       AnimationConfiguration.staggeredList(
@@ -112,7 +113,7 @@ class HomeWidget extends StatelessWidget {
     final themeVM = Provider.of<ThemesViewModel>(context);
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, SlideTransition1(ChooseLessonScreen(data[index].id!,'home')));
+        Navigator.push(context, SlideTransition1(ChooseLessonScreen(data[index].id!,'home',data[index].name!,data[index].educationalLevelName!)));
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 24.w),

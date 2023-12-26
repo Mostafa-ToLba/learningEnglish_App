@@ -93,6 +93,7 @@ flutter:
     - assets/images/
     - lib/i18n/
     - assets/animations/
+    - assets/lottieAnimations/
 
   fonts:
     - family: Tajawal

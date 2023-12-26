@@ -6,15 +6,20 @@ import 'package:learning_anglish_app/business_logic/view_models/home_vm/home_vm.
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/data/models/lessons/lessons.dart';
 import 'package:learning_anglish_app/presentation/screens/lesson/unpaid_lesson_screen.dart';
+import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class ChooseLessonScreen extends StatefulWidget {
   final int id;
   final String screenType;
-  const ChooseLessonScreen(this.id, this.screenType, {super.key});
+  final String unitName;
+  final String educationalLevelName;
+
+  const ChooseLessonScreen(this.id, this.screenType, this.unitName, this.educationalLevelName, {super.key});
   @override
   State<ChooseLessonScreen> createState() => _ChooseLessonScreenState();
 }
@@ -34,8 +39,7 @@ class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
-        child: homeVm.lessonsModel==null?const Center(child: CircularProgressIndicator()):
-        homeVm.lessonsModel!.data!.isEmpty ? const Center(child: Text('لا يوجد حصص')):Padding(
+        child: Padding(
           padding: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w),
           child: Column(
             children: [
@@ -77,7 +81,7 @@ class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            homeVm.lessonsModel?.data![0].unitName??'',
+                            widget.unitName,
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
@@ -89,7 +93,7 @@ class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
                           ),
                           SizedBox(height: 12.h),
                           Text(
-                            'Getting away',
+                            widget.educationalLevelName,
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
@@ -110,10 +114,11 @@ class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
               SizedBox(
                 height: 34.h,
               ),
-              Expanded(
+              homeVm.lessonsModel==null?const Center(child: CircularProgressIndicator()):
+              homeVm.lessonsModel!.data!.isEmpty ? const Center(child: NoLesson()): Expanded(
                 child: ListView.separated
                   (itemBuilder: (context,index)=> LessonWidget(index,homeVm.colors,homeVm.lessonsModel!.data![index],widget.id,widget.screenType),
-                    separatorBuilder: (context,index)=>SizedBox(height: 10.h),
+                    separatorBuilder: (context,index)=>SizedBox(height: 20.h),
                     itemCount:homeVm.lessonsModel!.data!.length)
               ),
             ],
@@ -264,3 +269,24 @@ class LessonWidget extends StatelessWidget {
   }
 }
 
+
+class NoLesson extends StatelessWidget {
+  const NoLesson({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final themeVm = Provider.of<ThemesViewModel>(context);
+    return Column(
+      children:
+      [
+        SizedBox(height: 120.h),
+        Container(
+          width: 1.sw,
+          color: Colors.transparent,
+          child: Lottie.asset('assets/lottieAnimations/brownGirlScrolling.json',fit: BoxFit.cover,),
+        ),
+        CustomText(text: 'ليس بها حصص',txtSize: 20.sp,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor),
+      ],
+    );
+  }
+}

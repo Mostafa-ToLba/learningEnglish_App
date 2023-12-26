@@ -18,6 +18,7 @@ import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class UnpaidLessonScreen extends StatefulWidget {
@@ -484,6 +485,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
               //       ),
               //     ),
               //   ),
+
             ],
           ),
         ),
