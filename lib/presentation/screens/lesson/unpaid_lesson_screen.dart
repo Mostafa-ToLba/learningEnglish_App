@@ -3,11 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/exams_vm/exams_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/home_vm/home_vm.dart';
-import 'package:learning_anglish_app/business_logic/view_models/lessonScreen_vm/lessonScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/data/models/lessons/lessons.dart';
-import 'package:learning_anglish_app/presentation/screens/exams/exams_unsolved_screen.dart';
-import 'package:learning_anglish_app/presentation/screens/exams/homework_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/testExam/testExam.dart';
 import 'package:learning_anglish_app/presentation/screens/videoScreen/videoScreen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/customDialog/customDialog.dart';
@@ -36,13 +34,13 @@ class UnpaidLessonScreen extends StatefulWidget {
 }
 
 class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
+
   @override
   void initState() {
     final homeVm = Provider.of<HomeViewModel>(context, listen: false);
     homeVm.validCode = widget.studentOwnIt!;
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     final homeVm = Provider.of<HomeViewModel>(context);
@@ -68,6 +66,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                             .r, // Set the width and height to your desired size
                         height: 40.r, padding: EdgeInsets.only(right: 4.w),
                         decoration: BoxDecoration(
+
                           shape: BoxShape.circle,
                           color: themeVm.isDark == true
                               ? Colors.black
@@ -180,20 +179,138 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
               SizedBox(height: 20.h),
               GestureDetector(
                 onTap: () {
+                  if(homeVm.validCode)
+                  {
+                    
+                    Navigator.push(
+                        context, SlideTransition1(const TestExam()));
+                  } else {
+                    ShowCustomDialog(
+                      context: context,
+                      content: StatefulBuilder(
+                        builder: (BuildContext context,
+                            void Function(void Function()) setStatee) {
+                          return CodeDialogWidget(
+                              widget.lessonId!, widget.unitId!);
+                        },
+                      ),
+                    ).showCustomDialg(context);
+                  }
+                  ;
+                },
+                child: Container(
+                  height: 80.h,
+                  width: double.infinity,
+                  padding: EdgeInsets.all(24.dg),
+                  //margin: EdgeInsets.all(24.dg),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: ColorResources.shadow,
+                        blurRadius: 10.r,
+                        offset: const Offset(
+                          0,
+                          8,
+                        ),
+                        spreadRadius: -8,
+                      )
+                    ],
+                    color: themeVm.isDark == true
+                        ? ColorResources.containerColor
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(32.r),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                          width: 28.r,
+                          height: 28.r,
+                          padding: EdgeInsets.only(right: 3.w),
+                          decoration: const ShapeDecoration(
+                            color: Color(0xFF49423A),
+                            shape: OvalBorder(),
+                          ),
+                          child: SvgPicture.asset(
+                            IconResources.arrowleft,
+                            color: Colors.white,
+                          )),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'امتحان الحصة',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: -0.17.h,
+                                ),
+                          ),
+                          SizedBox(width: 16.w),
+                          Container(
+                            height: 32.r,
+                            width: 32.r,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.r),
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                    "assets/images/testYourself.png",
+                                  ),
+                                )),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 20.h),
+              InkWell(
+                onTap: () {
                   if (homeVm.validCode) {
-                    homeVm.checkExamsByLesson(widget.lessonId!);
-                    homeVm.checkExamsByExamType(context, ExamType.homework);
-                    if (homeVm.examId != null) {
-                      print("examId");
-                      print(homeVm.examId);
-                      context.read<ExamsViewModel>().getExams(homeVm.examId!);
-                      Navigator.push(
-                          context, SlideTransition1(const HomeworkScreen()));
+                    List<Exam>? examList;
+
+                    homeVm.lessonsModel!.data!.any((lesson) {
+                      if (lesson.id == widget.lessonId!) {
+                        examList = lesson.exams;
+                        return true;
+                      }
+                      return false;
+                    });
+
+                    if (examList != List.empty()) {
+                      int? examId;
+
+                      examList!.any((exam) {
+                        print(exam);
+                        if (exam.examType == 0) {
+                          examId = exam.id;
+                          return true;
+                        }
+                        return false;
+                      });
+                      print(examId);
+                      if (examId != null) {
+                        
+                        Navigator.push(
+                          context,
+                          SlideTransition1(
+                            TestExam(),
+                          ),
+                        );
+                      }
                     } else {
                       General.showToast(
                           message:
                               "No ${examTypeForToast.values.elementAt(ExamType.homework.index)} for this lesson yet");
                     }
+
                   } else {
                     ShowCustomDialog(
                       context: context,
@@ -521,3 +638,4 @@ class _CodeDialogWidgetState extends State<CodeDialogWidget> {
     );
   }
 }
+

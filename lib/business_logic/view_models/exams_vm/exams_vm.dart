@@ -6,7 +6,6 @@ import 'package:learning_anglish_app/data/models/answers/answers_model.dart';
 import 'package:learning_anglish_app/data/models/results/results_model.dart';
 import 'package:learning_anglish_app/data/models/studentExams/student_exams_model.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/exams_solved_screen.dart';
-import 'package:learning_anglish_app/presentation/screens/exams/exams_unsolved_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/result/results_screen.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
@@ -24,6 +23,116 @@ class ExamsViewModel extends BaseNotifier {
   }
 
   void chooseAnswerInHomeworkAndExams(int index) {
+    selectedIndex = index;
+    print(index);
+    notifyListeners();
+  }
+
+  List<String> questionList = [
+    "had written",
+    "has written",
+    "had been written",
+    "wrote",
+  ];
+
+  List<String> questionNums = [
+    "A",
+    "B",
+    "C",
+    "D",
+  ];
+  /*
+  ExamModel examModel = ExamModel(
+    errorCode: 0,
+    errorMessage: null,
+    data: Data(
+      id: 13,
+      name: "emt7an egbary",
+      examType: 0,
+      numberOfQuestions: 2,
+      timeOfExam: 10,
+      degree: 8,
+      successDegree: 6,
+      questions: [
+        Question(
+          id: 16,
+          questionBody: "what is your age",
+          answerReview: "mmmmmmmmmmmmmmm",
+          degree: 4,
+          isQuestionAsPicture: false,
+          answers: [
+            Answer(
+              id: 29,
+              answerNumber: 2,
+              isAnswerAsPicture: false,
+              answerBody: "aaaaaa",
+              isCorrect: false,
+            ),
+            Answer(
+              id: 30,
+              answerNumber: 3,
+              isAnswerAsPicture: false,
+              answerBody: "ssssssss",
+              isCorrect: true,
+            ),
+            Answer(
+              id: 28,
+              answerNumber: 1,
+              isAnswerAsPicture: false,
+              answerBody: "mmmmm",
+              isCorrect: false,
+            ),
+            Answer(
+              id: 31,
+              answerNumber: 4,
+              isAnswerAsPicture: false,
+              answerBody: "rrrrrrrrrr",
+              isCorrect: false,
+            ),
+          ],
+        ),
+        Question(
+          id: 15,
+          questionBody: "what is your name ",
+          answerReview: "his name is ali",
+          degree: 4,
+          isQuestionAsPicture: false,
+          answers: [
+            Answer(
+              id: 27,
+              answerNumber: 4,
+              isAnswerAsPicture: false,
+              answerBody: "mohamed",
+              isCorrect: false,
+            ),
+            Answer(
+              id: 25,
+              answerNumber: 2,
+              isAnswerAsPicture: false,
+              answerBody: "rana",
+              isCorrect: false,
+            ),
+            Answer(
+              id: 24,
+              answerNumber: 1,
+              isAnswerAsPicture: false,
+              answerBody: "mostafa",
+              isCorrect: false,
+            ),
+            Answer(
+              id: 26,
+              answerNumber: 3,
+              isAnswerAsPicture: false,
+              answerBody: "ali",
+              isCorrect: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+  */
+  chooseQuestion({index}) {
     selectedIndex = index;
     print(index);
     notifyListeners();
@@ -54,17 +163,10 @@ class ExamsViewModel extends BaseNotifier {
           return result;
         });
       }
-      /*
-      print("isToken");
-      print(isToken);
-      print("examResultId");
-      print(examResultId);
-      */
-      if (isToken == true) {
-        Navigator.push(context, SlideTransition1(ExamsSolvedScreen()));
+      if (isToken != true) {
       } else {
-        Navigator.push(
-            context, SlideTransition1(ExamsUnsolvedScreen(examId: examId)));
+        //      Navigator.pop(context);
+        //      General.showToast(message: "You took the exam before");
       }
     } catch (e) {
       print(e.toString());
