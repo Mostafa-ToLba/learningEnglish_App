@@ -10,7 +10,7 @@ class UnitViewModel extends BaseNotifier {
   void getUnits(int unitId) async {
     setBusy();
     try {
-      Response<dynamic> res = await api.units(levelId: unitId);
+      Response<dynamic> res = await api.units(levelId:  unitId);
       General.showToast(message: res.data['errorMessage']);
       unitModel = UnitModel.fromJson(res.data);
     } catch (e) {
