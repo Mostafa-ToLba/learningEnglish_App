@@ -95,6 +95,7 @@ class HomeViewModel extends BaseNotifier {
   List<Exam>? examList;
   void checkExamsByLesson(int lessonId) {
     examList = [];
+    examList?.clear();
     if (lessonsModel?.data != null) {
       lessonsModel!.data!.any((lesson) {
         if (lesson.id == lessonId) {
@@ -107,6 +108,7 @@ class HomeViewModel extends BaseNotifier {
         return false;
       });
     } else {
+      examList = [];
       General.showToast(message: "No exams for this lesson yet");
     }
   }
@@ -120,8 +122,14 @@ class HomeViewModel extends BaseNotifier {
           examId = exam.id;
           return true;
         }
+        else
+        {
+          examId = null;
+        }
+
         return false;
       });
+      print('************** ${examId}***********');
     } else {
       General.showToast(
           message:

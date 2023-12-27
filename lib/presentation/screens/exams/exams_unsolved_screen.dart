@@ -479,7 +479,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         style:
                             Theme.of(context).textTheme.displayMedium?.copyWith(
                                   fontSize: 17.sp,
-                                  fontWeight: groupValue == answerIndex ?FontWeight.w500:FontWeight.w400,
+                                  fontWeight: groupValue == answerIndex ?FontWeight.w500:FontWeight.w500,
                                   color: groupValue == answerIndex
                                       ? ColorResources.brownDark
                                       : ColorResources.black,

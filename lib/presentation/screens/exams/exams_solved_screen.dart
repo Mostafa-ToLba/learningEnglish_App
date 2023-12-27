@@ -391,6 +391,7 @@ class QuestionWidget extends StatefulWidget {
 class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   Widget build(BuildContext context) {
+   final themeVm = Provider.of<ThemesViewModel>(context);
     return Consumer<ExamsViewModel>(
       builder: (BuildContext context, model, Widget? child) {
         return Wrap(
@@ -447,12 +448,12 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 fontSize: 17.sp,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 color: isCorrect || studentAnswer
                                     ? isCorrect
                                         ? ColorResources.greenDark
                                         : ColorResources.redDark
-                                    : ColorResources.brownDark,
+                                    : themeVm.isDark==false?ColorResources.brownDark:Colors.white,
                               ),
                     ),
                     const Spacer(),

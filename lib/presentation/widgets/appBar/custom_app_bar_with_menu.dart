@@ -18,6 +18,8 @@ class CustomAppBarWithMenu extends StatelessWidget {
           IconButton(
             onPressed: onIconPressed,
             icon: Image(
+              height: 30.r,
+              width: 30.r,
               image: const AssetImage(Images.menu1),
               color: Theme.of(context).textTheme.displayMedium!.color,
             ),

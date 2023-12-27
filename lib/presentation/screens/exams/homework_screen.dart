@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/exams_vm/exams_vm.dart';
@@ -10,6 +11,7 @@ import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
+import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -27,19 +29,27 @@ class _HomeworkScreenState extends State<HomeworkScreen>
     with TickerProviderStateMixin {
   @override
   void initState() {
-    final homeVm = Provider.of<HomeViewModel>(context,listen: false);
-    homeVm.checkExamsByLesson(widget.lessonId);
-    homeVm.checkExamsByExamType(context, widget.screenType=='home'?ExamType.homework:ExamType.questionbank);
-    if (homeVm.examId != null) {
-      print("examId");
-      print(homeVm.examId);
-      context.read<ExamsViewModel>().getExams(homeVm.examId!);
-    } else {
-      General.showToast(
-          message:
-          "No ${examTypeForToast.values.elementAt(ExamType.homework.index)} for this lesson yet");
-      Navigator.of(context);
-    }
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      final homeVm = Provider.of<HomeViewModel>(context, listen: false);
+      final examVm = Provider.of<ExamsViewModel>(context, listen: false);
+      examVm.examModel = null;
+      homeVm.checkExamsByLesson(widget.lessonId);
+      homeVm.checkExamsByExamType(context,
+          widget.screenType == 'home' ? ExamType.homework : ExamType
+              .questionbank);
+      if (homeVm.examId != null) {
+        print("examId");
+        print(homeVm.examId);
+        context.read<ExamsViewModel>().getExams(homeVm.examId!);
+      } else {
+        General.showToast(
+            message:
+            "No ${examTypeForToast.values.elementAt(
+                widget.screenType == 'home' ? ExamType.homework.index : ExamType
+                    .questionbank.index)} for this lesson yet");
+        Navigator.of(context);
+      }
+    });
     super.initState();
   }
 
@@ -76,9 +86,20 @@ class _HomeworkScreenState extends State<HomeworkScreen>
                   ),
                 )
               : Scaffold(
+                  appBar: AppBar(backgroundColor: ColorResources.buttonColor,
+                      title:CustomText(text:widget.screenType=='home'?'الواجب المنزلي':'بنك الأسئلة',txtSize:20.sp,color: Colors.white,)),
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  body: const Center(
-                    child: Text("No exams"),
+                  body: Column(
+                    mainAxisAlignment:MainAxisAlignment.center,
+                    children:
+                    [
+                      Container(
+                        width: 1.sw,
+                        color: Colors.transparent,
+                        child: Lottie.asset('assets/lottieAnimations/onlineTest.json',fit: BoxFit.cover,),
+                      ),
+                      CustomText(text:widget.screenType=='home'?'الحصة ليس بها واجب منزلي': 'الحصة ليس بها بنك اسئلة',txtSize: 17.sp,color:Provider.of<ThemesViewModel>(context).isDark==true?Colors.white:ColorResources.buttonColor),
+                    ],
                   ),
                 ));
     });
@@ -325,7 +346,13 @@ class _HomeworkWidgetsState extends State<HomeworkWidgets> {
                                           .examModel!
                                           .data!
                                           .questions![widget.index]
-                                          .answerReview!),
+                                          .answerReview!,style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
+                                      ),),
                                     ),
                                   ],
                                 )
@@ -399,6 +426,7 @@ class QuestionWidget extends StatefulWidget {
 class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   Widget build(BuildContext context) {
+    final themeVm = Provider.of<ThemesViewModel>(context);
     return Consumer<ExamsViewModel>(
       builder: (BuildContext context, model, Widget? child) {
         return Wrap(runSpacing: 10.h,
@@ -463,7 +491,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           .displayMedium
                           ?.copyWith(
                             fontSize: 17.sp,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w500,
                             color:
                                 // isCorrect || (studentAnswer != null)
                                 //     ? isCorrect
@@ -471,7 +499,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                 //         : ColorResources.redDark
                                 //     : ColorResources.brownDark,
                             isCorrect?ColorResources.greenDark:(answerIndex==model.selectedIndex && studentAnswer!)?ColorResources.greenLight:
-                            (answerIndex==model.selectedIndex && studentAnswer==false)?ColorResources.redDark:ColorResources.brownDark,
+                            (answerIndex==model.selectedIndex && studentAnswer==false)?ColorResources.redDark:themeVm.isDark==true?Colors.white:ColorResources.brownDark,
                           ),
                     ),
                     const Spacer(),
@@ -592,9 +620,8 @@ class question extends StatefulWidget {
 class _questionState extends State<question> {
   @override
   Widget build(BuildContext context) {
-
-    return
-    Consumer<ExamsViewModel>(
+    final themeVm = Provider.of<ThemesViewModel>(context);
+    return Consumer<ExamsViewModel>(
       builder: (BuildContext context, model, Widget? child) {
         return InkWell(
           onTap: () {
@@ -626,17 +653,17 @@ class _questionState extends State<question> {
                       .answers![widget.answerIndex].answerBody!,
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
                     fontSize: 17.sp,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w500,
                     color: model.selectedIndex == widget.answerIndex
-                        ? ColorResources.brownDark
-                        : ColorResources.appGreyColor,
+                        ? themeVm.isDark==true?Colors.white:ColorResources.brownDark
+                        : themeVm.isDark==false?ColorResources.black:Colors.white,
                   ),
                 ),
                 const Spacer(),
                 if (model.selectedIndex == widget.answerIndex)
                   FaIcon(
                     FontAwesomeIcons.circleDot,
-                    color: ColorResources.brownDark,
+                    color: themeVm.isDark==true?Colors.white:ColorResources.brownDark,
                     size: 20.dg,
                   ),
               ],

@@ -300,7 +300,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
   }
 }
 
-class ProfileHeader extends StatelessWidget {
+class ProfileHeader extends StatefulWidget {
   final Color coverImageColor;
   final String avatar;
 
@@ -309,6 +309,65 @@ class ProfileHeader extends StatelessWidget {
     required this.coverImageColor,
     required this.avatar,
   });
+
+  @override
+  State<ProfileHeader> createState() => _ProfileHeaderState();
+}
+
+class _ProfileHeaderState extends State<ProfileHeader> with TickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  late AnimationController animationControllerToCircular;
+  late Animation<double> animationToCircular;
+  @override
+  void initState() {
+    // Initialize the animation controller
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 800),
+    );
+
+    // Define the animation curve
+    final curve = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+
+    // Define the animation
+    _animation = Tween<double>(begin: 0, end: 1).animate(curve);
+
+    // Start the animation
+    _animationController.forward();
+
+    /// circulara avatar animations
+    // Initialize the animation controller
+    animationControllerToCircular = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+
+    // Define the animation curve
+    final curvedCircularAvatar = CurvedAnimation(
+      parent: animationControllerToCircular,
+      curve: Curves.easeInOut,
+    );
+
+    // Define the animation
+    animationToCircular = Tween<double>(begin: 1, end: 0).animate(curvedCircularAvatar);
+
+    // Start the animation
+    animationControllerToCircular.forward();
+    ///
+    super.initState();
+  }
+  @override
+  void dispose() {
+    // Dispose the animation controller
+    _animationController.dispose();
+    animationControllerToCircular.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -317,7 +376,7 @@ class ProfileHeader extends StatelessWidget {
         children: <Widget>[
           Container(
             height: 120.h,
-            color: coverImageColor,
+            color: widget.coverImageColor,
           ),
           Positioned(
             bottom: 0,
@@ -325,11 +384,33 @@ class ProfileHeader extends StatelessWidget {
             left: 0,
             child: Column(
               children: <Widget>[
-                Avatar(
-                  image: avatar,
-                  radius: 60.r,
-                  iconBackgroudColor: coverImageColor,
-                ),
+              AnimatedBuilder(
+              animation: _animationController,
+              builder: (context, child) {
+                return Transform.scale(
+                  scale: _animationController.value, // Scales from 0 to 1
+                  child: Avatar(
+                    image: widget.avatar,
+                    radius: 60.r, // Set your desired initial size
+                    iconBackgroudColor: widget.coverImageColor,
+                  ),
+                );
+              },
+            ),
+                // SlideTransition(
+                //   position: Tween<Offset>(
+                //     begin: const Offset(0.0, 1.0), // Starts from the bottom
+                //     end: Offset.zero,
+                //   ).animate(CurvedAnimation(
+                //     parent: _animationController,
+                //     curve: Curves.easeInOut,
+                //   )),
+                //   child: Avatar(
+                //     image: widget.avatar,
+                //     radius: 60.r,
+                //     iconBackgroudColor: widget.coverImageColor,
+                //   ),
+                // ),
               ],
             ),
           ),

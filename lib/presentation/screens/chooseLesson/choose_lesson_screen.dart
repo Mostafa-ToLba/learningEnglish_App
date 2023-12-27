@@ -285,7 +285,7 @@ class NoLesson extends StatelessWidget {
           color: Colors.transparent,
           child: Lottie.asset('assets/lottieAnimations/brownGirlScrolling.json',fit: BoxFit.cover,),
         ),
-        CustomText(text: 'ليس بها حصص',txtSize: 20.sp,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor),
+        CustomText(text: 'الوحدة ليس بها حصص',txtSize: 18.sp,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor),
       ],
     );
   }
