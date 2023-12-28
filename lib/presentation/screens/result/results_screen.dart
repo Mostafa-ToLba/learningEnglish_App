@@ -125,6 +125,7 @@ class _ResultsScreenState extends State<ResultsScreen>
                                 progressColor: ColorResources.brownDark,
                               ),
                               SizedBox(height: 32.h),
+                              if(model.resultsModel!.data!.isPassed??false)
                               Text(
                                 'results_perfect_title'.i18n(),
                                 style: Theme.of(context)
@@ -138,7 +139,23 @@ class _ResultsScreenState extends State<ResultsScreen>
                                       fontWeight: FontWeight.w400,
                                     ),
                               ),
+                              if(model.resultsModel!.data!.isPassed==false)
+                              Text(
+                                'Failed!',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                  fontSize: 22.sp,
+                                  color: Colors.red,
+                                  //color: Theme.of(context).primaryColor.withOpacity(0.5),
+                                  // color: ColorResources.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+
                               SizedBox(height: 16.h),
+                              if(model.resultsModel!.data!.isPassed??false)
                               Text(
                                 'results_perfect_subtitle'.i18n(),
                                 style: Theme.of(context)
@@ -150,6 +167,22 @@ class _ResultsScreenState extends State<ResultsScreen>
                                       fontWeight: FontWeight.w400,
                                     ),
                               ),
+
+                              if(model.resultsModel!.data!.isPassed==false)
+                                Text(
+                                  'Don\'t be sad, we are here to help you succeed',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                    fontSize: 16.sp,
+                                    color: Colors.red,
+                                    //color: Theme.of(context).primaryColor.withOpacity(0.5),
+                                    // color: ColorResources.black,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+
                               SizedBox(height: 40.h),
                               SlideTransition(
                                 position: _offsetAnimation,
@@ -172,6 +205,7 @@ class _ResultsScreenState extends State<ResultsScreen>
                                   },
                                 ),
                               ),
+                              /*
                               SizedBox(height: 4.h),
                               TextButton(
                                 child: Text(
@@ -191,6 +225,8 @@ class _ResultsScreenState extends State<ResultsScreen>
                                   Navigator.pop(context);
                                 },
                               ),
+                              
+                               */
                             ],
                           ),
                         ),

@@ -91,12 +91,13 @@ class _HomeworkScreenState extends State<HomeworkScreen>
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   body: Column(
                     mainAxisAlignment:MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children:
                     [
                       Container(
                         width: 1.sw,
                         color: Colors.transparent,
-                        child: Lottie.asset('assets/lottieAnimations/onlineTest.json',fit: BoxFit.cover,),
+                        child: Lottie.asset('assets/lottieAnimations/noData2.json',fit: BoxFit.cover,),
                       ),
                       CustomText(text:widget.screenType=='home'?'الحصة ليس بها واجب منزلي': 'الحصة ليس بها بنك اسئلة',txtSize: 17.sp,color:Provider.of<ThemesViewModel>(context).isDark==true?Colors.white:ColorResources.buttonColor),
                     ],

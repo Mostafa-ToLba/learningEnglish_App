@@ -2,22 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:learning_anglish_app/business_logic/view_models/login_vm/login_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/userProfile_vm/userProfile_vm.dart';
 import 'package:learning_anglish_app/data/web_services/end_points.dart';
 import 'package:learning_anglish_app/presentation/screens/registration/login_screen/login_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/confirmDialog/confirmDialog.dart';
-import 'package:learning_anglish_app/presentation/widgets/customDialog/customDialog.dart';
 import 'package:learning_anglish_app/presentation/widgets/phoneTextField/phoneTextField.dart';
 import 'package:learning_anglish_app/presentation/widgets/profileTextField/profileTextField.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
-import 'package:learning_anglish_app/presentation/widgets/update/animatedUpdate.dart';
-import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class ProfileSettingsView extends StatefulWidget {
@@ -179,12 +174,15 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                           widgetInCenter: Align(
                             alignment: Alignment.center,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                SizedBox(width: 10.w),
                                 CustomText(
-                                  text: "change_password".i18n(),
+                                  text: 'Edit Profile',
                                   textAlign: TextAlign.center,
                                   color: Colors.white,
-                                  txtSize: 16.sp,
+                                  txtSize: 18.sp,
                                   fontWeight: FontWeight.w600,
                                 ),
                                 SizedBox(width: 10.w),

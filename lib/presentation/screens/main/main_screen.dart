@@ -96,6 +96,21 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               BottomNavigationBarItem(
+                icon: SvgPicture.asset(IconResources.messageQuestion,
+                    color: Theme.of(context).textTheme.displayMedium?.color),
+                label: 'Exams',
+                activeIcon: Container(
+                  width: 48.w,
+                  height: 48.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40.r),
+                    color: ColorResources.brownDark,
+                  ),
+                  child: SvgPicture.asset(IconResources.messageQuestion,
+                      fit: BoxFit.scaleDown, color: Colors.white),
+                ),
+              ),
+              BottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   IconResources.bank,
                   color: Theme.of(context).textTheme.displayMedium?.color,

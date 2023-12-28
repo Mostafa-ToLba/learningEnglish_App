@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:learning_anglish_app/business_logic/view_models/home_vm/home_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/data/models/lessons/lessons.dart';
@@ -146,10 +147,10 @@ class LessonWidget extends StatelessWidget {
       onTap: () {
         Navigator.push(context,
             SlideTransition1(UnpaidLessonScreen(data.studentOwnIt,data.unitName,data.name,
-            data.videoUrl,data.id,unitId,screenType)));
+            data.videoUrl,data.id,unitId,screenType,data.pdfUrl??'')));
       },
       child: Container(
-        height: 90.h,
+        height: 120.h,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           boxShadow: [
@@ -200,7 +201,7 @@ class LessonWidget extends StatelessWidget {
                           .displayMedium
                           ?.copyWith(
                         fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     SizedBox(height: 5.h,),
@@ -211,7 +212,7 @@ class LessonWidget extends StatelessWidget {
                           .textTheme
                           .displayMedium
                           ?.copyWith(
-                        fontSize: 12.sp,
+                        fontSize: 13.sp,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -229,12 +230,45 @@ class LessonWidget extends StatelessWidget {
                               .textTheme
                               .displayMedium
                               ?.copyWith(
-                            fontSize: 12.sp,
+                            fontSize: 13.sp,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
                     ),
+                    if(data.expire!=null)
+                      SizedBox(height: 5.h,),
+                    if(data.expire!=null)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            formatDateString(data.expire.toString()),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(width: 5.w,),
+                          Text(
+                            "سينتهي اشتراكك يوم",
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+
                   ],
                 ),
                 SizedBox(width: 12.w),
@@ -279,14 +313,21 @@ class NoLesson extends StatelessWidget {
     return Column(
       children:
       [
-        SizedBox(height: 120.h),
+        SizedBox(height: 70.h),
         Container(
           width: 1.sw,
           color: Colors.transparent,
-          child: Lottie.asset('assets/lottieAnimations/brownGirlScrolling.json',fit: BoxFit.cover,),
+          child: Lottie.asset('assets/lottieAnimations/noData2.json',fit: BoxFit.cover,),
         ),
         CustomText(text: 'الوحدة ليس بها حصص',txtSize: 18.sp,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor),
       ],
     );
   }
+}
+
+String formatDateString(String dateString) {
+  final parsedDate = DateTime.parse(dateString);
+  final formattedDate =
+  DateFormat('MM/dd/yyyy h:mm:ss a').format(parsedDate.toLocal());
+  return formattedDate;
 }

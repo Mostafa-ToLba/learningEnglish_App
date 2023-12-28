@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,6 +15,7 @@ import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 class QuestionBankView extends StatelessWidget {
@@ -94,253 +96,384 @@ class QuestionBank extends StatefulWidget {
 class _QuestionBankState extends State<QuestionBank> {
   @override
   void initState() {
-    final homeVm = Provider.of<HomeViewModel>(context,listen: false);
-    homeVm.getLessons(unitId: widget.unitDetails.id);
-    print('*************************** ${widget.unitDetails.id} *************');
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      context.read<HomeViewModel>().getLessons(unitId: widget.unitDetails.id);
+    });
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-    final homeVm = Provider.of<HomeViewModel>(context);
-    final themeVm = Provider.of<ThemesViewModel>(context);
+//    final homeVm = Provider.of<HomeViewModel>(context);
+    final themeVM = Provider.of<ThemesViewModel>(context);
     return GestureDetector(
       onTap: ()
       {
         Navigator.push(context, SlideTransition1(ChooseLessonScreen(widget.unitDetails.id??0,'bank',widget.unitDetails.name!,widget.unitDetails.educationalLevelName!)));
       },
       child: Container(
-        margin: EdgeInsets.only(
-          left: 24.w,
-          right: 24.w,
-        ),
-        padding: EdgeInsets.only(bottom: 24.h),
-        width: MediaQuery.sizeOf(context).width,
+        margin: EdgeInsets.symmetric(horizontal: 24.w),
+        padding: EdgeInsets.only(left: 24.dg,top: 24.dg,),
+        height: 118.h,
+        //height: MediaQuery.sizeOf(context).height * 0.2,
+        width: double.infinity,
         decoration: BoxDecoration(
           border: Border.all(
-              color: themeVm.isDark == true ? Colors.white : Colors.transparent,
-              width: .3),
-          borderRadius: BorderRadius.circular(32.r),
-          color: themeVm.isDark == true ? Colors.black : Colors.white,
+            color: themeVM.isDark == true ? Colors.white : Colors.transparent,
+            width: .3,
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(32.r),
+          ),
+          color: themeVM.isDark == true
+              ? ColorResources.black
+              : ColorResources.white1,
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: 30.h),
-            Theme(
-              data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-              child: Container(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 40.h,
+                  width: 40.w,
+                  child: Image(color:themeVM.isDark==true?Colors.white:Colors.black,image: AssetImage('assets/images/exam.png',)),
+                ),
+                const Spacer(),
+                Column(
+                  //mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      widget.unitDetails.name??'',
+                      style:
+                      Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 16.sp,
+                        fontFamily: Theme.of(context)
+                            .textTheme
+                            .titleSmall
+                            ?.fontFamily,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: 4.h),
+                    Text(
+                      widget.unitDetails.educationalLevelName??'',
+                      style:
+                      Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 14.sp,
+                        fontFamily: Theme.of(context)
+                            .textTheme
+                            .titleSmall
+                            ?.fontFamily,
+                        // TODO: Edit this
+                        color: themeVM.isDark == true
+                            ? Colors.grey
+                            : Colors.grey,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 20.w,
+                ),
+                Container(
+                  color: widget.index < widget.colors.length ? widget.colors[widget.index] : Colors.black,
+                  height: 60.h,
+                  width: 2.w,
+                ),
+                /*
+                Container(
+                  width: 28.w,
+                  height: 30.h,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(32.r),
+                    color: Colors.black.withOpacity(0),
                   ),
-                  child: ExpansionTile(
-                    iconColor: themeVm.isDark == true ? Colors.white : Colors.black,
-                    collapsedIconColor:
-                    themeVm.isDark == true ? Colors.white : Colors.black,
-                    //leading: I,
-                    trailing: Container(
-                      width: 40.w,
-                      height: 30.h,
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0),
-                      ),
-                      child: SvgPicture.asset(IconResources.book,
-                          color:
-                          widget.index < widget.colors.length ? widget.colors[widget.index] : Colors.black),
-                    ),
-                    title: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        widget.unitDetails.name??'',
-                        style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          fontFamily: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.fontFamily,
-                          fontSize: 16.sp,
+                  child: SvgPicture.asset(IconResources.book,
+                      color:
+                      widget.index < widget.colors.length ? widget.colors[widget.index] : Colors.black),
+                ),
 
-                          //color: Theme.of(context).primaryColor,
-                          // color: ColorResources.black,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    children: List.generate(homeVm.lessonsModel!.data!.length,
-                            (index) {
-
-                             return const Text(';,,,,,');
-                            }
-                        )
-                    // <Widget>[
-                    //   GestureDetector(
-                    //     onTap: () {
-                    //       Navigator.push(
-                    //           context,
-                    //           SlideTransition1(
-                    //               const QuestionBankPerLessonScreen()));
-                    //     },
-                    //     child: Container(
-                    //       margin: EdgeInsets.symmetric(
-                    //           vertical: 16.h, horizontal: 24.w),
-                    //       //height: MediaQuery.sizeOf(context).height * 0.1,
-                    //       //width: 300.w,
-                    //       //height: 56.h,
-                    //       decoration: ShapeDecoration(
-                    //         shape: RoundedRectangleBorder(
-                    //           side: BorderSide(
-                    //             width: 1,
-                    //             color: themeVm.isDark == true
-                    //                 ? ColorResources.expansionBorder
-                    //                 : Colors.black.withOpacity(0.25),
-                    //           ),
-                    //           borderRadius: BorderRadius.circular(32.r),
-                    //         ),
-                    //       ),
-                    //       child: ListTile(
-                    //         contentPadding: const EdgeInsets.symmetric(
-                    //             vertical: 2, horizontal: 12),
-                    //         title: Align(
-                    //           alignment: Alignment.centerRight,
-                    //           child: Text(
-                    //             'الحصة الاولى',
-                    //             style: TextStyle(
-                    //               fontFamily: Theme.of(context)
-                    //                   .textTheme
-                    //                   .titleSmall
-                    //                   ?.fontFamily,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //         leading: Container(
-                    //             width: 23.r,
-                    //             height: 23.r,
-                    //             padding: EdgeInsets.only(right: 3.w),
-                    //             decoration: const ShapeDecoration(
-                    //               color: Color(0xFF49423A),
-                    //               shape: OvalBorder(),
-                    //             ),
-                    //             child: SvgPicture.asset(
-                    //               IconResources.arrowleft,
-                    //               color: Colors.white,
-                    //             )),
-                    //       ),
-                    //     ),
-                    //   ),
-                    //   GestureDetector(
-                    //     onTap: () {
-                    //       Navigator.push(
-                    //           context,
-                    //           SlideTransition1(
-                    //               const QuestionBankPerLessonScreen()));
-                    //     },
-                    //     child: Container(
-                    //       margin: EdgeInsets.symmetric(
-                    //           vertical: 16.h, horizontal: 24.w),
-                    //       //height: MediaQuery.sizeOf(context).height * 0.1,
-                    //       //width: 300.w,
-                    //       //height: 56.h,
-                    //       decoration: ShapeDecoration(
-                    //         shape: RoundedRectangleBorder(
-                    //           side: BorderSide(
-                    //             width: 1,
-                    //             color: themeVm.isDark == true
-                    //                 ? ColorResources.expansionBorder
-                    //                 : Colors.black.withOpacity(0.25),
-                    //           ),
-                    //           borderRadius: BorderRadius.circular(32.r),
-                    //         ),
-                    //       ),
-                    //       child: ListTile(
-                    //         contentPadding: const EdgeInsets.symmetric(
-                    //             vertical: 2, horizontal: 12),
-                    //         title: Align(
-                    //           alignment: Alignment.centerRight,
-                    //           child: Text(
-                    //             'الحصة الاولى',
-                    //             style: TextStyle(
-                    //               fontFamily: Theme.of(context)
-                    //                   .textTheme
-                    //                   .titleSmall
-                    //                   ?.fontFamily,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //         leading: Container(
-                    //             width: 23.r,
-                    //             height: 23.r,
-                    //             padding: EdgeInsets.only(right: 3.w),
-                    //             decoration: const ShapeDecoration(
-                    //               color: Color(0xFF49423A),
-                    //               shape: OvalBorder(),
-                    //             ),
-                    //             child: SvgPicture.asset(
-                    //               IconResources.arrowleft,
-                    //               color: Colors.white,
-                    //             )),
-                    //       ),
-                    //     ),
-                    //   ),
-                    //   GestureDetector(
-                    //     onTap: () {
-                    //       Navigator.push(
-                    //           context,
-                    //           SlideTransition1(
-                    //               const QuestionBankPerLessonScreen()));
-                    //     },
-                    //     child: Container(
-                    //       margin: EdgeInsets.symmetric(
-                    //           vertical: 16.h, horizontal: 24.w),
-                    //       //height: MediaQuery.sizeOf(context).height * 0.1,
-                    //       //width: 300.w,
-                    //       //height: 56.h,
-                    //       decoration: ShapeDecoration(
-                    //         shape: RoundedRectangleBorder(
-                    //           side: BorderSide(
-                    //             width: 1,
-                    //             color: themeVm.isDark == true
-                    //                 ? ColorResources.expansionBorder
-                    //                 : Colors.black.withOpacity(0.25),
-                    //           ),
-                    //           borderRadius: BorderRadius.circular(32.r),
-                    //         ),
-                    //       ),
-                    //       child: ListTile(
-                    //         contentPadding: const EdgeInsets.symmetric(
-                    //             vertical: 2, horizontal: 12),
-                    //         title: Align(
-                    //           alignment: Alignment.centerRight,
-                    //           child: Text(
-                    //             'الحصة الاولى',
-                    //             style: TextStyle(
-                    //               fontFamily: Theme.of(context)
-                    //                   .textTheme
-                    //                   .titleSmall
-                    //                   ?.fontFamily,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //         leading: Container(
-                    //             width: 23.r,
-                    //             height: 23.r,
-                    //             padding: EdgeInsets.only(right: 3.w),
-                    //             decoration: const ShapeDecoration(
-                    //               color: Color(0xFF49423A),
-                    //               shape: OvalBorder(),
-                    //             ),
-                    //             child: SvgPicture.asset(
-                    //               IconResources.arrowleft,
-                    //               color: Colors.white,
-                    //             )),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ],
-                  ),
-
-                  ),
+                 */
+                // Icon(Icons.book, size: 32.dg, color: ColorResources.blue,),
+              ],
             ),
+            SizedBox(height: 24.h),
+            /*
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 28.r,
+                  height: 28.r,
+                  padding: EdgeInsets.only(right: 3.w),
+                  margin: EdgeInsets.only(left: 10.w),
+                  decoration: const ShapeDecoration(
+                    color: Color(0xFF49423A),
+                    shape: OvalBorder(),
+                  ),
+                  child: SvgPicture.asset(
+                    IconResources.arrowleft,
+                    color: Colors.white,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    LinearPercentIndicator(
+                      isRTL: true,
+                      width: 200.w,
+                      lineHeight: 6.0,
+                      backgroundColor: ColorResources.grey1,
+                      percent: 1.toDouble(),
+                      barRadius: Radius.circular(4.r),
+                      progressColor: ColorResources.grey1,
+                    ),
+
+                  ],
+                ),
+              ],
+            ),
+
+             */
           ],
         ),
       ),
+      // Container(
+      //   margin: EdgeInsets.only(
+      //     left: 24.w,
+      //     right: 24.w,
+      //   ),
+      //   padding: EdgeInsets.only(bottom: 24.h),
+      //   width: MediaQuery.sizeOf(context).width,
+      //   decoration: BoxDecoration(
+      //     border: Border.all(
+      //         color: themeVm.isDark == true ? Colors.white : Colors.transparent,
+      //         width: .3),
+      //     borderRadius: BorderRadius.circular(32.r),
+      //     color: themeVm.isDark == true ? Colors.black : Colors.white,
+      //   ),
+      //   child: Column(
+      //     children: [
+      //       SizedBox(height: 30.h),
+      //       Theme(
+      //         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+      //         child: Container(
+      //             decoration: BoxDecoration(
+      //               borderRadius: BorderRadius.circular(32.r),
+      //             ),
+      //             child: ExpansionTile(
+      //               iconColor: themeVm.isDark == true ? Colors.white : Colors.black,
+      //               collapsedIconColor:
+      //               themeVm.isDark == true ? Colors.white : Colors.black,
+      //               //leading: I,
+      //               trailing: Container(
+      //                 width: 40.w,
+      //                 height: 30.h,
+      //                 decoration: BoxDecoration(
+      //                   color: Colors.black.withOpacity(0),
+      //                 ),
+      //                 child: SvgPicture.asset(IconResources.book,
+      //                     color:
+      //                     widget.index < widget.colors.length ? widget.colors[widget.index] : Colors.black),
+      //               ),
+      //               title: Align(
+      //                 alignment: Alignment.centerRight,
+      //                 child: Text(
+      //                   widget.unitDetails.name??'',
+      //                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
+      //                     fontFamily: Theme.of(context)
+      //                         .textTheme
+      //                         .titleSmall
+      //                         ?.fontFamily,
+      //                     fontSize: 16.sp,
+      //
+      //                     //color: Theme.of(context).primaryColor,
+      //                     // color: ColorResources.black,
+      //                     fontWeight: FontWeight.w400,
+      //                   ),
+      //                 ),
+      //               ),
+      //               controlAffinity: ListTileControlAffinity.leading,
+      //               children: List.generate(homeVm.lessonsModel!.data!.length,
+      //                       (index) {
+      //
+      //                        return const Text('');
+      //                       }
+      //                   )
+      //               // <Widget>[
+      //               //   GestureDetector(
+      //               //     onTap: () {
+      //               //       Navigator.push(
+      //               //           context,
+      //               //           SlideTransition1(
+      //               //               const QuestionBankPerLessonScreen()));
+      //               //     },
+      //               //     child: Container(
+      //               //       margin: EdgeInsets.symmetric(
+      //               //           vertical: 16.h, horizontal: 24.w),
+      //               //       //height: MediaQuery.sizeOf(context).height * 0.1,
+      //               //       //width: 300.w,
+      //               //       //height: 56.h,
+      //               //       decoration: ShapeDecoration(
+      //               //         shape: RoundedRectangleBorder(
+      //               //           side: BorderSide(
+      //               //             width: 1,
+      //               //             color: themeVm.isDark == true
+      //               //                 ? ColorResources.expansionBorder
+      //               //                 : Colors.black.withOpacity(0.25),
+      //               //           ),
+      //               //           borderRadius: BorderRadius.circular(32.r),
+      //               //         ),
+      //               //       ),
+      //               //       child: ListTile(
+      //               //         contentPadding: const EdgeInsets.symmetric(
+      //               //             vertical: 2, horizontal: 12),
+      //               //         title: Align(
+      //               //           alignment: Alignment.centerRight,
+      //               //           child: Text(
+      //               //             'الحصة الاولى',
+      //               //             style: TextStyle(
+      //               //               fontFamily: Theme.of(context)
+      //               //                   .textTheme
+      //               //                   .titleSmall
+      //               //                   ?.fontFamily,
+      //               //             ),
+      //               //           ),
+      //               //         ),
+      //               //         leading: Container(
+      //               //             width: 23.r,
+      //               //             height: 23.r,
+      //               //             padding: EdgeInsets.only(right: 3.w),
+      //               //             decoration: const ShapeDecoration(
+      //               //               color: Color(0xFF49423A),
+      //               //               shape: OvalBorder(),
+      //               //             ),
+      //               //             child: SvgPicture.asset(
+      //               //               IconResources.arrowleft,
+      //               //               color: Colors.white,
+      //               //             )),
+      //               //       ),
+      //               //     ),
+      //               //   ),
+      //               //   GestureDetector(
+      //               //     onTap: () {
+      //               //       Navigator.push(
+      //               //           context,
+      //               //           SlideTransition1(
+      //               //               const QuestionBankPerLessonScreen()));
+      //               //     },
+      //               //     child: Container(
+      //               //       margin: EdgeInsets.symmetric(
+      //               //           vertical: 16.h, horizontal: 24.w),
+      //               //       //height: MediaQuery.sizeOf(context).height * 0.1,
+      //               //       //width: 300.w,
+      //               //       //height: 56.h,
+      //               //       decoration: ShapeDecoration(
+      //               //         shape: RoundedRectangleBorder(
+      //               //           side: BorderSide(
+      //               //             width: 1,
+      //               //             color: themeVm.isDark == true
+      //               //                 ? ColorResources.expansionBorder
+      //               //                 : Colors.black.withOpacity(0.25),
+      //               //           ),
+      //               //           borderRadius: BorderRadius.circular(32.r),
+      //               //         ),
+      //               //       ),
+      //               //       child: ListTile(
+      //               //         contentPadding: const EdgeInsets.symmetric(
+      //               //             vertical: 2, horizontal: 12),
+      //               //         title: Align(
+      //               //           alignment: Alignment.centerRight,
+      //               //           child: Text(
+      //               //             'الحصة الاولى',
+      //               //             style: TextStyle(
+      //               //               fontFamily: Theme.of(context)
+      //               //                   .textTheme
+      //               //                   .titleSmall
+      //               //                   ?.fontFamily,
+      //               //             ),
+      //               //           ),
+      //               //         ),
+      //               //         leading: Container(
+      //               //             width: 23.r,
+      //               //             height: 23.r,
+      //               //             padding: EdgeInsets.only(right: 3.w),
+      //               //             decoration: const ShapeDecoration(
+      //               //               color: Color(0xFF49423A),
+      //               //               shape: OvalBorder(),
+      //               //             ),
+      //               //             child: SvgPicture.asset(
+      //               //               IconResources.arrowleft,
+      //               //               color: Colors.white,
+      //               //             )),
+      //               //       ),
+      //               //     ),
+      //               //   ),
+      //               //   GestureDetector(
+      //               //     onTap: () {
+      //               //       Navigator.push(
+      //               //           context,
+      //               //           SlideTransition1(
+      //               //               const QuestionBankPerLessonScreen()));
+      //               //     },
+      //               //     child: Container(
+      //               //       margin: EdgeInsets.symmetric(
+      //               //           vertical: 16.h, horizontal: 24.w),
+      //               //       //height: MediaQuery.sizeOf(context).height * 0.1,
+      //               //       //width: 300.w,
+      //               //       //height: 56.h,
+      //               //       decoration: ShapeDecoration(
+      //               //         shape: RoundedRectangleBorder(
+      //               //           side: BorderSide(
+      //               //             width: 1,
+      //               //             color: themeVm.isDark == true
+      //               //                 ? ColorResources.expansionBorder
+      //               //                 : Colors.black.withOpacity(0.25),
+      //               //           ),
+      //               //           borderRadius: BorderRadius.circular(32.r),
+      //               //         ),
+      //               //       ),
+      //               //       child: ListTile(
+      //               //         contentPadding: const EdgeInsets.symmetric(
+      //               //             vertical: 2, horizontal: 12),
+      //               //         title: Align(
+      //               //           alignment: Alignment.centerRight,
+      //               //           child: Text(
+      //               //             'الحصة الاولى',
+      //               //             style: TextStyle(
+      //               //               fontFamily: Theme.of(context)
+      //               //                   .textTheme
+      //               //                   .titleSmall
+      //               //                   ?.fontFamily,
+      //               //             ),
+      //               //           ),
+      //               //         ),
+      //               //         leading: Container(
+      //               //             width: 23.r,
+      //               //             height: 23.r,
+      //               //             padding: EdgeInsets.only(right: 3.w),
+      //               //             decoration: const ShapeDecoration(
+      //               //               color: Color(0xFF49423A),
+      //               //               shape: OvalBorder(),
+      //               //             ),
+      //               //             child: SvgPicture.asset(
+      //               //               IconResources.arrowleft,
+      //               //               color: Colors.white,
+      //               //             )),
+      //               //       ),
+      //               //     ),
+      //               //   ),
+      //               // ],
+      //             ),
+      //
+      //             ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }

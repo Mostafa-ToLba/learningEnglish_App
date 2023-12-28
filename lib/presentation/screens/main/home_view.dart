@@ -217,21 +217,11 @@ class HomeWidget extends StatelessWidget {
                       width: 200.w,
                       lineHeight: 6.0,
                       backgroundColor: ColorResources.grey1,
-                      percent: 0.52,
+                      percent: 1.toDouble(),
                       barRadius: Radius.circular(4.r),
-                      progressColor: ColorResources.brownDark,
+                      progressColor: ColorResources.grey1,
                     ),
-                    Text(
-                      '52 %',
-                      textAlign: TextAlign.center,
-                      style:
-                          Theme.of(context).textTheme.displayMedium?.copyWith(
-                                fontSize: 13.sp,
-                                //color: Theme.of(context).primaryColor,
-                                // color: ColorResources.black,
-                                fontWeight: FontWeight.w500,
-                              ),
-                    ),
+
                   ],
                 ),
               ],

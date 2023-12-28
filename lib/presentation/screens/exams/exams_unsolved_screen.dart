@@ -15,6 +15,7 @@ import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
+import 'package:lottie/lottie.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -397,11 +398,23 @@ class _ExamsUnsolvedScreenState extends State<ExamsUnsolvedScreen> {
                     ),
                   )
                 : Scaffold(
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    body: const Center(
-                      child: Text("No exams"),
-                    ),
-                  ));
+          appBar: AppBar(backgroundColor: ColorResources.buttonColor,
+              title:CustomText(text:'امتحان الحصة',txtSize:20.sp,color: Colors.white,)),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          body: Column(
+            mainAxisAlignment:MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children:
+            [
+              Container(
+                width: 1.sw,
+                color: Colors.transparent,
+                child: Lottie.asset('assets/lottieAnimations/noData2.json',fit: BoxFit.cover,),
+              ),
+              CustomText(text:'الحصة ليس بها امتحان',txtSize: 17.sp,color:Provider.of<ThemesViewModel>(context).isDark==true?Colors.white:ColorResources.buttonColor),
+            ],
+          ),
+        ));
       },
     );
   }

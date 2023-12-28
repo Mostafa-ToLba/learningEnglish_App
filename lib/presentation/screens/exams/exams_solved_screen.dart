@@ -14,7 +14,9 @@ import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class ExamsSolvedScreen extends StatefulWidget {
-  const ExamsSolvedScreen({super.key});
+  final bool isComingFromHome;
+
+  const ExamsSolvedScreen( {super.key, this.isComingFromHome =false});
 
   @override
   State<ExamsSolvedScreen> createState() => _ExamsSolvedScreenState();
@@ -23,11 +25,12 @@ class ExamsSolvedScreen extends StatefulWidget {
 class _ExamsSolvedScreenState extends State<ExamsSolvedScreen> {
   @override
   void initState() {
-    //final examVM = Provider.of<ExamsViewModel>(context, listen: false);
+    final examVM = Provider.of<ExamsViewModel>(context, listen: false);
     //examVM.selectedIndex = 0;
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       //final examResultId = Provider.of<ExamsViewModel>(context, listen: false).examResultId;
       //if (examResultId != null) {
+
         context.read<ExamsViewModel>().getStudentExamResultDetails();
       //}
     });
@@ -52,8 +55,14 @@ class _ExamsSolvedScreenState extends State<ExamsSolvedScreen> {
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     body: WillPopScope(
                       onWillPop: () async {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
+                        if(widget.isComingFromHome==false)
+                        {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        }
+                        else {
+                          Navigator.of(context).pop();
+                        }
                         return true;
                       },
                       child: SafeArea(
@@ -70,8 +79,14 @@ class _ExamsSolvedScreenState extends State<ExamsSolvedScreen> {
                                     alignment: Alignment.topLeft,
                                     child: InkWell(
                                       onTap: () {
-                                        Navigator.of(context).pop();
-                                        Navigator.of(context).pop();
+                                        if(widget.isComingFromHome==false)
+                                        {
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                        }
+                                        else {
+                                          Navigator.of(context).pop();
+                                        }
                                       },
                                       child: Container(
                                         width: 40

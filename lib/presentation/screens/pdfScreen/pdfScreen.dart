@@ -3,19 +3,25 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:learning_anglish_app/data/web_services/end_points.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 class PdfScreen extends StatefulWidget {
+  final String pdfUrl;
+
+  PdfScreen( this.pdfUrl);
+
   @override
   _PdfScreenState createState() => _PdfScreenState();
 }
 
 class _PdfScreenState extends State<PdfScreen> {
+  //'http://mostafatolba-001-site1.etempurl.com/Files/Lessons//C1XCF93T21_englishgrammarbook.pdf'
   bool _isLoading = true;
   String? _localFilePath;
-  final String pdfUrl = 'http://mostafatolba-001-site1.etempurl.com/Files/Lessons//C1XCF93T21_englishgrammarbook.pdf';
+   String pdfUrl = '';
   final Completer<PDFViewController> _controller =
   Completer<PDFViewController>();
   int? pages = 0;
@@ -23,6 +29,7 @@ class _PdfScreenState extends State<PdfScreen> {
   bool isReady = false;
   String errorMessage = '';
   Future<void> _downloadFile() async {
+    pdfUrl = EndPoints.imagesUrl+widget.pdfUrl;
     final directory = await getApplicationDocumentsDirectory();
     final filePath = '${directory.path}/myPDF.pdf'; // Choose your desired file name
 

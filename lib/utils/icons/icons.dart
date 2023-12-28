@@ -23,5 +23,5 @@ class IconResources {
   static const String setting2 = 'assets/icons/setting2.svg';
   static const String whatsapp = 'assets/icons/whatsapp.svg';
   static const String notification = 'assets/icons/Notification.svg';
-
+  static const String exam = 'assets/icons/exam.svg';
 }

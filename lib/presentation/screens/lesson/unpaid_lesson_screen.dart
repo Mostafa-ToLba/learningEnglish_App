@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:learning_anglish_app/business_logic/view_models/exams_vm/exams_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/home_vm/home_vm.dart';
-import 'package:learning_anglish_app/business_logic/view_models/lessonScreen_vm/lessonScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
-import 'package:learning_anglish_app/data/models/lessons/lessons.dart';
-import 'package:learning_anglish_app/presentation/screens/exams/exams_unsolved_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/exams/homework_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseExamScreen/chooseExamScreen.dart';
 import 'package:learning_anglish_app/presentation/screens/pdfScreen/pdfScreen.dart';
@@ -16,10 +12,8 @@ import 'package:learning_anglish_app/presentation/widgets/customDialog/customDia
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
-import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:localization/localization.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class UnpaidLessonScreen extends StatefulWidget {
@@ -30,9 +24,10 @@ class UnpaidLessonScreen extends StatefulWidget {
   final int? lessonId;
   final int? unitId;
   final String screenType;
+  final String pdfUrl;
 
   const UnpaidLessonScreen(this.studentOwnIt, this.unitName, this.name,
-      this.videoUrl, this.lessonId, this.unitId, this.screenType,
+      this.videoUrl, this.lessonId, this.unitId, this.screenType, this.pdfUrl,
       {super.key});
 
   @override
@@ -391,7 +386,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
               GestureDetector(
                 onTap: () {
                   if (homeVm.validCode) {
-                    Navigator.push(context, SlideTransition1(PdfScreen()));
+                    Navigator.push(context, SlideTransition1(PdfScreen(widget.pdfUrl)));
                   } else {
                     ShowCustomDialog(
                       context: context,

@@ -9,6 +9,7 @@ import 'package:learning_anglish_app/business_logic/view_models/login_vm/login_v
 import 'package:learning_anglish_app/business_logic/view_models/mainScreen_vm/mainScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/notification_vm/notification_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/register_vm/register_vm.dart';
+import 'package:learning_anglish_app/business_logic/view_models/studentExams_vm/studentExams_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/userProfile_vm/userProfile_vm.dart';
 import 'package:learning_anglish_app/presentation/screens/main/home_view.dart';
@@ -44,5 +45,7 @@ List<SingleChildWidget> independentServices = [
   ChangeNotifierProvider<UserProfileViewModel>(
       create: (_) => UserProfileViewModel()),
   ChangeNotifierProvider<NotificationViewModel>(
-      create: (_) => NotificationViewModel())
+      create: (_) => NotificationViewModel()),
+  ChangeNotifierProvider<StudentExamsViewModel>(
+      create: (_) => StudentExamsViewModel())
 ];

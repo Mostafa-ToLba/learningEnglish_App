@@ -6,6 +6,7 @@ import 'package:learning_anglish_app/business_logic/setup/base_notifier.dart';
 import 'package:learning_anglish_app/presentation/screens/main/home_view.dart';
 import 'package:learning_anglish_app/presentation/screens/main/question_bank_view.dart';
 import 'package:learning_anglish_app/presentation/screens/notification/notification_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/studenDetails/studentDetails.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import '../../../presentation/screens/main/profile_settings_view.dart';
 import 'dart:developer' as developer;
@@ -17,12 +18,13 @@ class MainScreenViewModel extends BaseNotifier {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey(); // Create a key
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>();
-  int selectedIndex = 3;
+  int selectedIndex = 4;
   final List<Widget> widgetOptions = <Widget>[
     const ProfileSettingsView(),
     const NotificationScreen(),
+    const StudentDetails(),
     QuestionBankView(),
-    HomeView(
+    const HomeView(
       id: '1',
     ),
   ];

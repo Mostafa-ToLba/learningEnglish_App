@@ -35,7 +35,8 @@ class StudentExamsModel {
 class Datum {
     final int? examResultId;
     final int? examId;
-    final ExamName? examName;
+//    final ExamName? examName;
+    final String? examName;
     final int? degree;
     final int? successDegree;
     final bool? isPassed;
@@ -58,7 +59,8 @@ class Datum {
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         examResultId: json["examResultId"],
         examId: json["examId"],
-        examName: examNameValues.map[json["examName"]]!,
+//        examName: examNameValues.map[json["examName"]]!,
+        examName: json["examName"],
         degree: json["degree"],
         successDegree: json["successDegree"],
         isPassed: json["isPassed"],
@@ -70,7 +72,7 @@ class Datum {
     Map<String, dynamic> toJson() => {
         "examResultId": examResultId,
         "examId": examId,
-        "examName": examNameValues.reverse[examName],
+  //      "examName": examNameValues.reverse[examName],
         "degree": degree,
         "successDegree": successDegree,
         "isPassed": isPassed,
@@ -80,22 +82,22 @@ class Datum {
     };
 }
 
-enum ExamName {
-    EMT7_AN_EGBARY
-}
-
-final examNameValues = EnumValues({
-    "emt7an egbary": ExamName.EMT7_AN_EGBARY
-});
-
-class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
-
-    EnumValues(this.map);
-
-    Map<T, String> get reverse {
-        reverseMap = map.map((k, v) => MapEntry(v, k));
-        return reverseMap;
-    }
-}
+// enum ExamName {
+//     EMT7_AN_EGBARY
+// }
+//
+// final examNameValues = EnumValues({
+//     "emt7an egbary": ExamName.EMT7_AN_EGBARY
+// });
+//
+// class EnumValues<T> {
+//     Map<String, T> map;
+//     late Map<T, String> reverseMap;
+//
+//     EnumValues(this.map);
+//
+//     Map<T, String> get reverse {
+//         reverseMap = map.map((k, v) => MapEntry(v, k));
+//         return reverseMap;
+//     }
+// }

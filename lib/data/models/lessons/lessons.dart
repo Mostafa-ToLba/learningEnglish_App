@@ -44,7 +44,7 @@ class Lesson {
     final String? unitName;
     final List<Exam>? exams;
     final bool? studentOwnIt;
-    final DateTime? expire;
+    final dynamic expire;
 
     Lesson({
         this.id,
@@ -73,7 +73,7 @@ class Lesson {
         unitName: json["unitName"],
         exams: json["exams"] == null ? [] : List<Exam>.from(json["exams"]!.map((x) => Exam.fromJson(x))),
         studentOwnIt: json["studentOwnIt"],
-        expire: json["expire"] == null ? null : DateTime.parse(json["expire"]),
+        expire: json["expire"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -88,7 +88,7 @@ class Lesson {
         "unitName": unitName,
         "exams": exams == null ? [] : List<dynamic>.from(exams!.map((x) => x.toJson())),
         "studentOwnIt": studentOwnIt,
-        "expire": expire?.toIso8601String(),
+        "expire": expire,
     };
 }
 

@@ -97,6 +97,7 @@ class ExamsViewModel extends BaseNotifier {
           : null;
       if (res.data["errorCode"] == 0) {
         resultsModel = ResultsModel.fromJson(res.data);
+        Navigator.of(context).pop();
         Navigator.pushReplacement(context, SlideTransition1(ResultsScreen()));
       }
     } catch (e) {

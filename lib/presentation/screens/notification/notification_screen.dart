@@ -12,9 +12,11 @@ import 'package:learning_anglish_app/data/models/notification/notification_model
 import 'package:learning_anglish_app/data/web_services/end_points.dart';
 import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_with_image_and%20_menu.dart';
 import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_with_menu.dart';
+import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:learning_anglish_app/utils/images/images.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:time/time.dart';
 
@@ -107,8 +109,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     text: 'الاشعارات',
                   ),
 
-                  ((model.notificationModel?.data != [] &&
-                  model.notificationModel?.data != null)
+               //   ((model.notificationModel?.data != [] && model.notificationModel?.data != null)
+               model.notificationModel!.data!.isNotEmpty
                   ? Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(left: 24.w, right: 24.w),
@@ -144,9 +146,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   ),
                 ),
               )
-                  : Center(
-                child: Image.asset(Images.noNotification),
-              )),
+                  : const Center(
+                child: NoNotification(),
+              )
                 ],
               ),
             );
@@ -262,6 +264,28 @@ class NotificationWidget extends StatelessWidget {
             ],
           ),
         ),
+      ],
+    );
+  }
+}
+
+class NoNotification extends StatelessWidget {
+  const NoNotification({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final themeVm = Provider.of<ThemesViewModel>(context);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children:
+      [
+        SizedBox(height: 120.h),
+        Container(
+          width: 1.sw,
+          color: Colors.transparent,
+          child: Lottie.asset('assets/lottieAnimations/brownGirlScrolling.json',fit: BoxFit.cover,),
+        ),
+        CustomText(text: '! ليس لديك اي اخبار من المعلم',txtSize: 18.sp,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor,),
       ],
     );
   }
