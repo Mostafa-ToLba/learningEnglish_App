@@ -9,6 +9,7 @@ class AppConstants {
   static bool? dark ;
   static String? token = "";
   static String refreshToken = "";
+  static String? deviceToken ;
 }
 
 

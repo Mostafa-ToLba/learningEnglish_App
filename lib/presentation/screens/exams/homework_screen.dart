@@ -29,12 +29,12 @@ class _HomeworkScreenState extends State<HomeworkScreen>
     with TickerProviderStateMixin {
   @override
   void initState() {
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
+ //   SchedulerBinding.instance.addPostFrameCallback((_) async {
       final homeVm = Provider.of<HomeViewModel>(context, listen: false);
       final examVm = Provider.of<ExamsViewModel>(context, listen: false);
-      examVm.examModel = null;
-      homeVm.checkExamsByLesson(widget.lessonId);
-      homeVm.checkExamsByExamType(context,
+      examVm.examModel=null;
+      context.read<HomeViewModel>().checkExamsByLessonn(widget.lessonId);
+      context.read<HomeViewModel>().checkExamsByExamTypee(context,
           widget.screenType == 'home' ? ExamType.homework : ExamType
               .questionbank);
       if (homeVm.examId != null) {
@@ -42,6 +42,7 @@ class _HomeworkScreenState extends State<HomeworkScreen>
         print(homeVm.examId);
         context.read<ExamsViewModel>().getExams(homeVm.examId!);
       } else {
+        examVm.examModel=null;
         General.showToast(
             message:
             "No ${examTypeForToast.values.elementAt(
@@ -49,7 +50,7 @@ class _HomeworkScreenState extends State<HomeworkScreen>
                     .questionbank.index)} for this lesson yet");
         Navigator.of(context);
       }
-    });
+  //  });
     super.initState();
   }
 
@@ -57,14 +58,15 @@ class _HomeworkScreenState extends State<HomeworkScreen>
   Widget build(BuildContext context) {
     return Consumer<ExamsViewModel>(
         builder: (BuildContext contextt, model, Widget? child) {
-      return model.busy == true
+   //       print('***************examModellllll ${model.examModel}');
+      return model.busy
           ? Scaffold(
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               body: const Center(
                 child: CircularProgressIndicator(),
               ),
             ) //: Text(model.notificationModel!.data.toString());
-          : ((model.examModel?.data != null)
+          : model.examModel!=null
               ? Scaffold(
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   body: PageView.builder(
@@ -100,9 +102,10 @@ class _HomeworkScreenState extends State<HomeworkScreen>
                         child: Lottie.asset('assets/lottieAnimations/noData2.json',fit: BoxFit.cover,),
                       ),
                       CustomText(text:widget.screenType=='home'?'الحصة ليس بها واجب منزلي': 'الحصة ليس بها بنك اسئلة',txtSize: 17.sp,color:Provider.of<ThemesViewModel>(context).isDark==true?Colors.white:ColorResources.buttonColor),
+                      SizedBox(height: 120.h),
                     ],
                   ),
-                ));
+                );
     });
   }
 }

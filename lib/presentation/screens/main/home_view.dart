@@ -42,6 +42,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+   //   context.read<HomeViewModel>().addDeviceToken();
       context.read<HomeViewModel>().getUnits(levelId: 1);
       context.read<UserProfileViewModel>().getUserProfile();
     });

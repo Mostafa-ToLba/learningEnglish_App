@@ -439,6 +439,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   int? groupValue;
   @override
   Widget build(BuildContext context) {
+   final themeVm= Provider.of<ThemesViewModel>(context);
     return Consumer<ExamsViewModel>(
       builder: (BuildContext context, model, Widget? child) {
         return Wrap(
@@ -494,15 +495,15 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                   fontSize: 17.sp,
                                   fontWeight: groupValue == answerIndex ?FontWeight.w500:FontWeight.w500,
                                   color: groupValue == answerIndex
-                                      ? ColorResources.brownDark
-                                      : ColorResources.black,
+                                      ?themeVm.isDark==true?Colors.white: ColorResources.brownDark
+                                      : themeVm.isDark==true?Colors.white:ColorResources.black,
                                 ),
                       ),
                       const Spacer(),
                       if (groupValue == answerIndex)
                         FaIcon(
                           FontAwesomeIcons.circleDot,
-                          color: ColorResources.brownDark,
+                          color: themeVm.isDark==true?Colors.white:ColorResources.brownDark,
                           size: 20.dg,
                         ),
                       /*

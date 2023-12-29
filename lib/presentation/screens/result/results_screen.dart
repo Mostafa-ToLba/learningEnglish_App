@@ -202,6 +202,7 @@ class _ResultsScreenState extends State<ResultsScreen>
                                   loading: model.busy,
                                   onTap: () {
                                     model.getStudentExams(context);
+
                                   },
                                 ),
                               ),

@@ -107,7 +107,7 @@ import 'package:provider/provider.dart';
        },
        child: Container(
          margin: EdgeInsets.symmetric(horizontal: 24.w),
-         padding: EdgeInsets.all(24.dg),
+         padding: EdgeInsets.only(left: 20.w,right: 20.w,top: 20.h,bottom: 20.h),
          height: 200.h,
          //height: MediaQuery.sizeOf(context).height * 0.2,
          width: double.infinity,

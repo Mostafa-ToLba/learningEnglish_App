@@ -5,6 +5,7 @@ import 'package:learning_anglish_app/data/models/lessons/lessons.dart';
 import 'package:learning_anglish_app/data/models/units/units_model.dart';
 import 'package:learning_anglish_app/presentation/widgets/customDialog/customDialog.dart';
 import 'package:learning_anglish_app/presentation/widgets/update/animatedUpdate.dart';
+import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
 import 'package:logger/logger.dart';
 
@@ -77,11 +78,11 @@ class HomeViewModel extends BaseNotifier {
       if (res.data['errorCode'] == 0) {
         validCode = true;
         Navigator.pop(context);
+        getLessons(unitId: unitId);
         ShowCustomDialog(
                 context: context,
                 content: AnimatedUpdate(updatedMassage: 'تم شراء الحصة بنجاح'))
             .showCustomDialg(context);
-        getLessons(unitId: unitId);
       }
       //   getUserProfile();
     } catch (e) {
@@ -93,7 +94,8 @@ class HomeViewModel extends BaseNotifier {
 
   //*******************  check if there is exams in lesson  *************************//
   List<Exam>? examList;
-  void checkExamsByLesson(int lessonId) {
+  //*********************************************************************************************??
+  void checkExamsByLessonn(int lessonId) {
     examList = [];
     examList?.clear();
     if (lessonsModel?.data != null) {
@@ -103,18 +105,40 @@ class HomeViewModel extends BaseNotifier {
      //     print(lesson.exams![0].id);
           examList = lesson.exams;
           print(examList!.length);
+          notifyListeners();
           return true;
         }
         return false;
       });
     } else {
+      General.showToast(message: "No exams for this lesson yet");
+    }
+  }
+  void checkExamsByLesson(int lessonId) {
+    examList = [];
+    examList?.clear();
+    if (lessonsModel?.data != null) {
+      for (var lesson in lessonsModel!.data!) {
+        if (lesson.id == lessonId) {
+          //     print(lesson.exams![0].examType);
+          //     print(lesson.exams![0].id);
+          examList = lesson.exams;
+          print(examList!.length);
+          notifyListeners();
+          continue;
+        }
+        continue;
+      }
+    } else {
       examList = [];
       General.showToast(message: "No exams for this lesson yet");
     }
   }
+  //*********************************************************************************************??
   //*******************  check if there is exams by examtype  *************************//
   int? examId;
-  void checkExamsByExamType(BuildContext context, ExamType examtype) {
+  void checkExamsByExamTypee(BuildContext context, ExamType examtype) {
+    examId = null;
     if (examList != List.empty()) {
       examList!.any((exam) {
         print(exam);
@@ -129,11 +153,55 @@ class HomeViewModel extends BaseNotifier {
 
         return false;
       });
-      print('************** ${examId}***********');
+      print('************** ${examId}*********examIddddddd**');
     } else {
+      examList= [] ;
+      notifyListeners();
       General.showToast(
           message:
               "No ${examTypeForToast.values.elementAt(examtype.index)} for this lesson yet");
     }
+  }
+  void checkExamsByExamType(BuildContext context, ExamType examtype) {
+    if (examList != List.empty()) {
+      for (var exam in examList!) {
+        print(exam);
+        if (exam.examType == examtype.index) {
+          examId = exam.id;
+          notifyListeners();
+          continue;
+        }
+        else
+        {
+          examId = null;
+        }
+
+        continue;
+      }
+      print('************** ${examId}***********');
+    } else {
+      General.showToast(
+          message:
+          "No ${examTypeForToast.values.elementAt(examtype.index)} for this lesson yet");
+    }
+  }
+  //***********************************************************************************//
+
+  void addDeviceToken() async {
+    Map<String, dynamic> body = {
+      "deviceToken": AppConstants.deviceToken.toString(),
+    };
+    setBusy();
+    try {
+      Response<dynamic> res = await api.addDeviceToken(body: body);
+      General.showToast(message: res.data['errorMessage']);
+      if (res.data['errorCode'] == 0) {
+
+      }
+    } catch (e) {
+      Logger().e(e.toString());
+      setError();
+    }
+    setIdle();
   }
 }

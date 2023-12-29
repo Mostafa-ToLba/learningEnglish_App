@@ -167,5 +167,16 @@ class HttpApi {
     return res;
   }
 
+  //******************* add device token  *************************//
+
+  Future<dynamic> addDeviceToken({Map<String, dynamic>? body}) async {
+    final res = await customDio.request(
+        EndPoints.deviceToken,
+        type: RequestType.Post,
+        body: body,
+    );
+    return res;
+  }
+
 
 }

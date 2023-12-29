@@ -38,6 +38,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
   @override
   void initState() {
     final homeVm = Provider.of<HomeViewModel>(context, listen: false);
+  //  homeVm.getLessons(unitId: widget.unitId);
     homeVm.validCode = widget.studentOwnIt!;
     super.initState();
   }
@@ -181,7 +182,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                 GestureDetector(
                   onTap: () {
                     if (homeVm.validCode) {
-                      Navigator.push(context, SlideTransition1(ChooseExamScreen(widget.lessonId!)));
+                      Navigator.push(context, SlideTransition1(ChooseExamScreen(widget.lessonId!,widget.unitId!)));
 
                       // homeVm.checkExamsByLesson(widget.lessonId!);
                       // homeVm.checkExamsByExamType(context, ExamType.exam);

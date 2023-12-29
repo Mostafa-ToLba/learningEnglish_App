@@ -96,7 +96,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               BottomNavigationBarItem(
-                icon: SvgPicture.asset(IconResources.messageQuestion,
+                icon: SvgPicture.asset(IconResources.bank,
                     color: Theme.of(context).textTheme.displayMedium?.color),
                 label: 'Exams',
                 activeIcon: Container(
@@ -106,13 +106,13 @@ class _MainScreenState extends State<MainScreen> {
                     borderRadius: BorderRadius.circular(40.r),
                     color: ColorResources.brownDark,
                   ),
-                  child: SvgPicture.asset(IconResources.messageQuestion,
+                  child: SvgPicture.asset(IconResources.bank,
                       fit: BoxFit.scaleDown, color: Colors.white),
                 ),
               ),
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(
-                  IconResources.bank,
+                  IconResources.messageQuestion,height: 25.h,
                   color: Theme.of(context).textTheme.displayMedium?.color,
                 ),
                 label: 'Questions',
@@ -123,7 +123,7 @@ class _MainScreenState extends State<MainScreen> {
                     borderRadius: BorderRadius.circular(40.r),
                     color: ColorResources.brownDark,
                   ),
-                  child: SvgPicture.asset(IconResources.bank,
+                  child: SvgPicture.asset(IconResources.messageQuestion,height: 25.h,
                       fit: BoxFit.scaleDown, color: Colors.white),
                 ),
               ),

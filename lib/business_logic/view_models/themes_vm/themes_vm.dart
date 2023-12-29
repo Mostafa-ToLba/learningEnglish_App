@@ -1,9 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learning_anglish_app/business_logic/setup/base_notifier.dart';
 import 'package:learning_anglish_app/data/cache_helper/cache_helper.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
+import 'package:learning_anglish_app/utils/generalMethods/general_methods.dart';
+import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemesViewModel extends BaseNotifier {
@@ -35,4 +38,5 @@ class ThemesViewModel extends BaseNotifier {
       systemNavigationBarDividerColor: ColorResources.black,
     ));
   }
+
 }

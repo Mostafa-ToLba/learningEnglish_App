@@ -69,11 +69,10 @@ class ExamsViewModel extends BaseNotifier {
   void getExams(int examId) async {
     setBusy();
     try {
+      examModel = null;
       //  if (isToken == true) {
       Response<dynamic> res = await api.exams(examId: examId);
-      res.data['errorMessage'] != null
-          ? General.showToast(message: res.data['errorMessage'])
-          : null;
+      res.data['errorMessage'] != null ? General.showToast(message: res.data['errorMessage']) : null;
       examModel = ExamModel.fromJson(res.data);
       print("examModel");
       Logger().d(examModel?.data);

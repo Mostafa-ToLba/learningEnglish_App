@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +14,29 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+ //   await Firebase.initializeApp(
+ //      name: 'Extreme',options: const FirebaseOptions(
+ //      appId: '1:888887300808:android:6415e9898add58446f0bfd',
+ //      apiKey: 'AIzaSyBfORGYtlj5OpyCaIYfHe_OvjexEmVf9Ks',
+ //      messagingSenderId: '888887300808',
+ //      projectId: 'extreme-academy-f91ca',
+ //  ));
+ //
+
+ //  FirebaseMessaging.onMessage.listen((event) {
+ //    print(event.data.toString());
+ //  });
+ //
+ //  FirebaseMessaging.onMessageOpenedApp.listen((event) {
+ //    print(event.data.toString());
+ //  });
+ //
+ // // FirebaseMessaging.onBackgroundMessage((firebaseMessagingBackgroundHandler));
+ //  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance; // Change here
+ //  firebaseMessaging.getToken().then((token){
+ //    print("token is $token");
+ //    AppConstants.deviceToken = token;
+ //  });
   await CacheHelper.init();
   setupLocator();
   runApp(const AppScreen());
@@ -32,8 +57,7 @@ class _AppScreenState extends State<AppScreen> {
       providers: providers,
       child: Consumer<ThemesViewModel>(
         builder: (BuildContext context, model, Widget? child) {
-          model.isDark =
-              CacheHelper.getData(key: AppConstants.darkPreferences) ?? false;
+          model.isDark = CacheHelper.getData(key: AppConstants.darkPreferences) ?? false;
           model.setSystemChrome();
           return ScreenUtilInit(
             designSize: const Size(375, 812),
