@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,7 @@ import 'package:learning_anglish_app/business_logic/view_models/home_vm/home_vm.
 import 'package:learning_anglish_app/business_logic/view_models/mainScreen_vm/mainScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/userProfile_vm/userProfile_vm.dart';
+import 'package:learning_anglish_app/data/cache_helper/cache_helper.dart';
 import 'package:learning_anglish_app/data/models/units/units_model.dart';
 import 'package:learning_anglish_app/data/web_services/end_points.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseLesson/choose_lesson_screen.dart';
@@ -45,6 +47,25 @@ class _HomeViewState extends State<HomeView> {
    //   context.read<HomeViewModel>().addDeviceToken();
       context.read<HomeViewModel>().getUnits(levelId: 1);
       context.read<UserProfileViewModel>().getUserProfile();
+      if(CacheHelper.getData(key: PrefKeys.isDeviceTokenAdded)!=true) {
+        context.read<HomeViewModel>().addDeviceToken();
+        await FirebaseMessaging.instance
+            .setForegroundNotificationPresentationOptions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+        await FirebaseMessaging.instance.requestPermission(
+          alert: true,
+          announcement: false,
+          badge: true,
+          carPlay: false,
+          criticalAlert: false,
+          provisional: false,
+          sound: true,
+        );
+        CacheHelper.putBoolean(key: PrefKeys.isDeviceTokenAdded, value: true);
+      }
     });
     super.initState();
   }
@@ -60,6 +81,8 @@ class _HomeViewState extends State<HomeView> {
             CustomAppBarWithImageAndMenu(
               menuIcon: true,
               onMenuPressed: () {
+              //  homeVm.testFirestore();
+
        //         mainScreenVm.scaffoldkey.currentState!.openDrawer();
                 final state =
                     Provider.of<MainScreenViewModel>(context, listen: false)
@@ -70,6 +93,8 @@ class _HomeViewState extends State<HomeView> {
                 } else {
                   state.openSideMenu();
                 }
+
+
               },
               imageURL:profileVm.userProfile!.data!.userImgUrl==null?
                   'https://imgs.search.brave.com/MgKy-1ezKe9DbGOWhODKxIufmmTMUeBT6iWORiLEpKM/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuYWxsLWZyZWUt/ZG93bmxvYWQuY29t/L2ltYWdlcy9ncmFw/aGljbGFyZ2UvY2F0/X3Byb2ZpbGVfMTk2/ODA2LmpwZw':EndPoints.imagesUrl+profileVm.userProfile!.data!.userImgUrl!,

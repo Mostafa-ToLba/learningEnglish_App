@@ -6,37 +6,40 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/business_logic/setup/provider_setup.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/data/cache_helper/cache_helper.dart';
+import 'package:learning_anglish_app/firebase_options.dart';
 import 'package:learning_anglish_app/presentation/screens/splashScreen/splashScreen.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/theme/theme.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
- //   await Firebase.initializeApp(
- //      name: 'Extreme',options: const FirebaseOptions(
- //      appId: '1:888887300808:android:6415e9898add58446f0bfd',
- //      apiKey: 'AIzaSyBfORGYtlj5OpyCaIYfHe_OvjexEmVf9Ks',
- //      messagingSenderId: '888887300808',
- //      projectId: 'extreme-academy-f91ca',
- //  ));
- //
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance; // Change here
 
- //  FirebaseMessaging.onMessage.listen((event) {
- //    print(event.data.toString());
- //  });
- //
- //  FirebaseMessaging.onMessageOpenedApp.listen((event) {
- //    print(event.data.toString());
- //  });
- //
- // // FirebaseMessaging.onBackgroundMessage((firebaseMessagingBackgroundHandler));
- //  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance; // Change here
- //  firebaseMessaging.getToken().then((token){
- //    print("token is $token");
- //    AppConstants.deviceToken = token;
- //  });
+  firebaseMessaging.getToken().then((token){
+    print("token is $token");
+    AppConstants.deviceToken = token;
+  });
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
+
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+  });
+
+  FirebaseMessaging.onMessageOpenedApp.listen((event) {
+    print(event.data.toString());
+  });
+
+  FirebaseMessaging.onBackgroundMessage((firebaseMessagingBackgroundHandler));
+
   await CacheHelper.init();
   setupLocator();
   runApp(const AppScreen());
@@ -97,3 +100,5 @@ class _AppScreenState extends State<AppScreen> {
     );
   }
 }
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {}
+

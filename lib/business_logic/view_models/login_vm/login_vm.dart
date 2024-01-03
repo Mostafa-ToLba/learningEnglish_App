@@ -29,12 +29,16 @@ class LoginViewModel extends BaseNotifier {
     try {
       Response<dynamic> res = await api.login(body: body);
       General.showToast(message: res.data['errorMessage']);
-      if (res.data['data']['token'] != null) {
+      if (res.data['errorCode']== 0) {
         AppConstants.token = res.data['data']['token'];
         final String userName = res.data['data']['fullName'];
         CacheHelper.SaveData(key: PrefKeys.TOKEN, value: AppConstants.token);
         Navigator.pushReplacement(
             context, SlideTransition1(ChooseClassScreen(userName)));
+      }
+      else
+      {
+        General.showToast(message: res.data['errorMessage']);
       }
     } catch (e) {
       Logger().e(e.toString());

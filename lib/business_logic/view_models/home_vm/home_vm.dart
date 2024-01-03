@@ -1,3 +1,5 @@
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_anglish_app/business_logic/setup/base_notifier.dart';
@@ -203,5 +205,11 @@ class HomeViewModel extends BaseNotifier {
       setError();
     }
     setIdle();
+  }
+
+
+  testFirestore()
+  async{
+   await FirebaseFirestore.instance.collection('Notification').doc('testDoc').set({'data':'notification'});
   }
 }

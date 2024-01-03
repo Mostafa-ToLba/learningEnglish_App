@@ -70,6 +70,7 @@ class UserProfileViewModel extends BaseNotifier {
       String mimeType = 'image/${pickedFile.path.split('.').last}';
       base64Image = 'data:$mimeType;base64,$base64String';
     }
+    print(base64Image);
     notifyListeners();
   }
 
@@ -79,7 +80,7 @@ class UserProfileViewModel extends BaseNotifier {
       "email": emailController.text,
       "phoneNumber": phoneController.text,
       "parentPhoneNumber": parentPhoneController.text,
-      "imgFile": imageFile==null?null:base64Image,
+      "imgFile": imageFile==null? null :base64Image,
     };
     setBusy();
     try {
