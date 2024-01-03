@@ -471,19 +471,20 @@ class Avatar extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 6.h,
-          left: 6.w,
+          bottom: 3.h,
+          left: 3.w,
           child: InkWell(
             onTap: ()
             {
               profileVm.pickAndConvertImage();
             },
             child: Container(
-              height: 28.h,
-              width: 28.w,
+              //height: 28.h,
+              //width: 28.w,
+              padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
               decoration: ShapeDecoration(
                 color: ColorResources.brownDark,
-                shape: const OvalBorder(),
+                shape: const CircleBorder(),
               ),
               child: Icon(
                 Icons.edit,

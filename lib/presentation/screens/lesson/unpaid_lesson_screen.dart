@@ -615,106 +615,108 @@ class _CodeDialogWidgetState extends State<CodeDialogWidget> {
               width: .1)),
       child: Padding(
         padding: EdgeInsets.all(25.sp),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              width: 96.w,
-              height: 96.h,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/enterUnitCode.png"),
-                  fit: BoxFit.contain,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 96.w,
+                height: 96.h,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/enterUnitCode.png"),
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 24.h),
-            Text(
-              "قم بإدخال الكود",
-              style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-            ),
-            SizedBox(height: 15.h),
-            Text(
-              "كي تتمكن من مشاهده الفيديو ، يجب إدخال الكود. يمكنك الحصول عليه من المعلم",
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                    //color: Theme.of(context).primaryColor.withOpacity(0.5),
-                  ),
-            ),
-            SizedBox(height: 24.h),
-            Container(
-              width: 279.w,
-              height: 56.h,
-              decoration: ShapeDecoration(
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                    width: 1,
-                    color: Colors.black.withOpacity(0.25),
-                  ),
-                  borderRadius: BorderRadius.circular(32),
-                ),
+              SizedBox(height: 24.h),
+              Text(
+                "قم بإدخال الكود",
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
               ),
-              child: TextFormField(
-                textAlign: TextAlign.start,
+              SizedBox(height: 15.h),
+              Text(
+                "كي تتمكن من مشاهده الفيديو ، يجب إدخال الكود. يمكنك الحصول عليه من المعلم",
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
+                      //color: Theme.of(context).primaryColor.withOpacity(0.5),
                     ),
-                decoration: InputDecoration(
-                  hintText: "ادخل الكود",
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 17.h, horizontal: 24.w),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25),
+              ),
+              SizedBox(height: 24.h),
+              Container(
+                width: 279.w,
+                height: 56.h,
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      width: 1,
+                      color: Colors.black.withOpacity(0.25),
+                    ),
+                    borderRadius: BorderRadius.circular(32),
                   ),
                 ),
-                controller: homeVm.codeController,
-              ),
-            ),
-            SizedBox(height: 24.h),
-            CustomButton(
-              widgetInCenter: Align(
-                alignment: Alignment.center,
-                child: CustomText(
-                  text: "إدخال".i18n(),
-                  textAlign: TextAlign.center,
-                  color: Colors.white,
-                  txtSize: 17.sp,
-                  fontWeight: FontWeight.w600,
+                child: TextFormField(
+                  textAlign: TextAlign.start,
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                  decoration: InputDecoration(
+                    hintText: "ادخل الكود",
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 17.h, horizontal: 24.w),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                  ),
+                  controller: homeVm.codeController,
                 ),
               ),
-              color: ColorResources.buttonColor,
-              onTap: () async {
-                //    await lessonVM.showVideo();
-                //    lessonVM.codeDone? Navigator.pop(context):null;
-                homeVm.postLessonCode(
-                    lessonId: widget.lessonId,
-                    context: context,
-                    unitId: widget.unitId);
-              },
-            ),
-            SizedBox(height: 12.h),
-            TextButton(
-              child: Text(
-                "go_back".i18n(),
-                textAlign: TextAlign.justify,
-                style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w400,
-                      height: 0.12.h,
-                    ),
+              SizedBox(height: 24.h),
+              CustomButton(
+                widgetInCenter: Align(
+                  alignment: Alignment.center,
+                  child: CustomText(
+                    text: "إدخال".i18n(),
+                    textAlign: TextAlign.center,
+                    color: Colors.white,
+                    txtSize: 17.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                color: ColorResources.buttonColor,
+                onTap: () async {
+                  //    await lessonVM.showVideo();
+                  //    lessonVM.codeDone? Navigator.pop(context):null;
+                  homeVm.postLessonCode(
+                      lessonId: widget.lessonId,
+                      context: context,
+                      unitId: widget.unitId);
+                },
               ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
+              SizedBox(height: 12.h),
+              TextButton(
+                child: Text(
+                  "go_back".i18n(),
+                  textAlign: TextAlign.justify,
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w400,
+                        height: 0.12.h,
+                      ),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

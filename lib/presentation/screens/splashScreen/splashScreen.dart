@@ -6,7 +6,6 @@ import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart'
 import 'package:learning_anglish_app/presentation/screens/onBoarding/onboarding_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -14,7 +13,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _animation;
 
@@ -49,8 +49,11 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         Future.delayed(const Duration(seconds: 2), () {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) =>
-                CacheHelper.getData(key: PrefKeys.TOKEN)!=null?const MainScreen():const OnBoardingScreen()),
+            MaterialPageRoute(
+                builder: (context) =>
+                    CacheHelper.getData(key: PrefKeys.TOKEN) != null
+                        ? const MainScreen()
+                        : const OnBoardingScreen()),
           );
         });
       }
@@ -65,28 +68,26 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          body: Stack(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SizedBox(
+          height: double.infinity,
+          width: double.infinity,
+          child: Stack(
+            alignment: AlignmentDirectional.center,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children:
-                [
-                  Padding(
-                    padding:  EdgeInsets.only(top: 380.h,left: 0.w),
-                    child: Stack(
-                      children: [
-                        Center(
-                          child: CustomText(text: 'Extreme Academy',textAlign: TextAlign.center,txtSize: 30.sp,
-                              color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              Positioned(
+                right: 0.w,
+                // top: 0.h,
+                // bottom: 0.h,
+                left: 0.w,
+                child: CustomText(
+                  text: 'Extreme Academy',
+                  textAlign: TextAlign.center,
+                  txtSize: 30.sp,
+                  color: Colors.black,
+                ),
               ),
               Positioned(
                 right: 50.w,
@@ -94,16 +95,24 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 child: SlideTransition(
                   position: _animation,
                   child: Container(
-                    height: 740.h,
+                    padding:
+                        EdgeInsets.symmetric(vertical: 20.h, horizontal: 0.w),
+                    height: MediaQuery.sizeOf(context).height * 0.9,
                     width: 30.w,
-                    decoration: const BoxDecoration(image:DecorationImage(image:
-                    AssetImage('assets/images/graduate.png',),),),
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/graduate.png',
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
             ],
           ),
-        )
+        ),
+      ),
     );
   }
 }

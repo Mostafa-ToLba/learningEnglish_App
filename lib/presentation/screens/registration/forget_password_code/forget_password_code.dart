@@ -160,9 +160,9 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
                         ),
                         pinTheme: PinTheme(
                           shape: PinCodeFieldShape.circle,
-                          borderRadius: BorderRadius.circular(64.r),
-                          fieldHeight: 72.h,
-                          fieldWidth: 72.w,
+                          //borderRadius: BorderRadius.circular(64.r),
+                          fieldHeight: MediaQuery.of(context).size.height * 0.1,
+                          fieldWidth: MediaQuery.of(context).size.width * 0.2,
                           activeColor:
                               Theme.of(context).indicatorColor.withOpacity(0.5),
                           //activeFillColor: Colors.white,

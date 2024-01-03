@@ -150,7 +150,7 @@ class LessonWidget extends StatelessWidget {
             data.videoUrl,data.id,unitId,screenType,data.pdfUrl??'')));
       },
       child: Container(
-        height: 120.h,
+        padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 5.w),
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           boxShadow: [
@@ -173,12 +173,11 @@ class LessonWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              width: 24.w,
-              height: 24.h,
+             // padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
               margin: EdgeInsets.only(left: 24.w),
               decoration: const ShapeDecoration(
                 color: Color(0xFF49423A),
-                shape: OvalBorder(),
+                shape: CircleBorder(),
               ),
               child: Icon(
                 Icons.keyboard_arrow_left,
@@ -310,17 +309,19 @@ class NoLesson extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeVm = Provider.of<ThemesViewModel>(context);
-    return Column(
-      children:
-      [
-        SizedBox(height: 70.h),
-        Container(
-          width: 1.sw,
-          color: Colors.transparent,
-          child: Lottie.asset('assets/lottieAnimations/noData2.json',fit: BoxFit.cover,),
-        ),
-        CustomText(text: 'الوحدة ليس بها حصص',txtSize: 18.sp,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor),
-      ],
+    return Center(
+      child: Column(
+        children:
+        [
+          //SizedBox(height: 70.h),
+          Container(
+            width: 1.sw,
+            color: Colors.transparent,
+            child: Lottie.asset('assets/lottieAnimations/noData2.json',fit: BoxFit.cover,),
+          ),
+          CustomText(text: 'الوحدة ليس بها حصص',txtSize: 18.sp,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor),
+        ],
+      ),
     );
   }
 }

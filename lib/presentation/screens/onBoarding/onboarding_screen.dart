@@ -39,36 +39,44 @@ class OnBoardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              height: 375.h,
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(65.r),
-                  bottomLeft: Radius.circular(65.r),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(top: 32.h, left: 8.w, right: 8.w),
+          child: Expanded(
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                Container(
+           
+                     height: 570.h,
+                   //   width: 240.w,
+                   
+                  padding: EdgeInsets.symmetric(
+                      vertical: 20.h, horizontal: 20.w),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(65.r),
+                      bottomLeft: Radius.circular(65.r),
+                    ),
+                  ),
+                  child: PageView.builder(
+                    //reverse: true,
+                    controller: controller,
+                    itemBuilder: (context, index) =>  BuildOnBoarding(boarding: boarding[index]),
+                    
+                    itemCount: boarding.length,
+                    onPageChanged: (index) {
+                      if (index == boarding.length - 1) {
+                        isLast = true;
+                      } else {
+                        isLast = false;
+                      }
+                    },
+                  ),
                 ),
-              ),
-              child: PageView.builder(
-                //reverse: true,
-                controller: controller,
-                itemBuilder: (context, index) =>
-                    BuildOnBoarding(boarding: boarding[index]),
-                itemCount: boarding.length,
-                onPageChanged: (index) {
-                  if (index == boarding.length - 1) {
-                    isLast = true;
-                  } else {
-                    isLast = false;
-                  }
-                },
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 200.h,
+                SizedBox(
+            height: 220.h,
             width: double.infinity,
             child: Padding(
               padding: EdgeInsets.only(top: 20.h),
@@ -131,11 +139,11 @@ class OnBoardingScreen extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen(),));
-
+          
                       //    context
                       //       .read<SettingsBloc>()
                       //       .add(const SettingsEvent.boardingScreensWatched());
-
+          
                   //    getIt<OnboardingViewModel>().boardingScreensWatched();
                       Navigator.pushReplacement(
                         context,
@@ -153,7 +161,7 @@ class OnBoardingScreen extends StatelessWidget {
                               ),
                       /*
                        TextStyle(
-
+          
                         color: Colors.black,
                         
                       ),
@@ -164,7 +172,10 @@ class OnBoardingScreen extends StatelessWidget {
               ),
             ),
           ),
-        ],
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
