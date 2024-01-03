@@ -62,8 +62,8 @@ class CustomTextField extends StatelessWidget {
                   color: ColorResources.grey2),
             ],
           ),
-        SizedBox(
-          height: 56.h,
+        Container(
+        //  padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 12.w),
           width: double.infinity,
           child: TextFormField(
             textDirection: TextDirection.ltr,
@@ -75,7 +75,7 @@ class CustomTextField extends StatelessWidget {
             keyboardType: textInputType,
             style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w600,color: Colors.black),
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(left: 20.w,),
+              contentPadding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
               hintText: hintText,
               hintStyle: Theme.of(context).textTheme.displayMedium?.copyWith(
                     color: hintColor,

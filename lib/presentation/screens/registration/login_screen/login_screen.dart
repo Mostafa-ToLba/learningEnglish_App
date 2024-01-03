@@ -63,8 +63,8 @@ class _LoginScreenState extends State<LoginScreen>
         return Scaffold(
           body: SafeArea(
             child: Padding(
-              padding:
-              EdgeInsets.only(top: 60.h, left: 25.w, right: 25.w, bottom: 10.h),
+              padding: EdgeInsets.only(
+                  top: 60.h, left: 25.w, right: 25.w, bottom: 10.h),
               child: Form(
                 key: formKey,
                 child: SingleChildScrollView(
@@ -73,27 +73,30 @@ class _LoginScreenState extends State<LoginScreen>
                     children: [
                       Text(
                         '! أهلا بعودتك',
-                        style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
                       ),
                       SizedBox(
                         height: 8.h,
                       ),
                       Text(
                         "اهلا بك من فضلك ادخلك بيانات حسابك",
-                        style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          fontSize: 15.sp,
-                        ),
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 15.sp,
+                                ),
                       ),
                       SizedBox(height: 30.h),
                       Text(
                         'البريد الالكتروني',
-                        style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
                       ),
                       SizedBox(height: 14.h),
                       CustomTextField(
@@ -110,10 +113,11 @@ class _LoginScreenState extends State<LoginScreen>
                       SizedBox(height: 16.h),
                       Text(
                         "كلمة السر",
-                        style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
                       ),
                       SizedBox(height: 14.h),
                       CustomTextField(
@@ -121,10 +125,12 @@ class _LoginScreenState extends State<LoginScreen>
                         controller: model.passwordController,
                         suffix: IconButton(
                             onPressed: () {},
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.remove_red_eye,
                               color: Colors.black,
+                              size: 16.dg,
                             )),
+                            
                         validator: (value) {
                           if (value.isEmpty) {
                             return "required_password".i18n();
@@ -146,10 +152,10 @@ class _LoginScreenState extends State<LoginScreen>
                               });
                             },
                             activeColor:
-                            Colors.white10, // Customize the checkbox color
+                                Colors.white10, // Customize the checkbox color
                             checkColor: Colors.green,
                             fillColor:
-                            MaterialStateProperty.all(ColorResources.grey1),
+                                MaterialStateProperty.all(ColorResources.grey1),
                             side: BorderSide(
                               color: ColorResources.appGreyColor,
                             ),
@@ -157,11 +163,13 @@ class _LoginScreenState extends State<LoginScreen>
                           SizedBox(width: 0.w),
                           Text(
                             "تذكرني",
-                            style:
-                            Theme.of(context).textTheme.displayMedium?.copyWith(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
                           ),
                           const Spacer(),
                           TextButton(
@@ -177,10 +185,10 @@ class _LoginScreenState extends State<LoginScreen>
                                     .textTheme
                                     .displayMedium
                                     ?.copyWith(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: HexColor('#FF004C'),
-                                ),
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: HexColor('#FF004C'),
+                                    ),
                               ),
                             ),
                           ),
@@ -216,11 +224,13 @@ class _LoginScreenState extends State<LoginScreen>
                       Center(
                         child: Text(
                           "أو تسجيل الدخول بواسطة",
-                          style:
-                          Theme.of(context).textTheme.displayMedium?.copyWith(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
                         ),
                       ),
                       SizedBox(height: 25.h),
@@ -230,10 +240,7 @@ class _LoginScreenState extends State<LoginScreen>
                           SizedBox(
                               height: 32.h,
                               width: 32.w,
-                              child: FaIcon(
-                                FontAwesomeIcons.apple,
-                                size: 32.dg,
-                              )),
+                              child: SvgPicture.asset(IconResources.Apple)),
 
                           //Fa.asset(IconResources.Apple)),
                           SizedBox(width: 24.w),
@@ -266,18 +273,20 @@ class _LoginScreenState extends State<LoginScreen>
                                   .textTheme
                                   .displayMedium
                                   ?.copyWith(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                           ),
                           Text(
                             "ليس لديك حساب؟",
-                            style:
-                            Theme.of(context).textTheme.displayMedium?.copyWith(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
                           ),
                         ],
                       ),

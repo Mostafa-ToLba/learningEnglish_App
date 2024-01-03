@@ -169,9 +169,10 @@ class _RegisterScreenState extends State<RegisterScreen>
                         isRegister: true,
                         suffix: IconButton(
                             onPressed: () {},
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.remove_red_eye,
                               color: Colors.black,
+                              size: 16.dg,
                             )),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -221,7 +222,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                           SizedBox(
                               height: 32.h,
                               width: 32.w,
-                              child: FaIcon(FontAwesomeIcons.apple, size: 32.dg,)),
+                              child: SvgPicture.asset(IconResources.Apple)),
                           SizedBox(width: 24.w),
                           SizedBox(
                               height: 32.h,

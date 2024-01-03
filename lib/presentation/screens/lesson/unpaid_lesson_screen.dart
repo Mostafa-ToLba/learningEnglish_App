@@ -625,7 +625,7 @@ class _CodeDialogWidgetState extends State<CodeDialogWidget> {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/enterUnitCode.png"),
-                  fit: BoxFit.fill,
+                  fit: BoxFit.contain,
                 ),
               ),
             ),
@@ -699,7 +699,7 @@ class _CodeDialogWidgetState extends State<CodeDialogWidget> {
                     unitId: widget.unitId);
               },
             ),
-            SizedBox(height: 4.h),
+            SizedBox(height: 12.h),
             TextButton(
               child: Text(
                 "go_back".i18n(),

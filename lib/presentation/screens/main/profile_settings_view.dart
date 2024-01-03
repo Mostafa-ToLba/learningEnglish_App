@@ -175,7 +175,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                             alignment: Alignment.center,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SizedBox(width: 10.w),
                                 CustomText(
@@ -187,7 +187,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                                 ),
                                 SizedBox(width: 10.w),
                                 SvgPicture.asset(
-                                  fit: BoxFit.scaleDown,
+                                  fit: BoxFit.contain,
                                   IconResources.lock,
                                   color: Colors.white,
                                 ),
@@ -252,7 +252,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                           },
                         ),
                       ),
-                      SizedBox(height: 4.h),
+                      SizedBox(height: 16.h),
                       TextButton(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -271,9 +271,10 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                               ),
                             ),
                             Icon(
+                              
                               Icons.logout,
                               color: ColorResources.red,
-                              size: 16.sp,
+                              size: 16.dg,
                             ),
                           ],
                         ),
@@ -487,7 +488,7 @@ class Avatar extends StatelessWidget {
               child: Icon(
                 Icons.edit,
                 color: Colors.white,
-                size: 14.dg,
+                size: 12.dg,
               ),
             ),
           ),

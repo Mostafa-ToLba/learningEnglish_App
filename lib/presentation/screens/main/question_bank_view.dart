@@ -113,7 +113,7 @@ class _QuestionBankState extends State<QuestionBank> {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 24.w),
         padding: EdgeInsets.only(left: 24.dg,top: 24.dg,),
-        height: 118.h,
+        //height: 118.h,
         //height: MediaQuery.sizeOf(context).height * 0.2,
         width: double.infinity,
         decoration: BoxDecoration(

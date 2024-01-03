@@ -477,12 +477,12 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                             ? FaIcon(
                                 FontAwesomeIcons.check,
                                 color: ColorResources.greenDark,
-                                size: 20.dg,
+                                size: 16.dg,
                               )
                             : FaIcon(
                                 FontAwesomeIcons.x,
                                 color: ColorResources.redDark,
-                                size: 20.dg,
+                                size: 16.dg,
                               )
                         : Card(),
                   ],

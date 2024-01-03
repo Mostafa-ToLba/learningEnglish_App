@@ -504,7 +504,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         FaIcon(
                           FontAwesomeIcons.circleDot,
                           color: themeVm.isDark==true?Colors.white:ColorResources.brownDark,
-                          size: 20.dg,
+                          size: 16.dg,
                         ),
                       /*
                       Radio<int>(

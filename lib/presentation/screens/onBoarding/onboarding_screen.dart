@@ -102,12 +102,12 @@ class OnBoardingScreen extends StatelessWidget {
                       }
                     },
                     child: Container(
-                      width: 56.w,
-                      height: 56.h,
-                      decoration: ShapeDecoration(
+                      decoration: BoxDecoration(
+                         borderRadius: BorderRadius.circular(50.r), 
+                
                         color: ColorResources.black,
-                        shape: const OvalBorder(),
-                        shadows: [
+                      //  shape: const OvalBorder(),
+                        boxShadow: [
                           BoxShadow(
                             color: ColorResources.shadow,
                             blurRadius: 25.r,

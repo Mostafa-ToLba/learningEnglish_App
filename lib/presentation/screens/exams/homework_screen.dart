@@ -455,7 +455,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                       .answers![studentSelectedIndex!]}"); 
               print( isCorrect || (studentAnswer != null));
               return Container(
-                margin: EdgeInsets.symmetric(vertical: 5.h),
+                margin: EdgeInsets.symmetric(vertical: 10.h),
                 padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 17.h),
                 decoration: ShapeDecoration(
                   shape: RoundedRectangleBorder(
@@ -526,16 +526,16 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                     isCorrect?FaIcon(
                       FontAwesomeIcons.check,
                       color: ColorResources.greenDark,
-                      size: 20.dg,
+                      size: 16.dg,
                     ):(answerIndex==model.selectedIndex && studentAnswer!)?FaIcon(
                       FontAwesomeIcons.check,
                       color: ColorResources.greenDark,
-                      size: 20.dg,
+                      size: 16.dg,
                     ):
                     (answerIndex==model.selectedIndex && studentAnswer==false)?FaIcon(
                       FontAwesomeIcons.x,
                       color: ColorResources.redDark,
-                      size: 20.dg,
+                      size: 16.dg,
                     ):const Card(),
                   ],
                 ),
@@ -601,7 +601,7 @@ Widget questionn(int quesionIndex, int answerIndex,
                   FaIcon(
                     FontAwesomeIcons.circleDot,
                     color: ColorResources.brownDark,
-                    size: 20.dg,
+                    size: 16.dg,
                   ),
               ],
             ),
@@ -668,7 +668,7 @@ class _questionState extends State<question> {
                   FaIcon(
                     FontAwesomeIcons.circleDot,
                     color: themeVm.isDark==true?Colors.white:ColorResources.brownDark,
-                    size: 20.dg,
+                    size: 16.dg,
                   ),
               ],
             ),

@@ -282,6 +282,7 @@ class NoNotification extends StatelessWidget {
         SizedBox(height: 120.h),
         Container(
           width: 1.sw,
+          height: 150.h,
           color: Colors.transparent,
           child: Lottie.asset('assets/lottieAnimations/brownGirlScrolling.json',fit: BoxFit.cover,),
         ),

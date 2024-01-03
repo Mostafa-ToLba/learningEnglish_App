@@ -81,7 +81,7 @@ class _ForgetPasswordState extends State<ForgetPassword>
                             },
                             icon: Icon(
                               Icons.arrow_back_ios_new_outlined,
-                              size: 20.dg,
+                              size: 16.dg,
                             ), //circle_chevron_left
                           ),
                         ),

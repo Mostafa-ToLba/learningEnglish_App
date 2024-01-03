@@ -107,7 +107,7 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
                             },
                             icon: Icon(
                               Icons.arrow_back_ios_new_outlined,
-                              size: 20.dg,
+                              size: 16.dg,
                             ), //circle_chevron_left
                           ),
                         ),
@@ -159,10 +159,10 @@ class _ForgetPasswordCodeState extends State<ForgetPasswordCode>
                           width: 3.w,
                         ),
                         pinTheme: PinTheme(
-                          shape: PinCodeFieldShape.box,
-                          borderRadius: BorderRadius.circular(32.r),
-                          fieldHeight: 64.h,
-                          fieldWidth: 64.w,
+                          shape: PinCodeFieldShape.circle,
+                          borderRadius: BorderRadius.circular(64.r),
+                          fieldHeight: 72.h,
+                          fieldWidth: 72.w,
                           activeColor:
                               Theme.of(context).indicatorColor.withOpacity(0.5),
                           //activeFillColor: Colors.white,
