@@ -13,9 +13,11 @@ import 'package:learning_anglish_app/data/models/units/units_model.dart';
 import 'package:learning_anglish_app/data/web_services/end_points.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseLesson/choose_lesson_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_with_image_and%20_menu.dart';
+import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
+import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
@@ -28,25 +30,17 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final List<Color> colors = [
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-    Colors.yellow,
-    Colors.orange,
-    Colors.purple,
-    Colors.teal,
-    Colors.pink,
-    Colors.indigo,
-    Colors.cyan,
-    // Added 10 colors
-  ];
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-   //   context.read<HomeViewModel>().addDeviceToken();
-      context.read<HomeViewModel>().getUnits(levelId: 1);
-      context.read<UserProfileViewModel>().getUserProfile();
+      if(context.read<HomeViewModel>().unitModel==null)
+      {
+        context.read<HomeViewModel>().getUnits(levelId: CacheHelper.getData(key: PrefKeys.educationLevel));
+      }
+      if(context.read<UserProfileViewModel>().userProfile==null)
+      {
+        context.read<UserProfileViewModel>().getUserProfile();
+      }
       if(CacheHelper.getData(key: PrefKeys.isDeviceTokenAdded)!=true) {
         context.read<HomeViewModel>().addDeviceToken();
         await FirebaseMessaging.instance
@@ -74,7 +68,8 @@ class _HomeViewState extends State<HomeView> {
     final profileVm = Provider.of<UserProfileViewModel>(context);
     final homeVm = Provider.of<HomeViewModel>(context);
     return SafeArea(
-      child: profileVm.userProfile!=null && homeVm.unitModel!=null?Padding(
+      child: profileVm.userProfile!=null && homeVm.unitModel!=null?
+      Padding(
         padding: EdgeInsets.only(top: 25.h),
         child: Column(
           children: [
@@ -102,24 +97,46 @@ class _HomeViewState extends State<HomeView> {
             ),
             SizedBox(height: 30.h),
             Expanded(
-              child: ListView.separated(
-                  physics:const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) =>
-                      AnimationConfiguration.staggeredList(
-                        position: index,
-                        delay: const Duration(milliseconds: 100),
-                        child: SlideAnimation(
-                          duration: const Duration(milliseconds: 2500),
-                          curve: Curves.fastLinearToSlowEaseIn,
-                          child: FadeInAnimation(
-                              curve: Curves.fastLinearToSlowEaseIn,
-                              duration: const Duration(milliseconds: 2500),
-                              child: HomeWidget(context, colors, index,homeVm.unitModel!.data)),
+              child: homeVm.unitModel!.data.isEmpty? RefreshIndicator(
+                onRefresh: () async{
+                  await Future.delayed(const Duration(seconds: 1));
+                  setState(() {
+                    homeVm.getUnits(levelId: CacheHelper.getData(key: PrefKeys.educationLevel));
+                  });
+                },
+                child: Expanded(
+                    child: SizedBox(
+                      height: 700.h,
+                      child: ListView.builder(
+                        shrinkWrap: false,
+                        itemBuilder: (context,index)=>const NoNotification(),itemCount: 1,),
+                    )),
+              ):RefreshIndicator(
+                color: Provider.of<ThemesViewModel>(context).isDark! ?Colors.white:Colors.black,
+                onRefresh: () async{
+                  await Future.delayed(const Duration(seconds: 2));
+                  setState(() {
+                    homeVm.getUnits(levelId: CacheHelper.getData(key: PrefKeys.educationLevel));
+                  });
+                },
+                child: ListView.separated(
+                    shrinkWrap: false,
+                    itemBuilder: (context, index) =>
+                        AnimationConfiguration.staggeredList(
+                          position: index,
+                          delay: const Duration(milliseconds: 100),
+                          child: SlideAnimation(
+                            duration: const Duration(milliseconds: 2500),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            child: FadeInAnimation(
+                                curve: Curves.fastLinearToSlowEaseIn,
+                                duration: const Duration(milliseconds: 2500),
+                                child: HomeWidget(context, homeVm.colors, index,homeVm.unitModel!.data)),
+                          ),
                         ),
-                      ),
-                  separatorBuilder: (context, index) => SizedBox(height: 16.h),
-                  itemCount: homeVm.unitModel!.data.length),
+                    separatorBuilder: (context, index) => SizedBox(height: 16.h),
+                    itemCount: homeVm.unitModel!.data.length),
+              ),
             ),
           ],
         ),
@@ -255,6 +272,28 @@ class HomeWidget extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class NoNotification extends StatelessWidget {
+  const NoNotification({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final themeVm = Provider.of<ThemesViewModel>(context);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children:
+      [
+        SizedBox(height: 50.h),
+        Container(
+          width: 1.sw,
+          color: Colors.transparent,
+          child: Lottie.asset('assets/lottieAnimations/bank.json',fit: BoxFit.cover,),
+        ),
+        CustomText(text: '! لا يوجد اي محاضرات حتي الان',txtSize: 18.sp,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor,),
+      ],
     );
   }
 }

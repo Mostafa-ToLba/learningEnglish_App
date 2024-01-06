@@ -32,16 +32,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      context.read<NotificationViewModel>().getNotification();
+      if(context.read<NotificationViewModel>().notificationModel==null)
+      {
+        context.read<NotificationViewModel>().getNotification();
+      }
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final themeVM = Provider.of<ThemesViewModel>(context);
-    final profileVm = Provider.of<UserProfileViewModel>(context);
-    final homeVm = Provider.of<HomeViewModel>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
@@ -113,42 +113,61 @@ class _NotificationScreenState extends State<NotificationScreen> {
                model.notificationModel!.data!.isNotEmpty
                   ? Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(left: 24.w, right: 24.w),
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    itemCount:
-                    model.notificationModel!.data!.length,
-                    itemBuilder: (context, index) {
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        delay: const Duration(milliseconds: 100),
-                        child: SlideAnimation(
-                          duration:
-                          const Duration(milliseconds: 2500),
-                          curve: Curves.fastLinearToSlowEaseIn,
-                          child: FadeInAnimation(
-                            curve: Curves.fastLinearToSlowEaseIn,
+                  padding: EdgeInsets.only(left: 24.w, right: 24.w,top: 15.h,bottom: 10.h),
+                  child: RefreshIndicator(
+                    color: Provider.of<ThemesViewModel>(context).isDark! ?Colors.white:Colors.black,
+                    onRefresh: () async{
+                      await Future.delayed(const Duration(seconds: 2));
+                      setState(() {
+                        model.getNotification();
+                      });
+                    },
+                    child: ListView.separated(
+                      itemCount:
+                      model.notificationModel!.data!.length,
+                      itemBuilder: (context, index) {
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          delay: const Duration(milliseconds: 100),
+                          child: SlideAnimation(
                             duration:
                             const Duration(milliseconds: 2500),
-                            child: NotificationWidget(
-                              model.colors,
-                              index,
-                              model.notificationModel!.data![index],
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            child: FadeInAnimation(
+                              curve: Curves.fastLinearToSlowEaseIn,
+                              duration:
+                              const Duration(milliseconds: 2500),
+                              child: NotificationWidget(
+                                model.colors,
+                                index,
+                                model.notificationModel!.data![index],
+                              ),
+                              //child: Container(),
+                              // child: NotificationWidget(context, colors, index),
                             ),
-                            //child: Container(),
-                            // child: NotificationWidget(context, colors, index),
                           ),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) =>
-                        SizedBox(height: 16.h),
+                        );
+                      },
+                      separatorBuilder: (context, index) =>
+                          SizedBox(height: 16.h),
+                    ),
                   ),
                 ),
               )
-                  : const Center(
-                child: NoNotification(),
-              )
+                  : RefreshIndicator(
+                    onRefresh: () async{
+                      await Future.delayed(const Duration(seconds: 1));
+                      setState(() {
+                        model.getNotification();
+                      });
+                    },
+                    child: SizedBox(
+                      height: 620.h,
+                      child: ListView.builder(
+                        shrinkWrap: false,
+                        itemBuilder: (context,index)=>const NoNotification(),itemCount: 1,),
+                    ),
+                  )
                 ],
               ),
             );
@@ -175,6 +194,10 @@ class NotificationWidget extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
+            border: Border.all(
+              color: themeVM.isDark == true ? Colors.white : Colors.transparent,
+              width: .3,
+            ),
             borderRadius: BorderRadius.circular(20.r),
             color: themeVM.isDark == true
                 ? ColorResources.black
@@ -185,9 +208,9 @@ class NotificationWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 20.h,bottom: 10.h),
+                padding: EdgeInsets.only(top: 20.h,bottom: 10.h,),
                 child: SizedBox(
-                  width: 280.w,
+                  width: 300.w,
                   child: Column(
                     children: [
                       Align(
@@ -232,23 +255,33 @@ class NotificationWidget extends StatelessWidget {
                       SizedBox(height: 10.h),
                       Align(
                         alignment: Alignment.bottomLeft,
-                        child: Text(
-                          notificatioVm.formatTimestampForArabic(time: data.createdOn??''),
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                            fontSize: 14.sp,
-                            fontFamily: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.fontFamily,
-                            // TODO: Edit this
-                            color: themeVM.isDark == true
-                                ? Colors.grey
-                                : Colors.grey,
-                            fontWeight: FontWeight.w400,
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                                height: 15.r,
+                                width:  15.r,
+                                child: Image.asset('assets/images/schedule.png')),
+                            SizedBox(width: 6.w),
+                            Text(
+                              notificatioVm.formatTimestampForArabic(time: data.createdOn??''),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                fontSize: 14.sp,
+                                fontFamily: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.fontFamily,
+                                // TODO: Edit this
+                                color: themeVM.isDark == true
+                                    ? Colors.grey
+                                    : Colors.grey,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -283,8 +316,9 @@ class NoNotification extends StatelessWidget {
         Container(
           width: 1.sw,
           color: Colors.transparent,
-          child: Lottie.asset('assets/lottieAnimations/brownGirlScrolling.json',fit: BoxFit.cover,),
+          child: Lottie.asset('assets/lottieAnimations/wave.json',fit: BoxFit.cover,),
         ),
+        SizedBox(height: 30.h),
         CustomText(text: '! ليس لديك اي اخبار من المعلم',txtSize: 18.sp,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor,),
       ],
     );

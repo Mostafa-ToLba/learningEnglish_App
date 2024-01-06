@@ -166,11 +166,15 @@ class _RegisterScreenState extends State<RegisterScreen>
                       ),
                       SizedBox(height: 14.h),
                       CustomTextField(
+                        obscure:model.obscure,
                         isRegister: true,
                         suffix: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.remove_red_eye,
+                            onPressed: ()
+                            {
+                              model.changeObscureText();
+                            },
+                            icon:  Icon(
+                              model.obscure?Icons.remove_red_eye:Icons.remove_red_eye_outlined,
                               color: Colors.black,
                             )),
                         validator: (value) {

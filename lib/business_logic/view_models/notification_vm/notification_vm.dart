@@ -17,7 +17,13 @@ class NotificationViewModel extends BaseNotifier {
     Colors.pink,
     Colors.indigo,
     Colors.cyan,
-    // Added 10 colors
+    Colors.grey,
+    Colors.indigo,
+    Colors.yellowAccent,
+    Colors.purpleAccent,
+    Colors.orangeAccent,
+    Colors.black,
+    Colors.white10,
   ];
 
   NotificationModel? notificationModel;

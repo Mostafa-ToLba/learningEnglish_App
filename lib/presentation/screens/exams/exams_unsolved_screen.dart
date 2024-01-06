@@ -318,7 +318,7 @@ class _ExamsUnsolvedScreenState extends State<ExamsUnsolvedScreen> {
                                               return AlertDialog(
                                                 title:  Row(
                                                   children: [
-                                                    Text('انهاء الامتحان',style: TextStyle(color: Colors.black,fontSize: 18.sp),),
+                                                    Text('انهاء الامتحان',style: TextStyle(color: themeVm.isDark==true?Colors.white:Colors.black,fontSize: 18.sp),),
                                                   ],
                                                 ),
                                                 content:  Column(
@@ -337,7 +337,7 @@ class _ExamsUnsolvedScreenState extends State<ExamsUnsolvedScreen> {
 
                                                       Navigator.of(context).pop();
                                                     },
-                                                    child: const Text('الغاء'),
+                                                    child:  Text('الغاء',style: TextStyle(fontSize: 13.sp,color: themeVm.isDark==true?Colors.white:Colors.grey)),
                                                   ),
                                                   ElevatedButton(
                                                     style: ElevatedButton.styleFrom(

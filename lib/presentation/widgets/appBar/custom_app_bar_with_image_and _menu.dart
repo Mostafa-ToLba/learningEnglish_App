@@ -27,8 +27,8 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
             IconButton(
                 onPressed: onMenuPressed,
                 icon: Image(
-                  height: 30.r,
-                  width: 30.r,
+                  height: 35.r,
+                  width: 35.r,
                   image: const AssetImage(
                     Images.menu1,
                   ),
@@ -56,7 +56,7 @@ class CustomAppBarWithImageAndMenu extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   color: Theme.of(context).textTheme.displayMedium!.color,
                   fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w600,
                   height: 0.07.h,
                 ),
               ),

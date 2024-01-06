@@ -112,17 +112,14 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
                                 child: AnimationConfiguration.staggeredList(
                                   position: index,
                                   delay: const Duration(milliseconds: 100),
-                                  child: SlideAnimation(
+                                  child:  SlideAnimation(
                                     duration: const Duration(milliseconds: 2500),
                                     curve: Curves.fastLinearToSlowEaseIn,
                                     child: FadeInAnimation(
                                       curve: Curves.fastLinearToSlowEaseIn,
                                       duration: const Duration(milliseconds: 2500),
-                                      child: classContainer(
-                                        model.educationLevelsModel.data[index],
-                                        context,
-                                        isChosen: model.selectedIndex == index,
-                                      ),
+                                      child:
+                                      ClassContainer(model.educationLevelsModel.data[index],context,isChosen: model.selectedIndex == index),
                                     ),
                                   ),
                                 ),
@@ -148,11 +145,12 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
                               ),
                               color: ColorResources.buttonColor,
                               onTap: () {
-                                //   context.read<SettingsBloc>().add(const SettingsEvent.choosingClassDone());
-
-                                Route route = MaterialPageRoute(
-                                    builder: (context) => const MainScreen());
-                                Navigator.pushReplacement(context, route);
+                                model.storeLevel().then((value)
+                                {
+                                  Route route = MaterialPageRoute(
+                                      builder: (context) => const MainScreen());
+                                  Navigator.pushReplacement(context, route);
+                                });
                               },
                             ),
                           ),
@@ -168,9 +166,58 @@ class _ChooseClassScreenState extends State<ChooseClassScreen>
     );
   }
 }
-//String classList, BuildContext context, {bool isChosen = false}
-Widget classContainer(Level data, BuildContext context, {required bool isChosen}) =>
-    Container(
+// //String classList, BuildContext context, {bool isChosen = false}
+// Widget classContainer(Level data, BuildContext context, {required bool isChosen}) =>
+//     Container(
+//       height: 56.h,
+//       width: 1.sw,
+//       padding: EdgeInsets.only(right: 24.w, left: 24.w),
+//       decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(30.r),
+//           border: Border.all(
+//             color: isChosen ? Colors.green : Theme.of(context).indicatorColor,
+//             width: isChosen ? 2.w : .3.w,
+//           )),
+//       child: Row(
+//         crossAxisAlignment: CrossAxisAlignment.center,
+//         children: [
+//           Text(
+//             data.name??'',
+//             style: Theme.of(context).textTheme.displayMedium?.copyWith(
+//                   fontSize: 16.sp,
+//                   fontWeight: FontWeight.w500,
+//                 ),
+//           ),
+//           const Spacer(),
+//           Container(
+//             height: 24.h,
+//             width: 24.w,
+//             decoration: BoxDecoration(
+//                 shape: BoxShape.circle,
+//                 border: Border.all(
+//                     color: isChosen
+//                         ? Colors.green
+//                         : Theme.of(context).indicatorColor,
+//                     width: 1.w)),
+//             child: Icon(Icons.check,
+//                 size: 15.h,
+//                 color:
+//                     isChosen ? Colors.green : Theme.of(context).indicatorColor),
+//           )
+//         ],
+//       ),
+//     );
+
+
+class ClassContainer extends StatelessWidget {
+  final Level data;
+  final bool isChosen;
+
+  const ClassContainer( this.data, BuildContext context, {super.key, required  this.isChosen});
+
+  @override
+  Widget build(BuildContext context) {
+    return  Container(
       height: 56.h,
       width: 1.sw,
       padding: EdgeInsets.only(right: 24.w, left: 24.w),
@@ -186,9 +233,9 @@ Widget classContainer(Level data, BuildContext context, {required bool isChosen}
           Text(
             data.name??'',
             style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           const Spacer(),
           Container(
@@ -204,8 +251,11 @@ Widget classContainer(Level data, BuildContext context, {required bool isChosen}
             child: Icon(Icons.check,
                 size: 15.h,
                 color:
-                    isChosen ? Colors.green : Theme.of(context).indicatorColor),
+                isChosen ? Colors.green : Theme.of(context).indicatorColor),
           )
         ],
       ),
     );
+  }
+}
+

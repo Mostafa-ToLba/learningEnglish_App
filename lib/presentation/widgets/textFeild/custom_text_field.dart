@@ -22,6 +22,7 @@ class CustomTextField extends StatelessWidget {
     this.isSearch,
     this.text2,
     this.textColor,
+    this.obscure=false,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -33,6 +34,7 @@ class CustomTextField extends StatelessWidget {
   final bool? isPadding;
   final bool? isRegister;
   final bool? isSearch;
+  final bool obscure;
   final Widget? suffix;
   final Widget? prefix;
   final bool? readOnly;
@@ -73,6 +75,7 @@ class CustomTextField extends StatelessWidget {
             readOnly: readOnly!,
             controller: controller,
             keyboardType: textInputType,
+            obscureText: obscure,
             style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w600,color: Colors.black),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(left: 20.w,),

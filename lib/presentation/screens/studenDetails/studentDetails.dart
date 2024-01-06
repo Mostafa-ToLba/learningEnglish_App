@@ -32,7 +32,10 @@ import 'package:provider/provider.dart';
    @override
    void initState() {
      SchedulerBinding.instance.addPostFrameCallback((_) async {
-       context.read<StudentExamsViewModel>().getStudentExams();
+       if(context.read<StudentExamsViewModel>().studentExamsModel==null)
+       {
+         context.read<StudentExamsViewModel>().getStudentExams();
+       }
      });
      super.initState();
    }
@@ -60,26 +63,46 @@ import 'package:provider/provider.dart';
              ),
              SizedBox(height: 30.h),
              studentExamsVm.studentExamsModel!.data!.isEmpty?
-             const NoExams()
+             RefreshIndicator(
+               onRefresh: () async{
+                 await Future.delayed(const Duration(seconds: 1));
+                 setState(() {
+                   studentExamsVm.getStudentExams();
+                 });
+               },
+               child: SizedBox(
+                 height: 590.h,
+                 child: ListView.builder(
+                   shrinkWrap: false,
+                   itemBuilder: (context,index)=>const NoExams(),itemCount: 1,),
+               ),
+             )
                  :Expanded(
-               child: ListView.separated(
-                   physics:const BouncingScrollPhysics(),
-                   shrinkWrap: true,
-                   itemBuilder: (context, index) =>
-                       AnimationConfiguration.staggeredList(
-                         position: index,
-                         delay: const Duration(milliseconds: 100),
-                         child: SlideAnimation(
-                           duration: const Duration(milliseconds: 2500),
-                           curve: Curves.fastLinearToSlowEaseIn,
-                           child: FadeInAnimation(
-                               curve: Curves.fastLinearToSlowEaseIn,
-                               duration: const Duration(milliseconds: 2500),
-                               child: StudentDetailsWidget(context, index,studentExamsVm.studentExamsModel!.data![index])),
+               child: RefreshIndicator(
+                 color: Provider.of<ThemesViewModel>(context).isDark! ?Colors.white:Colors.black,
+                 onRefresh: () async{
+                   await Future.delayed(const Duration(seconds: 2));
+                   setState(() {
+                     studentExamsVm.getStudentExams();
+                   });
+                 },
+                 child: ListView.separated(
+                     itemBuilder: (context, index) =>
+                         AnimationConfiguration.staggeredList(
+                           position: index,
+                           delay: const Duration(milliseconds: 100),
+                           child: SlideAnimation(
+                             duration: const Duration(milliseconds: 2500),
+                             curve: Curves.fastLinearToSlowEaseIn,
+                             child: FadeInAnimation(
+                                 curve: Curves.fastLinearToSlowEaseIn,
+                                 duration: const Duration(milliseconds: 2500),
+                                 child: StudentDetailsWidget(context, index,studentExamsVm.studentExamsModel!.data![index])),
+                           ),
                          ),
-                       ),
-                   separatorBuilder: (context, index) => SizedBox(height: 16.h),
-                   itemCount: studentExamsVm.studentExamsModel!.data!.length),
+                     separatorBuilder: (context, index) => SizedBox(height: 16.h),
+                     itemCount: studentExamsVm.studentExamsModel!.data!.length),
+               ),
              ),
 
            ],
@@ -315,11 +338,11 @@ import 'package:provider/provider.dart';
        mainAxisAlignment: MainAxisAlignment.center,
        children:
        [
-         SizedBox(height: 80.h),
+         SizedBox(height: 100.h),
          Container(
-           width: 1.sw-50.w,
+           width: 1.sw,
            color: Colors.transparent,
-           child: Lottie.asset('assets/lottieAnimations/noData1.json',fit: BoxFit.cover,),
+           child: Lottie.asset('assets/lottieAnimations/brownGirlScrolling.json',fit: BoxFit.cover,),
          ),
          CustomText(text: '! ليس لديك أي نتائج حتي الان ',txtSize: 18.sp,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor),
        ],

@@ -89,10 +89,10 @@ class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
                                 .displayMedium
                                 ?.copyWith(
                                   fontSize: 18.sp,
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w600,
                                 ),
                           ),
-                          SizedBox(height: 12.h),
+                          SizedBox(height: 4.h),
                           Text(
                             widget.educationalLevelName,
                             textAlign: TextAlign.center,
@@ -101,8 +101,9 @@ class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
                                 .displayMedium
                                 ?.copyWith(
                                   fontSize: 16.sp,
+                                  color: Colors.red,
                                   fontWeight: FontWeight.w400,
-                                  height: 0.07.h,
+
                                 ),
                           ),
                         ],
@@ -115,7 +116,10 @@ class _ChooseLessonScreenState extends State<ChooseLessonScreen> {
               SizedBox(
                 height: 34.h,
               ),
-              homeVm.lessonsModel==null?const Center(child: CircularProgressIndicator()):
+              homeVm.lessonsModel==null?Padding(
+                padding:  EdgeInsets.only(top:300.h),
+                child: CircularProgressIndicator(),
+              ):
               homeVm.lessonsModel!.data!.isEmpty ? const Center(child: NoLesson()): Expanded(
                 child: ListView.separated
                   (itemBuilder: (context,index)=> LessonWidget(index,homeVm.colors,homeVm.lessonsModel!.data![index],widget.id,widget.screenType),
@@ -313,12 +317,13 @@ class NoLesson extends StatelessWidget {
     return Column(
       children:
       [
-        SizedBox(height: 70.h),
+        SizedBox(height: 150.h),
         Container(
           width: 1.sw,
           color: Colors.transparent,
-          child: Lottie.asset('assets/lottieAnimations/noData2.json',fit: BoxFit.cover,),
+          child: Lottie.asset('assets/lottieAnimations/wave.json',fit: BoxFit.fitHeight,),
         ),
+        SizedBox(height: 20.h),
         CustomText(text: 'الوحدة ليس بها حصص',txtSize: 18.sp,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor),
       ],
     );

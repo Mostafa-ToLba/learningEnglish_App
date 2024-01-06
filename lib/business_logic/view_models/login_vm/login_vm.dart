@@ -46,4 +46,10 @@ class LoginViewModel extends BaseNotifier {
     }
     setIdle();
   }
+  bool obscure = false;
+  changeObscureText()
+  {
+    obscure = !obscure;
+    notifyListeners();
+  }
 }

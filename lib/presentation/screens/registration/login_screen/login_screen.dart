@@ -117,12 +117,16 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                       SizedBox(height: 14.h),
                       CustomTextField(
+                        obscure: model.obscure,
                         isRegister: true,
                         controller: model.passwordController,
                         suffix: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.remove_red_eye,
+                            onPressed: ()
+                            {
+                              model.changeObscureText();
+                            },
+                            icon: Icon(
+                              model.obscure?Icons.remove_red_eye:Icons.remove_red_eye_outlined,
                               color: Colors.black,
                             )),
                         validator: (value) {
@@ -256,7 +260,7 @@ class _LoginScreenState extends State<LoginScreen>
                         children: [
                           TextButton(
                             onPressed: () {
-                              Navigator.pushReplacement(context,
+                              Navigator.push(context,
                                   SlideTransition1(const RegisterScreen()));
                             },
                             //style: ButtonStyle()

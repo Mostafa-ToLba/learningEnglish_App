@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_anglish_app/business_logic/view_models/exams_vm/exams_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
+import 'package:learning_anglish_app/presentation/screens/chooseExamScreen/chooseExamScreen.dart';
+import 'package:learning_anglish_app/presentation/screens/exams/exams_solved_screen.dart';
+import 'package:learning_anglish_app/presentation/screens/lesson/unpaid_lesson_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/button/custom_button.dart';
 import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
+import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:localization/localization.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -202,7 +206,8 @@ class _ResultsScreenState extends State<ResultsScreen>
                                   loading: model.busy,
                                   onTap: () {
                                     model.getStudentExams(context);
-
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
                                   },
                                 ),
                               ),

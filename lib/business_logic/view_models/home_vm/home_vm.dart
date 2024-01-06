@@ -21,6 +21,27 @@ final examTypeForToast = {
 
 class HomeViewModel extends BaseNotifier {
   //*******************  units  *************************//
+  final List<Color> colors = [
+    Colors.red,
+    Colors.blue,
+    Colors.green,
+    Colors.yellow,
+    Colors.orange,
+    Colors.purple,
+    Colors.teal,
+    Colors.pink,
+    Colors.indigo,
+    Colors.cyan,
+    Colors.grey,
+    Colors.indigo,
+    Colors.yellowAccent,
+    Colors.purpleAccent,
+    Colors.orangeAccent,
+    Colors.black,
+    Colors.white10,
+  ];
+
+
   UnitModel? unitModel;
   void getUnits({levelId}) async {
     setBusy();
@@ -35,26 +56,23 @@ class HomeViewModel extends BaseNotifier {
     setIdle();
   }
 
+  Future<void> getUnitsRefresh({levelId}) async {
+    // Simulating a data refresh, you can fetch new data here
+    await Future.delayed(const Duration(seconds: 2)).then((value)
+    {
+      getUnits(levelId: levelId);
+    });
+
+  }
+
   //*******************  Lessons  *************************//
 
-  final List<Color> colors = [
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-    Colors.yellow,
-    Colors.orange,
-    Colors.purple,
-    Colors.teal,
-    Colors.pink,
-    Colors.indigo,
-    Colors.cyan,
-    // Added 10 colors
-  ];
 
   Lessons? lessonsModel;
   void getLessons({unitId}) async {
     setBusy();
     try {
+      lessonsModel = null;
       Response<dynamic> res = await api.lessons(unitId: unitId);
       lessonsModel = Lessons.fromJson(res.data);
     } catch (e) {

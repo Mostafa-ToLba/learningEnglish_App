@@ -1,3 +1,5 @@
+import 'package:cherry_toast/cherry_toast.dart';
+import 'package:cherry_toast/resources/arrays.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:learning_anglish_app/data/cache_helper/cache_helper.dart';
 import 'package:learning_anglish_app/data/web_services/end_points.dart';
+import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 class General {
@@ -16,17 +19,29 @@ class General {
       {required String message, Color? backColor, Color? textColor}) async {
     Fluttertoast.showToast(
         msg: message,
-
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 3,
-
         webBgColor: "linear-gradient(to right, #000000, #000000)",
         backgroundColor: backColor ?? ColorResources.buttonColor,
         textColor: textColor ?? ColorResources.white1,
         webPosition: "center",
-        fontSize: 18.0);
+        fontSize: 18.sp);
   }
+
+  static Future<void> showToast2(
+      {required String message, Color? backColor, Color? textColor,context}) async
+  {
+    CherryToast.error(
+        title:  Text('Error',style: TextStyle(fontSize: 12.sp,),),
+        displayTitle:  true,
+        description:   Text(message, style: const TextStyle(color: Colors.black)),
+        animationType:  AnimationType.fromBottom,
+        animationDuration:  const Duration(seconds: 3),
+        autoDismiss:  true
+    ).show(context);
+  }
+
 
 
   //***  refresh token */

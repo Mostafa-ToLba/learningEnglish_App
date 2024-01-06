@@ -278,7 +278,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView>
                           ],
                         ),
                         onPressed: () {
-                          model.signOut().then((value)
+                          model.signOut(context: context).then((value)
                           {
                             Route route = MaterialPageRoute(
                                 builder: (context) => const LoginScreen());

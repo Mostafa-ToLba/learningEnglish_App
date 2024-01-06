@@ -1,4 +1,5 @@
 
+import 'package:cherry_toast/cherry_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_anglish_app/business_logic/setup/base_notifier.dart';
@@ -41,12 +42,22 @@ class RegisterViewModel extends BaseNotifier {
       else
       {
         General.showToast(message: res.data['errorMessage']);
+
+        General.showToast2(message: res.data['data']['message'].toString(),context: context);
+    //    General.showToast(message: res.data['data']['message'].toString());
       }
     } catch (e) {
       Logger().e(e.toString());
       setError();
     }
     setIdle();
+  }
+
+  bool obscure = false;
+  changeObscureText()
+  {
+    obscure = !obscure;
+    notifyListeners();
   }
 
   String defImage =

@@ -6,33 +6,26 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_anglish_app/business_logic/view_models/home_vm/home_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/mainScreen_vm/mainScreen_vm.dart';
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
-import 'package:learning_anglish_app/data/models/lessons/lessons.dart';
+import 'package:learning_anglish_app/data/cache_helper/cache_helper.dart';
 import 'package:learning_anglish_app/data/models/units/units_model.dart';
 import 'package:learning_anglish_app/presentation/screens/chooseLesson/choose_lesson_screen.dart';
-import 'package:learning_anglish_app/presentation/screens/main/main_screen.dart';
 import 'package:learning_anglish_app/presentation/screens/questionBankPerLesson/question_bank_per_lesson_screen.dart';
 import 'package:learning_anglish_app/presentation/widgets/appBar/custom_app_bar_with_menu.dart';
+import 'package:learning_anglish_app/presentation/widgets/text/custom_text.dart';
 import 'package:learning_anglish_app/utils/app_constants/app_constants.dart';
 import 'package:learning_anglish_app/utils/color_resource/color_resources.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
-class QuestionBankView extends StatelessWidget {
-  QuestionBankView({super.key});
-  final List<Color> colors = [
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-    Colors.yellow,
-    Colors.orange,
-    Colors.purple,
-    Colors.teal,
-    Colors.pink,
-    Colors.indigo,
-    Colors.cyan,
-    // Added 10 colors
-  ];
+class QuestionBankView extends StatefulWidget {
+  const QuestionBankView({super.key});
+
+  @override
+  State<QuestionBankView> createState() => _QuestionBankViewState();
+}
+
+class _QuestionBankViewState extends State<QuestionBankView> {
   @override
   Widget build(BuildContext context) {
     final homeVm = Provider.of<HomeViewModel>(context);
@@ -56,24 +49,50 @@ class QuestionBankView extends StatelessWidget {
               text: 'بنك الأسئلة',
             ),
             Expanded(
-                child: ListView.separated(
-                    itemBuilder: (context, index) =>
-                        AnimationConfiguration.staggeredList(
-                          position: index,
-                          delay: const Duration(milliseconds: 100),
-                          child: SlideAnimation(
-                            duration: const Duration(milliseconds: 2500),
-                            curve: Curves.fastLinearToSlowEaseIn,
-                            child: FadeInAnimation(
-                                curve: Curves.fastLinearToSlowEaseIn,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 15.h,bottom: 10.h),
+                  child: homeVm.unitModel!.data.isEmpty? RefreshIndicator(
+                    onRefresh: () async{
+                      await Future.delayed(const Duration(seconds: 1));
+                      setState(() {
+                        homeVm.getUnits(levelId: CacheHelper.getData(key: PrefKeys.educationLevel));
+                      });
+                    },
+                    child: Expanded(
+                        child: SizedBox(
+                          height: 700.h,
+                          child: ListView.builder(
+                            shrinkWrap: false,
+                            itemBuilder: (context,index)=>const NoNotification(),itemCount: 1,),
+                        )),
+                  ):RefreshIndicator(
+                    color: Provider.of<ThemesViewModel>(context).isDark! ?Colors.white:Colors.black,
+                    onRefresh: () async{
+                      await Future.delayed(const Duration(seconds: 2));
+                      setState(() {
+                        homeVm.getUnits(levelId: CacheHelper.getData(key: PrefKeys.educationLevel));
+                      });
+                    },
+                    child: ListView.separated(
+                        itemBuilder: (context, index) =>
+                            AnimationConfiguration.staggeredList(
+                              position: index,
+                              delay: const Duration(milliseconds: 100),
+                              child: SlideAnimation(
                                 duration: const Duration(milliseconds: 2500),
-                                child: QuestionBank(context, colors, index,
-                                    homeVm.unitModel!.data[index])),
-                          ),
-                        ),
-                    separatorBuilder: (context, index) =>
-                        SizedBox(height: 16.h),
-                    itemCount: homeVm.unitModel!.data.length)),
+                                curve: Curves.fastLinearToSlowEaseIn,
+                                child: FadeInAnimation(
+                                    curve: Curves.fastLinearToSlowEaseIn,
+                                    duration: const Duration(milliseconds: 2500),
+                                    child: QuestionBank(context, homeVm.colors, index,
+                                        homeVm.unitModel!.data[index])),
+                              ),
+                            ),
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 16.h),
+                        itemCount: homeVm.unitModel!.data.length),
+                  ),
+                )),
           ],
         ),
       ),
@@ -97,7 +116,10 @@ class _QuestionBankState extends State<QuestionBank> {
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      context.read<HomeViewModel>().getLessons(unitId: widget.unitDetails.id);
+      if(context.read<HomeViewModel>().lessonsModel==null)
+      {
+        context.read<HomeViewModel>().getLessons(unitId: widget.unitDetails.id);
+      }
     });
     super.initState();
   }
@@ -138,7 +160,7 @@ class _QuestionBankState extends State<QuestionBank> {
                 SizedBox(
                   height: 40.h,
                   width: 40.w,
-                  child: Image(color:themeVM.isDark==true?Colors.white:Colors.black,image: AssetImage('assets/images/exam.png',)),
+                  child: Image(color:themeVM.isDark==true?Colors.white:Colors.black,image: const AssetImage('assets/images/exam.png',)),
                 ),
                 const Spacer(),
                 Column(
@@ -750,6 +772,29 @@ class _ExpansionWidgetState extends State<ExpansionWidget> {
       ],
 
        */
+    );
+  }
+}
+
+
+class NoNotification extends StatelessWidget {
+  const NoNotification({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final themeVm = Provider.of<ThemesViewModel>(context);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children:
+      [
+        SizedBox(height: 70.h),
+        Container(
+          width: 1.sw,
+          color: Colors.transparent,
+          child: Lottie.asset('assets/lottieAnimations/bank2.json',fit: BoxFit.cover,),
+        ),
+        CustomText(text: '! لا يوجد اي أسئلة حتي الان',txtSize: 18.sp,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor,),
+      ],
     );
   }
 }

@@ -75,6 +75,7 @@ class PrefKeys {
   static const String REFRESH_TOKEN = 'refresh_token';
   static const String ONBOARDING = "on_boarding";
   static const String isDeviceTokenAdded = "isDeviceTokenAdded" ;
+  static const String educationLevel = "educationLevel" ;
 }
 
 class CacheHelper {

@@ -8,6 +8,8 @@ import 'package:learning_anglish_app/presentation/screens/notification/notificat
 import 'package:learning_anglish_app/business_logic/view_models/themes_vm/themes_vm.dart';
 import 'package:learning_anglish_app/utils/icons/icons.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
@@ -25,6 +27,17 @@ class _AppDrawerState extends State<AppDrawer> {
     super.initState();
   }
 
+  void launchWhatsapp(
+      String phone,
+      String message,
+      ) async {
+    final url = 'https://wa.me/+20$phone?text=$message';
+
+    await launchUrlString(
+      url,
+      mode: LaunchMode.externalApplication,
+    );
+  }
   @override
   Widget build(BuildContext context) {
     final profileVm = Provider.of<UserProfileViewModel>(context);
@@ -116,7 +129,10 @@ class _AppDrawerState extends State<AppDrawer> {
               // ),
               ListTile(
                 horizontalTitleGap: 20.w,
-                onTap: () {},
+                onTap: ()
+                 {
+                  launchWhatsapp('1090964348','لو سمحت انا محتاج اشتري الحصة');
+                },
                 trailing: SvgPicture.asset(IconResources.whatsapp),
                 // const Icon(Icons.star_border, size: 20.0, color: Colors.white),
                 title: Text(

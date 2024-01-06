@@ -94,7 +94,7 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            'الوحدة الأولى',
+                            widget.unitName.toString(),
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
@@ -103,22 +103,22 @@ class _UnpaidLessonScreenState extends State<UnpaidLessonScreen> {
                                   fontSize: 18.sp,
                                   //color: Theme.of(context).primaryColor,
                                   // color: ColorResources.black,
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w600,
                                 ),
                           ),
-                          SizedBox(height: 8.h),
+                          SizedBox(height: 2.h),
                           Text(
-                            'Getting away',
+                            widget.name.toString(),
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
                                 ?.copyWith(
                                   fontSize: 16.sp,
+                                  color: Colors.red,
                                   //color: Theme.of(context).primaryColor,
                                   // color: ColorResources.black,
                                   fontWeight: FontWeight.w400,
-                                  height: 0.07.h,
                                 ),
                           ),
                         ],
