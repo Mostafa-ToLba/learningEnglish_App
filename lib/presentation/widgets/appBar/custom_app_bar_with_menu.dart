@@ -38,9 +38,8 @@ class _CustomAppBarWithMenuState extends State<CustomAppBarWithMenu> {
             //'بنك الأسئلة',
             widget.text,
             style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                  fontSize: 18.sp,
+                  fontSize: 19.sp,
                   color: Colors.red,
-                  fontFamily: AppConstants.arabicFont1,
                   fontWeight: FontWeight.w600,
                 ),
           ),

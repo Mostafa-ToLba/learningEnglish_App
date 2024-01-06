@@ -317,11 +317,11 @@ class NoLesson extends StatelessWidget {
     return Column(
       children:
       [
-        SizedBox(height: 150.h),
+        SizedBox(height: 110.h),
         Container(
           width: 1.sw,
           color: Colors.transparent,
-          child: Lottie.asset('assets/lottieAnimations/wave.json',fit: BoxFit.fitHeight,),
+          child: Lottie.asset('assets/lottieAnimations/success.json',fit: BoxFit.cover,),
         ),
         SizedBox(height: 20.h),
         CustomText(text: 'الوحدة ليس بها حصص',txtSize: 18.sp,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor),
