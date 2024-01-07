@@ -58,13 +58,12 @@ class _QuestionBankViewState extends State<QuestionBankView> {
                         homeVm.getUnits(levelId: CacheHelper.getData(key: PrefKeys.educationLevel));
                       });
                     },
-                    child: Expanded(
-                        child: SizedBox(
-                          height: 700.h,
-                          child: ListView.builder(
-                            shrinkWrap: false,
-                            itemBuilder: (context,index)=>const NoNotification(),itemCount: 1,),
-                        )),
+                    child: SizedBox(
+                      height: 700.h,
+                      child: ListView.builder(
+                        shrinkWrap: false,
+                        itemBuilder: (context,index)=>const NoNotification(),itemCount: 1,),
+                    ),
                   ):RefreshIndicator(
                     color: Provider.of<ThemesViewModel>(context).isDark! ?Colors.white:Colors.black,
                     onRefresh: () async{

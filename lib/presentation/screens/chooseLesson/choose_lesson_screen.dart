@@ -321,10 +321,10 @@ class NoLesson extends StatelessWidget {
         Container(
           width: 1.sw,
           color: Colors.transparent,
-          child: Lottie.asset('assets/lottieAnimations/success.json',fit: BoxFit.cover,),
+          child: Lottie.asset('assets/lottieAnimations/wave.json',fit: BoxFit.cover,),
         ),
         SizedBox(height: 20.h),
-        CustomText(text: 'الوحدة ليس بها حصص',txtSize: 18.sp,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor),
+        CustomText(text: '! الوحدة ليس بها حصص',txtSize: 18.sp,fontWeight: FontWeight.w500,color:themeVm.isDark==true?Colors.white:ColorResources.buttonColor),
       ],
     );
   }
